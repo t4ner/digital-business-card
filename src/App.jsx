@@ -25,7 +25,6 @@ function App() {
     telegram: "",
     facebook: "",
     location: "",
-    userName: "",
   });
 
   const handleSubmit = async (e) => {
@@ -283,16 +282,7 @@ function App() {
           value={formData.location}
           onChange={handleChange}
         />
-        <br />
-        <label htmlFor="userName">User Name:</label>
-        <br />
-        <input
-          type="text"
-          id="userName"
-          name="userName"
-          value={formData.userName}
-          onChange={handleChange}
-        />
+
         <br />
         <br />
         <input type="submit" value="Submit" />
