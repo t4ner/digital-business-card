@@ -1,15 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
-
 function App() {
   const [formData, setFormData] = useState({
     linkId: "",
     name: "",
     surname: "",
-
     title: "",
     description: "",
-
     email: "",
     twitter: "",
     instagram: "",
@@ -29,15 +26,13 @@ function App() {
     facebook: "",
     location: "",
     userName: "",
-    isDeleted: "",
   });
 
-  // Form submit edildiğinde yapılacak işlem
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://178.128.207.116:8090/businessCard/createCard",
+        "http://178.128.207.116:8082/businessCard/createDigiCard",
         formData
       );
       console.log(response.data);
@@ -299,15 +294,6 @@ function App() {
           onChange={handleChange}
         />
         <br />
-        <label htmlFor="isDeleted">Is Deleted:</label>
-        <br />
-        <input
-          type="number"
-          id="isDeleted"
-          name="isDeleted"
-          value={formData.isDeleted}
-          onChange={handleChange}
-        />
         <br />
         <input type="submit" value="Submit" />
       </form>
