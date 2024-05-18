@@ -47,17 +47,28 @@ function Stepper() {
           const nextHandle = (e) => {
             setFieldValue("step", values.step + 1);
           };
+          const stepHandle = (step) => {
+            setFieldValue("step", step);
+          };
           return (
             <Form className="w-[600px] mx-auto mt-20">
               <header className="grid grid-cols-3 gap-x-2.5 py-2.5 border border-zinc-400 rounded-md mb-5">
                 {steps.map((step) => (
-                  <button className="flex flex-col items-center justify-center">
+                  <button
+                    key={step.step}
+                    type="button"
+                    onClick={() => stepHandle(step.step)}
+                    className="flex flex-col items-center justify-center"
+                    disabled={values.step < step.step}
+                  >
                     <div
                       className={classNames(
-                        "w-12 h-12 rounded-full mb-2 bg-zinc-200 flex items-center justify-center",
+                        "w-12 h-12 font-medium rounded-full mb-2 bg-zinc-200 flex items-center justify-center",
                         {
-                          "bg-green-200 text-green-900":
+                          "bg-blue-200 text-blue-500":
                             values.step === step.step,
+                          "bg-green-200 text-green-900":
+                            values.step > step.step,
                           "bg-zinc-100 text-zinc-700":
                             values.step !== step.step,
                         }
@@ -67,7 +78,9 @@ function Stepper() {
                     </div>
                     <div
                       className={classNames("font-medium", {
-                        "text-green-300": values.step === step.step,
+                        "text-blue-400": values.step === step.step,
+                        "text-green-300": values.step > step.step,
+
                         "text-zinc-500": values.step !== step.step,
                       })}
                     >
