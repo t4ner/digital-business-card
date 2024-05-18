@@ -1,9 +1,42 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { stepperValidation } from "../StepperValidation";
 import classNames from "classnames";
+import instagram from "/socialMediaLogo/instagram.svg";
+import twitter from "/socialMediaLogo/twitter.svg";
+import telegram from "/socialMediaLogo/telegram.svg";
+import facebook from "/socialMediaLogo/facebook.svg";
+import whatsapp from "/socialMediaLogo/whatsapp.svg";
+import linkedin from "/socialMediaLogo/linkedin.svg";
+import wechat from "/socialMediaLogo/wechat.svg";
 
 function Stepper() {
+  const [formValues, setFormValues] = useState({
+    linkId: "",
+    name: "",
+    surname: "",
+    title: "",
+    description: "",
+    email: "",
+    twitter: "",
+    instagram: "",
+    themeId: 0,
+    website: "",
+    wechat: "",
+    phoneNumber1: "",
+    phoneNumber2: "",
+    photoUrl1: "",
+    photoUrl2: "",
+    photoUrl3: "",
+    photoUrl4: "",
+    photoUrl5: "",
+    whatsapp: "",
+    linkedin: "",
+    telegram: "",
+    facebook: "",
+    location: "",
+  });
+
   const steps = [
     {
       step: 1,
@@ -18,6 +51,7 @@ function Stepper() {
       title: "Billing",
     },
   ];
+
   return (
     <div>
       <Formik
@@ -25,16 +59,24 @@ function Stepper() {
         initialValues={{
           step: 1,
           lastStep: 3,
-          //step1
           name: "",
           surname: "",
-
-          //step2
-          age: "",
-          job: "",
-
-          //step3
-          about: "",
+          linkId: "",
+          title: "",
+          description: "",
+          phoneNumber1: "",
+          email: "",
+          instagram: "",
+          twitter: "",
+          telegram: "",
+          facebook: "",
+          website: "",
+          linkedin: "",
+          whatshapp: "",
+          wechat: "",
+          website: "",
+          location: "",
+          //step1
         }}
         onSubmit={(values, actions) => {
           console.log("values", values);
@@ -49,6 +91,34 @@ function Stepper() {
           };
           const stepHandle = (step) => {
             setFieldValue("step", step);
+          };
+          const [showInputInstagram, setShowInputInstagram] = useState(false);
+          const showInstagram = () => {
+            setShowInputInstagram(!showInputInstagram);
+          };
+          const [showInputX, setShowInputX] = useState(false);
+          const showX = () => {
+            setShowInputX(!showInputX);
+          };
+          const [showInputTelegram, setShowInputTelegram] = useState(false);
+          const showTelegram = () => {
+            setShowInputTelegram(!showInputTelegram);
+          };
+          const [showInputFacebook, setShowInputFacebook] = useState(false);
+          const showFacebook = () => {
+            setShowInputFacebook(!showInputFacebook);
+          };
+          const [showInputWhatshapp, setShowInputWhatshapp] = useState(false);
+          const showWhatshapp = () => {
+            setShowInputWhatshapp(!showInputWhatshapp);
+          };
+          const [showInputLinkedin, setShowInputLinkedin] = useState(false);
+          const showLinkedin = () => {
+            setShowInputLinkedin(!showInputLinkedin);
+          };
+          const [showInputWeChat, setShowInputWeChat] = useState(false);
+          const showWeChat = () => {
+            setShowInputWeChat(!showInputWeChat);
           };
           return (
             <Form className="w-[600px] mx-auto mt-20">
@@ -95,28 +165,276 @@ function Stepper() {
                 </h3>
               </header>
               {values.step === 1 && (
-                <div className="grid grid-cols-2 gap-2.5">
-                  <div className="flex flex-col">
-                    <Field name="name" className="input" placeholder="Name" />
+                <>
+                  <div className="flex flex-col w-full mb-3">
+                    <div className="flex items-center">
+                      <div
+                        disabled
+                        className="input text-gray-600 mr-0.5 bg-zinc-300 flex items-center justify-center"
+                      >
+                        linko.page/
+                      </div>
+                      <Field
+                        name="linkId"
+                        className="input w-full"
+                        placeholder="Your Page URL"
+                      />
+                    </div>
+
                     <ErrorMessage
-                      name="name"
+                      name="linkId"
                       component="small"
                       className=" text-xs text-red-600 mt-1"
                     />
                   </div>
-                  <div className="flex flex-col">
-                    <Field
-                      name="surname"
-                      className="input"
-                      placeholder="Surname"
-                    />
-                    <ErrorMessage
-                      name="surname"
-                      component="small"
-                      className=" text-xs text-red-600 mt-1"
-                    />
+                  <div className="grid grid-cols-2 gap-2.5">
+                    <div className="flex flex-col">
+                      <Field name="name" className="input" placeholder="Name" />
+                      <ErrorMessage
+                        name="name"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <Field
+                        name="surname"
+                        className="input"
+                        placeholder="Surname"
+                      />
+                      <ErrorMessage
+                        name="surname"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <Field
+                        name="title"
+                        className="input"
+                        placeholder="Title"
+                      />
+                      <ErrorMessage
+                        name="title"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <Field
+                        name="description"
+                        className="input"
+                        placeholder="Description"
+                      />
+                      <ErrorMessage
+                        name="description"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <Field
+                        name="phoneNumber1"
+                        className="input"
+                        placeholder="Phone Number"
+                      />
+                      <ErrorMessage
+                        name="phoneNumber1"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <Field
+                        name="email"
+                        className="input"
+                        placeholder="Email"
+                      />
+                      <ErrorMessage
+                        name="email"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+
+                    <div className="flex flex-col">
+                      <Field
+                        name="website"
+                        className="input"
+                        placeholder="Website"
+                      />
+                      <ErrorMessage
+                        name="website"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <Field
+                        name="location"
+                        className="input"
+                        placeholder="Location"
+                      />
+                      <ErrorMessage
+                        name="location"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <button
+                        type="button"
+                        onClick={showInstagram}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
+                      >
+                        <span className="font-medium bg-gradient-to-l from-[#d61313] to-[#e2a127] text-transparent bg-clip-text">
+                          Instagram
+                        </span>
+
+                        <img src={instagram} className="w-6 text-red-400" />
+                      </button>
+                      {showInputInstagram && (
+                        <>
+                          <Field
+                            name="instagram"
+                            className="input mt-3"
+                            placeholder="Instagram"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <button
+                        type="button"
+                        onClick={showX}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                      >
+                        <span className="font-medium">Twitter</span>
+
+                        <img src={twitter} className="w-6 text-red-400" />
+                      </button>
+                      {showInputX && (
+                        <>
+                          <Field
+                            name="twitter"
+                            className="input mt-3"
+                            placeholder="Twitter"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <button
+                        type="button"
+                        onClick={showTelegram}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
+                      >
+                        <span className="font-medium text-sky-500">
+                          Telegram
+                        </span>
+
+                        <img src={telegram} className="w-6" />
+                      </button>
+                      {showInputTelegram && (
+                        <>
+                          <Field
+                            name="telegram"
+                            className="input mt-3"
+                            placeholder="Telegram"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <button
+                        type="button"
+                        onClick={showFacebook}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                      >
+                        <span className="font-medium text-sky-600">
+                          Facebook
+                        </span>
+
+                        <img src={facebook} className="w-6" />
+                      </button>
+                      {showInputFacebook && (
+                        <>
+                          <Field
+                            name="facebook"
+                            className="input mt-3"
+                            placeholder="Facebook"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <button
+                        type="button"
+                        onClick={showWhatshapp}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                      >
+                        <span className="font-medium text-green-600">
+                          Whatshapp
+                        </span>
+
+                        <img src={whatsapp} className="w-6" />
+                      </button>
+                      {showInputWhatshapp && (
+                        <>
+                          <Field
+                            name="whatshapp"
+                            className="input mt-3"
+                            placeholder="Whatshapp"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <button
+                        type="button"
+                        onClick={showLinkedin}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                      >
+                        <span className="font-medium text-sky-600">
+                          Linkedin
+                        </span>
+
+                        <img src={linkedin} className="w-6" />
+                      </button>
+                      {showInputLinkedin && (
+                        <>
+                          <Field
+                            name="linkedin"
+                            className="input mt-3"
+                            placeholder="Linkedin"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <button
+                        type="button"
+                        onClick={showWeChat}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
+                      >
+                        <span className="font-medium text-emerald-600">
+                          WeChat
+                        </span>
+
+                        <img src={wechat} className="w-6" />
+                      </button>
+                      {showInputWeChat && (
+                        <>
+                          <Field
+                            name="wechat"
+                            className="input mt-3"
+                            placeholder="WeChat"
+                          />
+                        </>
+                      )}
+                    </div>
                   </div>
-                </div>
+                </>
               )}
               {values.step === 2 && (
                 <div className="grid grid-cols-2 gap-2.5">
