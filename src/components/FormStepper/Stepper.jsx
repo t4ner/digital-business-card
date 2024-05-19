@@ -171,9 +171,8 @@ function Stepper() {
                         {
                           "bg-blue-200 text-blue-500":
                             values.step === step.step,
-                          "bg-green-300 text-green-900":
-                            values.step > step.step,
-                          "bg-zinc-100 text-zinc-700":
+                          "bg-green-400 text-white": values.step > step.step,
+                          "bg-zinc-100 text-zinc-500":
                             values.step !== step.step,
                         }
                       )}
