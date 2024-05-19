@@ -29,12 +29,8 @@ export const stepperValidation = Yup.object().shape({
     is: 1,
     then: (schema) => schema.required(),
   }),
-  age: Yup.string().when("step", {
-    is: 2,
-    then: (schema) => schema.required(),
-  }),
-  job: Yup.string().when("step", {
-    is: 2,
+  themeId: Yup.string().when("step", {
+    is: 2, 
     then: (schema) => schema.required(),
   }),
   about: Yup.string().when("step", {

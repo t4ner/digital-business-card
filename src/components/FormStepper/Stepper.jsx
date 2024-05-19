@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
-import { stepperValidation } from "../StepperValidation";
+import { stepperValidation } from "./StepperValidation";
 import classNames from "classnames";
 import instagram from "/socialMediaLogo/instagram.svg";
 import twitter from "/socialMediaLogo/twitter.svg";
@@ -9,6 +9,8 @@ import facebook from "/socialMediaLogo/facebook.svg";
 import whatsapp from "/socialMediaLogo/whatsapp.svg";
 import linkedin from "/socialMediaLogo/linkedin.svg";
 import wechat from "/socialMediaLogo/wechat.svg";
+import theme1 from "/themes/1.png";
+import theme2 from "/themes/2.png";
 
 function Stepper() {
   const [formValues, setFormValues] = useState({
@@ -76,10 +78,24 @@ function Stepper() {
           wechat: "",
           website: "",
           location: "",
+          photoUrl1: null,
+          photoUrl2: null,
+          photoUrl3: null,
+          photoUrl4: null,
           //step1
         }}
         onSubmit={(values, actions) => {
-          console.log("values", values);
+          const formData = new FormData();
+          Object.entries(values).forEach(([key, value]) => {
+            if (key.startsWith("photoUrl")) {
+              if (value instanceof File) {
+                formData.append(key, value);
+              }
+            } else {
+              formData.append(key, value);
+            }
+          });
+          console.log(values);
         }}
       >
         {({ values, setFieldValue, isValid, dirty }) => {
@@ -122,7 +138,7 @@ function Stepper() {
           };
           return (
             <Form className="w-[600px] mx-auto mt-20">
-              <header className="grid grid-cols-3 gap-x-2.5 py-2.5 border border-zinc-400 rounded-md mb-5">
+              <header className="grid grid-cols-3 gap-x-2.5 py-2.5 border border-zinc-400 rounded-md mb-3">
                 {steps.map((step) => (
                   <button
                     key={step.step}
@@ -161,11 +177,16 @@ function Stepper() {
               </header>
               <header>
                 <h3 className="text-lg font-medium text-zinc-700 mb-2">
-                  STEP {values.step}
+                  {steps.title}
                 </h3>
               </header>
               {values.step === 1 && (
                 <>
+                  <header>
+                    <h3 className="text-lg font-medium text-zinc-700 mb-2">
+                      Content
+                    </h3>
+                  </header>
                   <div className="flex flex-col w-full mb-3">
                     <div className="flex items-center">
                       <div
@@ -434,39 +455,206 @@ function Stepper() {
                       )}
                     </div>
                   </div>
+                  <hr className="mt-3" />
+                  <h3 className="text-lg font-medium text-zinc-700 ">Images</h3>
+                  <div className="grid grid-cols-2 gap-2.5">
+                    <div className="flex flex-col">
+                      <label htmlFor="photoUrl1" className="text-sm">
+                        Profil Photo
+                      </label>
+                      <input
+                        id="photoUrl1"
+                        name="photoUrl1"
+                        type="file"
+                        accept="image/*"
+                        onChange={(event) =>
+                          setFieldValue(
+                            "photoUrl1",
+                            event.currentTarget.files[0]
+                          )
+                        }
+                        className="input pt-1.5  mt-1"
+                      />
+                      {values.photoUrl1 && (
+                        <img
+                          src={URL.createObjectURL(values.photoUrl1)}
+                          alt="Photo 1"
+                          className=" h-40"
+                        />
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <label htmlFor="photoUrl2" className="text-sm">
+                        Photo 2
+                      </label>
+                      <input
+                        id="photoUrl2"
+                        name="photoUrl2"
+                        type="file"
+                        accept="image/*"
+                        onChange={(event) =>
+                          setFieldValue(
+                            "photoUrl2",
+                            event.currentTarget.files[0]
+                          )
+                        }
+                        className="input pt-1.5 mt-1"
+                      />
+                      {values.photoUrl2 && (
+                        <img
+                          src={URL.createObjectURL(values.photoUrl2)}
+                          alt="Photo 2"
+                          className="h-40"
+                        />
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <label htmlFor="photoUrl3" className="text-sm">
+                        Photo 3
+                      </label>
+                      <input
+                        id="photoUrl3"
+                        name="photoUrl3"
+                        type="file"
+                        accept="image/*"
+                        onChange={(event) =>
+                          setFieldValue(
+                            "photoUrl3",
+                            event.currentTarget.files[0]
+                          )
+                        }
+                        className="input pt-1.5 mt-1"
+                      />
+                      {values.photoUrl2 && (
+                        <img
+                          src={URL.createObjectURL(values.photoUrl3)}
+                          alt="Photo 3"
+                          className="h-40"
+                        />
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <label htmlFor="photoUrl4" className="text-sm">
+                        Photo 4
+                      </label>
+                      <input
+                        id="photoUrl4"
+                        name="photoUrl4"
+                        type="file"
+                        accept="image/*"
+                        onChange={(event) =>
+                          setFieldValue(
+                            "photoUrl4",
+                            event.currentTarget.files[0]
+                          )
+                        }
+                        className="input pt-1.5 mt-1"
+                      />
+                      {values.photoUrl4 && (
+                        <img
+                          src={URL.createObjectURL(values.photoUrl4)}
+                          alt="Photo 4"
+                          className="h-40"
+                        />
+                      )}
+                    </div>
+                  </div>
                 </>
               )}
               {values.step === 2 && (
-                <div className="grid grid-cols-2 gap-2.5">
-                  <div className="flex flex-col">
-                    <Field name="age" className="input" placeholder="Age" />
-                    <ErrorMessage
-                      name="age"
-                      component="small"
-                      className=" text-xs text-red-600 mt-1"
-                    />
+                <>
+                  <header>
+                    <h3 className="text-lg font-medium text-zinc-700 mb-2">
+                      Design
+                    </h3>
+                  </header>
+                  <span className="flex font-medium mb-2">Theme 1</span>
+                  <div className="grid grid-cols-2 gap-2.5">
+                    <div className="flex mb-5 flex-col items-center">
+                      <label>
+                        <input
+                          type="radio"
+                          name="selectedTheme"
+                          value="1"
+                          checked={values.themeId === 1}
+                          onChange={() => setFieldValue("themeId", 1)}
+                          className="hidden"
+                        />
+                        <div className="flex gap-2">
+                          <img
+                            src={theme1}
+                            alt="Theme 1"
+                            className={classNames("cursor-pointer w-full", {
+                              "border-4 border-blue-500 rounded": values.themeId === 1,
+                            })}
+                          />
+                          <img
+                            src={theme2}
+                            alt="Theme 2"
+                            className={classNames("cursor-pointer", {
+                              "border-4 border-blue-500 rounded": values.themeId === 1,
+                            })}
+                          />
+                        </div>
+                      </label>
+                    </div>
                   </div>
-                  <div className="flex flex-col">
-                    <Field name="job" className="input" placeholder="Job" />
-                    <ErrorMessage
-                      name="job"
-                      component="small"
-                      className=" text-xs text-red-600 mt-1"
-                    />
+                  <span className="font-medium mb-4">Theme 2</span>
+                  <div className="grid grid-cols-2 gap-2.5 mt-2">
+                    <div className="flex mb-5 flex-col items-center">
+                      <label>
+                        <input
+                          type="radio"
+                          name="selectedTheme"
+                          value="1"
+                          checked={values.themeId === 2}
+                          onChange={() => setFieldValue("themeId", 2)}
+                          className="hidden"
+                        />
+                        <div className="flex gap-2">
+                          <img
+                            src={theme1}
+                            alt="Theme 1"
+                            className={classNames("cursor-pointer w-full", {
+                              "border-4 border-blue-500 rounded": values.themeId === 2,
+                            })}
+                          />
+                          <img
+                            src={theme2}
+                            alt="Theme 2"
+                            className={classNames("cursor-pointer", {
+                              "border-4 border-blue-500 rounded": values.themeId === 2,
+                            })}
+                          />
+                        </div>
+                      </label>
+                    </div>
                   </div>
-                </div>
+                </>
               )}
+
               {values.step === 3 && (
-                <div className="grid grid-cols-2 gap-2.5">
-                  <div className="flex flex-col">
-                    <Field name="about" className="input" placeholder="About" />
-                    <ErrorMessage
-                      name="about"
-                      component="small"
-                      className=" text-xs text-red-600 mt-1"
-                    />
-                  </div>
-                </div>
+                <>
+                  <header>
+                    <h3 className="text-lg font-medium text-zinc-700 mb-2">
+                      Billing
+                    </h3>
+                    <div className="grid grid-cols-2 gap-2.5">
+                      <div className="flex flex-col">
+                        <Field
+                          name="about"
+                          className="input"
+                          placeholder="About"
+                        />
+                        <ErrorMessage
+                          name="about"
+                          component="small"
+                          className=" text-xs text-red-600 mt-1"
+                        />
+                      </div>
+                    </div>
+                  </header>
+                </>
               )}
               <div className="grid grid-cols-2 gap-x-4 mt-5">
                 {(values.step > 1 && (
