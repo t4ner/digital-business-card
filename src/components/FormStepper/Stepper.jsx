@@ -153,7 +153,7 @@ function Stepper() {
                         {
                           "bg-blue-200 text-blue-500":
                             values.step === step.step,
-                          "bg-green-200 text-green-900":
+                          "bg-green-300 text-green-900":
                             values.step > step.step,
                           "bg-zinc-100 text-zinc-700":
                             values.step !== step.step,
@@ -165,7 +165,7 @@ function Stepper() {
                     <div
                       className={classNames("font-medium", {
                         "text-blue-400": values.step === step.step,
-                        "text-green-300": values.step > step.step,
+                        "text-green-500": values.step > step.step,
 
                         "text-zinc-500": values.step !== step.step,
                       })}
