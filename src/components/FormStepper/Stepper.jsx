@@ -11,8 +11,26 @@ import linkedin from "/socialMediaLogo/linkedin.svg";
 import wechat from "/socialMediaLogo/wechat.svg";
 import theme1 from "/themes/1.png";
 import theme2 from "/themes/2.png";
+import Cards from "react-credit-cards-2";
+import "react-credit-cards-2/dist/es/styles-compiled.css";
 
 function Stepper() {
+  const [state, setState] = useState({
+    number: "",
+    expiry: "",
+    cvc: "",
+    name: "",
+    focus: "",
+  });
+  const handleInputChange = (evt) => {
+    const { name, value } = evt.target;
+
+    setState((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleInputFocus = (evt) => {
+    setState((prev) => ({ ...prev, focus: evt.target.name }));
+  };
   const [formValues, setFormValues] = useState({
     linkId: "",
     name: "",
@@ -585,14 +603,16 @@ function Stepper() {
                             src={theme1}
                             alt="Theme 1"
                             className={classNames("cursor-pointer w-full", {
-                              "border-4 border-blue-500 rounded": values.themeId === 1,
+                              "border-4 border-blue-500 rounded":
+                                values.themeId === 1,
                             })}
                           />
                           <img
                             src={theme2}
                             alt="Theme 2"
                             className={classNames("cursor-pointer", {
-                              "border-4 border-blue-500 rounded": values.themeId === 1,
+                              "border-4 border-blue-500 rounded":
+                                values.themeId === 1,
                             })}
                           />
                         </div>
@@ -616,14 +636,16 @@ function Stepper() {
                             src={theme1}
                             alt="Theme 1"
                             className={classNames("cursor-pointer w-full", {
-                              "border-4 border-blue-500 rounded": values.themeId === 2,
+                              "border-4 border-blue-500 rounded":
+                                values.themeId === 2,
                             })}
                           />
                           <img
                             src={theme2}
                             alt="Theme 2"
                             className={classNames("cursor-pointer", {
-                              "border-4 border-blue-500 rounded": values.themeId === 2,
+                              "border-4 border-blue-500 rounded":
+                                values.themeId === 2,
                             })}
                           />
                         </div>
@@ -635,25 +657,61 @@ function Stepper() {
 
               {values.step === 3 && (
                 <>
-                  <header>
-                    <h3 className="text-lg font-medium text-zinc-700 mb-2">
-                      Billing
-                    </h3>
-                    <div className="grid grid-cols-2 gap-2.5">
-                      <div className="flex flex-col">
-                        <Field
-                          name="about"
+                  <h3 className="text-lg font-medium text-zinc-700 mb-2">
+                    Billing
+                  </h3>
+                  <div>
+                    <Cards
+                      number={state.number}
+                      expiry={state.expiry}
+                      cvc={state.cvc}
+                      name={state.name}
+                      focused={state.focus}
+                    />
+
+                    <form>
+                      <div className="grid grid-cols-2 gap-2.5 mt-5">
+                        <input
+                          type="text"
+                          name="number"
+                          placeholder="Card Number"
+                          value={state.number}
+                          onChange={handleInputChange}
+                          onFocus={handleInputFocus}
                           className="input"
-                          placeholder="About"
                         />
-                        <ErrorMessage
-                          name="about"
-                          component="small"
-                          className=" text-xs text-red-600 mt-1"
+                        <input
+                          type="text"
+                          name="name"
+                          placeholder="Name Surname"
+                          value={state.name}
+                          onChange={handleInputChange}
+                          onFocus={handleInputFocus}
+                          className="input"
                         />
                       </div>
-                    </div>
-                  </header>
+                      <div className="grid grid-cols-2 gap-2.5 mt-2">
+                        <input
+                          type="text"
+                          name="expiry"
+                          placeholder="Valid Thru"
+                          value={state.expiry}
+                          onChange={handleInputChange}
+                          onFocus={handleInputFocus}
+                          className="input"
+                        />
+                        <input
+                          type="text"
+                          name="cvc"
+                          placeholder="CVC"
+                          value={state.cvc}
+                          onChange={handleInputChange}
+                          onFocus={handleInputFocus}
+                          className="input"
+                        />
+                      </div>
+                    </form>
+                  </div>
                 </>
               )}
               <div className="grid grid-cols-2 gap-x-4 mt-5">
