@@ -13,6 +13,7 @@ import theme1 from "/themes/1.png";
 import theme2 from "/themes/2.png";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
+import axios from "axios";
 
 function Stepper() {
   const [state, setState] = useState({
@@ -31,31 +32,6 @@ function Stepper() {
   const handleInputFocus = (evt) => {
     setState((prev) => ({ ...prev, focus: evt.target.name }));
   };
-  const [formValues, setFormValues] = useState({
-    linkId: "",
-    name: "",
-    surname: "",
-    title: "",
-    description: "",
-    email: "",
-    twitter: "",
-    instagram: "",
-    themeId: 0,
-    website: "",
-    wechat: "",
-    phoneNumber1: "",
-    phoneNumber2: "",
-    photoUrl1: "",
-    photoUrl2: "",
-    photoUrl3: "",
-    photoUrl4: "",
-    photoUrl5: "",
-    whatsapp: "",
-    linkedin: "",
-    telegram: "",
-    facebook: "",
-    location: "",
-  });
 
   const steps = [
     {
@@ -79,49 +55,64 @@ function Stepper() {
         initialValues={{
           step: 1,
           lastStep: 3,
-          name: "",
-          surname: "",
           linkId: "",
           title: "",
           description: "",
+          photoUrl1: "",
+          photoUrl2: "",
+          photoUrl3: "",
+          photoUrl4: "",
+          photoUrl5: "",
+          name: "",
+          surname: "",
           phoneNumber1: "",
-          email: "",
+          phoneNumber2: "",
           instagram: "",
-          twitter: "",
-          telegram: "",
-          facebook: "",
-          website: "",
           linkedin: "",
-          whatshapp: "",
-          wechat: "",
           website: "",
+          twitter: "",
+          facebook: "",
           location: "",
-          photoUrl1: null,
-          photoUrl2: null,
-          photoUrl3: null,
-          photoUrl4: null,
-          //step1
+          whatsapp: "",
+          wechat: "",
+          telegram: "",
+          themeId: 0,
+          email: "",
         }}
         onSubmit={(values, actions) => {
-          const formData = new FormData();
-          Object.entries(values).forEach(([key, value]) => {
-            if (key.startsWith("photoUrl")) {
-              if (value instanceof File) {
-                formData.append(key, value);
-              }
-            } else {
-              formData.append(key, value);
-            }
-          });
-          console.log(values);
+          // Axios ile sunucuya POST isteği gönderin
+          console.log("values", values);
         }}
       >
         {({ values, setFieldValue, isValid, dirty }) => {
-          const prevHandle = (e) => {
+          const prevHandle2 = (e) => {
             setFieldValue("step", values.step - 1);
           };
-          const nextHandle = (e) => {
+          const prevHandle3 = (e) => {
+            setFieldValue("step", values.step - 1);
+          };
+          const nextHandle1 = (e) => {
             setFieldValue("step", values.step + 1);
+          };
+          const nextHandle2 = async (e) => {
+            const requestData = { ...values };
+            delete requestData.step;
+            delete requestData.lastStep;
+            console.log("values2", values);
+            console.log("requestdata", requestData);
+
+            try {
+              const response = await axios.post(
+                "http://178.128.207.116:8082/businessCard/createDigiCard",
+                requestData
+              );
+              console.log("Success:", response.data);
+              // Başarı durumunda bir sonraki adıma geçirin
+              setFieldValue("step", values.step + 1);
+            } catch (error) {
+              console.error("Error:", error);
+              // Hata durumunda yapılacak işlemleri buraya ekleyebilirsiniz
+            }
           };
           const stepHandle = (step) => {
             setFieldValue("step", step);
@@ -420,7 +411,7 @@ function Stepper() {
                       {showInputWhatshapp && (
                         <>
                           <Field
-                            name="whatshapp"
+                            name="whatsapp"
                             className="input mt-3"
                             placeholder="Whatshapp"
                           />
@@ -576,6 +567,17 @@ function Stepper() {
                       )}
                     </div>
                   </div>
+                  <div className="grid grid-cols-2 gap-x-4 mt-5">
+                    <div></div>
+                    <button
+                      onClick={nextHandle1}
+                      type="button"
+                      className="bg-emerald-600 w-28 justify-self-end text-white rounded h-10 text-sm disabled:opacity-50"
+                      disabled={!isValid || !dirty}
+                    >
+                      NEXT
+                    </button>
+                  </div>
                 </>
               )}
               {values.step === 2 && (
@@ -651,6 +653,23 @@ function Stepper() {
                       </label>
                     </div>
                   </div>
+                  <div className="grid grid-cols-2 gap-x-4 ">
+                    <button
+                      onClick={prevHandle2}
+                      type="button"
+                      className="bg-emerald-600 w-28 justify-self-start text-white rounded h-10 text-sm"
+                    >
+                      PREV
+                    </button>
+                    <button
+                      onClick={nextHandle2}
+                      type="button"
+                      className="bg-emerald-600 w-28 justify-self-end text-white rounded h-10 text-sm disabled:opacity-50"
+                      disabled={!isValid || !dirty}
+                    >
+                      NEXT
+                    </button>
+                  </div>
                 </>
               )}
 
@@ -668,80 +687,65 @@ function Stepper() {
                       focused={state.focus}
                     />
 
-                    <form>
-                      <div className="grid grid-cols-2 gap-2.5 mt-5">
-                        <input
-                          type="text"
-                          name="number"
-                          placeholder="Card Number"
-                          value={state.number}
-                          onChange={handleInputChange}
-                          onFocus={handleInputFocus}
-                          className="input"
-                        />
-                        <input
-                          type="text"
-                          name="name"
-                          placeholder="Name Surname"
-                          value={state.name}
-                          onChange={handleInputChange}
-                          onFocus={handleInputFocus}
-                          className="input"
-                        />
-                      </div>
-                      <div className="grid grid-cols-2 gap-2.5 mt-2">
-                        <input
-                          type="text"
-                          name="expiry"
-                          placeholder="Valid Thru"
-                          value={state.expiry}
-                          onChange={handleInputChange}
-                          onFocus={handleInputFocus}
-                          className="input"
-                        />
-                        <input
-                          type="text"
-                          name="cvc"
-                          placeholder="CVC"
-                          value={state.cvc}
-                          onChange={handleInputChange}
-                          onFocus={handleInputFocus}
-                          className="input"
-                        />
-                      </div>
-                    </form>
+                    <div className="grid grid-cols-2 gap-2.5 mt-5">
+                      <input
+                        type="text"
+                        name="number"
+                        placeholder="Card Number"
+                        value={state.number}
+                        onChange={handleInputChange}
+                        onFocus={handleInputFocus}
+                        className="input"
+                      />
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Name Surname"
+                        value={state.name}
+                        onChange={handleInputChange}
+                        onFocus={handleInputFocus}
+                        className="input"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-2.5 mt-2">
+                      <input
+                        type="text"
+                        name="expiry"
+                        placeholder="Valid Thru"
+                        value={state.expiry}
+                        onChange={handleInputChange}
+                        onFocus={handleInputFocus}
+                        className="input"
+                      />
+                      <input
+                        type="text"
+                        name="cvc"
+                        placeholder="CVC"
+                        value={state.cvc}
+                        onChange={handleInputChange}
+                        onFocus={handleInputFocus}
+                        className="input"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-4  mt-5">
+                    <button
+                      onClick={prevHandle3}
+                      type="button"
+                      className="bg-emerald-600 w-28 justify-self-start text-white rounded h-10 text-sm"
+                    >
+                      PREV
+                    </button>
+                    <button
+                      type="button"
+                      className="bg-emerald-600 w-28 justify-self-end text-white rounded h-10 text-sm disabled:opacity-50"
+                      disabled={!isValid || !dirty}
+                    >
+                      SUBMIT
+                    </button>
                   </div>
                 </>
               )}
-              <div className="grid grid-cols-2 gap-x-4 mt-5">
-                {(values.step > 1 && (
-                  <button
-                    onClick={prevHandle}
-                    type="button"
-                    className="bg-emerald-600 w-28 justify-self-start text-white rounded h-10 text-sm"
-                  >
-                    PREV
-                  </button>
-                )) || <div />}
-                {(values.step === values.lastStep && (
-                  <button
-                    type="submit"
-                    className="bg-emerald-600 w-28 justify-self-end text-white rounded h-10 text-sm disabled:opacity-50"
-                    disabled={!isValid || !dirty}
-                  >
-                    SUBMIT
-                  </button>
-                )) || (
-                  <button
-                    onClick={nextHandle}
-                    type="button"
-                    className="bg-emerald-600 w-28 justify-self-end text-white rounded h-10 text-sm disabled:opacity-50"
-                    disabled={!isValid || !dirty}
-                  >
-                    NEXT
-                  </button>
-                )}
-              </div>
             </Form>
           );
         }}

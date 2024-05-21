@@ -33,8 +33,5 @@ export const stepperValidation = Yup.object().shape({
     is: 2, 
     then: (schema) => schema.required(),
   }),
-  about: Yup.string().when("step", {
-    is: 3,
-    then: (schema) => schema.required(),
-  }),
+ 
 });
