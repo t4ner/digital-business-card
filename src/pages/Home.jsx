@@ -1,4 +1,5 @@
 import Banner from "../components/Banner/Banner";
+import Description from "../components/Description/Description";
 import Stepper from "../components/FormStepper/Stepper";
 import GreenTecno from "../components/GreenTecno/GreenTecno";
 import Hero from "../components/Hero/Hero";
@@ -12,7 +13,8 @@ function Home() {
       {/* <Banner /> */}
       <Services />
       <GreenTecno />
-      <OurGoals/>
+      <OurGoals />
+      <Description />
       <Stepper />
     </div>
   );
