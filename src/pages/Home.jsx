@@ -3,6 +3,7 @@ import Description from "../components/Description/Description";
 import Stepper from "../components/FormStepper/Stepper";
 import GreenTecno from "../components/GreenTecno/GreenTecno";
 import Hero from "../components/Hero/Hero";
+import Nature from "../components/Nature/Nature";
 import OurGoals from "../components/OurGoals/OurGoals";
 import Services from "../components/Services/Services";
 import Social from "../components/Social/Social";
@@ -16,6 +17,7 @@ function Home() {
       <Services />
       <GreenTecno />
       <OurGoals />
+      <Nature />
       <Description />
       <Stepper />
     </div>
