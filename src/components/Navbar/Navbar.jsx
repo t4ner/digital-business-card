@@ -28,12 +28,12 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <button className="bg-purple-400 block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
+              <button className="bg-purple-300 block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
                 Üye ol
               </button>
             </li>
             <li>
-              <button className="bg-green-400 block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
+              <button className="bg-green-300 block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
                 Giriş yap
               </button>
             </li>{" "}

@@ -4,7 +4,8 @@ function Hero() {
     <div className="w-4/5 mx-auto mt-4 flex justify-between items-center gap-10">
       <div className="basis-2/3">
         <h2 className="text-4xl font-semibold text-zinc-500 ">
-          MÜŞTERİLERİNİZLE HER ZAMAN, HER YERDE BAĞLANTI KURUN
+          <span className="text-green-300">greenCode</span> AKILLI DİJİTAL KARTVİZİTİ İLE AĞ İLETİŞİMİNİN
+          GELECEĞİNE GİRİN
         </h2>
         <h2 className="text-2xl font-bold mt-8 text-zinc-500 tracking-wide">
           DİJİTAL KARTVİZİT
