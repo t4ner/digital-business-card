@@ -1,9 +1,9 @@
-import Stepper from "./components/FormStepper/Stepper";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <div>
-      <Stepper />
+      <Home />
     </div>
   );
 }
