@@ -1,7 +1,7 @@
 import heroimage from "/hero/hero.png";
 function Hero() {
   return (
-    <div className="w-4/5 mx-auto flex justify-between items-center gap-10">
+    <div className="w-4/5 mx-auto mt-4 flex justify-between items-center gap-10">
       <div className="basis-2/3">
         <h2 className="text-4xl font-semibold text-zinc-500 ">
           MÜŞTERİLERİNİZLE HER ZAMAN, HER YERDE BAĞLANTI KURUN
