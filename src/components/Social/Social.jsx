@@ -9,7 +9,7 @@ function Social() {
         Dijital kartvizit uygulaması, iletişim bilgilerini ve sosyal medya hesaplarını paylaşmanın modern
         yoludur. Sanal ve elektronik kartvizitler olarak da bilinen dijital
         kartvizitler, son derece özelleştirilebilir, etkileşimli, paylaşılması
-        kolay ve fiziksel kartlara göre uygun maliyetli alternatiflerdir.
+        kolay ve fiziksel kartlara göre uygun maliyetli alternatiflerdir
       </p>
       <img src={socialicons} className="h-72 mx-auto mt-4" />
     </div>

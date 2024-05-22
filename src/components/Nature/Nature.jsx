@@ -11,11 +11,11 @@ function Nature() {
         </div>
         <div class="p-6">
           <p class="block  text-base antialiased leading-relaxed text-inherit font-medium text-zinc-500">
-            Geleneksel kağıt iş kartları, her yıl milyonlarca ağacın kesilmesine
-            ve suyun israf edilmesine neden olurken, dijital iş kartları kağıt
+            Geleneksel iş kartları, her yıl milyonlarca ağacın kesilmesine ve
+            suyun israf edilmesine neden olurken, dijital kartvizitler kağıt
             israfını ortadan kaldırıyor ve doğal kaynakları koruyor. Bu sadece
             çevresel bir fayda sağlamakla kalmıyor, aynı zamanda kuraklıkla
-            mücadeleye de destek oluyor. .
+            mücadeleye de destek oluyor.
           </p>
         </div>
       </div>
@@ -29,10 +29,10 @@ function Nature() {
         </div>
         <div class="p-6">
           <p class="block text-base antialiased font-medium text-zinc-500 leading-relaxed text-inherit">
-            Dijital iş kartları, sürdürülebilirlik ve çevre koruma çabalarının
+            Dijital kartvizitler, sürdürülebilirlik ve çevre koruma çabalarının
             bir parçası olarak yeşil iletişimi teşvik ediyor ve kuraklıkla
             mücadelede aktif bir rol üstleniyor. Kağıt israfını azaltan dijital
-            iş kartları, işletmelerin çevre dostu kimliklerini vurgulayarak daha
+            kartvizitler, işletmelerin çevre dostu kimliklerini vurgulayarak daha
             sürdürülebilir bir iş modeline geçiş yapmalarını sağlıyor.
           </p>
         </div>
@@ -47,9 +47,9 @@ function Nature() {
         </div>
         <div class="p-6">
           <p class="block  text-base antialiased font-medium text-zinc-500 leading-relaxed text-inherit">
-            Kağıt israfını azaltarak ağaç kesimlerini engelleyen dijital iş
-            kartları, işletmelerin çevresel etkilerini azaltarak kuraklıkla
-            mücadeleye katkı sağlıyor. Teknoloji ve dijital iş kartları
+            Kağıt israfını azaltarak ağaç kesimlerini engelleyen dijital
+            kartvizitler, işletmelerin çevresel etkilerini azaltarak kuraklıkla
+            mücadeleye katkı sağlıyor. Teknoloji ve dijital kartvizitlerini
             kullanarak, iş dünyasında daha yeşil ve sürdürülebilir bir gelecek
             için adım atabilirsiniz.
           </p>
