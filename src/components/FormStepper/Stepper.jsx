@@ -14,6 +14,8 @@ import theme2 from "/themes/2.png";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import axios from "axios";
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 
 function Stepper() {
   const [state, setState] = useState({
@@ -50,6 +52,8 @@ function Stepper() {
 
   return (
     <div>
+      <Navbar />
+
       <Formik
         validationSchema={stepperValidation}
         initialValues={{
@@ -750,6 +754,7 @@ function Stepper() {
           );
         }}
       </Formik>
+      <Footer/>
     </div>
   );
 }

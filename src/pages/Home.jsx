@@ -1,6 +1,5 @@
-import Banner from "../components/Banner/Banner";
 import Description from "../components/Description/Description";
-import Stepper from "../components/FormStepper/Stepper";
+import Footer from "../components/Footer/Footer";
 import GreenTecno from "../components/GreenTecno/GreenTecno";
 import Hero from "../components/Hero/Hero";
 import Nature from "../components/Nature/Nature";
@@ -15,7 +14,6 @@ function Home() {
     <div>
       <Navbar />
       <Hero />
-      {/* <Banner /> */}
       <Social />
       <Services />
       <GreenTecno />
@@ -23,7 +21,7 @@ function Home() {
       <Nature />
       <Description />
       <Pricing />
-      <Stepper />
+      <Footer />
     </div>
   );
 }
