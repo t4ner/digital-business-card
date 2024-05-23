@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik, useFormikContext } from "formik";
 import React, { useState } from "react";
 import { stepperValidation } from "./StepperValidation";
 import classNames from "classnames";
@@ -25,6 +25,15 @@ function Stepper() {
     name: "",
     focus: "",
   });
+  const [image1, setImage1] = useState("");
+  const [image2, setImage2] = useState("");
+  const [image3, setImage3] = useState("");
+  const [image4, setImage4] = useState("");
+
+  console.log("image1", image1);
+  console.log("image2", image2);
+  console.log("image3", image3);
+  console.log("image4", image4);
   const handleInputChange = (evt) => {
     const { name, value } = evt.target;
 
@@ -79,11 +88,64 @@ function Stepper() {
           email: "",
         }}
         onSubmit={(values, actions) => {
-          // Axios ile sunucuya POST isteği gönderin
           console.log("values", values);
         }}
       >
         {({ values, setFieldValue, isValid, dirty }) => {
+          const handleImage1Change = (event) => {
+            const file = event.target.files[0];
+            setImage1(file);
+            // Call service for image 1
+            if (file) {
+              sendImageToServer(file, values.linkId, values.name);
+            }
+          };
+
+          const handleImage2Change = (event) => {
+            const file = event.target.files[0];
+            setImage2(file);
+            if (file) {
+              sendImageToServer(file, values.linkId, values.name);
+            }
+          };
+
+          const handleImage3Change = (event) => {
+            const file = event.target.files[0];
+            setImage3(file);
+            if (file) {
+              sendImageToServer(file, values.linkId, values.name);
+            }
+          };
+
+          const handleImage4Change = (event) => {
+            const file = event.target.files[0];
+            setImage4(file);
+            if (file) {
+              sendImageToServer(file, values.linkId, values.name);
+            }
+          };
+          const sendImageToServer = async (image, linkId, name) => {
+            try {
+              const formData = new FormData();
+              formData.append("file", image);
+              formData.append("linkId", values.linkId);
+              formData.append("name", values.name);
+              const jsonData = {
+                file: image,
+                linkId: values.linkId,
+                name: values.name,
+              };
+              console.log("jsonData", jsonData);
+
+              const response = await axios.post(
+                "http://178.128.207.116:8083/businessCard/upload",
+                formData
+              );
+              console.log("Image upload success:", response.data);
+            } catch (error) {
+              console.error("Image upload error:", error);
+            }
+          };
           const prevHandle2 = (e) => {
             setFieldValue("step", values.step - 1);
           };
@@ -475,14 +537,12 @@ function Stepper() {
                         name="photo1"
                         type="file"
                         accept="image/*"
-                        onChange={(event) =>
-                          setFieldValue("photo1", event.currentTarget.files[0])
-                        }
+                        onChange={handleImage1Change}
                         className="input pt-1.5  mt-1"
                       />
-                      {values.photo1 && (
+                      {image1 && (
                         <img
-                          src={URL.createObjectURL(values.photo1)}
+                          src={URL.createObjectURL(image1)}
                           alt="Photo 1"
                           className=" h-40"
                         />
@@ -497,14 +557,12 @@ function Stepper() {
                         name="photo2"
                         type="file"
                         accept="image/*"
-                        onChange={(event) =>
-                          setFieldValue("photo2", event.currentTarget.files[0])
-                        }
+                        onChange={handleImage2Change}
                         className="input pt-1.5 mt-1"
                       />
-                      {values.photo2 && (
+                      {image2 && (
                         <img
-                          src={URL.createObjectURL(values.photo2)}
+                          src={URL.createObjectURL(image2)}
                           alt="Photo 2"
                           className="h-40"
                         />
@@ -519,14 +577,12 @@ function Stepper() {
                         name="photo3"
                         type="file"
                         accept="image/*"
-                        onChange={(event) =>
-                          setFieldValue("photo3", event.currentTarget.files[0])
-                        }
+                        onChange={handleImage3Change}
                         className="input pt-1.5 mt-1"
                       />
-                      {values.photo3 && (
+                      {image3 && (
                         <img
-                          src={URL.createObjectURL(values.photo3)}
+                          src={URL.createObjectURL(image3)}
                           alt="Photo 3"
                           className="h-40"
                         />
@@ -541,14 +597,12 @@ function Stepper() {
                         name="photo4"
                         type="file"
                         accept="image/*"
-                        onChange={(event) =>
-                          setFieldValue("photo4", event.currentTarget.files[0])
-                        }
+                        onChange={handleImage4Change}
                         className="input pt-1.5 mt-1"
                       />
-                      {values.photo4 && (
+                      {image4 && (
                         <img
-                          src={URL.createObjectURL(values.photo4)}
+                          src={URL.createObjectURL(image4)}
                           alt="Photo 4"
                           className="h-40"
                         />
