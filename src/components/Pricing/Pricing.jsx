@@ -1,6 +1,6 @@
 function Pricing() {
   return (
-    <main className="max-w-6xl mx-auto px-8 mt-20">
+    <main className="max-w-6xl mx-auto px-8 mt-20 mb-20">
       <div className="max-w-md mx-auto mb-14 text-center">
         <h1 className="text-4xl font-semibold mb-6 lg:text-5xl">
           <span className="text-green-400">greenCode</span> Ödeme Planları

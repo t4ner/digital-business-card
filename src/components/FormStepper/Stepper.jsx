@@ -120,6 +120,7 @@ function Stepper() {
           const handleImage4Change = (event) => {
             const file = event.target.files[0];
             setImage4(file);
+            // Call service for image 4
             if (file) {
               sendImageToServer(file, values.linkId, values.name);
             }
@@ -208,7 +209,7 @@ function Stepper() {
             setShowInputWeChat(!showInputWeChat);
           };
           return (
-            <Form className="w-[600px] mx-auto mt-20">
+            <Form className="w-[600px] mx-auto mt-20 mb-20">
               <header className="grid grid-cols-3 gap-x-2.5 py-2.5 border border-zinc-400 rounded-md mb-3">
                 {steps.map((step) => (
                   <button

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import logo from "/logo/logo.png"
+import logo from "/logo/logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,10 +11,10 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white mt-2">
+    <header className="bg-white  py-3">
       <nav className="flex justify-between items-center w-[92%] mx-auto">
         <div className="text-green-300 text-4xl font-bold flex gap-2">
-          <img src={logo} className="w-14 rounded-lg"/>
+          <img src={logo} className="w-14 rounded-lg" />
           <Link to="/">greenCode</Link>
         </div>
         <div
@@ -37,9 +37,11 @@ const Header = () => {
               </button>
             </li>
             <li>
-              <button className="bg-green-300 block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
-                Giriş yap
-              </button>
+              <Link to="/login">
+                <button className="bg-green-300 block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
+                  Giriş yap
+                </button>
+              </Link>
             </li>{" "}
           </ul>
         </div>
@@ -54,7 +56,7 @@ const Header = () => {
             Üye ol
           </button>
           <button className="bg-green-400 hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
-            Giriş yap
+            <Link to="/login">Giriş yap</Link>
           </button>
 
           {isMenuOpen ? (
