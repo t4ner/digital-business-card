@@ -33,15 +33,13 @@ const Header = () => {
             </li>
             <li>
               <button className="bg-purple-300 block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
-                Üye ol
+                <Link to="/signIn">Üye ol</Link>
               </button>
             </li>
             <li>
-              <Link to="/login">
-                <button className="bg-green-300 block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
-                  Giriş yap
-                </button>
-              </Link>
+              <button className="bg-green-300 block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
+                <Link to="/login"> Giriş yap </Link>
+              </button>
             </li>{" "}
           </ul>
         </div>
@@ -53,7 +51,7 @@ const Header = () => {
             DİJİTAL KARTVİZİT SATIN AL
           </Link>
           <button className="bg-purple-400 hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
-            Üye ol
+            <Link to="/signIn">Üye ol</Link>
           </button>
           <button className="bg-green-400 hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
             <Link to="/login">Giriş yap</Link>

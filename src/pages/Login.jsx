@@ -4,10 +4,10 @@ import Footer from "../components/Footer/Footer";
 import login from "/login/login.png";
 function Login() {
   return (
-    <div className="bg-red-400 h-screen ">
+    <div className=" h-screen ">
       <Navbar />
       <div
-        className="h-full flex items-center justify-center  "
+        className=" flex items-center justify-center  "
         style={{
           backgroundImage: "url('/banner/banner.jpg')",
           backgroundRepeat: "no-repeat",
