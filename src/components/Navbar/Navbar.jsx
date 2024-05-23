@@ -14,7 +14,7 @@ const Header = () => {
     <header className="bg-white mt-2">
       <nav className="flex justify-between items-center w-[92%] mx-auto">
         <div className="text-green-300 text-4xl font-bold flex gap-2">
-          <img src={logo} className="w-14"/>
+          <img src={logo} className="w-14 rounded-lg"/>
           <Link to="/">greenCode</Link>
         </div>
         <div

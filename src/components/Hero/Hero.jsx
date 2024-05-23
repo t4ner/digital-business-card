@@ -10,7 +10,7 @@ function Hero() {
         <h2 className="text-4xl font-bold mt-8 text-zinc-500 tracking-wide">
           DİJİTAL KARTVİZİT
         </h2>
-        <p className="uppercase text-2xl font-bold tracking-wide text-zinc-400 mt-1">
+        <p className=" text-3xl font-bold tracking-wide text-zinc-400 mt-1">
           EN GÜVENİLİR DİJİTAL MARKALAMA PLATFORMU{" "}
           <span className="bg-gradient-to-r from-green-400 to-green-600 text-white px-1 font-bold">
             greenCode

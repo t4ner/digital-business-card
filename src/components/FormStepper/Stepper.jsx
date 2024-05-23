@@ -62,11 +62,6 @@ function Stepper() {
           linkId: "",
           title: "",
           description: "",
-          photoUrl1: "",
-          photoUrl2: "",
-          photoUrl3: "",
-          photoUrl4: "",
-          photoUrl5: "",
           name: "",
           surname: "",
           phoneNumber1: "",
@@ -99,6 +94,9 @@ function Stepper() {
             setFieldValue("step", values.step + 1);
           };
           const nextHandle2 = async (e) => {
+            setFieldValue("step", values.step + 1);
+          };
+          const submitHandle = async (e) => {
             const requestData = { ...values };
             delete requestData.step;
             delete requestData.lastStep;
@@ -111,13 +109,11 @@ function Stepper() {
                 requestData
               );
               console.log("Success:", response.data);
-              // Başarı durumunda bir sonraki adıma geçirin
-              setFieldValue("step", values.step + 1);
             } catch (error) {
               console.error("Error:", error);
-              // Hata durumunda yapılacak işlemleri buraya ekleyebilirsiniz
             }
           };
+
           const stepHandle = (step) => {
             setFieldValue("step", step);
           };
@@ -471,100 +467,88 @@ function Stepper() {
                   <h3 className="text-lg font-medium text-zinc-700 ">Images</h3>
                   <div className="grid grid-cols-2 gap-2.5">
                     <div className="flex flex-col">
-                      <label htmlFor="photoUrl1" className="text-sm">
+                      <label htmlFor="photo1" className="text-sm">
                         Profil Photo
                       </label>
                       <input
-                        id="photoUrl1"
-                        name="photoUrl1"
+                        id="photo1"
+                        name="photo1"
                         type="file"
                         accept="image/*"
                         onChange={(event) =>
-                          setFieldValue(
-                            "photoUrl1",
-                            event.currentTarget.files[0]
-                          )
+                          setFieldValue("photo1", event.currentTarget.files[0])
                         }
                         className="input pt-1.5  mt-1"
                       />
-                      {values.photoUrl1 && (
+                      {values.photo1 && (
                         <img
-                          src={URL.createObjectURL(values.photoUrl1)}
+                          src={URL.createObjectURL(values.photo1)}
                           alt="Photo 1"
                           className=" h-40"
                         />
                       )}
                     </div>
                     <div className="flex flex-col">
-                      <label htmlFor="photoUrl2" className="text-sm">
+                      <label htmlFor="photo2" className="text-sm">
                         Photo 2
                       </label>
                       <input
-                        id="photoUrl2"
-                        name="photoUrl2"
+                        id="photo2"
+                        name="photo2"
                         type="file"
                         accept="image/*"
                         onChange={(event) =>
-                          setFieldValue(
-                            "photoUrl2",
-                            event.currentTarget.files[0]
-                          )
+                          setFieldValue("photo2", event.currentTarget.files[0])
                         }
                         className="input pt-1.5 mt-1"
                       />
-                      {values.photoUrl2 && (
+                      {values.photo2 && (
                         <img
-                          src={URL.createObjectURL(values.photoUrl2)}
+                          src={URL.createObjectURL(values.photo2)}
                           alt="Photo 2"
                           className="h-40"
                         />
                       )}
                     </div>
                     <div className="flex flex-col">
-                      <label htmlFor="photoUrl3" className="text-sm">
+                      <label htmlFor="photo3" className="text-sm">
                         Photo 3
                       </label>
                       <input
-                        id="photoUrl3"
-                        name="photoUrl3"
+                        id="photo3"
+                        name="photo3"
                         type="file"
                         accept="image/*"
                         onChange={(event) =>
-                          setFieldValue(
-                            "photoUrl3",
-                            event.currentTarget.files[0]
-                          )
+                          setFieldValue("photo3", event.currentTarget.files[0])
                         }
                         className="input pt-1.5 mt-1"
                       />
-                      {values.photoUrl2 && (
+                      {values.photo3 && (
                         <img
-                          src={URL.createObjectURL(values.photoUrl3)}
+                          src={URL.createObjectURL(values.photo3)}
                           alt="Photo 3"
                           className="h-40"
                         />
                       )}
                     </div>
                     <div className="flex flex-col">
-                      <label htmlFor="photoUrl4" className="text-sm">
+                      <label htmlFor="photo4" className="text-sm">
                         Photo 4
                       </label>
                       <input
-                        id="photoUrl4"
-                        name="photoUrl4"
+                        id="photo4"
+                        name="photo4"
                         type="file"
                         accept="image/*"
                         onChange={(event) =>
-                          setFieldValue(
-                            "photoUrl4",
-                            event.currentTarget.files[0]
-                          )
+                          setFieldValue("photo4", event.currentTarget.files[0])
                         }
                         className="input pt-1.5 mt-1"
                       />
-                      {values.photoUrl4 && (
+                      {values.photo4 && (
                         <img
-                          src={URL.createObjectURL(values.photoUrl4)}
+                          src={URL.createObjectURL(values.photo4)}
                           alt="Photo 4"
                           className="h-40"
                         />
@@ -744,6 +728,7 @@ function Stepper() {
                       type="button"
                       className="bg-emerald-600 w-28 justify-self-end text-white rounded h-10 text-sm disabled:opacity-50"
                       disabled={!isValid || !dirty}
+                      onClick={submitHandle}
                     >
                       SUBMIT
                     </button>
@@ -754,7 +739,7 @@ function Stepper() {
           );
         }}
       </Formik>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
