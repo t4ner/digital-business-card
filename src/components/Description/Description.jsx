@@ -6,46 +6,46 @@ import soon from "/description/soon.svg";
 
 function Description() {
   return (
-    <div className="w-4/5 mx-auto mt-20 flex gap-10 bg-green-100 p-10 rounded-xl">
+    <div className="w-full md:w-4/5 mx-auto mt-10 md:mt-20 flex-col md:flex md:flex-row gap-10 bg-green-100 p-5 md:p-10 rounded-xl space-y-5 md:space-y-0">
       <div className="py-8 px-4 rounded-xl bg-white basis-1/4">
-        <img src={person} />
-        <p className="text-xl font-semibold mt-6 text-zinc-500">
+        <img src={person} className="w-8"/>
+        <p className=" md:text-xl font-medium md:font-semibold mt-6 text-zinc-500">
           <span className="text-[#06c]">
             Yalnızca bir kişinin qr code ihtiyacı vardır
           </span>{" "}
-          ve herkes bağlantı kurabilir.
+          ve herkes bağlantı kurabilir
         </p>
       </div>
 
       <div className="py-8 px-4 rounded-xl bg-white basis-1/4">
         <div className="flex gap-2 items-center">
           {" "}
-          <img src={android} />
-          <img src={ios} />
+          <img src={android} className="w-8"/>
+          <img src={ios} className="w-8"/>
         </div>
 
-        <p className="text-xl font-semibold mt-6 text-zinc-500">
+        <p className="md:text-xl font-medium md:font-semibold mt-6 text-zinc-500">
           <span className="text-[#ac39ff]">Her türlü</span> telefonla çalışır.
           Hem iPhone hem de Android.
         </p>
       </div>
 
       <div className="py-8 px-4 rounded-xl bg-white basis-1/4">
-        <img src={network} />
-        <p className="text-xl font-semibold mt-6 text-zinc-500">
+        <img src={network} className="w-8"/>
+        <p className="md:text-xl font-medium md:font-semibold mt-6 text-zinc-500">
           Profilinizi paylaşmak için
           <span className="text-[#ff0053]"> uygulamaya gerek yok.</span>{" "}
-          Tarayıcıda açılır.
+          Tarayıcıda açılır
         </p>
       </div>
 
       <div className="py-8 px-4 rounded-xl bg-white basis-1/4">
-        <img src={soon} />
-        <p className="text-xl font-semibold mt-6 text-zinc-500">
+        <img src={soon} className="w-10"/>
+        <p className="md:text-xl font-medium md:font-semibold mt-6 text-zinc-500">
           <span className="text-[#ff9f0f]">
             Bir ömür boyu dayanacak şekilde üretildi.
           </span>{" "}
-          Bilgileriniz değiştikçe güncelleyin.
+          Bilgileriniz değiştikçe güncelleyin
         </p>
       </div>
     </div>
