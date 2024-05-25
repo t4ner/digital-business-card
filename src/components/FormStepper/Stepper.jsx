@@ -209,7 +209,7 @@ function Stepper() {
             setShowInputWeChat(!showInputWeChat);
           };
           return (
-            <Form className="w-[600px] mx-auto mt-20 mb-20">
+            <Form className="w-full px-2 md:px-0 md:w-[650px] 2xl:w-[1000px] mx-auto mt-10 md:mt-20 mb-20">
               <header className="grid grid-cols-3 gap-x-2.5 py-2.5 border border-zinc-400 rounded-md mb-3">
                 {steps.map((step) => (
                   <button
@@ -221,7 +221,7 @@ function Stepper() {
                   >
                     <div
                       className={classNames(
-                        "w-12 h-12 font-medium rounded-full mb-2 bg-zinc-200 flex items-center justify-center",
+                        "w-10 h-10 md:w-12 md:h-12 font-medium rounded-full mb-2 bg-zinc-200 flex items-center justify-center",
                         {
                           "bg-blue-200 text-blue-500":
                             values.step === step.step,
@@ -234,7 +234,7 @@ function Stepper() {
                       {step.step}
                     </div>
                     <div
-                      className={classNames("font-medium", {
+                      className={classNames("font-medium text-sm md:text-base", {
                         "text-blue-400": values.step === step.step,
                         "text-green-500": values.step > step.step,
 
@@ -279,7 +279,7 @@ function Stepper() {
                       className=" text-xs text-red-600 mt-1"
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-2.5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
                     <div className="flex flex-col">
                       <Field name="name" className="input" placeholder="Name" />
                       <ErrorMessage
@@ -528,7 +528,7 @@ function Stepper() {
                   </div>
                   <hr className="mt-3" />
                   <h3 className="text-lg font-medium text-zinc-700 ">Images</h3>
-                  <div className="grid grid-cols-2 gap-2.5">
+                  <div className="grid md:grid-cols-2 gap-2.5">
                     <div className="flex flex-col">
                       <label htmlFor="photo1" className="text-sm">
                         Profil Photo

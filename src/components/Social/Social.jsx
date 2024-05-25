@@ -12,7 +12,7 @@ function Social() {
         etkileşimli, paylaşılması kolay ve fiziksel kartlara göre uygun
         maliyetli alternatiflerdir
       </p>
-      <img src={socialicons} className=" mt-8 md:mt-20" />
+      <img src={socialicons} className="mt-8 md:mt-20" />
     </div>
   );
 }
