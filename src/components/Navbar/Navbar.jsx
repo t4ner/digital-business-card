@@ -19,7 +19,7 @@ const Header = () => {
         </div>
         <div
           className={`nav-links duration-500  md:static absolute bg-white md:min-h-fit min-h-full left-0 ${
-            isMenuOpen ? "top-[9%]" : "top-[-100%]"
+            isMenuOpen ? "top-[11%]" : "top-[-100%]"
           } md:w-auto w-full flex px-5`}
         >
           <ul className="flex md:flex-row flex-col  md:hidden md:items-center md:gap-[4vw] gap-2 mt-5">

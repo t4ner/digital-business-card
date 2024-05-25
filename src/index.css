@@ -7,10 +7,26 @@ body {
   font-style: normal;
 }
 @layer components {
-    .input {
-        @apply h-10 rounded px-4 outline-none border border-zinc-400 text-sm focus:border-black
-    }
-    .textarea {
-        @apply rounded p-2 outline-none border border-zinc-400 text-sm focus:border-black
-    }
+  .input {
+    @apply h-10 rounded px-4 outline-none border border-zinc-400 text-sm focus:border-black;
+  }
+  .textarea {
+    @apply rounded p-2 outline-none border border-zinc-400 text-sm focus:border-black;
+  }
+}
+
+.App {
+  height: calc(100vh - 70px);
+  background: url("../public/banner/banner.jpg") center center;
+}
+
+.title {
+  font-weight: 700;
+  color: white;
+  filter: drop-shadow(0 0 20px white);
+  -webkit-filter: drop-shadow(0 0 20px white);
+}
+
+.sub-title {
+  font-family: "Dancing Script", cursive;
 }
