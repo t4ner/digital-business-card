@@ -3,7 +3,10 @@ import { IoMenu, IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import logo from "/logo/logo.png";
 
+
 const Header = () => {
+  const email = localStorage.getItem("email");
+  console.log("email", email);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -12,7 +15,7 @@ const Header = () => {
 
   return (
     <header className="bg-white  py-3">
-      <nav className="flex justify-between items-center w-[92%] mx-auto">
+      <nav className="flex justify-between items-center  z-50 w-[92%] mx-auto">
         <div className="text-green-300 text-4xl font-bold flex gap-2">
           <img src={logo} className="w-14 rounded-lg" />
           <Link to="/">greenCode</Link>
@@ -31,6 +34,16 @@ const Header = () => {
                 DİJİTAL KARTVİZİT SATIN AL
               </Link>
             </li>
+            {email && (
+              <li>
+                <Link
+                  className="hover:text-gray-500 block md:hidden font-semibold text-zinc-500"
+                  to="/dashboard"
+                >
+                  ADMİN PANELİ
+                </Link>
+              </li>
+            )}
             <li>
               <button className="bg-purple-300 block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
                 <Link to="/signIn">Üye ol</Link>
@@ -50,6 +63,16 @@ const Header = () => {
           >
             DİJİTAL KARTVİZİT SATIN AL
           </Link>
+
+          {email && (
+            <Link
+              className="hover:text-gray-500 hidden md:block font-semibold text-zinc-500 mr-4"
+              to="/dashboard"
+            >
+              ADMİN PANELİ
+            </Link>
+          )}
+
           <button className="bg-purple-400 hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
             <Link to="/signIn">Üye ol</Link>
           </button>
