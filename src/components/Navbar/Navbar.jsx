@@ -38,7 +38,7 @@ const Header = () => {
               <li>
                 <Link
                   className="hover:text-gray-500 block md:hidden font-semibold text-zinc-500"
-                  to="/dashboard"
+                  to="/dashboard/digital-business-card-update"
                 >
                   ADMİN PANELİ
                 </Link>
@@ -67,7 +67,7 @@ const Header = () => {
           {email && (
             <Link
               className="hover:text-gray-500 hidden md:block font-semibold text-zinc-500 mr-4"
-              to="/dashboard"
+              to="/dashboard/digital-business-card-update"
             >
               ADMİN PANELİ
             </Link>

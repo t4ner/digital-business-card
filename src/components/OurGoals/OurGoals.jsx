@@ -5,12 +5,12 @@ import goals4 from "/ourgoals/goals4.svg";
 
 function OurGoals() {
   return (
-    <div className="mt-10 md:mt-20 w-full md:w-4/5 mx-auto bg-green-100 rounded-xl">
+    <div className="mt-10 md:mt-20 md:h-[500px] flex  items-center w-full md:w-full mx-auto bg-green-100 rounded-xl">
       <div className="p-5 md:p-10 md:space-y-6 ">
         <h3 className="text-lg md:text-3xl font-medium md:font-semibold text-zinc-600">
           Yıllık hedeflerimiz
         </h3>
-        <p className="text-zinc-500 font-medium md:font-semibold text-sm md:text-lg mt-1 mb-5 md:mt-0 md:mb-0">
+        <p className="text-zinc-500 font-medium md:font-semibold text-sm md:text-xl py-0 md:py-4 mt-1 mb-5 md:mt-0 md:mb-0">
           Kağıtsız iletişim değişimiyle çevresel ayak izinizi azaltın. İş
           dünyasının ötesinde bir etki yaratmak için buradayız. Satılan her ürün
           bir ağaca eşittir.

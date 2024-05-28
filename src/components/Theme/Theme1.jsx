@@ -16,9 +16,9 @@ import call from "/socialMediaLogo/call.svg";
 
 function Theme1() {
   return (
-    <div className="bg-zinc-350 py-2 flex justify-center ">
-      <div className=" bg-white rounded-xl w-1/3 flex flex-col items-center justify-center space-y-1  shadow-[0_0px_50px_-15px_rgba(0,0,0,.9)] shadow-green-400">
-        <div className="flex items-center justify-between gap-10 ">
+    <div className="bg-zinc-350 py-2 flex p-2 justify-center ">
+      <div className=" bg-white rounded-xl md:w-1/3 flex flex-col items-center justify-center space-y-1  shadow-[0_0px_50px_-15px_rgba(0,0,0,.9)] shadow-green-600">
+        <div className="flex items-center space-x-10">
           <div className="mb-3 mt-2 w-32 h-32">
             <img
               src={logo}
@@ -26,45 +26,45 @@ function Theme1() {
             />
           </div>
           <div>
-            <h3 className="font-semibold text-xl">TANER DÖKMETAŞ</h3>
-            <p className="text-lg font-medium">DEVELOPER</p>
-            <p className="text-lg font-medium ">DESCRIPTION</p>
+            <h3 className="font-semibold ">TANER DÖKMETAŞ</h3>
+            <p className=" font-medium">DEVELOPER</p>
+            <p className=" font-medium ">DESCRIPTION</p>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 ">
+        <div className="flex flex-wrap items-center justify-center gap-2 ">
           <div>
-            <img src={instagram} className="w-20" />
+            <img src={instagram} className="w-16" />
           </div>
           <div>
-            <img src={whatsapp} className="w-20" />
+            <img src={whatsapp} className="w-16" />
           </div>
           <div>
-            <img src={facebook} className="w-20" />
+            <img src={facebook} className="w-16" />
           </div>
           <div>
-            <img src={telegram} className="w-20" />
+            <img src={telegram} className="w-16" />
           </div>
           <div>
-            <img src={twitter} className="w-20" />
+            <img src={twitter} className="w-16" />
           </div>
           <div>
-            <img src={linkedin} className="w-20" />
+            <img src={linkedin} className="w-16" />
           </div>
           <div>
-            <img src={wechat} className="w-20" />
+            <img src={wechat} className="w-16" />
           </div>
           <div>
-            <img src={gmail} className="w-20" />
+            <img src={gmail} className="w-16" />
           </div>{" "}
           <div>
-            <img src={call} className="w-20" />
+            <img src={call} className="w-16" />
           </div>{" "}
           <div>
-            <img src={maps} className="w-20" />
+            <img src={maps} className="w-16" />
           </div>
           <div>
-            <img src={website} className="w-20" />
+            <img src={website} className="w-16" />
           </div>{" "}
         </div>
         <div className="w-full space-y-2 px-2 ">
@@ -90,59 +90,3 @@ function Theme1() {
 }
 
 export default Theme1;
-<div className="bg-zinc-350 py-2 flex justify-center ">
-  <div className=" bg-white rounded-xl w-1/3 flex flex-col items-center justify-center space-y-1  shadow-[0_0px_50px_-15px_rgba(0,0,0,.9)] shadow-green-400">
-    <div className="mb-3 mt-2 w-32 h-32">
-      <img src={logo} className="w-full h-full object-cover rounded-full" />
-    </div>
-    <h3 className="font-semibold text-xl">TANER DÖKMETAŞ</h3>
-    <p className="text-lg font-medium">DEVELOPER</p>
-    <p className="text-lg font-medium ">DESCRIPTION</p>
-    <div className="flex flex-wrap items-center justify-center gap-4 ">
-      <div>
-        <img src={instagram} className="w-20" />
-      </div>
-      <div>
-        <img src={whatsapp} className="w-20" />
-      </div>
-      <div>
-        <img src={facebook} className="w-20" />
-      </div>
-      <div>
-        <img src={telegram} className="w-20" />
-      </div>
-      <div>
-        <img src={twitter} className="w-20" />
-      </div>
-      <div>
-        <img src={linkedin} className="w-20" />
-      </div>
-      <div>
-        <img src={wechat} className="w-20" />
-      </div>
-      <div>
-        <img src={gmail} className="w-20" />
-      </div>{" "}
-      <div>
-        <img src={call} className="w-20" />
-      </div>{" "}
-      <div>
-        <img src={maps} className="w-20" />
-      </div>
-      <div>
-        <img src={website} className="w-20" />
-      </div>{" "}
-    </div>
-    <div className="w-full space-y-2 px-2 ">
-      <div className="w-full h-60 mt-5">
-        <img src={logo} className="h-full object-cover w-full rounded-md" />
-      </div>
-      <div className="w-full h-60">
-        <img src={logo1} className="h-full object-cover w-full rounded-md" />
-      </div>
-      <div className="w-full h-60">
-        <img src={logo2} className="h-full object-cover w-full rounded-md" />
-      </div>
-    </div>
-  </div>
-</div>;
