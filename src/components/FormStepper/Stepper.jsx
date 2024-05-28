@@ -16,6 +16,7 @@ import "react-credit-cards-2/dist/es/styles-compiled.css";
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
+import DigitalCard from "../Digitalcard/DigitalCard";
 
 function Stepper() {
   const [state, setState] = useState({
@@ -62,6 +63,7 @@ function Stepper() {
   return (
     <div>
       <Navbar />
+      <DigitalCard />
 
       <Formik
         validationSchema={stepperValidation}
@@ -234,12 +236,15 @@ function Stepper() {
                       {step.step}
                     </div>
                     <div
-                      className={classNames("font-medium text-sm md:text-base", {
-                        "text-blue-400": values.step === step.step,
-                        "text-green-500": values.step > step.step,
+                      className={classNames(
+                        "font-medium text-sm md:text-base",
+                        {
+                          "text-blue-400": values.step === step.step,
+                          "text-green-500": values.step > step.step,
 
-                        "text-zinc-500": values.step !== step.step,
-                      })}
+                          "text-zinc-500": values.step !== step.step,
+                        }
+                      )}
                     >
                       {step.title}
                     </div>
