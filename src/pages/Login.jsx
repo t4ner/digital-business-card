@@ -4,8 +4,10 @@ import { jwtDecode } from "jwt-decode";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import login from "/login/login.png";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   // State'lerin tanımlanması
   const [formData, setFormData] = useState({
     email: "",
@@ -52,6 +54,7 @@ function Login() {
         // Giriş bilgileri doğruysa giriş yapılır
         console.log("Giriş başarılı");
         // Başarılı mesajı gösterebilirsiniz
+        navigate("/");
         setError(null);
       } else {
         // Giriş bilgileri yanlışsa hata mesajı gösterilir
