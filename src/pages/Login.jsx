@@ -3,8 +3,8 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
-import login from "/login/login.png";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
@@ -55,82 +55,65 @@ function Login() {
       setError("Kullanıcı adı veya şifre yanlış");
     }
   };
-
   return (
-    <div className="h-screen">
+    <div>
       <Navbar />
       <div
-        className="flex items-center justify-center"
-        style={{
-          backgroundImage: "url('/banner/banner.jpg')",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
+        className="flex items-center justify-center h-screen"
+        style={{ backgroundImage: "url('/drought/kuraklık.jpg')" }}
       >
-        <div className="flex mb-20 mt-20">
-          <div className="hidden lg:flex rounded-l-xl items-center justify-center flex-1 bg-white text-black">
-            <div className="max-w-md text-center ">
-              <img src={login} alt="login" />
-            </div>
+        <div className="bg-orange-400 border border-slate-499 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative">
+          <h1 className="text-4xl text-white font-bold text-center mb-6">
+            Login
+          </h1>
+          <div className="relative my-4 pb-2">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              className="block w-72 py-1 pt-5  px-0  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
+            />
+            <label
+              htmlFor="email"
+              className="absolute font-medium text-xl text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 mt-1"
+            >
+              Your Email
+            </label>
           </div>
-
-          <div className="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center rounded-r-lg">
-            <div className="max-w-md w-full p-6">
-              <h1 className="text-3xl font-semibold mb-6 text-black text-center">
-                Giriş yap
-              </h1>
-              <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">
-                Digital kartvizit ile yeşil bir dünya
-              </h1>
-
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="text"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
-                  />
-                </div>
-
-                <div>
-                  <button
-                    type="submit"
-                    className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300"
-                  >
-                    Giriş Yap
-                  </button>
-                </div>
-              </form>
-              {error && <p className="text-red-500 text-center">{error}</p>}
-            </div>
+          <div className="relative my-4">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              className="block w-72 py-1 pt-5 px-0  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
+            />
+            <label
+              htmlFor=""
+              className="absolute font-medium text-xl text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 mt-1"
+            >
+              Your Password
+            </label>
           </div>
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            className="w-full mb-4 text-lg mt-6 rounded-full bg-white text-emerald-600 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300"
+          >
+            Login
+          </button>
+          {error && <p className="text-red-500 text-center py-2 font-semibold">{error}</p>}
+          <div className="text-center"> 
+            <span className="text-white font-medium">
+              New Here? <Link to="/signIn" className="underline">Create an Account</Link>
+            </span>
+          </div>
+        
         </div>
+        
       </div>
       <Footer />
     </div>
