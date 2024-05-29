@@ -3,7 +3,6 @@ import { IoMenu, IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import logo from "/logo/logo.png";
 
-
 const Header = () => {
   const email = localStorage.getItem("email");
   console.log("email", email);
@@ -44,16 +43,20 @@ const Header = () => {
                 </Link>
               </li>
             )}
-            <li>
-              <button className="bg-purple-300 block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
-                <Link to="/signIn">Üye ol</Link>
+            {email ? (
+              <button className="bg-green-400 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
+                <Link to="/">Çıkış yap</Link>
               </button>
-            </li>
-            <li>
-              <button className="bg-green-300 block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
-                <Link to="/login"> Giriş yap </Link>
-              </button>
-            </li>{" "}
+            ) : (
+              <>
+                <button className="bg-purple-400 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
+                  <Link to="/signIn">Üye ol</Link>
+                </button>
+                <button className="bg-green-400 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
+                  <Link to="/login">Giriş yap</Link>
+                </button>
+              </>
+            )}
           </ul>
         </div>
         <div className="flex items-center gap-2">
@@ -73,12 +76,20 @@ const Header = () => {
             </Link>
           )}
 
-          <button className="bg-purple-400 hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
-            <Link to="/signIn">Üye ol</Link>
-          </button>
-          <button className="bg-green-400 hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
-            <Link to="/login">Giriş yap</Link>
-          </button>
+          {email ? (
+            <button className="bg-green-400 font-medium hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
+              <Link to="/">Çıkış yap</Link>
+            </button>
+          ) : (
+            <>
+              <button className="bg-purple-400 font-medium hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
+                <Link to="/signIn">Üye ol</Link>
+              </button>
+              <button className="bg-green-400 font-medium hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
+                <Link to="/login">Giriş yap</Link>
+              </button>
+            </>
+          )}
 
           {isMenuOpen ? (
             <IoClose
