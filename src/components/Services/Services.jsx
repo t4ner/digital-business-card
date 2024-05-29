@@ -11,7 +11,7 @@ function Services() {
           Etkileyici bağlantı deneyimi
         </h4>
         <p className="text-sm md:text-base font-medium text-zinc-500">
-          greenCode dijital kartvizit, iletişim bilgilerinizi, sosyal medya
+          ecoQr dijital kartvizit, iletişim bilgilerinizi, sosyal medya
           bilgilerinizi ve çok daha fazlasını bir uygulamaya ihtiyaç duymadan
           herhangi bir akıllı telefona temassız hızlı bir şekilde aktarmanıza
           olanak tanır.
@@ -23,8 +23,8 @@ function Services() {
           Daha güçlü bir imaj
         </h4>
         <p className="text-sm md:text-base font-medium text-zinc-500">
-          greenCode kartvizit ile iletişim bilgilerinizi akılda kalıcı bir
-          şekilde paylaşır ve güçlü bir ilk izlenim bırakırsınız. greenCode
+          ecoQr kartvizit ile iletişim bilgilerinizi akılda kalıcı bir
+          şekilde paylaşır ve güçlü bir ilk izlenim bırakırsınız. ecoQr
           kartvizit insanlar için ilgi çekici ve unutulmaz bir deneyim sunar.
         </p>
       </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 function Dashboard() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="flex">
@@ -18,7 +18,7 @@ function Dashboard() {
        border-2 rounded-full  ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)}
         />
-        <div className="flex gap-x-4 items-center">
+        <div className="flex gap-x-4 w-12 md:w-auto pr-2 md:pr-0 items-center">
           <Link to="/">
             <img
               src="/logo/logo.png"
@@ -29,7 +29,7 @@ function Dashboard() {
           </Link>
         </div>
         <ul className="pt-10 space-y-4">
-          <li className="flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ">
+          <li className="flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-base items-center gap-x-4 ">
             <Link to="/">
               {" "}
               <img src={"/dashboard/Chart_fill.png"} />
@@ -37,33 +37,33 @@ function Dashboard() {
             <span
               className={`${
                 !open && "hidden"
-              } origin-left duration-200 font-medium text-lg`}
+              } origin-left duration-200 font-medium md:text-lg`}
             >
               <Link to="/">Anasayfa</Link>
             </span>
           </li>
-          <li className="flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ">
-            <Link to="digital-business-card-update">
+          <li className="flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-base items-center gap-x-4 ">
+            <Link to="digital-business-card-update" className="w-10 md:w-auto" >
               <img src={"/dashboard/User.png"} />
             </Link>
             <span
               className={`${
                 !open && "hidden"
-              } origin-left duration-200 font-medium text-lg`}
+              } origin-left duration-200 font-medium md:text-lg`}
             >
               <Link to="digital-business-card-update">
                 Kartvizit güncelleme
               </Link>
             </span>
           </li>
-          <li className="flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ">
+          <li className="flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-base items-center gap-x-4 ">
             <Link to="setting">
               <img src={"/dashboard/Setting.png"} />
             </Link>
             <span
               className={`${
                 !open && "hidden"
-              } origin-left duration-200 font-medium text-lg`}
+              } origin-left duration-200 font-medium md:text-lg`}
             >
               <Link to="setting">Ayarlar</Link>
             </span>

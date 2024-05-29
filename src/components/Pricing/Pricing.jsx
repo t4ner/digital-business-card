@@ -3,7 +3,7 @@ function Pricing() {
     <main className="max-w-6xl mx-auto px-2 md:px-8 mt-10 md:mt-20 mb-10 md:mb-20">
       <div className="max-w-md mx-auto mb-7 md:mb-14 text-center">
         <h1 className="text-lg md:text-4xl font-semibold mb-1 md:mb-6 lg:text-5xl">
-          <span className="text-green-400">greenCode</span> Ödeme Planları
+          <span className="text-green-400">ecoQr</span> Ödeme Planları
         </h1>
         <p className="text-sm md:text-xl text-gray-500 font-medium">
           Siz veya ekibiniz için en uygun planı seçin

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
-  // State'lerin tanımlanması
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -16,18 +16,15 @@ function Login() {
 
   const [error, setError] = useState(null);
 
-  // Input değerlerinin değişimlerini takip eden fonksiyon
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Form submit işlemi
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Axios ile API'ye POST isteği gönderme
       const response = await axios.post(
         "http://178.128.207.116:8089/api/auth/login",
         {
@@ -36,33 +33,25 @@ function Login() {
         }
       );
       console.log("response", response);
-      // Giriş başarılıysa JWT token'i alınır
       const token = response.data.token;
 
-      // JWT token'i decode edilir
       const decodedToken = jwtDecode(token);
       console.log("decodedToken", decodedToken);
 
       localStorage.setItem("token", token);
       localStorage.setItem("email", decodedToken.sub);
 
-      // Decode edilen token kullanıcı bilgilerini içerir
       console.log("Decoded Token:", decodedToken);
 
-      // Decode edilen token bilgileri ile kullanıcı tarafından girilen bilgileri karşılaştırma
       if (decodedToken.sub === formData.email) {
-        // Giriş bilgileri doğruysa giriş yapılır
         console.log("Giriş başarılı");
-        // Başarılı mesajı gösterebilirsiniz
         navigate("/");
         setError(null);
       } else {
-        // Giriş bilgileri yanlışsa hata mesajı gösterilir
         setError("Kullanıcı adı veya şifre yanlış");
       }
     } catch (error) {
       console.error("Error:", error);
-      // Hata mesajını gösterebilirsiniz
       setError("Kullanıcı adı veya şifre yanlış");
     }
   };

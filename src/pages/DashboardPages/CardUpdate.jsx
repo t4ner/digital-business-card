@@ -547,7 +547,7 @@ function CardUpdate() {
         </header>
         <span className="flex font-medium mb-2">Theme 1</span>
         <div className="grid grid-cols-2 gap-2.5 w-full">
-          <div className="flex mb-5 flex-col items-center pr-48 justify-center mx-auto">
+          <div className="flex mb-5 flex-col items-center md:pr-80 justify-center mx-auto">
             <label>
               <input
                 type="radio"
@@ -578,7 +578,7 @@ function CardUpdate() {
         </div>
         <span className="font-medium mb-4">Theme 2</span>
         <div className="grid grid-cols-2 gap-2.5 mt-2">
-          <div className="flex mb-5 flex-col items-center pr-48">
+          <div className="flex mb-5 flex-col items-center md:pr-80">
             <label>
               <input
                 type="radio"

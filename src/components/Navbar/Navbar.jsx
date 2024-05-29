@@ -18,7 +18,7 @@ const Header = () => {
       <nav className="flex justify-between items-center  z-50 w-[92%] mx-auto">
         <div className="text-green-300 text-4xl font-bold flex gap-2">
           <img src={logo} className="w-14 rounded-lg" />
-          <Link to="/">greenCode</Link>
+          <Link to="/">ecoQr</Link>
         </div>
         <div
           className={`nav-links duration-500  md:static absolute bg-white md:min-h-fit min-h-full left-0 ${
