@@ -4,7 +4,7 @@ function GreenTecno() {
     <div className="w-full md:w-4/5 md:mx-auto flex px-2 md:px-0 flex-col justify-between items-center gap-10 mt-10 md:mt-20">
       <div className=" md:text-center">
         <h2 className="text-lg md:text-4xl font-medium md:font-semibold text-zinc-600 ">
-          <span className="text-green-400">ecoQr</span> ile kağıtsız çalışın
+          <span className="text-emerald-500">ecoQr</span> ile kağıtsız çalışın
         </h2>
 
         <p className="text-sm md:text-xl font-medium md:font-semibold md:tracking-wide text-zinc-500 mt-2 md:mt-4">

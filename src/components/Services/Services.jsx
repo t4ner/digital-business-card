@@ -4,7 +4,7 @@ import services3 from "/services/step3.svg";
 
 function Services() {
   return (
-    <div className="w-full md:w-full mx-auto mt-10 md:mt-20 space-y-5 md:space-y-0 flex-col md:flex md:flex-row  justify-center gap-10 bg-green-100 p-5 md:p-10 rounded-xl">
+    <div className="w-full md:w-full mx-auto mt-10 md:mt-10 space-y-5 md:space-y-0 flex-col md:flex md:flex-row  justify-center gap-10 bg-emerald-200 p-5 md:p-10 rounded-xl">
       <div className="p-4 md:py-8 md:px-4 rounded-xl bg-white basis-1/3">
         <img src={services1} className="w-20 md:w-[170px]" />
         <h4 className="font-medium md:font-bold text-lg md:text-xl text-zinc-600 my-2 mt-2 md:mt-6">

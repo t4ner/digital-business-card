@@ -5,9 +5,9 @@ import goals4 from "/ourgoals/goals4.svg";
 
 function OurGoals() {
   return (
-    <div className="mt-10 md:mt-20 md:h-[500px] flex  items-center w-full md:w-full mx-auto bg-green-100 rounded-xl">
+    <div className="mt-10 md:mt-20 md:h-[500px] flex  items-center w-full md:w-full mx-auto bg-emerald-200 rounded-xl">
       <div className="p-5 md:p-10 md:space-y-6 ">
-        <h3 className="text-lg md:text-3xl font-medium md:font-semibold text-zinc-600">
+        <h3 className="text-lg md:text-3xl font-medium md:font-semibold text-emerald-700">
           Yıllık hedeflerimiz
         </h3>
         <p className="text-zinc-500 font-medium md:font-semibold text-sm md:text-xl py-0 md:py-4 mt-1 mb-5 md:mt-0 md:mb-0">

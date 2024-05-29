@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <header className="bg-white  py-3 ">
       <nav className="flex justify-between items-center w-[92%] mx-auto">
-        <div className="text-green-300 text-4xl font-bold flex gap-2">
+        <div className="text-emerald-500 text-4xl font-bold flex gap-2">
           <img src={logo} className="w-14 rounded-lg" />
           <Link to="/">ecoQr</Link>
         </div>
@@ -44,7 +44,7 @@ const Header = () => {
               </li>
             )}
             {email ? (
-              <button className="bg-green-400 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
+              <button className="bg-emerald-400 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
                 <Link to="/">Çıkış yap</Link>
               </button>
             ) : (
@@ -52,7 +52,7 @@ const Header = () => {
                 <button className="bg-orange-300 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
                   <Link to="/signIn">Üye ol</Link>
                 </button>
-                <button className="bg-green-400 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
+                <button className="bg-emerald-400 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
                   <Link to="/login">Giriş yap</Link>
                 </button>
               </>
@@ -77,7 +77,7 @@ const Header = () => {
           )}
 
           {email ? (
-            <button className="bg-green-400 font-medium hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
+            <button className="bg-emerald-400 font-medium hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
               <Link to="/">Çıkış yap</Link>
             </button>
           ) : (
@@ -85,7 +85,7 @@ const Header = () => {
               <button className="bg-orange-300 font-medium hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
                 <Link to="/signIn">Üye ol</Link>
               </button>
-              <button className="bg-green-400 font-medium hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
+              <button className="bg-emerald-400 font-medium hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
                 <Link to="/login">Giriş yap</Link>
               </button>
             </>
