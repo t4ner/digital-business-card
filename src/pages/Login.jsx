@@ -60,11 +60,11 @@ function Login() {
       <Navbar />
       <div
         className="flex items-center justify-center h-screen"
-        style={{ backgroundImage: "url('/drought/kuraklık.jpg')" }}
+        style={{ backgroundImage: "url('/hero/hero.jpg')" }}
       >
-        <div className="bg-orange-400 border border-slate-499 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative">
-          <h1 className="text-4xl text-white font-bold text-center mb-6">
-            Login
+        <div className="bg-green-300 border border-slate-499 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative">
+          <h1 className="text-3xl md:text-4xl text-white font-bold text-center mb-6">
+            Giriş yap
           </h1>
           <div className="relative my-4 pb-2">
             <input
@@ -73,13 +73,13 @@ function Login() {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              className="block w-72 py-1 pt-5  px-0  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
+              className="block w-72 py-1 pt-5  px-0  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-green-400 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
             />
             <label
               htmlFor="email"
-              className="absolute font-medium text-xl text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 mt-1"
+              className="absolute font-medium text-xl text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-400 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 mt-1"
             >
-              Your Email
+             Email
             </label>
           </div>
           <div className="relative my-4">
@@ -89,19 +89,19 @@ function Login() {
               name="password"
               value={formData.password}
               onChange={handleInputChange}
-              className="block w-72 py-1 pt-5 px-0  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
+              className="block w-72 py-1 pt-5 px-0  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-green-400 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
             />
             <label
               htmlFor=""
-              className="absolute font-medium text-xl text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 mt-1"
+              className="absolute font-medium text-xl text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-400 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 mt-1"
             >
-              Your Password
+              Şifre
             </label>
           </div>
           <button
             type="submit"
             onClick={handleSubmit}
-            className="w-full mb-4 text-lg mt-6 rounded-full bg-white text-emerald-600 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300"
+            className="w-full mb-4 text-lg font-medium mt-6 rounded-full bg-white text-emerald-600 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300"
           >
             Login
           </button>
