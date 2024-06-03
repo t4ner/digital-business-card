@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import PaymentSuccess from "./PaymentSuccess";
 
 function Payment() {
+  const [htmlResponse, setHtmlResponse] = useState("");
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     cardOwnerName: "",
@@ -35,6 +37,12 @@ function Payment() {
     },
   });
 
+  // useEffect(() => {
+  //   if (htmlResponse !== "") {
+  //     navigate("/payment-success");
+  //   }
+  // }, [htmlResponse, navigate]);
+
   const handleInputChange = (e, field, subField = null, subSubField = null) => {
     if (subField === null) {
       setFormData((prevData) => ({
@@ -62,6 +70,7 @@ function Payment() {
       }));
     }
   };
+
   const handleSubmit = () => {
     axios
       .post(
@@ -70,14 +79,17 @@ function Payment() {
       )
       .then((response) => {
         console.log("Success:", response.data);
-        navigate("ecoqrcode/payment-success");
+        const processedResponse = response.data;
+        setHtmlResponse(processedResponse);
       })
       .catch((error) => {
         console.error("Error:", error);
-        navigate("ecoqrcode/payment-fail");
+        navigate("/payment-fail");
       });
   };
+
   console.log("formData", formData);
+
   return (
     <div>
       <input
@@ -240,7 +252,13 @@ function Payment() {
         }
         placeholder="Invoice phoneNumber"
       />
-      <button onClick={handleSubmit}>Submit</button>
+      <button type="submit" onClick={handleSubmit}>
+        Submit
+      </button>
+      <div className="w-full">
+        <h2>Payment Response</h2>
+        <div dangerouslySetInnerHTML={{ __html: htmlResponse }} />
+      </div>
     </div>
   );
 }

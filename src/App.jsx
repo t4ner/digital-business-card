@@ -16,6 +16,8 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment-fail" element={<PaymentFail />} />
         <Route path="/dijital-kartvizit-satin-al" element={<Stepper />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signIn" element={<SignIn />} />
@@ -23,8 +25,6 @@ function App() {
           <Route path="setting" element={<Setting />} />
           <Route path="digital-business-card-update" element={<CardUpdate />} />
         </Route>
-        <Route path="/ecoqrcode/payment-success" element={<PaymentSuccess />} />
-        <Route path="/ecoqrcode/payment-fail" element={<PaymentFail />} />
 
         <Route path="theme1" element={<Theme1 />} />
         <Route path="theme2" element={<Theme2 />} />
