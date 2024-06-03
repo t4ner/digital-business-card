@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { IoMenu, IoClose } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "/logo/logo.png";
 
 const Header = () => {
+  const navigate = useNavigate();
   const email = localStorage.getItem("email");
   console.log("email", email);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,7 +12,14 @@ const Header = () => {
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
+  const handleLogout = () => {
+    // Oturum bilgilerini temizleme
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
 
+    // Kullanıcıyı giriş sayfasına yönlendirme
+    navigate("/login");
+  };
   return (
     <header className="bg-white  py-3 ">
       <nav className="flex justify-between items-center w-[92%] mx-auto">
@@ -44,7 +52,7 @@ const Header = () => {
               </li>
             )}
             {email ? (
-              <button className="bg-emerald-400 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
+              <button onClick={handleLogout} className="bg-emerald-400 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
                 <Link to="/">Çıkış yap</Link>
               </button>
             ) : (
@@ -77,8 +85,11 @@ const Header = () => {
           )}
 
           {email ? (
-            <button className="bg-emerald-400 font-medium hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
-              <Link to="/">Çıkış yap</Link>
+            <button
+              onClick={handleLogout}
+              className="bg-emerald-400 font-medium hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500"
+            >
+              <Link>Çıkış yap</Link>
             </button>
           ) : (
             <>

@@ -8,6 +8,8 @@ import Dashboard from "./pages/Dashboard";
 import Setting from "./pages/DashboardPages/Setting";
 import CardUpdate from "./pages/DashboardPages/CardUpdate";
 import Theme2 from "./components/Theme/Theme2";
+import PaymentSuccess from "./components/FormStepper/components/PaymentSuccess";
+import PaymentFail from "./components/FormStepper/components/PaymentFail";
 
 function App() {
   return (
@@ -21,9 +23,11 @@ function App() {
           <Route path="setting" element={<Setting />} />
           <Route path="digital-business-card-update" element={<CardUpdate />} />
         </Route>
+        <Route path="/ecoqrcode/payment-success" element={<PaymentSuccess />} />
+        <Route path="/ecoqrcode/payment-fail" element={<PaymentFail />} />
+
         <Route path="theme1" element={<Theme1 />} />
         <Route path="theme2" element={<Theme2 />} />
-
       </Routes>
     </div>
   );

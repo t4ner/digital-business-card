@@ -17,6 +17,7 @@ import axios from "axios";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import DigitalCard from "../Digitalcard/DigitalCard";
+import Payment from "./components/Payment";
 
 function Stepper() {
   const [state, setState] = useState({
@@ -35,15 +36,6 @@ function Stepper() {
   console.log("image2", image2);
   console.log("image3", image3);
   console.log("image4", image4);
-  const handleInputChange = (evt) => {
-    const { name, value } = evt.target;
-
-    setState((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleInputFocus = (evt) => {
-    setState((prev) => ({ ...prev, focus: evt.target.name }));
-  };
 
   const steps = [
     {
@@ -723,59 +715,7 @@ function Stepper() {
 
               {values.step === 3 && (
                 <>
-                  <h3 className="text-lg font-medium text-zinc-700 mb-2">
-                    Billing
-                  </h3>
-                  <div>
-                    <Cards
-                      number={state.number}
-                      expiry={state.expiry}
-                      cvc={state.cvc}
-                      name={state.name}
-                      focused={state.focus}
-                    />
-
-                    <div className="grid grid-cols-2 gap-2.5 mt-5">
-                      <input
-                        type="text"
-                        name="number"
-                        placeholder="Card Number"
-                        value={state.number}
-                        onChange={handleInputChange}
-                        onFocus={handleInputFocus}
-                        className="input"
-                      />
-                      <input
-                        type="text"
-                        name="name"
-                        placeholder="Name Surname"
-                        value={state.name}
-                        onChange={handleInputChange}
-                        onFocus={handleInputFocus}
-                        className="input"
-                      />
-                    </div>
-                    <div className="grid grid-cols-2 gap-2.5 mt-2">
-                      <input
-                        type="text"
-                        name="expiry"
-                        placeholder="Valid Thru"
-                        value={state.expiry}
-                        onChange={handleInputChange}
-                        onFocus={handleInputFocus}
-                        className="input"
-                      />
-                      <input
-                        type="text"
-                        name="cvc"
-                        placeholder="CVC"
-                        value={state.cvc}
-                        onChange={handleInputChange}
-                        onFocus={handleInputFocus}
-                        className="input"
-                      />
-                    </div>
-                  </div>
+                  <Payment />
                   <div className="grid grid-cols-2 gap-x-4  mt-5">
                     <button
                       onClick={prevHandle3}

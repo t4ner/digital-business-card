@@ -12,7 +12,7 @@ function DigitalCard() {
       </div>
       <div className="w-full md:basis-1/2 space-y-8 md:space-y-14 mt-10 md:mt-0">
         <div>
-          <div className="flex items-center justify-center gap-1 md:gap-3 pl-2 md:pl-0">
+          <div className="flex items-center justify-center 2xl:justify-start gap-1 md:gap-3 pl-2 md:pl-0">
             <img src={digital2} className="w-20 md:w-24" />
             <p className="font-medium text-sm md:text-base">
               1. Lütfen bilgilerinizi eksiksiz doldurun ve ödemeyi
@@ -21,20 +21,21 @@ function DigitalCard() {
           </div>
         </div>
         <div>
-          <div className="flex items-center justify-center md:pl-2  gap-1 md:gap-3">
+          <div className="flex items-center justify-center 2xl:justify-start md:pl-2  gap-1 md:gap-3">
             <img src={digital1} className="w-24 md:w-28" />
             <p className="font-medium text-sm md:text-base">
-              2. Girilen bilgiler ve seçilen tema ile oluşturulan QR kodu e-posta
-              hesabınıza gönderilecektir
+              2. Girilen bilgiler ve seçilen tema ile oluşturulan QR kodu
+              e-posta hesabınıza gönderilecektir
             </p>
           </div>
         </div>
         <div>
-          <div className="flex mt-6 items-center justify-center pl-3 md:pl-5 gap-1 md:gap-3">
+          <div className="flex mt-6 items-center justify-center 2xl:justify-start pl-3 md:pl-5 gap-1 md:gap-3">
             <img src={digital3} className="w-20 md:w-24" />
             <p className="font-medium text-sm md:text-base">
-              3. Güncellemeler için kaydolun ve panelden bilgilerinizi
-              güncelleyin
+              3. Dijital kartınızdaki bilgileri güncellemek için, e-posta
+              adresiniz ve size gönderilen şifre ile giriş yaparak güncelleyebilirsiniz.
+              Ayrıca, isterseniz profil bilgilerinizi de değiştirebilirsiniz
             </p>
           </div>
         </div>

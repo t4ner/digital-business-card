@@ -73,7 +73,7 @@ function Login() {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              className="block w-72 py-1 pt-5  px-0  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-green-400 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
+              className="block w-72 py-1 pt-5  px-0  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-green-400 focus:outline-none focus:ring-0 focus:text-white focus:border-green-400 peer"
             />
             <label
               htmlFor="email"
@@ -89,7 +89,7 @@ function Login() {
               name="password"
               value={formData.password}
               onChange={handleInputChange}
-              className="block w-72 py-1 pt-5 px-0  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-green-400 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
+              className="block w-72 py-1 pt-5 px-0  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-green-400 focus:outline-none focus:ring-0 focus:text-white focus:border-green-400 peer"
             />
             <label
               htmlFor=""

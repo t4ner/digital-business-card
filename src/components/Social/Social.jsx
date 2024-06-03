@@ -3,7 +3,7 @@ function Social() {
   return (
     <div className="md:flex md:flex-row flex-col items-center mx-auto justify-center md:w-4/5 gap-10 mt-10 md:mt-[75px]">
      
-      <div className="basis-1/2">
+      <div className="basis-1/2 px-2 md:px-0">
         <h3 className="text-lg w-full  md:text-4xl font-medium md:font-semibold text-emerald-500 pb-2 md:pb-5">
           {" "}
           Dijital kartvizit nedir?
@@ -16,7 +16,7 @@ function Social() {
           kartlara göre uygun maliyetli alternatiflerdir
         </p>
       </div>
-      <div className="basis-1/2 mt-4 md:mt-0">
+      <div className="basis-1/2 mt-4 md:mt-0 pr-1">
         <img src={socialicons} />
       </div>  
     </div>
