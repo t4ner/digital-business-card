@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PaymentSuccess from "./PaymentSuccess";
+import InnerHTML from "dangerously-set-html-content";
 
 function Payment() {
   const [htmlResponse, setHtmlResponse] = useState("");
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     cardOwnerName: "",
     cardNumber: "",
@@ -36,12 +38,6 @@ function Payment() {
       },
     },
   });
-
-  // useEffect(() => {
-  //   if (htmlResponse !== "") {
-  //     navigate("/payment-success");
-  //   }
-  // }, [htmlResponse, navigate]);
 
   const handleInputChange = (e, field, subField = null, subSubField = null) => {
     if (subField === null) {
@@ -84,7 +80,6 @@ function Payment() {
       })
       .catch((error) => {
         console.error("Error:", error);
-        navigate("/payment-fail");
       });
   };
 
@@ -253,11 +248,17 @@ function Payment() {
         placeholder="Invoice phoneNumber"
       />
       <button type="submit" onClick={handleSubmit}>
-        Submit
+        <a target="_blank" href="/payment">
+          Submit
+        </a>
       </button>
       <div className="w-full">
-        <h2>Payment Response</h2>
-        <div dangerouslySetInnerHTML={{ __html: htmlResponse }} />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: htmlResponse.replace(/href/g, "target='_blank' href"),
+          }}
+        ></div>
+        {/* {htmlResponse === "" ? <div></div> : <InnerHTML html={htmlResponse} />} */}
       </div>
     </div>
   );

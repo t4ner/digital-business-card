@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <form
+      action="https://api.ipara.com/rest/payment/threed"
+      method="POST"
+      id="iParaMerchantRequestForm"
+    >
+      <input
+        id="token"
+        type="text"
+        name="parameters"
+        value='{"mode":"P","orderId":"18ceae0e-fc15-4a15-9cb4-5732a3c3fdd3","cardOwnerName":"Tunahan+%C3%87ak%C4%B1l","cardNumber":"5269110231832751","cardAlias":"","cardExpireMonth":"05","cardExpireYear":"28","cardCvc":"561","userId":"","cardId":"","installment":"1","amount":"100","echo":"Echo","successUrl":"http://ecoqrcode.com/payment-success","failureUrl":"http://ecoqrcode.com/payment-fail","transactionDate":"2024-06-04 22:07:54","version":"1.0","deviceUUId":"","token":"E4I8KT9F2ZGATL6:34DeqhX4TLUkDAFo0IdKDmBF++M\u003d","language":"tr-TR","vendorId":"242713","purchaser":{"name":"Tunahan","surname":"Çakıl","email":"tunahancakil@gmail.com","clientIp":"127.0.0.1","birthDate":"1996-07-12","gsmNumber":"5393239896","tcCertificate":"37249289330","invoiceAddress":{"name":"Tunahan","surname":"Çakıl","address":"Kazım Karabekir Mahallesi Aşık Veysel Caddesi No:50 Daire: 11 Esenler İstanbul","zipcode":"34225","city":"34","tcCertificate":"37249289330","country":"TR","taxNumber":"1950761165","taxOffice":"Atışalanı","companyName":"TT Yazılım","phoneNumber":"2120000000"}},"products":[{"code":"CARD001","title":"Digital Business Card","quantity":"1","price":"149000"}]}'
+      />
+    </form>
+    <script>
+      document.getElementById("iParaMerchantRequestForm").submit();
+    </script>
+  </body>
+</html>

@@ -16,7 +16,7 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment" element={<PaymentSuccess />} />
         <Route path="/payment-fail" element={<PaymentFail />} />
         <Route path="/dijital-kartvizit-satin-al" element={<Stepper />} />
         <Route path="/login" element={<Login />} />
