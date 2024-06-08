@@ -10,6 +10,9 @@ import CardUpdate from "./pages/DashboardPages/CardUpdate";
 import Theme2 from "./components/Theme/Theme2";
 import PaymentSuccess from "./components/FormStepper/components/PaymentSuccess";
 import PaymentFail from "./components/FormStepper/components/PaymentFail";
+import Payment from "./components/FormStepper/components/Payment";
+import PaymentTest from "./components/FormStepper/components/PaymentTest";
+import PaymentConfirm from "./components/FormStepper/components/PaymentConfirm";
 
 function App() {
   return (
@@ -17,7 +20,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/paymentTest" element={<PaymentTest />} />
         <Route path="/payment-fail" element={<PaymentFail />} />
+        <Route path="/payment-confirm" element={<PaymentConfirm />} />
         <Route path="/dijital-kartvizit-satin-al" element={<Stepper />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signIn" element={<SignIn />} />

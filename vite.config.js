@@ -11,6 +11,9 @@ export default defineConfig({
     // add the next lines if you're using windows and hot reload doesn't work
      watch: {
        usePolling: true
+     },
+     proxy: {
+      
      }
   }
 })

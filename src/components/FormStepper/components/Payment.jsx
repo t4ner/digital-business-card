@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import PaymentSuccess from "./PaymentSuccess";
+import React, { useState } from "react";
+import axios from 'axios';
+import PaymentTest from "./PaymentTest";
+
 
 function Payment() {
-  const [htmlResponse, setHtmlResponse] = useState("");
-  const navigate = useNavigate();
+  const [isrendered,setisrendered]=useState(false);
   const [formData, setFormData] = useState({
     cardOwnerName: "",
     cardNumber: "",
@@ -37,12 +36,6 @@ function Payment() {
     },
   });
 
-  // useEffect(() => {
-  //   if (htmlResponse !== "") {
-  //     navigate("/payment-success");
-  //   }
-  // }, [htmlResponse, navigate]);
-
   const handleInputChange = (e, field, subField = null, subSubField = null) => {
     if (subField === null) {
       setFormData((prevData) => ({
@@ -70,25 +63,6 @@ function Payment() {
       }));
     }
   };
-
-  const handleSubmit = () => {
-    axios
-      .post(
-        "http://178.128.207.116:8090/api/payment/oneStepPayment3D",
-        formData
-      )
-      .then((response) => {
-        console.log("Success:", response.data);
-        const processedResponse = response.data;
-        setHtmlResponse(processedResponse);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        navigate("/payment-fail");
-      });
-  };
-
-  console.log("formData", formData);
 
   return (
     <div>
@@ -252,12 +226,29 @@ function Payment() {
         }
         placeholder="Invoice phoneNumber"
       />
-      <button type="submit" onClick={handleSubmit}>
+      <button type="submit" onClick={()=>{
+              let response =axios
+              .post(
+                "http://178.128.207.116:8090/api/payment/oneStepPayment3D",
+                formData
+              )
+              .then((response) => {
+                const backendHtmlString = response.data;
+                console.log(backendHtmlString)
+                var myWindow = window.open("", "_blank", "resizable=yes");
+                myWindow.document.write(backendHtmlString);
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+              setisrendered(true)
+        }}> 
         Submit
       </button>
+      {isrendered&&<PaymentTest formData={formData}/>}
+
       <div className="w-full">
         <h2>Payment Response</h2>
-        <div dangerouslySetInnerHTML={{ __html: htmlResponse }} />
       </div>
     </div>
   );
