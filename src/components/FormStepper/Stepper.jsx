@@ -716,23 +716,6 @@ function Stepper() {
               {values.step === 3 && (
                 <>
                   <Payment />
-                  <div className="grid grid-cols-2 gap-x-4  mt-5">
-                    <button
-                      onClick={prevHandle3}
-                      type="button"
-                      className="bg-emerald-600 w-28 justify-self-start text-white rounded h-10 text-sm"
-                    >
-                      PREV
-                    </button>
-                    <button
-                      type="button"
-                      className="bg-emerald-600 w-28 justify-self-end text-white rounded h-10 text-sm disabled:opacity-50"
-                      disabled={!isValid || !dirty}
-                      onClick={submitHandle}
-                    >
-                      SUBMIT
-                    </button>
-                  </div>
                 </>
               )}
             </Form>

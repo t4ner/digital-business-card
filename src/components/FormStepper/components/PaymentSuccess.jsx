@@ -1,9 +1,8 @@
 import React from "react";
 
-function PaymentSuccess({ html }) {
-  return (
-    <div>{htmlResponse === "" ? <div></div> : <InnerHTML html={html} />}</div>
-  );
+function PaymentSuccess() {
+  console.log("Taner");
+  return <div>TT</div>;
 }
 
 export default PaymentSuccess;

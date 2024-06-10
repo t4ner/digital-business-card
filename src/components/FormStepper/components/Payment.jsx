@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import PaymentSuccess from "./PaymentSuccess";
-import InnerHTML from "dangerously-set-html-content";
+import PaymentTest from "./PaymentTest";
 
 function Payment() {
-  const [htmlResponse, setHtmlResponse] = useState("");
-  const navigate = useNavigate();
-
+  const [isrendered, setisrendered] = useState(false);
   const [formData, setFormData] = useState({
     cardOwnerName: "",
     cardNumber: "",
@@ -66,24 +62,6 @@ function Payment() {
       }));
     }
   };
-
-  const handleSubmit = () => {
-    axios
-      .post(
-        "http://178.128.207.116:8090/api/payment/oneStepPayment3D",
-        formData
-      )
-      .then((response) => {
-        console.log("Success:", response.data);
-        const processedResponse = response.data;
-        setHtmlResponse(processedResponse);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-  console.log("formData", formData);
 
   return (
     <div>
@@ -247,18 +225,34 @@ function Payment() {
         }
         placeholder="Invoice phoneNumber"
       />
-      <button type="submit" onClick={handleSubmit}>
-        <a target="_blank" href="/payment">
-          Submit
-        </a>
+      <button
+        type="submit"
+        onClick={() => {
+          let response = axios
+            .post(
+              "http://178.128.207.116:8090/api/payment/oneStepPayment3DTest",
+              formData
+            )
+            .then((response) => {
+              console.log("response", response);
+              const backendHtmlString = response.data;
+              console.log(backendHtmlString);
+              var myWindow = window.open("", "_self", "resizable=yes");
+              myWindow.document.write(backendHtmlString);
+              console.log(response.data.payload);
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+          setisrendered(true);
+        }}
+      >
+        Submit
       </button>
+      {isrendered && <PaymentTest formData={formData} />}
+
       <div className="w-full">
-        <div
-          dangerouslySetInnerHTML={{
-            __html: htmlResponse.replace(/href/g, "target='_blank' href"),
-          }}
-        ></div>
-        {/* {htmlResponse === "" ? <div></div> : <InnerHTML html={htmlResponse} />} */}
+        <h2>Payment Response</h2>
       </div>
     </div>
   );
