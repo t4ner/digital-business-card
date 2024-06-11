@@ -43,7 +43,7 @@ function Dashboard() {
             </span>
           </li>
           <li className="flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-base items-center gap-x-4 ">
-            <Link to="digital-business-card-update" className="w-10 md:w-auto" >
+            <Link to="digital-business-card-update" className="w-10 md:w-auto">
               <img src={"/dashboard/User.png"} />
             </Link>
             <span
@@ -70,7 +70,7 @@ function Dashboard() {
           </li>
         </ul>
       </div>
-      <div className=" flex-1 p-7">
+      <div className=" flex-1 ">
         <Outlet />
       </div>
     </div>

@@ -203,7 +203,7 @@ function CardUpdate() {
   };
   console.log("values", values);
   return (
-    <>
+    <div className="p-7">
       <header>
         <h3 className="text-lg font-medium text-zinc-700 mb-2">Content</h3>
       </header>
@@ -618,7 +618,7 @@ function CardUpdate() {
           </button>
         </div>
       </>
-    </>
+    </div>
   );
 }
 
