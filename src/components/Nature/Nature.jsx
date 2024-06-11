@@ -1,7 +1,7 @@
 import React from "react";
-import nature1 from "/natureImage/nature1.jpg";
-import nature2 from "/natureImage/nature2.jpg";
-import nature3 from "/natureImage/nature3.jpg";
+import nature1 from "/natureImage/nature1.webp";
+import nature2 from "/natureImage/nature2.webp";
+import nature3 from "/natureImage/nature3.webp";
 function Nature() {
   return (
     <div className="w-full md:w-4/5 mx-auto mt-20 flex-col md:flex md:flex-row items-center justify-center gap-5 ">
