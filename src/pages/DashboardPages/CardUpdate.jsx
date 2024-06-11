@@ -206,7 +206,7 @@ function CardUpdate() {
   return (
     <div className="p-7">
       <header>
-        <h3 className="text-lg font-medium text-zinc-700 mb-2">Content</h3>
+        <h3 className="text-lg font-medium text-zinc-700 mb-2">İçerik</h3>
       </header>
       <div className="flex flex-col w-full mb-3">
         <div className="flex items-center">
@@ -220,7 +220,7 @@ function CardUpdate() {
             name="linkId"
             disabled
             className="input text-gray-600 mr-0.5 bg-zinc-100 flex items-center justify-center w-full"
-            placeholder="Your Page URL"
+            placeholder="Sayfanızın URL'si"
             value={emailPerson.linkId}
           />
         </div>
@@ -230,7 +230,7 @@ function CardUpdate() {
           <input
             name="name"
             className="input"
-            placeholder="Name"
+            placeholder="Ad"
             value={values.name}
             onChange={handleChange}
           />
@@ -239,7 +239,7 @@ function CardUpdate() {
           <input
             name="surname"
             className="input"
-            placeholder="Surname"
+            placeholder="Soyad"
             value={values.surname}
             onChange={handleChange}
           />
@@ -248,7 +248,7 @@ function CardUpdate() {
           <input
             name="title"
             className="input"
-            placeholder="Title"
+            placeholder="Başlık"
             value={values.title}
             onChange={handleChange}
           />
@@ -257,7 +257,7 @@ function CardUpdate() {
           <input
             name="description"
             className="input"
-            placeholder="Description"
+            placeholder="Açıklama"
             value={values.description}
             onChange={handleChange}
           />
@@ -266,7 +266,7 @@ function CardUpdate() {
           <input
             name="phoneNumber1"
             className="input"
-            placeholder="Phone Number"
+            placeholder="Telefon Numarası"
             value={values.phoneNumber1}
             onChange={handleChange}
           />
@@ -276,7 +276,7 @@ function CardUpdate() {
             name="email"
             disabled
             className="input text-gray-600 mr-0.5 bg-zinc-100 flex items-center justify-center"
-            placeholder="Email"
+            placeholder="E-posta"
             value={values.email}
             onChange={handleChange}
           />
@@ -286,7 +286,7 @@ function CardUpdate() {
           <input
             name="website"
             className="input"
-            placeholder="Website"
+            placeholder="İnternet sitesi"
             value={values.website}
             onChange={handleChange}
           />
@@ -295,7 +295,7 @@ function CardUpdate() {
           <input
             name="location"
             className="input"
-            placeholder="Location"
+            placeholder="Konum"
             value={values.location}
             onChange={handleChange}
           />

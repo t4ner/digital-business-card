@@ -49,15 +49,15 @@ function Stepper() {
   const steps = [
     {
       step: 1,
-      title: "Content",
+      title: "İçerik",
     },
     {
       step: 2,
-      title: "Design",
+      title: "Tasarım",
     },
     {
       step: 3,
-      title: "Billing",
+      title: "Faturalandırma",
     },
   ];
 
@@ -277,7 +277,7 @@ function Stepper() {
                 <>
                   <header>
                     <h3 className="text-lg font-medium text-zinc-700 mb-2">
-                      Content
+                      İçerik
                     </h3>
                   </header>
                   <div className="flex flex-col w-full mb-3">
@@ -291,7 +291,7 @@ function Stepper() {
                       <Field
                         name="linkId"
                         className="input w-full"
-                        placeholder="Your Page URL"
+                        placeholder="Sayfanızın URL'si"
                       />
                     </div>
 
@@ -303,7 +303,7 @@ function Stepper() {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
                     <div className="flex flex-col">
-                      <Field name="name" className="input" placeholder="Name" />
+                      <Field name="name" className="input" placeholder="Ad" />
                       <ErrorMessage
                         name="name"
                         component="small"
@@ -314,7 +314,7 @@ function Stepper() {
                       <Field
                         name="surname"
                         className="input"
-                        placeholder="Surname"
+                        placeholder="Soyad"
                       />
                       <ErrorMessage
                         name="surname"
@@ -326,7 +326,7 @@ function Stepper() {
                       <Field
                         name="title"
                         className="input"
-                        placeholder="Title"
+                        placeholder="Başlık"
                       />
                       <ErrorMessage
                         name="title"
@@ -338,7 +338,7 @@ function Stepper() {
                       <Field
                         name="description"
                         className="input"
-                        placeholder="Description"
+                        placeholder="Açıklama"
                       />
                       <ErrorMessage
                         name="description"
@@ -350,7 +350,7 @@ function Stepper() {
                       <Field
                         name="phoneNumber1"
                         className="input"
-                        placeholder="Phone Number"
+                        placeholder="Telefon numarası"
                       />
                       <ErrorMessage
                         name="phoneNumber1"
@@ -362,7 +362,7 @@ function Stepper() {
                       <Field
                         name="email"
                         className="input"
-                        placeholder="Email"
+                        placeholder="E-posta"
                       />
                       <ErrorMessage
                         name="email"
@@ -375,7 +375,7 @@ function Stepper() {
                       <Field
                         name="website"
                         className="input"
-                        placeholder="Website"
+                        placeholder="İnternet sitesi"
                       />
                       <ErrorMessage
                         name="website"
@@ -387,7 +387,7 @@ function Stepper() {
                       <Field
                         name="location"
                         className="input"
-                        placeholder="Location"
+                        placeholder="Konum"
                       />
                       <ErrorMessage
                         name="location"
@@ -411,7 +411,7 @@ function Stepper() {
                       <Field
                         name="bankInformationList[0].bankName"
                         className="input"
-                        placeholder="Bank Name"
+                        placeholder="Banka ismi"
                       />
                       <ErrorMessage
                         name="bankInformationList[0].bankName"
@@ -423,7 +423,7 @@ function Stepper() {
                       <Field
                         name="bankInformationList[0].accountName"
                         className="input"
-                        placeholder="Account Name"
+                        placeholder="Hesap adı"
                       />
                       <ErrorMessage
                         name="bankInformationList[0].accountName"
@@ -607,11 +607,13 @@ function Stepper() {
                     </div>
                   </div>
                   <hr className="mt-3" />
-                  <h3 className="text-lg font-medium text-zinc-700 ">Images</h3>
+                  <h3 className="text-lg font-medium text-zinc-700 ">
+                    Resimler
+                  </h3>
                   <div className="grid md:grid-cols-2 gap-2.5">
                     <div className="flex flex-col">
                       <label htmlFor="photo1" className="text-sm">
-                        Profil Photo
+                        Profil Fotoğrafı
                       </label>
                       <input
                         id="photo1"
@@ -631,7 +633,7 @@ function Stepper() {
                     </div>
                     <div className="flex flex-col">
                       <label htmlFor="photo2" className="text-sm">
-                        Photo 2
+                        Fotoğraf 2
                       </label>
                       <input
                         id="photo2"
@@ -651,7 +653,7 @@ function Stepper() {
                     </div>
                     <div className="flex flex-col">
                       <label htmlFor="photo3" className="text-sm">
-                        Photo 3
+                        Fotoğraf 3
                       </label>
                       <input
                         id="photo3"
@@ -671,7 +673,7 @@ function Stepper() {
                     </div>
                     <div className="flex flex-col">
                       <label htmlFor="photo4" className="text-sm">
-                        Photo 4
+                        Fotoğraf 4
                       </label>
                       <input
                         id="photo4"
@@ -698,7 +700,7 @@ function Stepper() {
                       className="bg-emerald-600 w-28 justify-self-end text-white rounded h-10 text-sm disabled:opacity-50"
                       disabled={!isValid || !dirty}
                     >
-                      NEXT
+                      İLERİ
                     </button>
                   </div>
                 </>
@@ -707,12 +709,12 @@ function Stepper() {
                 <>
                   <header>
                     <h3 className="text-lg font-medium text-zinc-700 mb-2">
-                      Design
+                      Tasarım
                     </h3>
                   </header>
                   <div className="flex gap-2 md:gap-5">
                     <div>
-                      <span className="flex font-medium mb-2">Theme 1</span>
+                      <span className="flex font-medium mb-2">Tasarım 1</span>
                       <div className="flex border border-blue-200 shadow-lg rounded-lg mb-5 flex-col items-center">
                         <label>
                           <input
@@ -738,7 +740,7 @@ function Stepper() {
                     </div>
 
                     <div>
-                      <span className="font-medium mb-4">Theme 2</span>
+                      <span className="font-medium mb-4">Tasarım 2</span>
                       <div className="flex border border-blue-200 shadow-lg rounded-lg mb-5 flex-col items-center mt-2">
                         <label>
                           <input
@@ -770,7 +772,7 @@ function Stepper() {
                       type="button"
                       className="bg-emerald-600 w-28 justify-self-start text-white rounded h-10 text-sm"
                     >
-                      PREV
+                      GERİ
                     </button>
                     <button
                       onClick={nextHandle2}
@@ -784,7 +786,7 @@ function Stepper() {
                       )}
                       disabled={!isValid || !dirty}
                     >
-                      NEXT
+                      İLERİ
                     </button>
                   </div>
                 </>
@@ -851,7 +853,7 @@ function Stepper() {
                       type="button"
                       className="bg-emerald-600 w-28 justify-self-start text-white rounded h-10 text-sm"
                     >
-                      PREV
+                      GERİ
                     </button>
                     <button
                       type="button"
@@ -859,7 +861,7 @@ function Stepper() {
                       disabled={!isValid || !dirty}
                       onClick={submitHandle}
                     >
-                      SUBMIT
+                      TAMAMLA
                     </button>
                   </div>
                 </>

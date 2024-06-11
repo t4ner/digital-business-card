@@ -44,6 +44,7 @@ function Contact() {
               <div className="relative my-2 md:my-4 pb-2">
                 <input
                   type="text"
+                  required
                   name="user_name"
                   placeholder="Adınız"
                   className="block w-full md:w-72 py-1 pt-5  px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
@@ -53,6 +54,7 @@ function Contact() {
               <div className="relative my-2 md:my-4 pb-2">
                 <input
                   type="email"
+                  required
                   name="user_email"
                   placeholder="Mail adresiniz"
                   className="block w-full md:w-72 py-1 pt-5  px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
@@ -62,6 +64,7 @@ function Contact() {
               <div className="relative my-2 md:my-4 pb-2">
                 <input
                   type="text"
+                  required
                   id="name"
                   name="user_telephone"
                   placeholder="Telefon Numaranız"
@@ -71,6 +74,7 @@ function Contact() {
 
               <div className="relative my-2 md:my-4 pb-2">
                 <input
+                  required
                   name="message"
                   placeholder="Mesajınız..."
                   className="block w-full md:w-72 py-1 pt-5 placeholder:text-base px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
