@@ -24,58 +24,56 @@ function Contact() {
       );
   };
   return (
-    <div className="mb-20 bg-purple-300">
-       <ToastContainer />
-      <div className="w-4/5 mx-auto flex justify-between gap-10 py-10">
-        <div className="bg-white basis-1/3 p-5 rounded-lg">
-          <h3 className="text-6xl font-bold p-3 from-green-600 via-purple-600 to-blue-600 bg-gradient-to-r bg-clip-text border-0 text-transparent">
+    <div className="md:mb-20 mb-10 md:bg-purple-300">
+      <ToastContainer />
+      <div className="md:w-4/5 mx-auto flex-col md:flex md:flex-row justify-between gap-10 md:py-10">
+        <div className="bg-white basis-full md:basis-1/3 md:p-5 rounded-lg">
+          <h3 className="text-2xl md:text-6xl font-bold p-1 from-green-600 via-purple-600 to-blue-600 bg-gradient-to-r bg-clip-text border-0 text-transparent">
             Bizimle iletişime geçin
           </h3>
-          <div className="flex items-center gap-3 mt-8">
+          <div className="flex items-center md:gap-3 gap-1  md:mt-8">
             <img src={instagram} />
-            <span className="font-medium text-2xl bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] bg-clip-text border-0 text-transparent">
+            <span className="font-medium text-lg md:text-2xl bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] bg-clip-text border-0 text-transparent">
               @ecoqrcode.tr
             </span>
           </div>
         </div>
-        <div className="bg-white flex-1 p-5 rounded-lg">
+        <div className="bg-white flex-1 px-2 md:p-5 rounded-lg">
           <form ref={form} onSubmit={sendEmail}>
             <div className="flex-col md:flex md:flex-row flex-wrap md:gap-10">
-              <div className="relative my-4 pb-2">
+              <div className="relative my-2 md:my-4 pb-2">
                 <input
                   type="text"
                   name="user_name"
                   placeholder="Adınız"
-                  className="block w-72 py-1 pt-5  px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
+                  className="block w-full md:w-72 py-1 pt-5  px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
                 />
               </div>
 
-              <div className="relative my-4 pb-2">
+              <div className="relative my-2 md:my-4 pb-2">
                 <input
                   type="email"
                   name="user_email"
                   placeholder="Mail adresiniz"
-                  className="block w-72 py-1 pt-5  px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
+                  className="block w-full md:w-72 py-1 pt-5  px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
                 />
               </div>
 
-              <div className="relative my-4 pb-2">
+              <div className="relative my-2 md:my-4 pb-2">
                 <input
                   type="text"
                   id="name"
                   name="user_telephone"
                   placeholder="Telefon Numaranız"
-                  className="block w-72 py-1 pt-5  px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
+                  className="block w-full md:w-72 py-1 pt-5  px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
                 />
               </div>
 
-              <div className="relative my-4 pb-2">
-                <textarea
-                  rows={1}
-                  cols={1}
+              <div className="relative my-2 md:my-4 pb-2">
+                <input
                   name="message"
                   placeholder="Mesajınız..."
-                  className="block w-72 py-1 pt-5  px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
+                  className="block w-full md:w-72 py-1 pt-5 placeholder:text-base px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
                 />
               </div>
 
