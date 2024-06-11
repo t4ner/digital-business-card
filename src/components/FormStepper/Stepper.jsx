@@ -7,6 +7,7 @@ import twitter from "/socialMediaLogo/twitter.svg";
 import telegram from "/socialMediaLogo/telegram.svg";
 import facebook from "/socialMediaLogo/facebook.svg";
 import whatsapp from "/socialMediaLogo/whatsapp.svg";
+import discord from "/socialMediaLogo/discord.svg";
 import linkedin from "/socialMediaLogo/linkedin.svg";
 import wechat from "/socialMediaLogo/wechat.svg";
 import theme1 from "/themes/1.png";
@@ -17,11 +18,10 @@ import axios from "axios";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import DigitalCard from "../Digitalcard/DigitalCard";
-import Payment from "./components/Payment";
 
 function Stepper() {
   const [state, setState] = useState({
-    number: "",
+    xxx: "",
     expiry: "",
     cvc: "",
     name: "",
@@ -36,6 +36,15 @@ function Stepper() {
   console.log("image2", image2);
   console.log("image3", image3);
   console.log("image4", image4);
+  const handleInputChange = (evt) => {
+    const { name, value } = evt.target;
+
+    setState((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleInputFocus = (evt) => {
+    setState((prev) => ({ ...prev, focus: evt.target.name }));
+  };
 
   const steps = [
     {
@@ -80,6 +89,14 @@ function Stepper() {
           telegram: "",
           themeId: 0,
           email: "",
+          discord: "",
+          bankInformationList: [
+            {
+              iban: "",
+              bankName: "",
+              accountName: "",
+            },
+          ],
         }}
         onSubmit={(values, actions) => {
           console.log("values", values);
@@ -150,8 +167,13 @@ function Stepper() {
           const nextHandle1 = (e) => {
             setFieldValue("step", values.step + 1);
           };
-          const nextHandle2 = async (e) => {
-            setFieldValue("step", values.step + 1);
+          const nextHandle2 = () => {
+            if (values.themeId) {
+              setFieldValue("step", values.step + 1);
+            } else {
+              // Tema seçilmediğinde hata mesajı göstermek isterseniz burada uygun bir hata mesajı gösterebilirsiniz.
+              console.error("A theme must be selected.");
+            }
           };
           const submitHandle = async (e) => {
             const requestData = { ...values };
@@ -185,6 +207,10 @@ function Stepper() {
           const [showInputTelegram, setShowInputTelegram] = useState(false);
           const showTelegram = () => {
             setShowInputTelegram(!showInputTelegram);
+          };
+          const [showInputDiscord, setShowInputDiscord] = useState(false);
+          const showDiscord = () => {
+            setShowInputDiscord(!showInputDiscord);
           };
           const [showInputFacebook, setShowInputFacebook] = useState(false);
           const showFacebook = () => {
@@ -371,6 +397,42 @@ function Stepper() {
                       />
                     </div>
                     <div className="flex flex-col">
+                      <Field
+                        name="bankInformationList[0].iban"
+                        className="input"
+                        placeholder="IBAN"
+                      />
+                      <ErrorMessage
+                        name="bankInformationList[0].iban"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <Field
+                        name="bankInformationList[0].bankName"
+                        className="input"
+                        placeholder="Bank Name"
+                      />
+                      <ErrorMessage
+                        name="bankInformationList[0].bankName"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <Field
+                        name="bankInformationList[0].accountName"
+                        className="input"
+                        placeholder="Account Name"
+                      />
+                      <ErrorMessage
+                        name="bankInformationList[0].accountName"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col">
                       <button
                         type="button"
                         onClick={showInstagram}
@@ -430,6 +492,28 @@ function Stepper() {
                             name="telegram"
                             className="input mt-3"
                             placeholder="Telegram"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <button
+                        type="button"
+                        onClick={showDiscord}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
+                      >
+                        <span className="font-medium text-blue-600">
+                          Discord
+                        </span>
+
+                        <img src={discord} className="w-6" />
+                      </button>
+                      {showInputDiscord && (
+                        <>
+                          <Field
+                            name="discord"
+                            className="input mt-3"
+                            placeholder="Discord"
                           />
                         </>
                       )}
@@ -704,7 +788,13 @@ function Stepper() {
                     <button
                       onClick={nextHandle2}
                       type="button"
-                      className="bg-emerald-600 w-28 justify-self-end text-white rounded h-10 text-sm disabled:opacity-50"
+                      className={classNames(
+                        "justify-self-end text-white rounded h-10 text-sm w-28 bg-emerald-600",
+                        {
+                          "opacity-50 cursor-default": values.themeId === 0,
+                          "bg-emerald-600 cursor-pointer": values.themeId > 0, // Seçili tema için selected-theme sınıfını ekleyin
+                        }
+                      )}
                       disabled={!isValid || !dirty}
                     >
                       NEXT
@@ -715,7 +805,76 @@ function Stepper() {
 
               {values.step === 3 && (
                 <>
-                  <Payment />
+                  <h3 className="text-lg font-medium text-zinc-700 mb-2">
+                    Billing
+                  </h3>
+                  <div>
+                    <Cards
+                      number={state.xxx}
+                      expiry={state.expiry}
+                      cvc={state.cvc}
+                      name={state.name}
+                      focused={state.focus}
+                    />
+
+                    <div className="grid grid-cols-2 gap-2.5 mt-5">
+                      <input
+                        type="text"
+                        name="xxx"
+                        placeholder="Card Number"
+                        value={state.xxx}
+                        onChange={handleInputChange}
+                        onFocus={handleInputFocus}
+                        className="input"
+                      />
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Name Surname"
+                        value={state.name}
+                        onChange={handleInputChange}
+                        onFocus={handleInputFocus}
+                        className="input"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-2.5 mt-2">
+                      <input
+                        type="text"
+                        name="expiry"
+                        placeholder="Valid Thru"
+                        value={state.expiry}
+                        onChange={handleInputChange}
+                        onFocus={handleInputFocus}
+                        className="input"
+                      />
+                      <input
+                        type="text"
+                        name="cvc"
+                        placeholder="CVC"
+                        value={state.cvc}
+                        onChange={handleInputChange}
+                        onFocus={handleInputFocus}
+                        className="input"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-4  mt-5">
+                    <button
+                      onClick={prevHandle3}
+                      type="button"
+                      className="bg-emerald-600 w-28 justify-self-start text-white rounded h-10 text-sm"
+                    >
+                      PREV
+                    </button>
+                    <button
+                      type="button"
+                      className="bg-emerald-600 w-28 justify-self-end text-white rounded h-10 text-sm disabled:opacity-50"
+                      disabled={!isValid || !dirty}
+                      onClick={submitHandle}
+                    >
+                      SUBMIT
+                    </button>
+                  </div>
                 </>
               )}
             </Form>
