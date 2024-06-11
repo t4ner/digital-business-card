@@ -5,8 +5,8 @@ import telegram from "/socialMediaLogo/telegram.svg";
 import facebook from "/socialMediaLogo/facebook.svg";
 import whatsapp from "/socialMediaLogo/whatsapp.svg";
 import linkedin from "/socialMediaLogo/linkedin.svg";
-import theme1 from "/themes/1.png";
-import theme2 from "/themes/2.png";
+import theme1 from "/themes/3.png";
+import theme2 from "/themes/4.png";
 import classNames from "classnames";
 import wechat from "/socialMediaLogo/wechat.svg";
 import axios from "axios";
@@ -197,6 +197,7 @@ function CardUpdate() {
         values
       );
       console.log("Response:", response.data);
+      console.log("value", values);
     } catch (error) {
       console.error("Error sending data:", error);
     }
@@ -545,68 +546,58 @@ function CardUpdate() {
         <header>
           <h3 className="text-lg font-medium text-zinc-700 mb-2">Design</h3>
         </header>
-        <span className="flex font-medium mb-2">Theme 1</span>
-        <div className="grid grid-cols-2 gap-2.5 w-full">
-          <div className="flex mb-5 flex-col items-center md:pr-80 justify-center mx-auto">
-            <label>
-              <input
-                type="radio"
-                name="themeId"
-                value={1}
-                checked={values.themeId === 1}
-                onChange={handleChangeTheme1}
-                className="hidden"
-              />
-              <div className="flex gap-2">
-                <img
-                  src={theme1}
-                  alt="Theme 1"
-                  className={classNames("cursor-pointer w-full", {
-                    "border-4 border-blue-500 rounded": values.themeId === 1,
-                  })}
+        <div className="flex gap-4 md:gap-8">
+          <div>
+            <span className="flex font-medium mb-2">Theme 1</span>
+            <div className="flex mb-5 flex-col items-center md:pr-56 justify-center mx-auto  ">
+              <label>
+                <input
+                  type="radio"
+                  name="themeId"
+                  value={1}
+                  checked={values.themeId === 1}
+                  onChange={handleChangeTheme1}
+                  className="hidden"
                 />
-                <img
-                  src={theme2}
-                  alt="Theme 2"
-                  className={classNames("cursor-pointer", {
-                    "border-4 border-blue-500 rounded": values.themeId === 1,
-                  })}
+                <div className="flex gap-2">
+                  <img
+                    src={theme1}
+                    alt="Theme 1"
+                    className={classNames("cursor-pointer ", {
+                      "border-4 border-blue-500 rounded": values.themeId === 1,
+                    })}
+                  />
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <span className="font-medium mb-4">Theme 2</span>
+            <div className="flex mb-5 flex-col items-center md:pr-56 mt-2 md:mt-0">
+              <label>
+                <input
+                  type="radio"
+                  name="themeId"
+                  value={2}
+                  checked={values.themeId === 2}
+                  onChange={handleChangeTheme2}
+                  className="hidden"
                 />
-              </div>
-            </label>
+                <div className="flex gap-2">
+                  <img
+                    src={theme2}
+                    alt="Theme 1"
+                    className={classNames("cursor-pointer ", {
+                      "border-4 border-blue-500 rounded": values.themeId === 2,
+                    })}
+                  />
+                </div>
+              </label>
+            </div>
           </div>
         </div>
-        <span className="font-medium mb-4">Theme 2</span>
-        <div className="grid grid-cols-2 gap-2.5 mt-2">
-          <div className="flex mb-5 flex-col items-center md:pr-80">
-            <label>
-              <input
-                type="radio"
-                name="themeId"
-                value={2}
-                checked={values.themeId === 2}
-                onChange={handleChangeTheme2}
-                className="hidden"
-              />
-              <div className="flex gap-2">
-                <img
-                  src={theme1}
-                  alt="Theme 1"
-                  className={classNames("cursor-pointer w-full", {
-                    "border-4 border-blue-500 rounded": values.themeId === 2,
-                  })}
-                />
-                <img
-                  src={theme2}
-                  alt="Theme 2"
-                  className={classNames("cursor-pointer", {
-                    "border-4 border-blue-500 rounded": values.themeId === 2,
-                  })}
-                />
-              </div>
-            </label>
-          </div>
-        </div>
+
         <div className="grid grid-cols-2 gap-x-4 ">
           <div></div>
           <button

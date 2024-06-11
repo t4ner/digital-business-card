@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik, useFormikContext } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { stepperValidation } from "./StepperValidation";
 import classNames from "classnames";
@@ -10,8 +10,8 @@ import whatsapp from "/socialMediaLogo/whatsapp.svg";
 import discord from "/socialMediaLogo/discord.svg";
 import linkedin from "/socialMediaLogo/linkedin.svg";
 import wechat from "/socialMediaLogo/wechat.svg";
-import theme1 from "/themes/1.png";
-import theme2 from "/themes/2.png";
+import theme1 from "/themes/3.png";
+import theme2 from "/themes/4.png";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import axios from "axios";
@@ -171,7 +171,6 @@ function Stepper() {
             if (values.themeId) {
               setFieldValue("step", values.step + 1);
             } else {
-              // Tema seçilmediğinde hata mesajı göstermek isterseniz burada uygun bir hata mesajı gösterebilirsiniz.
               console.error("A theme must be selected.");
             }
           };
@@ -711,72 +710,60 @@ function Stepper() {
                       Design
                     </h3>
                   </header>
-                  <span className="flex font-medium mb-2">Theme 1</span>
-                  <div className="grid grid-cols-2 gap-2.5">
-                    <div className="flex mb-5 flex-col items-center">
-                      <label>
-                        <input
-                          type="radio"
-                          name="selectedTheme"
-                          value="1"
-                          checked={values.themeId === 1}
-                          onChange={() => setFieldValue("themeId", 1)}
-                          className="hidden"
-                        />
-                        <div className="flex gap-2">
-                          <img
-                            src={theme1}
-                            alt="Theme 1"
-                            className={classNames("cursor-pointer w-full", {
-                              "border-4 border-blue-500 rounded":
-                                values.themeId === 1,
-                            })}
+                  <div className="flex gap-2 md:gap-5">
+                    <div>
+                      <span className="flex font-medium mb-2">Theme 1</span>
+                      <div className="flex border border-blue-200 shadow-lg rounded-lg mb-5 flex-col items-center">
+                        <label>
+                          <input
+                            type="radio"
+                            name="selectedTheme"
+                            value="1"
+                            checked={values.themeId === 1}
+                            onChange={() => setFieldValue("themeId", 1)}
+                            className="hidden"
                           />
-                          <img
-                            src={theme2}
-                            alt="Theme 2"
-                            className={classNames("cursor-pointer", {
-                              "border-4 border-blue-500 rounded":
-                                values.themeId === 1,
-                            })}
+                          <div className="flex gap-2">
+                            <img
+                              src={theme1}
+                              alt="Theme 1"
+                              className={classNames("cursor-pointer w-full", {
+                                "border-2 border-blue-500 rounded":
+                                  values.themeId === 1,
+                              })}
+                            />
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <span className="font-medium mb-4">Theme 2</span>
+                      <div className="flex border border-blue-200 shadow-lg rounded-lg mb-5 flex-col items-center mt-2">
+                        <label>
+                          <input
+                            type="radio"
+                            name="selectedTheme"
+                            value="1"
+                            checked={values.themeId === 2}
+                            onChange={() => setFieldValue("themeId", 2)}
+                            className="hidden"
                           />
-                        </div>
-                      </label>
+                          <div className="flex gap-2">
+                            <img
+                              src={theme2}
+                              alt="Theme 1"
+                              className={classNames("cursor-pointer w-full", {
+                                "border-2 border-blue-500 rounded":
+                                  values.themeId === 2,
+                              })}
+                            />
+                          </div>
+                        </label>
+                      </div>
                     </div>
                   </div>
-                  <span className="font-medium mb-4">Theme 2</span>
-                  <div className="grid grid-cols-2 gap-2.5 mt-2">
-                    <div className="flex mb-5 flex-col items-center">
-                      <label>
-                        <input
-                          type="radio"
-                          name="selectedTheme"
-                          value="1"
-                          checked={values.themeId === 2}
-                          onChange={() => setFieldValue("themeId", 2)}
-                          className="hidden"
-                        />
-                        <div className="flex gap-2">
-                          <img
-                            src={theme1}
-                            alt="Theme 1"
-                            className={classNames("cursor-pointer w-full", {
-                              "border-4 border-blue-500 rounded":
-                                values.themeId === 2,
-                            })}
-                          />
-                          <img
-                            src={theme2}
-                            alt="Theme 2"
-                            className={classNames("cursor-pointer", {
-                              "border-4 border-blue-500 rounded":
-                                values.themeId === 2,
-                            })}
-                          />
-                        </div>
-                      </label>
-                    </div>
-                  </div>
+
                   <div className="grid grid-cols-2 gap-x-4 ">
                     <button
                       onClick={prevHandle2}
