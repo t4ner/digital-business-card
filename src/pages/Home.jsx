@@ -1,3 +1,4 @@
+import Contact from "../components/Contact/Contact";
 import Description from "../components/Description/Description";
 import Footer from "../components/Footer/Footer";
 import GreenTecno from "../components/GreenTecno/GreenTecno";
@@ -21,6 +22,7 @@ function Home() {
       <Nature />
       <Description />
       <Pricing />
+      <Contact />
       <Footer />
     </div>
   );
