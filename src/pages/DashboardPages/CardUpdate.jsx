@@ -42,8 +42,9 @@ function CardUpdate() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://178.128.207.116:8082/businessCard/getDigitalCardByEmail?email=tunahancakil@gmail.com"
+          "http://178.128.207.116:8082/businessCard/getDigitalCardByEmail?email=ecoqr@gmail.com"
         );
+
         setEmailPerson(response.data);
         // Set each value individually
         setValues({

@@ -326,7 +326,7 @@ function Stepper() {
                       <Field
                         name="title"
                         className="input"
-                        placeholder="Başlık"
+                        placeholder="Meslek"
                       />
                       <ErrorMessage
                         name="title"
@@ -448,7 +448,7 @@ function Stepper() {
                           <Field
                             name="instagram"
                             className="input mt-3"
-                            placeholder="Instagram"
+                            placeholder="Instagram kullanıcı adı"
                           />
                         </>
                       )}
@@ -468,7 +468,7 @@ function Stepper() {
                           <Field
                             name="twitter"
                             className="input mt-3"
-                            placeholder="Twitter"
+                            placeholder="Twitter kullanıcı adı"
                           />
                         </>
                       )}
