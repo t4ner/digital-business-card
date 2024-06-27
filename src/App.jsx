@@ -14,6 +14,9 @@ import Payment from "./components/FormStepper/components/Payment";
 import PaymentTest from "./components/FormStepper/components/PaymentTest";
 import PaymentConfirm from "./components/FormStepper/components/PaymentConfirm";
 import ThemeTunahan from "./components/StaticTheme/ThemeTunahan";
+import ThemeYakup from "./components/StaticTheme/ThemeYakup";
+import ThemeEfkan from "./components/StaticTheme/ThemeEfkan";
+import ThemeAhmet from "./components/StaticTheme/ThemeAhmet";
 
 function App() {
   return (
@@ -36,6 +39,12 @@ function App() {
         <Route path="theme1" element={<Theme1 />} />
         <Route path="theme2" element={<Theme2 />} />
         <Route path="/tunahancakil" element={<ThemeTunahan />} />
+        <Route path="/yakupsamilogut" element={<ThemeYakup />} />
+        <Route path="/efkanyildiz" element={<ThemeEfkan />} />
+        <Route path="/ahmetyakar" element={<ThemeAhmet />} />
+
+
+
 
       </Routes>
     </div>
