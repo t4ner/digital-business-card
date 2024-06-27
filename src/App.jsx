@@ -13,6 +13,7 @@ import PaymentFail from "./components/FormStepper/components/PaymentFail";
 import Payment from "./components/FormStepper/components/Payment";
 import PaymentTest from "./components/FormStepper/components/PaymentTest";
 import PaymentConfirm from "./components/FormStepper/components/PaymentConfirm";
+import ThemeTunahan from "./components/StaticTheme/ThemeTunahan";
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
 
         <Route path="theme1" element={<Theme1 />} />
         <Route path="theme2" element={<Theme2 />} />
+        <Route path="/tunahancakil" element={<ThemeTunahan />} />
+
       </Routes>
     </div>
   );
