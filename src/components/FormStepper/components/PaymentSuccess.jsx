@@ -1,7 +1,7 @@
 import React from "react";
 
 function PaymentSuccess() {
-  console.log("Taner");
+  console.log("Test Ödeme");
   return <div>TT</div>;
 }
 

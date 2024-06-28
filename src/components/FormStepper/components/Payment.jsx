@@ -1,9 +1,7 @@
-import React, { useState } from "react";
 import axios from "axios";
-import PaymentTest from "./PaymentTest";
+import React, { useState } from "react";
 
 function Payment() {
-  const [isrendered, setisrendered] = useState(false);
   const [formData, setFormData] = useState({
     cardOwnerName: "",
     cardNumber: "",
@@ -230,30 +228,22 @@ function Payment() {
         onClick={() => {
           let response = axios
             .post(
-              "http://178.128.207.116:8090/api/payment/oneStepPayment3DTest",
+              "http://localhost:8090/api/payment/oneStepPayment3DTest",
               formData
             )
             .then((response) => {
-              console.log("response", response);
               const backendHtmlString = response.data;
               console.log(backendHtmlString);
-              var myWindow = window.open("", "_self", "resizable=yes");
+              var myWindow = window.open("", "_blank", "resizable=yes");
               myWindow.document.write(backendHtmlString);
-              console.log(response.data.payload);
             })
             .catch((error) => {
               console.error("Error:", error);
             });
-          setisrendered(true);
         }}
       >
         Submit
       </button>
-      {isrendered && <PaymentTest formData={formData} />}
-
-      <div className="w-full">
-        <h2>Payment Response</h2>
-      </div>
     </div>
   );
 }
