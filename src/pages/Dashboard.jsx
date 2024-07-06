@@ -32,7 +32,7 @@ function Dashboard() {
           <li className="flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-base items-center gap-x-4 ">
             <Link to="/">
               {" "}
-              <img src={"/dashboard/Chart_fill.png"} />
+              <img src={"/dashboard/homepage.svg"} className="w-6" />
             </Link>
             <span
               className={`${
@@ -40,6 +40,19 @@ function Dashboard() {
               } origin-left duration-200 font-medium md:text-lg`}
             >
               <Link to="/">Anasayfa</Link>
+            </span>
+          </li>
+          <li className="flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-base items-center gap-x-4 ">
+            <Link to="digital-business-card-create">
+              {" "}
+              <img src={"/dashboard/Chart_fill.png"} />
+            </Link>
+            <span
+              className={`${
+                !open && "hidden"
+              } origin-left duration-200 font-medium md:text-lg`}
+            >
+              <Link to="digital-business-card-create">Kartvizit oluştur</Link>
             </span>
           </li>
           <li className="flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-base items-center gap-x-4 ">
@@ -52,7 +65,7 @@ function Dashboard() {
               } origin-left duration-200 font-medium md:text-lg`}
             >
               <Link to="digital-business-card-update">
-                Kartvizit güncelleme
+                Kartvizit güncelle
               </Link>
             </span>
           </li>

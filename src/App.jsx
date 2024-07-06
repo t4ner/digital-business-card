@@ -17,6 +17,7 @@ import ThemeTunahan from "./components/StaticTheme/ThemeTunahan";
 import ThemeYakup from "./components/StaticTheme/ThemeYakup";
 import ThemeEfkan from "./components/StaticTheme/ThemeEfkan";
 import ThemeAhmet from "./components/StaticTheme/ThemeAhmet";
+import CardCreate from "./pages/DashboardPages/CardCreate";
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="setting" element={<Setting />} />
           <Route path="digital-business-card-update" element={<CardUpdate />} />
+          <Route path="digital-business-card-create" element={<CardCreate />} />
+
         </Route>
 
         <Route path="theme1" element={<Theme1 />} />
