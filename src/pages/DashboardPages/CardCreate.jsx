@@ -9,9 +9,10 @@ import whatsapp from "/socialMediaLogo/whatsapp.svg";
 import discord from "/socialMediaLogo/discord.svg";
 import linkedin from "/socialMediaLogo/linkedin.svg";
 import wechat from "/socialMediaLogo/wechat.svg";
-import theme1 from "/themes/3.png";
-import theme2 from "/themes/4.png";
+import theme1 from "/themes/10.png";
+import theme2 from "/themes/11.png";
 import axios from "axios";
+import { stepperValidation } from "./StepperValidation";
 
 function Stepper() {
   const [image1, setImage1] = useState("");
@@ -27,6 +28,7 @@ function Stepper() {
   return (
     <div>
       <Formik
+        validationSchema={stepperValidation}
         initialValues={{
           linkId: "",
           title: "",
@@ -65,7 +67,7 @@ function Stepper() {
             setImage1(file);
 
             if (file) {
-              sendImageToServer(file, values.linkId, values.name);
+              sendImageToServer(file, values.linkId, "profilphoto");
             }
           };
 
@@ -73,7 +75,7 @@ function Stepper() {
             const file = event.target.files[0];
             setImage2(file);
             if (file) {
-              sendImageToServer(file, values.linkId, values.name);
+              sendImageToServer(file, values.linkId, "banner");
             }
           };
 
@@ -98,11 +100,11 @@ function Stepper() {
               const formData = new FormData();
               formData.append("file", image);
               formData.append("linkId", values.linkId);
-              formData.append("name", values.name);
+              formData.append("name", name);
               const jsonData = {
                 file: image,
                 linkId: values.linkId,
-                name: values.name,
+                name: name,
               };
               console.log("jsonData", jsonData);
 
@@ -120,9 +122,7 @@ function Stepper() {
             const requestData = { ...values };
             delete requestData.step;
             delete requestData.lastStep;
-            console.log("values2", values);
-            console.log("requestdata", requestData);
-
+            localStorage.setItem("email", values.email);
             try {
               const response = await axios.post(
                 "http://178.128.207.116:8082/businessCard/createDigiCard",
@@ -131,6 +131,7 @@ function Stepper() {
               console.log("Success:", response.data);
             } catch (error) {
               console.error("Error:", error);
+              console.log("er", requestData);
             }
           };
 
@@ -511,7 +512,7 @@ function Stepper() {
                       <img
                         src={URL.createObjectURL(image1)}
                         alt="Photo 1"
-                        className=" h-40"
+                        className=" h-96 w-96 object-cover"
                       />
                     )}
                   </div>
@@ -531,7 +532,7 @@ function Stepper() {
                       <img
                         src={URL.createObjectURL(image2)}
                         alt="Photo 2"
-                        className="h-40"
+                        className="h-96 w-96 object-cover"
                       />
                     )}
                   </div>
@@ -551,7 +552,7 @@ function Stepper() {
                       <img
                         src={URL.createObjectURL(image3)}
                         alt="Photo 3"
-                        className="h-40"
+                        className=" h-96 w-96 object-cover"
                       />
                     )}
                   </div>
@@ -571,11 +572,77 @@ function Stepper() {
                       <img
                         src={URL.createObjectURL(image4)}
                         alt="Photo 4"
-                        className="h-40"
+                        className=" h-96 w-96 object-cover"
                       />
                     )}
                   </div>
                 </div>
+                <>
+                  <header>
+                    <h3 className="text-lg font-medium text-zinc-700 mb-2">
+                      Tasarım
+                    </h3>
+                  </header>
+                  <div className="flex gap-2 md:gap-5">
+                    <div>
+                      <span className="flex font-medium mb-2">Tasarım 1</span>
+                      <div className="flex  md:pr-56  rounded-lg mb-5 flex-col items-center">
+                        <label>
+                          <input
+                            type="radio"
+                            name="selectedTheme"
+                            value="1"
+                            checked={values.themeId === 1}
+                            onChange={() => setFieldValue("themeId", 1)}
+                            className="hidden"
+                          />
+                          <div className="flex gap-2">
+                            <img
+                              src={theme1}
+                              alt="Theme 1"
+                              className={classNames(
+                                "cursor-pointer w-full shadow-lg",
+                                {
+                                  "border-2 border-blue-500 rounded":
+                                    values.themeId === 1,
+                                }
+                              )}
+                            />
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <span className="font-medium mb-4">Tasarım 2</span>
+                      <div className="flex md:pr-56  rounded-lg mb-5 flex-col items-center mt-2">
+                        <label>
+                          <input
+                            type="radio"
+                            name="selectedTheme"
+                            value="1"
+                            checked={values.themeId === 2}
+                            onChange={() => setFieldValue("themeId", 2)}
+                            className="hidden"
+                          />
+                          <div className="flex gap-2">
+                            <img
+                              src={theme2}
+                              alt="Theme 1"
+                              className={classNames(
+                                "cursor-pointer w-full shadow-lg",
+                                {
+                                  "border-2 border-blue-500 rounded":
+                                    values.themeId === 2,
+                                }
+                              )}
+                            />
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </>
                 <div className="grid grid-cols-2 gap-x-4 mt-5">
                   <div></div>
                   <button
@@ -584,7 +651,7 @@ function Stepper() {
                     disabled={!isValid || !dirty}
                     onClick={submitHandle}
                   >
-                    TAMAMLA
+                    OLUŞTUR
                   </button>
                 </div>
               </>

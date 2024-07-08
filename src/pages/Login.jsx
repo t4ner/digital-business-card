@@ -33,15 +33,18 @@ function Login() {
         }
       );
       console.log("response", response);
-      const token = response.data.token;
+      const token = response.data.token; // Sunucudan gelen token alanı buraya göre düzenlendiğini varsayıyorum
 
+      if (!token) {
+        throw new Error("Token not found in response");
+      }
+
+      // Tokenin doğru formatta olduğundan emin olun
       const decodedToken = jwtDecode(token);
       console.log("decodedToken", decodedToken);
 
       localStorage.setItem("token", token);
       localStorage.setItem("email", decodedToken.sub);
-
-      console.log("Decoded Token:", decodedToken);
 
       if (decodedToken.sub === formData.email) {
         console.log("Giriş başarılı");
@@ -55,6 +58,7 @@ function Login() {
       setError("Kullanıcı adı veya şifre yanlış");
     }
   };
+
   return (
     <div>
       <Navbar />
@@ -66,54 +70,60 @@ function Login() {
           <h1 className="text-3xl md:text-4xl text-white font-bold text-center mb-6">
             Giriş yap
           </h1>
-          <div className="relative my-4 pb-2">
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="block w-72 py-1 pt-5  px-0  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-green-400 focus:outline-none focus:ring-0 focus:text-white focus:border-green-400 peer"
-            />
-            <label
-              htmlFor="email"
-              className="absolute font-medium text-xl text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-400 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 mt-1"
+          <form onSubmit={handleSubmit}>
+            <div className="relative my-4 pb-2">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className="block w-72 py-1 pt-5  px-0  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-green-400 focus:outline-none focus:ring-0 focus:text-white focus:border-green-400 peer"
+              />
+              <label
+                htmlFor="email"
+                className="absolute font-medium text-xl text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-400 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 mt-1"
+              >
+                Email
+              </label>
+            </div>
+            <div className="relative my-4">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                className="block w-72 py-1 pt-5 px-0  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-green-400 focus:outline-none focus:ring-0 focus:text-white focus:border-green-400 peer"
+              />
+              <label
+                htmlFor=""
+                className="absolute font-medium text-xl text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-400 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 mt-1"
+              >
+                Şifre
+              </label>
+            </div>
+            <button
+              type="submit"
+              className="w-full mb-4 text-lg font-medium mt-6 rounded-full bg-white text-emerald-600 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300"
             >
-             Email
-            </label>
-          </div>
-          <div className="relative my-4">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              className="block w-72 py-1 pt-5 px-0  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-green-400 focus:outline-none focus:ring-0 focus:text-white focus:border-green-400 peer"
-            />
-            <label
-              htmlFor=""
-              className="absolute font-medium text-xl text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-400 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 mt-1"
-            >
-              Şifre
-            </label>
-          </div>
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            className="w-full mb-4 text-lg font-medium mt-6 rounded-full bg-white text-emerald-600 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300"
-          >
-            Login
-          </button>
-          {error && <p className="text-red-500 text-center py-2 font-semibold">{error}</p>}
-          <div className="text-center"> 
+              Login
+            </button>
+          </form>
+          {error && (
+            <p className="text-red-500 text-center py-2 font-semibold">
+              {error}
+            </p>
+          )}
+          <div className="text-center">
             <span className="text-white font-medium">
-              New Here? <Link to="/signIn" className="underline">Create an Account</Link>
+              New Here?{" "}
+              <Link to="/signIn" className="underline">
+                Create an Account
+              </Link>
             </span>
           </div>
-        
         </div>
-        
       </div>
       <Footer />
     </div>

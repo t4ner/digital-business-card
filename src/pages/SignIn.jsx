@@ -53,6 +53,7 @@ const SignIn = () => {
                   values
                 );
                 navigate("/login");
+                console.log(response);
               } catch (error) {
                 console.error("Error:", error);
               }
