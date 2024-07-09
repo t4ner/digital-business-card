@@ -73,7 +73,7 @@ function Login() {
           <form onSubmit={handleSubmit}>
             <div className="relative my-4 pb-2">
               <input
-                type="email"
+                type="text"
                 id="email"
                 name="email"
                 value={formData.email}

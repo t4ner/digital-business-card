@@ -31,7 +31,7 @@ function App() {
         <Route path="/dijital-kartvizit-satin-al" element={<Stepper />} />
         <Route path="/login" element={<Login />} />
         <Route path="/theme" element={<Theme />} />
-        <Route path="/signIn" element={<SignIn />} />
+        {/* <Route path="/signIn" element={<SignIn />} /> */}
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="setting" element={<Setting />} />
           <Route path="digital-business-card-update" element={<CardUpdate />} />

@@ -52,14 +52,17 @@ const Header = () => {
               </li>
             )}
             {email ? (
-              <button onClick={handleLogout} className="bg-emerald-400 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
+              <button
+                onClick={handleLogout}
+                className="bg-emerald-400 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500"
+              >
                 <Link to="/">Çıkış yap</Link>
               </button>
             ) : (
               <>
-                <button className="bg-orange-300 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
+                {/* <button className="bg-orange-300 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
                   <Link to="/signIn">Üye ol</Link>
-                </button>
+                </button> */}
                 <button className="bg-emerald-400 font-medium block md:hidden text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
                   <Link to="/login">Giriş yap</Link>
                 </button>
@@ -93,9 +96,9 @@ const Header = () => {
             </button>
           ) : (
             <>
-              <button className="bg-orange-300 font-medium hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
+              {/* <button className="bg-orange-300 font-medium hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
                 <Link to="/signIn">Üye ol</Link>
-              </button>
+              </button> */}
               <button className="bg-emerald-400 font-medium hidden md:block text-white px-5 py-2 rounded-full hover:bg-[#87acec] duration-500">
                 <Link to="/login">Giriş yap</Link>
               </button>

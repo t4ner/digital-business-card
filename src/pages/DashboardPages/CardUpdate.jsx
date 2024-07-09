@@ -6,7 +6,7 @@ import facebook from "/socialMediaLogo/facebook.svg";
 import whatsapp from "/socialMediaLogo/whatsapp.svg";
 import linkedin from "/socialMediaLogo/linkedin.svg";
 import discord from "/socialMediaLogo/discord.svg";
-
+import Swal from "sweetalert2";
 import theme1 from "/themes/10.png";
 import theme2 from "/themes/11.png";
 import classNames from "classnames";
@@ -248,8 +248,18 @@ function CardUpdate() {
       );
       console.log("Response:", response.data);
       console.log("value", values);
+      Swal.fire({
+        icon: "success",
+        title: "Başarılı!",
+        text: "Kartınız başarıyla güncellendi!",
+      });
     } catch (error) {
       console.error("Error sending data:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Bir hata oluştu. Lütfen tekrar deneyin.",
+      });
     }
   };
   console.log("values", values);

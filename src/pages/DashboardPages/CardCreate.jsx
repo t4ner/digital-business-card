@@ -10,6 +10,7 @@ import discord from "/socialMediaLogo/discord.svg";
 import linkedin from "/socialMediaLogo/linkedin.svg";
 import wechat from "/socialMediaLogo/wechat.svg";
 import theme1 from "/themes/10.png";
+import Swal from "sweetalert2";
 import theme2 from "/themes/11.png";
 import axios from "axios";
 import { stepperValidation } from "./StepperValidation";
@@ -128,10 +129,20 @@ function Stepper() {
                 "http://178.128.207.116:8082/businessCard/createDigiCard",
                 requestData
               );
+              Swal.fire({
+                icon: "success",
+                title: "Başarılı!",
+                text: "Kartınız başarıyla oluşturuldu!",
+              });
               console.log("Success:", response.data);
             } catch (error) {
               console.error("Error:", error);
               console.log("er", requestData);
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Bir hata oluştu. Lütfen tekrar deneyin.",
+              });
             }
           };
 

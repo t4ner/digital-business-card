@@ -24,6 +24,7 @@
     "react-icons": "^5.2.1",
     "react-router-dom": "^6.23.1",
     "react-toastify": "^10.0.5",
+    "sweetalert2": "^11.12.2",
     "vcards-js": "^2.10.0",
     "vcf": "^2.1.2",
     "yup": "^1.4.0"
