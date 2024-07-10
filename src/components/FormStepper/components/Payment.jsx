@@ -234,16 +234,12 @@ function Payment() {
               formData
             )
             .then((response) => {
-              console.log("response", response);
               const backendHtmlString = response.data;
-              console.log(backendHtmlString);
+
               var myWindow = window.open("", "_self", "resizable=yes");
               myWindow.document.write(backendHtmlString);
-              console.log(response.data.payload);
             })
-            .catch((error) => {
-              console.error("Error:", error);
-            });
+            .catch((error) => {});
           setisrendered(true);
         }}
       >

@@ -6,7 +6,6 @@ import logo from "/logo/logo.png";
 const Header = () => {
   const navigate = useNavigate();
   const email = localStorage.getItem("email");
-  console.log("email", email);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {

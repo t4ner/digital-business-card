@@ -33,9 +33,7 @@ function Stepper() {
           job: "",
           about: "",
         }}
-        onSubmit={(values, actions) => {
-          console.log("values", values);
-        }}
+        onSubmit={(values, actions) => {}}
       >
         {({ values, setFieldValue, isValid, dirty }) => {
           const prevHandle = (e) => {

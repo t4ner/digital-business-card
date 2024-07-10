@@ -21,11 +21,6 @@ function Stepper() {
   const [image3, setImage3] = useState("");
   const [image4, setImage4] = useState("");
 
-  console.log("image1", image1);
-  console.log("image2", image2);
-  console.log("image3", image3);
-  console.log("image4", image4);
-
   return (
     <div>
       <Formik
@@ -58,9 +53,7 @@ function Stepper() {
             },
           ],
         }}
-        onSubmit={(values, actions) => {
-          console.log("values", values);
-        }}
+        onSubmit={(values, actions) => {}}
       >
         {({ values, setFieldValue, isValid, dirty }) => {
           const handleImage1Change = (event) => {
@@ -107,16 +100,12 @@ function Stepper() {
                 linkId: values.linkId,
                 name: name,
               };
-              console.log("jsonData", jsonData);
 
               const response = await axios.post(
                 "http://178.128.207.116:8083/businessCard/upload",
                 formData
               );
-              console.log("Image upload success:", response.data);
-            } catch (error) {
-              console.error("Image upload error:", error);
-            }
+            } catch (error) {}
           };
 
           const submitHandle = async (e) => {
@@ -134,10 +123,7 @@ function Stepper() {
                 title: "Başarılı!",
                 text: "Kartınız başarıyla oluşturuldu!",
               });
-              console.log("Success:", response.data);
             } catch (error) {
-              console.error("Error:", error);
-              console.log("er", requestData);
               Swal.fire({
                 icon: "error",
                 title: "Oops...",

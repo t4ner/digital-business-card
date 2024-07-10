@@ -32,7 +32,7 @@ function Login() {
           password: formData.password,
         }
       );
-      console.log("response", response);
+
       const token = response.data.token; // Sunucudan gelen token alanı buraya göre düzenlendiğini varsayıyorum
 
       if (!token) {
@@ -41,20 +41,17 @@ function Login() {
 
       // Tokenin doğru formatta olduğundan emin olun
       const decodedToken = jwtDecode(token);
-      console.log("decodedToken", decodedToken);
 
       localStorage.setItem("token", token);
       localStorage.setItem("email", decodedToken.sub);
 
       if (decodedToken.sub === formData.email) {
-        console.log("Giriş başarılı");
         navigate("/");
         setError(null);
       } else {
         setError("Kullanıcı adı veya şifre yanlış");
       }
     } catch (error) {
-      console.error("Error:", error);
       setError("Kullanıcı adı veya şifre yanlış");
     }
   };

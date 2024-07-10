@@ -21,9 +21,7 @@ function Theme1() {
           "http://178.128.207.116:8082/businessCard/getDigitalCardByLinkId?linkId=tunahancakil"
         );
         setThemeInfo(response.data);
-      } catch (error) {
-        console.error("Veri alınırken bir hata oluştu:", error.message);
-      }
+      } catch (error) {}
     };
     fetchData();
   }, []);

@@ -33,13 +33,10 @@ function Theme1() {
           );
           setPhotos(photosResponse.data);
         }
-      } catch (error) {
-        console.error("Veri alınırken bir hata oluştu:", error.message);
-      }
+      } catch (error) {}
     };
     fetchData();
   }, []);
-  console.log("photos", photos);
   const downloadVCF = () => {
     if (!themeInfo) return;
 
@@ -74,7 +71,6 @@ function Theme1() {
   if (!themeInfo) {
     return null;
   }
-  console.log("themeInfo", themeInfo);
   const profilPhoto = photos.find((photo) => photo.name === "profilphoto");
   const bannerPhoto = photos.find((photo) => photo.name === "banner");
   return (

@@ -54,7 +54,6 @@ function CardUpdate() {
       try {
         const userEmail = localStorage.getItem("email");
         if (!userEmail) {
-          console.error("Email not found in localStorage");
           return;
         }
 
@@ -98,14 +97,11 @@ function CardUpdate() {
             })
           ),
         });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+      } catch (error) {}
     };
 
     fetchData();
   }, []);
-  console.log("emailPerson", emailPerson);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -177,18 +173,12 @@ function CardUpdate() {
         linkId: values.linkId,
         name: name,
       };
-      console.log("jsonData", jsonData);
 
       const response = await axios.post(
         "http://178.128.207.116:8083/businessCard/upload",
         formData
       );
-      console.log("Image upload success:", response.data);
-      console.log("image", formData);
-    } catch (error) {
-      console.error("Image upload error:", error);
-      console.log("image", formData);
-    }
+    } catch (error) {}
   };
   const [showInputInstagram, setShowInputInstagram] = useState(false);
   const showInstagram = () => {
@@ -239,22 +229,20 @@ function CardUpdate() {
       themeId: value,
     }));
   };
-  console.log("values", values);
+
   const sendDataToServer = async () => {
     try {
       const response = await axios.put(
         "http://178.128.207.116:8082/businessCard/updateDigitalCard",
         values
       );
-      console.log("Response:", response.data);
-      console.log("value", values);
+
       Swal.fire({
         icon: "success",
         title: "Başarılı!",
         text: "Kartınız başarıyla güncellendi!",
       });
     } catch (error) {
-      console.error("Error sending data:", error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -262,7 +250,6 @@ function CardUpdate() {
       });
     }
   };
-  console.log("values", values);
   return (
     <>
       {values.linkId !== "" && (
