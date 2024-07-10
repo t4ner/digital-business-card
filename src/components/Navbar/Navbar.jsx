@@ -29,17 +29,17 @@ const Header = () => {
         </div>
         <div
           className={`nav-links duration-500  md:static absolute z-50 bg-white md:min-h-fit min-h-full left-0 ${
-            isMenuOpen ? "top-[11%]" : "top-[-100%]"
+            isMenuOpen ? "top-[10%]" : "top-[-100%]"
           } md:w-auto w-full flex px-5`}
         >
           <ul className="flex md:flex-row flex-col z-50  md:hidden md:items-center md:gap-[4vw] gap-2 mt-5">
             <li>
-              <Link
+              {/* <Link
                 className="hover:text-gray-500 block md:hidden font-semibold text-zinc-500"
                 to="/dijital-kartvizit-satin-al"
               >
                 DİJİTAL KARTVİZİT SATIN AL
-              </Link>
+              </Link> */}
             </li>
             {email && (
               <li>
@@ -71,12 +71,12 @@ const Header = () => {
           </ul>
         </div>
         <div className="flex items-center gap-2">
-          <Link
+          {/* <Link
             className="hover:text-gray-500 hidden md:block font-semibold text-zinc-500 mr-4"
             to="/dijital-kartvizit-satin-al"
           >
             DİJİTAL KARTVİZİT SATIN AL
-          </Link>
+          </Link> */}
 
           {email && (
             <Link

@@ -24,7 +24,7 @@ function Contact() {
       );
   };
   return (
-    <div className="md:mb-20 mb-10 md:bg-purple-300">
+    <div className="md:mb-20 mb-10 mt-10 md:mt-20 md:bg-purple-300">
       <ToastContainer />
       <div className="md:w-4/5 mx-auto flex-col md:flex md:flex-row justify-between gap-10 md:py-10">
         <div className="bg-white basis-full md:basis-1/3 md:p-5 rounded-lg">

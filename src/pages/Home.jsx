@@ -21,7 +21,7 @@ function Home() {
       <OurGoals />
       <Nature />
       <Description />
-      <Pricing />
+      {/* <Pricing /> */}
       <Contact />
       <Footer />
     </div>
