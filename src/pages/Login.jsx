@@ -4,7 +4,6 @@ import { jwtDecode } from "jwt-decode";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
@@ -13,7 +12,6 @@ function Login() {
     email: "",
     password: "",
   });
-
   const [error, setError] = useState(null);
 
   const handleInputChange = (e) => {
@@ -26,7 +24,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://178.128.207.116:8089/api/auth/login",
+        "https://ecoqrcode.com/authentication/api/auth/login",
         {
           usernameOrEmail: formData.email,
           password: formData.password,
