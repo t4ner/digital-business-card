@@ -115,14 +115,6 @@ function Login() {
               {error}
             </p>
           )}
-          <div className="text-center">
-            <span className="text-white font-medium">
-              New Here?{" "}
-              <Link to="/signIn" className="underline">
-                Create an Account
-              </Link>
-            </span>
-          </div>
         </div>
       </div>
       <Footer />
