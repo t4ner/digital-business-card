@@ -102,7 +102,7 @@ function Stepper() {
               };
 
               const response = await axios.post(
-                "http://178.128.207.116:8083/businessCard/upload",
+                " https://ecoqrcode.com/businessCard/upload",
                 formData
               );
             } catch (error) {}
@@ -115,7 +115,8 @@ function Stepper() {
             localStorage.setItem("email", values.email);
             try {
               const response = await axios.post(
-                "http://178.128.207.116:8082/businessCard/createDigiCard",
+                "https://ecoqrcode.com/businessCard/createDigiCard",
+               
                 requestData
               );
               Swal.fire({

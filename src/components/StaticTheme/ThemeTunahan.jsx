@@ -18,7 +18,7 @@ function Theme1() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://178.128.207.116:8082/businessCard/getDigitalCardByLinkId?linkId=tunahancakil"
+          "https://ecoqrcode.com/businessCard/getDigitalCardByLinkId?linkId=tunahancakil"
         );
         setThemeInfo(response.data);
       } catch (error) {}

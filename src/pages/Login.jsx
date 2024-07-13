@@ -24,7 +24,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "https://ecoqrcode.com/authentication/api/auth/login",
+        " https://ecoqrcode.com/api/auth/login",
         {
           usernameOrEmail: formData.email,
           password: formData.password,

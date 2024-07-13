@@ -38,7 +38,7 @@ function App() {
           <Route path="digital-business-card-create" element={<CardCreate />} />
         </Route>
 
-        <Route path="/tunahancakil" element={<ThemeTunahan />} />
+        <Route path="/tunahancakill" element={<ThemeTunahan />} />
         <Route path="/yakupsamilogut" element={<ThemeYakup />} />
         <Route path="/efkanyildiz" element={<ThemeEfkan />} />
         <Route path="/ahmetyakar" element={<ThemeAhmet />} />

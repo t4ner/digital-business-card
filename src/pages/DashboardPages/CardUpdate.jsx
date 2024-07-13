@@ -58,7 +58,7 @@ function CardUpdate() {
         }
 
         const response = await axios.get(
-          `http://178.128.207.116:8082/businessCard/getDigitalCardByEmail?email=${userEmail}`
+          ` https://ecoqrcode.com/businessCard/getDigitalCardByEmail?email=${userEmail}`
         );
 
         setEmailPerson(response.data);
@@ -175,7 +175,7 @@ function CardUpdate() {
       };
 
       const response = await axios.post(
-        "http://178.128.207.116:8083/businessCard/upload",
+        "https://ecoqrcode.com/businessCard/upload",
         formData
       );
     } catch (error) {}
@@ -233,7 +233,7 @@ function CardUpdate() {
   const sendDataToServer = async () => {
     try {
       const response = await axios.put(
-        "http://178.128.207.116:8082/businessCard/updateDigitalCard",
+        "https://ecoqrcode.com/businessCard/updateDigitalCard",
         values
       );
 

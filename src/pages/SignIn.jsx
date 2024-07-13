@@ -42,7 +42,7 @@ const SignIn = () => {
             onSubmit={async (values, { setSubmitting }) => {
               try {
                 const response = await axios.post(
-                  "http://178.128.207.116:8089/api/auth/signup",
+                  "https://ecoqrcode.com/api/auth/signup",
                   values
                 );
                 navigate("/login");

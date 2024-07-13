@@ -23,13 +23,13 @@ function Theme1() {
         const username = url.split("/").pop(); // '/' karakterinden sonraki kısmı al
 
         const response = await axios.get(
-          `http://178.128.207.116:8082/businessCard/getDigitalCardByLinkId?linkId=${username}`
+          ` https://ecoqrcode.com/businessCard/getDigitalCardByLinkId?linkId=${username}`
         );
         setThemeInfo(response.data);
 
         if (response.data && response.data.linkId) {
           const photosResponse = await axios.get(
-            `http://178.128.207.116:8083/businessCard/getPhotosByLink?linkId=${response.data.linkId}`
+            `https://ecoqrcode.com/businessCard/getPhotosByLink?linkId=${response.data.linkId}`
           );
           setPhotos(photosResponse.data);
         }
