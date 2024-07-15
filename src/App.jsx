@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Stepper from "./components/FormStepper/Stepper";
 import Login from "./pages/Login";
-import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import Setting from "./pages/DashboardPages/Setting";
 import CardUpdate from "./pages/DashboardPages/CardUpdate";
@@ -37,11 +36,10 @@ function App() {
           <Route path="digital-business-card-update" element={<CardUpdate />} />
           <Route path="digital-business-card-create" element={<CardCreate />} />
         </Route>
-
         <Route path="/tunahancakill" element={<ThemeTunahan />} />
-        <Route path="/yakupsamilogut" element={<ThemeYakup />} />
-        <Route path="/efkanyildiz" element={<ThemeEfkan />} />
-        <Route path="/ahmetyakar" element={<ThemeAhmet />} />
+        <Route path="/yakupsamilogutt" element={<ThemeYakup />} />
+        <Route path="/efkanyildizz" element={<ThemeEfkan />} />
+        <Route path="/ahmetyakarr" element={<ThemeAhmet />} />
 
         <Route path="/*" element={<Theme />} />
       </Routes>

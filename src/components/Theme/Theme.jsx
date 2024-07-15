@@ -13,6 +13,11 @@ import website from "/staticThemePhoto/web.png";
 import banner from "/staticThemePhoto/ttuna.jpg";
 
 function Theme1() {
+  const [isFooterOpen, setIsFooterOpen] = useState(false);
+
+  const toggleFooter = () => {
+    setIsFooterOpen(!isFooterOpen);
+  };
   const [themeInfo, setThemeInfo] = useState("");
   const [photos, setPhotos] = useState([]);
 
@@ -386,6 +391,36 @@ function Theme1() {
           {/* social media finish */}
         </div>
       )}
+
+      <div>
+        <footer className="fixed bottom-0 left-0 w-full bg-blue-500 text-white py-4 text-center">
+          <button className="py-2 px-4 rounded" onClick={toggleFooter}>
+            Banka Bilgileri
+          </button>
+          <button className="py-2 px-4 rounded" onClick={toggleFooter}>
+            Fatura Bilgileri
+          </button>
+        </footer>
+
+        <div
+          className={`fixed bottom-0 left-0 w-full bg-white p-4 border-t transition-transform duration-300 ${
+            isFooterOpen ? "translate-y-0" : "translate-y-full"
+          }`}
+        >
+          <h2 className="text-lg font-semibold">Kuveyt USD</h2>
+          <p className="text-gray-600">Özçelik Tekstil</p>
+          <p className="text-gray-800">TR50 0020 5000 0013 5209 6001 04</p>
+          <button className="mt-2 bg-blue-300 text-white py-1 px-2 rounded">
+            IBAN Kopyala
+          </button>
+          <button
+            className="mt-2 bg-red-500 text-white py-1 px-2 rounded"
+            onClick={toggleFooter}
+          >
+            Kapat
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

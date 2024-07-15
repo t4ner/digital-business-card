@@ -157,7 +157,6 @@ function CardUpdate() {
   const handleImage4Change = (event) => {
     const file = event.target.files[0];
     setImage4(file);
-    // Call service for image 4
     if (file) {
       sendImageToServer(file, values.linkId, values.name);
     }
@@ -250,6 +249,8 @@ function CardUpdate() {
       });
     }
   };
+
+  console.log("emailPerson", emailPerson)
   return (
     <>
       {values.linkId !== "" && (

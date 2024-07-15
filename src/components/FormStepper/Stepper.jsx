@@ -45,7 +45,7 @@ function Stepper() {
           return (
             <Form className="w-[1000px] py-4 mx-auto mt-10">
               <header className="grid grid-cols-2 gap-x-8 border border-zinc-400 rounded-md mb-4">
-                {steps.map((step) => (
+              {steps.map((step) => (
                   <button className="flex flex-col items-center justify-center  py-2">
                     <div
                       className={classNames(
