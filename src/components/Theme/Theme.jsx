@@ -10,14 +10,19 @@ import rehber from "/staticThemePhoto/rehber.png";
 import email from "/staticThemePhoto/email.png";
 import call from "/staticThemePhoto/call.png";
 import website from "/staticThemePhoto/web.png";
-import banner from "/staticThemePhoto/ttuna.jpg";
+import qrcode from "/socialMediaLogo/qr-code.png";
+import invoice from "/socialMediaLogo/bill.png";
+import warrant from "/socialMediaLogo/document.png";
+import share from "/socialMediaLogo/share.png";
+import credit from "/socialMediaLogo/credit-card.png";
 
 function Theme1() {
-  const [isFooterOpen, setIsFooterOpen] = useState(false);
+  const [openSection, setOpenSection] = useState(null);
 
-  const toggleFooter = () => {
-    setIsFooterOpen(!isFooterOpen);
+  const toggleSection = (section) => {
+    setOpenSection((prev) => (prev === section ? null : section));
   };
+
   const [themeInfo, setThemeInfo] = useState("");
   const [photos, setPhotos] = useState([]);
 
@@ -393,33 +398,81 @@ function Theme1() {
       )}
 
       <div>
-        <footer className="fixed bottom-0 left-0 w-full bg-blue-500 text-white py-4 text-center">
-          <button className="py-2 px-4 rounded" onClick={toggleFooter}>
-            Banka Bilgileri
+        <footer className="fixed bottom-0 left-0 w-full bg-emerald-600 text-white  flex justify-around items-start">
+          <button
+            className="py-2  rounded  basis-1/5 flex flex-col items-center justify-center"
+            onClick={() => toggleSection("banka")}
+          >
+            <img src={credit} className="w-9" alt="" />
+            <div className="text-sm font-medium">Banka Bilgileri</div>
           </button>
-          <button className="py-2 px-4 rounded" onClick={toggleFooter}>
+          <button
+            className="py-2  rounded text-sm font-medium basis-1/5 flex flex-col items-center justify-center"
+            onClick={() => toggleSection("fatura")}
+          >
+            <img src={invoice}  className="w-9" alt="" />
             Fatura Bilgileri
+          </button>
+          <button
+            className="py-2  rounded text-sm font-medium basis-1/5 flex flex-col items-center justify-center"
+            onClick={() => toggleSection("fatura")}
+          >
+            <img src={share}  className="w-9" alt="" />
+            Paylaş
+          </button>
+          <button
+            className="py-2  rounded text-sm font-medium basis-1/5 flex flex-col items-center justify-center"
+            onClick={() => toggleSection("fatura")}
+          >
+            <img src={qrcode}  className="w-9" alt="" />
+            QR Code
+          </button>
+          <button
+            className="py-2  rounded text-sm font-medium basis-1/5 flex flex-col items-center justify-center"
+            onClick={() => toggleSection("fatura")}
+          >
+            <img src={warrant}  className="w-9" alt="" />
+            Vekalet Bilgileri
           </button>
         </footer>
 
-        <div
-          className={`fixed bottom-0 left-0 w-full bg-white p-4 border-t transition-transform duration-300 ${
-            isFooterOpen ? "translate-y-0" : "translate-y-full"
-          }`}
-        >
-          <h2 className="text-lg font-semibold">Kuveyt USD</h2>
-          <p className="text-gray-600">Özçelik Tekstil</p>
-          <p className="text-gray-800">TR50 0020 5000 0013 5209 6001 04</p>
-          <button className="mt-2 bg-blue-300 text-white py-1 px-2 rounded">
-            IBAN Kopyala
-          </button>
-          <button
-            className="mt-2 bg-red-500 text-white py-1 px-2 rounded"
-            onClick={toggleFooter}
+        {openSection === "banka" && (
+          <div
+            className={`fixed bottom-0 left-0 w-full bg-white p-4 border-t transition-transform duration-500 ${
+              openSection === "banka" ? "translate-y-0" : "translate-y-full"
+            }`}
           >
-            Kapat
-          </button>
-        </div>
+            <h2 className="text-lg font-semibold">Kuveyt USD</h2>
+            <p className="text-gray-600">Özçelik Tekstil</p>
+            <p className="text-gray-800">TR50 0020 5000 0013 5209 6001 04</p>
+            <button className="mt-2 bg-blue-300 text-white py-1 px-2 rounded">
+              IBAN Kopyala
+            </button>
+            <button
+              className="mt-2 bg-red-500 text-white py-1 px-2 rounded"
+              onClick={() => setOpenSection(null)}
+            >
+              Kapat
+            </button>
+          </div>
+        )}
+
+        {openSection === "fatura" && (
+          <div
+            className={`fixed bottom-0 left-0 w-full bg-white p-4 border-t transition-transform duration-300 ${
+              openSection === "fatura" ? "translate-y-0" : "translate-y-full"
+            }`}
+          >
+            <h2 className="text-lg font-semibold">Fatura Bilgileri</h2>
+            <p className="text-gray-600">Fatura bilgileri içeriği.</p>
+            <button
+              className="mt-2 bg-red-500 text-white py-1 px-2 rounded"
+              onClick={() => setOpenSection(null)}
+            >
+              Kapat
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -20,12 +20,16 @@ function Stepper() {
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
   const [catalog, setCatalog] = useState("");
+  const [digitalCardId, setDigitalCardId] = useState("");
 
+  console.log(digitalCardId, "digitalCardId");
   return (
     <div>
       <Formik
         validationSchema={stepperValidation}
         initialValues={{
+          step: 1,
+          // step 1
           linkId: "",
           title: "",
           description: "",
@@ -50,6 +54,7 @@ function Stepper() {
           sahibinden: "",
           trendyol: "",
           hepsiburada: "",
+          //step2
           bankInformationList: [
             {
               iban: "",
@@ -98,6 +103,55 @@ function Stepper() {
         onSubmit={(values, actions) => {}}
       >
         {({ values, setFieldValue, isValid, dirty }) => {
+          const prevHandle = (e) => {
+            setFieldValue("step", values.step - 1);
+          };
+          const nextHandle = async (e) => {
+            setFieldValue("step", values.step + 1);
+            if (image1) {
+              sendImageToServer(image1, values.linkId, "profilphoto");
+            }
+            if (image2) {
+              sendImageToServer(image2, values.linkId, "banner");
+            }
+            if (catalog) {
+              sendImageToServer(catalog, values.linkId, "catalog");
+            }
+            const requestData = { ...values };
+            delete requestData.step;
+            delete requestData.bankInformationList;
+            delete requestData.invoiceInformationList;
+            delete requestData.warrantOfAttorneyDtoList;
+
+            console.log("requestData", requestData);
+            localStorage.setItem("email", values.email);
+            const token = localStorage.getItem("token");
+            console.log(token, "token");
+            const headers = {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            };
+            try {
+              const response = await axios.post(
+                "https://ecoqrcode.com/businessCard/createDigiCard",
+                requestData,
+                { headers: headers }
+              );
+              setDigitalCardId(response.data.digitalCardId);
+              Swal.fire({
+                icon: "success",
+                title: "Başarılı!",
+                text: "Kartınız başarıyla oluşturuldu!",
+              });
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Bir hata oluştu. Lütfen tekrar deneyin.",
+              });
+            }
+          };
+
           console.log(values);
           const handleImage1Change = (event) => {
             const file = event.target.files[0];
@@ -151,42 +205,86 @@ function Stepper() {
           };
 
           const submitHandle = async (e) => {
-            if (image1) {
-              sendImageToServer(image1, values.linkId, "profilphoto");
-            }
-            if (image2) {
-              sendImageToServer(image2, values.linkId, "banner");
-            }
-            if (catalog) {
-              sendImageToServer(catalog, values.linkId, "catalog");
-            }
-            const requestData = { ...values };
-            delete requestData.step;
-            delete requestData.lastStep;
-            localStorage.setItem("email", values.email);
+            e.preventDefault(); // Prevent default form submission
+
+            // Prepare bank information with digitalCardId
+            const bankInformation = values.bankInformationList
+              .filter(
+                (bankInfo) =>
+                  bankInfo.iban && bankInfo.bankName && bankInfo.accountName
+              )
+              .map((bankInfo) => ({
+                ...bankInfo, // Spread existing bank info
+                digitalCardId: digitalCardId, // Add digitalCardId
+              }));
+
+            console.log("bankInformation", bankInformation);
+
+            // Prepare warrant of attorney with digitalCardId
+            const warrantOfAttorney = values.warrantOfAttorneyDtoList
+              .filter(
+                (warrant) =>
+                  warrant.title && warrant.address && warrant.citizenId // Add other necessary checks
+              )
+              .map((warrant) => ({
+                ...warrant, // Spread existing warrant info
+                digitalCardId: digitalCardId, // Add digitalCardId
+              }));
+
+            console.log("warrantOfAttorney", warrantOfAttorney);
+
+            // Prepare invoice information with digitalCardId
+            const invoiceInformation = values.invoiceInformationList
+              .filter(
+                (invoice) =>
+                  invoice.title &&
+                  invoice.address &&
+                  invoice.taxNumber &&
+                  invoice.taxOffice // Add other necessary checks
+              )
+              .map((invoice) => ({
+                ...invoice, // Spread existing invoice info
+                digitalCardId: digitalCardId, // Add digitalCardId
+              }));
+
+            console.log("invoiceInformation", invoiceInformation);
+
             const token = localStorage.getItem("token");
-            console.log(token, "token");
             const headers = {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             };
+
             try {
-              const response = await axios.post(
-                "https://ecoqrcode.com/businessCard/createDigiCard",
-                requestData,
-                { headers: headers }
+              // Post bank information
+              const bankResponse = await axios.post(
+                "https://ecoqrcode.com/bankInformation/createBankInformation",
+                bankInformation,
+                { headers }
               );
-              Swal.fire({
-                icon: "success",
-                title: "Başarılı!",
-                text: "Kartınız başarıyla oluşturuldu!",
-              });
+              console.log("Bank Response:", bankResponse.data);
+              // Handle success for bank information
+
+              // Post warrant of attorney
+              const warrantResponse = await axios.post(
+                "https://ecoqrcode.com/warrantOfAttorney/createWarrantOfAttorney",
+                warrantOfAttorney,
+                { headers }
+              );
+              console.log("Warrant Response:", warrantResponse.data);
+              // Handle success for warrant of attorney
+
+              // Post invoice information
+              const invoiceResponse = await axios.post(
+                "https://ecoqrcode.com/invoiceInformation/createInvoiceInformation", // Update this URL as needed
+                invoiceInformation,
+                { headers }
+              );
+              console.log("Invoice Response:", invoiceResponse.data);
+              // Handle success for invoice information
             } catch (error) {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Bir hata oluştu. Lütfen tekrar deneyin.",
-              });
+              console.error("Error:", error);
+              // Handle error (e.g., show an error message)
             }
           };
 
@@ -271,128 +369,546 @@ function Stepper() {
 
           return (
             <Form className="p-7">
-              <>
-                <header>
-                  <h3 className="text-lg font-medium text-zinc-700 mb-2">
-                    İçerik
-                  </h3>
-                </header>
-                <div className="flex flex-col w-full mb-3">
-                  <div className="flex items-center">
-                    <div
-                      disabled
-                      className="input text-gray-600 mr-0.5 bg-zinc-300 flex items-center justify-center"
-                    >
-                      linko.page/
+              {values.step === 1 && (
+                <>
+                  <header>
+                    <h3 className="text-lg font-medium text-zinc-700 mb-2">
+                      İçerik
+                    </h3>
+                  </header>
+                  <div className="flex flex-col w-full mb-3">
+                    <div className="flex items-center">
+                      <div
+                        disabled
+                        className="input text-gray-600 mr-0.5 bg-zinc-300 flex items-center justify-center"
+                      >
+                        linko.page/
+                      </div>
+                      <Field
+                        name="linkId"
+                        className="input w-full"
+                        placeholder="Sayfanızın URL'si"
+                      />
                     </div>
-                    <Field
+
+                    <ErrorMessage
                       name="linkId"
-                      className="input w-full"
-                      placeholder="Sayfanızın URL'si"
+                      component="small"
+                      className=" text-xs text-red-600 mt-1"
                     />
                   </div>
+                  <div className="md:flex md:flex-row flex-wrap space-y-3 ">
+                    <div className="flex pt-3 flex-col md:basis-1/2 md:pr-1.5">
+                      <Field name="name" className="input" placeholder="Ad" />
+                      <ErrorMessage
+                        name="name"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                      <Field
+                        name="surname"
+                        className="input"
+                        placeholder="Soyad"
+                      />
+                      <ErrorMessage
+                        name="surname"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                      <Field
+                        name="title"
+                        className="input"
+                        placeholder="Meslek"
+                      />
+                      <ErrorMessage
+                        name="title"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                      <Field
+                        name="description"
+                        className="input"
+                        placeholder="Açıklama"
+                      />
+                      <ErrorMessage
+                        name="description"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                      <Field
+                        name="phoneNumber1"
+                        className="input"
+                        placeholder="Telefon numarası"
+                      />
+                      <ErrorMessage
+                        name="phoneNumber1"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                      <Field
+                        name="email"
+                        className="input"
+                        placeholder="E-posta"
+                      />
+                      <ErrorMessage
+                        name="email"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
 
-                  <ErrorMessage
-                    name="linkId"
-                    component="small"
-                    className=" text-xs text-red-600 mt-1"
-                  />
-                </div>
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                      <Field
+                        name="website"
+                        className="input"
+                        placeholder="İnternet sitesi"
+                      />
+                      <ErrorMessage
+                        name="website"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                      <Field
+                        name="location"
+                        className="input"
+                        placeholder="Konum"
+                      />
+                      <ErrorMessage
+                        name="location"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                      <button
+                        type="button"
+                        onClick={showInstagram}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
+                      >
+                        <span className="font-medium bg-gradient-to-l from-[#d61313] to-[#e2a127] text-transparent bg-clip-text">
+                          Instagram
+                        </span>
+
+                        <img src={instagram} className="w-6 text-red-400" />
+                      </button>
+                      {showInputInstagram && (
+                        <>
+                          <Field
+                            name="instagram"
+                            className="input mt-3"
+                            placeholder="Instagram kullanıcı adı"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                      <button
+                        type="button"
+                        onClick={showX}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                      >
+                        <span className="font-medium">Twitter</span>
+
+                        <img src={twitter} className="w-6 text-red-400" />
+                      </button>
+                      {showInputX && (
+                        <>
+                          <Field
+                            name="twitter"
+                            className="input mt-3"
+                            placeholder="Twitter kullanıcı adı"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                      <button
+                        type="button"
+                        onClick={showTelegram}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
+                      >
+                        <span className="font-medium text-sky-500">
+                          Telegram
+                        </span>
+
+                        <img src={telegram} className="w-6" />
+                      </button>
+                      {showInputTelegram && (
+                        <>
+                          <Field
+                            name="telegram"
+                            className="input mt-3"
+                            placeholder="Telegram"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                      <button
+                        type="button"
+                        onClick={showDiscord}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
+                      >
+                        <span className="font-medium text-blue-600">
+                          Discord
+                        </span>
+
+                        <img src={discord} className="w-6" />
+                      </button>
+                      {showInputDiscord && (
+                        <>
+                          <Field
+                            name="discord"
+                            className="input mt-3"
+                            placeholder="Discord"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                      <button
+                        type="button"
+                        onClick={showFacebook}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                      >
+                        <span className="font-medium text-sky-600">
+                          Facebook
+                        </span>
+
+                        <img src={facebook} className="w-6" />
+                      </button>
+                      {showInputFacebook && (
+                        <>
+                          <Field
+                            name="facebook"
+                            className="input mt-3"
+                            placeholder="Facebook"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                      <button
+                        type="button"
+                        onClick={showWhatshapp}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                      >
+                        <span className="font-medium text-green-600">
+                          Whatshapp
+                        </span>
+
+                        <img src={whatsapp} className="w-6" />
+                      </button>
+                      {showInputWhatshapp && (
+                        <>
+                          <Field
+                            name="whatsapp"
+                            className="input mt-3"
+                            placeholder="Whatshapp"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                      <button
+                        type="button"
+                        onClick={showLinkedin}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                      >
+                        <span className="font-medium text-sky-600">
+                          Linkedin
+                        </span>
+
+                        <img src={linkedin} className="w-6" />
+                      </button>
+                      {showInputLinkedin && (
+                        <>
+                          <Field
+                            name="linkedin"
+                            className="input mt-3"
+                            placeholder="Linkedin"
+                          />
+                        </>
+                      )}
+                    </div>
+
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                      <button
+                        type="button"
+                        onClick={showWhatsappBusiness}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                      >
+                        <span className="font-medium text-green-600">
+                          Whatshapp Business
+                        </span>
+
+                        <img src={whatsapp} className="w-6" />
+                      </button>
+                      {showInputWhatsappBusiness && (
+                        <>
+                          <Field
+                            name="whatsappBusiness"
+                            className="input mt-3"
+                            placeholder="Whatshapp Business"
+                          />
+                        </>
+                      )}
+                    </div>
+
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                      <button
+                        type="button"
+                        onClick={showCiceksepeti}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                      >
+                        <span className="font-medium text-blue-700">
+                          Çiçek Sepeti
+                        </span>
+
+                        <img src={ciceksepeti} className="w-6" />
+                      </button>
+                      {showInputCiceksepeti && (
+                        <>
+                          <Field
+                            name="cicekSepeti"
+                            className="input mt-3"
+                            placeholder="Çiçek Sepeti"
+                          />
+                        </>
+                      )}
+                    </div>
+
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                      <button
+                        type="button"
+                        onClick={showSahibinden}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-[9px] rounded "
+                      >
+                        <span className="font-medium text-yellow-300">
+                          Sahibinden
+                        </span>
+                      </button>
+                      {showInputSahibinden && (
+                        <>
+                          <Field
+                            name="sahibinden"
+                            className="input mt-3"
+                            placeholder="Sahibinden"
+                          />
+                        </>
+                      )}
+                    </div>
+
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                      <button
+                        type="button"
+                        onClick={showTrendyol}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                      >
+                        <span className="font-medium text-orange-500">
+                          Trendyol
+                        </span>
+                      </button>
+                      {showInputTrendyol && (
+                        <>
+                          <Field
+                            name="trendyol"
+                            className="input mt-3"
+                            placeholder="Trendyol"
+                          />
+                        </>
+                      )}
+                    </div>
+
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                      <button
+                        type="button"
+                        onClick={showHepsiburada}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                      >
+                        <span className="font-medium text-orange-500">
+                          Hepsiburada
+                        </span>
+                      </button>
+                      {showInputHepsiburada && (
+                        <>
+                          <Field
+                            name="hepsiburada"
+                            className="input mt-3"
+                            placeholder="Hepsiburada"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                      <button
+                        type="button"
+                        onClick={showWeChat}
+                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
+                      >
+                        <span className="font-medium text-emerald-600">
+                          WeChat
+                        </span>
+
+                        <img src={wechat} className="w-6" />
+                      </button>
+                      {showInputWeChat && (
+                        <>
+                          <Field
+                            name="wechat"
+                            className="input mt-3"
+                            placeholder="WeChat"
+                          />
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  <hr className="mt-8" />
+                  <h3 className="text-lg font-medium text-zinc-700 mt-4 md:mt-8">
+                    Resimler
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-2.5">
+                    <div className="flex flex-col">
+                      <label htmlFor="photo1" className="text-sm">
+                        Profil Fotoğrafı
+                      </label>
+                      <input
+                        id="photo1"
+                        name="photo1"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImage1Change}
+                        className="input pt-1.5  mt-1"
+                      />
+                      {image1 && (
+                        <img
+                          src={URL.createObjectURL(image1)}
+                          alt="Photo 1"
+                          className=" h-96 w-96 object-cover"
+                        />
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <label htmlFor="photo2" className="text-sm">
+                        Banner
+                      </label>
+                      <input
+                        id="photo2"
+                        name="photo2"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImage2Change}
+                        className="input pt-1.5 mt-1"
+                      />
+                      {image2 && (
+                        <img
+                          src={URL.createObjectURL(image2)}
+                          alt="Photo 2"
+                          className="h-96 w-96 object-cover"
+                        />
+                      )}
+                    </div>
+
+                    <div className="flex flex-col">
+                      <label htmlFor="catalog" className="text-sm">
+                        Katalog
+                      </label>
+                      <input
+                        id="catalog"
+                        name="catalog"
+                        type="file"
+                        accept="application/pdf"
+                        onChange={handleCatalog}
+                        className="input pt-1.5 mt-1"
+                      />
+                      {catalog && <p>{catalog.name}</p>}
+                    </div>
+                  </div>
+
+                  <>
+                    <hr className="mt-8" />
+                    <header>
+                      <h3 className="text-lg font-medium text-zinc-700 mt-5 md:mt-8 mb-2">
+                        Tasarım
+                      </h3>
+                    </header>
+                    <div className="flex gap-2 md:gap-5">
+                      <div>
+                        <span className="flex font-medium mb-2">Tasarım 1</span>
+                        <div className="flex  md:pr-56  rounded-lg mb-5 flex-col items-center">
+                          <label>
+                            <input
+                              type="radio"
+                              name="selectedTheme"
+                              value="1"
+                              checked={values.themeId === 1}
+                              onChange={() => setFieldValue("themeId", 1)}
+                              className="hidden"
+                            />
+                            <div className="flex gap-2">
+                              <img
+                                src={theme1}
+                                alt="Theme 1"
+                                className={classNames(
+                                  "cursor-pointer w-full shadow-lg",
+                                  {
+                                    "border-2 border-blue-500 rounded":
+                                      values.themeId === 1,
+                                  }
+                                )}
+                              />
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div>
+                        <span className="font-medium mb-4">Tasarım 2</span>
+                        <div className="flex md:pr-56  rounded-lg mb-5 flex-col items-center mt-2">
+                          <label>
+                            <input
+                              type="radio"
+                              name="selectedTheme"
+                              value="1"
+                              checked={values.themeId === 2}
+                              onChange={() => setFieldValue("themeId", 2)}
+                              className="hidden"
+                            />
+                            <div className="flex gap-2">
+                              <img
+                                src={theme2}
+                                alt="Theme 1"
+                                className={classNames(
+                                  "cursor-pointer w-full shadow-lg",
+                                  {
+                                    "border-2 border-blue-500 rounded":
+                                      values.themeId === 2,
+                                  }
+                                )}
+                              />
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                </>
+              )}
+              {values.step === 2 && (
                 <div className="md:flex md:flex-row flex-wrap space-y-3 ">
-                  <div className="flex pt-3 flex-col md:basis-1/2 md:pr-1.5">
-                    <Field name="name" className="input" placeholder="Ad" />
-                    <ErrorMessage
-                      name="name"
-                      component="small"
-                      className=" text-xs text-red-600 mt-1"
-                    />
-                  </div>
-                  <div className="flex flex-col md:basis-1/2 md:pl-1.5">
-                    <Field
-                      name="surname"
-                      className="input"
-                      placeholder="Soyad"
-                    />
-                    <ErrorMessage
-                      name="surname"
-                      component="small"
-                      className=" text-xs text-red-600 mt-1"
-                    />
-                  </div>
-                  <div className="flex flex-col md:basis-1/2 md:pr-1.5">
-                    <Field
-                      name="title"
-                      className="input"
-                      placeholder="Meslek"
-                    />
-                    <ErrorMessage
-                      name="title"
-                      component="small"
-                      className=" text-xs text-red-600 mt-1"
-                    />
-                  </div>
-                  <div className="flex flex-col md:basis-1/2 md:pl-1.5">
-                    <Field
-                      name="description"
-                      className="input"
-                      placeholder="Açıklama"
-                    />
-                    <ErrorMessage
-                      name="description"
-                      component="small"
-                      className=" text-xs text-red-600 mt-1"
-                    />
-                  </div>
-                  <div className="flex flex-col md:basis-1/2 md:pr-1.5">
-                    <Field
-                      name="phoneNumber1"
-                      className="input"
-                      placeholder="Telefon numarası"
-                    />
-                    <ErrorMessage
-                      name="phoneNumber1"
-                      component="small"
-                      className=" text-xs text-red-600 mt-1"
-                    />
-                  </div>
-                  <div className="flex flex-col md:basis-1/2 md:pl-1.5">
-                    <Field
-                      name="email"
-                      className="input"
-                      placeholder="E-posta"
-                    />
-                    <ErrorMessage
-                      name="email"
-                      component="small"
-                      className=" text-xs text-red-600 mt-1"
-                    />
-                  </div>
-
-                  <div className="flex flex-col md:basis-1/2 md:pr-1.5">
-                    <Field
-                      name="website"
-                      className="input"
-                      placeholder="İnternet sitesi"
-                    />
-                    <ErrorMessage
-                      name="website"
-                      component="small"
-                      className=" text-xs text-red-600 mt-1"
-                    />
-                  </div>
-                  <div className="flex flex-col md:basis-1/2 md:pl-1.5">
-                    <Field
-                      name="location"
-                      className="input"
-                      placeholder="Konum"
-                    />
-                    <ErrorMessage
-                      name="location"
-                      component="small"
-                      className=" text-xs text-red-600 mt-1"
-                    />
-                  </div>
-
                   <div className="font-medium text-zinc-600 text-sm w-full pt-3">
                     BANKA BİLGİLERİ - 1
                   </div>
@@ -650,7 +1166,6 @@ function Stepper() {
                       <div className=" flex-col md:basis-1/2 opacity-0"></div>
                     </>
                   )}
-
                   <div className=" flex-col md:basis-1/2 opacity-0"></div>
                   <div className="font-medium text-zinc-600 text-sm w-full pt-3">
                     FATURA BİLGİLERİ
@@ -707,7 +1222,7 @@ function Stepper() {
                   </div>
 
                   {/* invoice */}
-                  <div className="font-medium text-zinc-600 text-sm w-full pt-3">
+                  <div className="font-medium text-zinc-600 text-sm w-full pt-10">
                     VEKALET BİLGİLERİ
                   </div>
                   {/* warrantOfAttorneyDtoListk */}
@@ -773,422 +1288,41 @@ function Stepper() {
                   </div>
                   <div className=" flex-col md:basis-1/2 hidden md:block md:opacity-0"></div>
                   {/* warrantOfAttorneyDtoListk */}
-                  <div className="flex flex-col md:basis-1/2 md:pr-1.5">
-                    <button
-                      type="button"
-                      onClick={showInstagram}
-                      className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
-                    >
-                      <span className="font-medium bg-gradient-to-l from-[#d61313] to-[#e2a127] text-transparent bg-clip-text">
-                        Instagram
-                      </span>
-
-                      <img src={instagram} className="w-6 text-red-400" />
-                    </button>
-                    {showInputInstagram && (
-                      <>
-                        <Field
-                          name="instagram"
-                          className="input mt-3"
-                          placeholder="Instagram kullanıcı adı"
-                        />
-                      </>
-                    )}
-                  </div>
-                  <div className="flex flex-col md:basis-1/2 md:pl-1.5">
-                    <button
-                      type="button"
-                      onClick={showX}
-                      className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
-                    >
-                      <span className="font-medium">Twitter</span>
-
-                      <img src={twitter} className="w-6 text-red-400" />
-                    </button>
-                    {showInputX && (
-                      <>
-                        <Field
-                          name="twitter"
-                          className="input mt-3"
-                          placeholder="Twitter kullanıcı adı"
-                        />
-                      </>
-                    )}
-                  </div>
-                  <div className="flex flex-col md:basis-1/2 md:pr-1.5">
-                    <button
-                      type="button"
-                      onClick={showTelegram}
-                      className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
-                    >
-                      <span className="font-medium text-sky-500">Telegram</span>
-
-                      <img src={telegram} className="w-6" />
-                    </button>
-                    {showInputTelegram && (
-                      <>
-                        <Field
-                          name="telegram"
-                          className="input mt-3"
-                          placeholder="Telegram"
-                        />
-                      </>
-                    )}
-                  </div>
-                  <div className="flex flex-col md:basis-1/2 md:pl-1.5">
-                    <button
-                      type="button"
-                      onClick={showDiscord}
-                      className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
-                    >
-                      <span className="font-medium text-blue-600">Discord</span>
-
-                      <img src={discord} className="w-6" />
-                    </button>
-                    {showInputDiscord && (
-                      <>
-                        <Field
-                          name="discord"
-                          className="input mt-3"
-                          placeholder="Discord"
-                        />
-                      </>
-                    )}
-                  </div>
-                  <div className="flex flex-col md:basis-1/2 md:pr-1.5">
-                    <button
-                      type="button"
-                      onClick={showFacebook}
-                      className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
-                    >
-                      <span className="font-medium text-sky-600">Facebook</span>
-
-                      <img src={facebook} className="w-6" />
-                    </button>
-                    {showInputFacebook && (
-                      <>
-                        <Field
-                          name="facebook"
-                          className="input mt-3"
-                          placeholder="Facebook"
-                        />
-                      </>
-                    )}
-                  </div>
-                  <div className="flex flex-col md:basis-1/2 md:pl-1.5">
-                    <button
-                      type="button"
-                      onClick={showWhatshapp}
-                      className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
-                    >
-                      <span className="font-medium text-green-600">
-                        Whatshapp
-                      </span>
-
-                      <img src={whatsapp} className="w-6" />
-                    </button>
-                    {showInputWhatshapp && (
-                      <>
-                        <Field
-                          name="whatsapp"
-                          className="input mt-3"
-                          placeholder="Whatshapp"
-                        />
-                      </>
-                    )}
-                  </div>
-                  <div className="flex flex-col md:basis-1/2 md:pr-1.5">
-                    <button
-                      type="button"
-                      onClick={showLinkedin}
-                      className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
-                    >
-                      <span className="font-medium text-sky-600">Linkedin</span>
-
-                      <img src={linkedin} className="w-6" />
-                    </button>
-                    {showInputLinkedin && (
-                      <>
-                        <Field
-                          name="linkedin"
-                          className="input mt-3"
-                          placeholder="Linkedin"
-                        />
-                      </>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col md:basis-1/2 md:pl-1.5">
-                    <button
-                      type="button"
-                      onClick={showWhatsappBusiness}
-                      className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
-                    >
-                      <span className="font-medium text-green-600">
-                        Whatshapp Business
-                      </span>
-
-                      <img src={whatsapp} className="w-6" />
-                    </button>
-                    {showInputWhatsappBusiness && (
-                      <>
-                        <Field
-                          name="whatsappBusiness"
-                          className="input mt-3"
-                          placeholder="Whatshapp Business"
-                        />
-                      </>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col md:basis-1/2 md:pr-1.5">
-                    <button
-                      type="button"
-                      onClick={showCiceksepeti}
-                      className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
-                    >
-                      <span className="font-medium text-blue-700">
-                        Çiçek Sepeti
-                      </span>
-
-                      <img src={ciceksepeti} className="w-6" />
-                    </button>
-                    {showInputCiceksepeti && (
-                      <>
-                        <Field
-                          name="cicekSepeti"
-                          className="input mt-3"
-                          placeholder="Çiçek Sepeti"
-                        />
-                      </>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col md:basis-1/2 md:pl-1.5">
-                    <button
-                      type="button"
-                      onClick={showSahibinden}
-                      className="flex gap-1  items-center justify-center border border-zinc-400 py-[9px] rounded "
-                    >
-                      <span className="font-medium text-yellow-300">
-                        Sahibinden
-                      </span>
-                    </button>
-                    {showInputSahibinden && (
-                      <>
-                        <Field
-                          name="sahibinden"
-                          className="input mt-3"
-                          placeholder="Sahibinden"
-                        />
-                      </>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col md:basis-1/2 md:pr-1.5">
-                    <button
-                      type="button"
-                      onClick={showTrendyol}
-                      className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
-                    >
-                      <span className="font-medium text-orange-500">
-                        Trendyol
-                      </span>
-                    </button>
-                    {showInputTrendyol && (
-                      <>
-                        <Field
-                          name="trendyol"
-                          className="input mt-3"
-                          placeholder="Trendyol"
-                        />
-                      </>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col md:basis-1/2 md:pl-1.5">
-                    <button
-                      type="button"
-                      onClick={showHepsiburada}
-                      className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
-                    >
-                      <span className="font-medium text-orange-500">
-                        Hepsiburada
-                      </span>
-                    </button>
-                    {showInputHepsiburada && (
-                      <>
-                        <Field
-                          name="hepsiburada"
-                          className="input mt-3"
-                          placeholder="Hepsiburada"
-                        />
-                      </>
-                    )}
-                  </div>
-                  <div className="flex flex-col md:basis-1/2 md:pr-1.5">
-                    <button
-                      type="button"
-                      onClick={showWeChat}
-                      className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
-                    >
-                      <span className="font-medium text-emerald-600">
-                        WeChat
-                      </span>
-
-                      <img src={wechat} className="w-6" />
-                    </button>
-                    {showInputWeChat && (
-                      <>
-                        <Field
-                          name="wechat"
-                          className="input mt-3"
-                          placeholder="WeChat"
-                        />
-                      </>
-                    )}
-                  </div>
                 </div>
-                <hr className="mt-8" />
-                <h3 className="text-lg font-medium text-zinc-700 mt-4 md:mt-8">
-                  Resimler
-                </h3>
-                <div className="grid md:grid-cols-2 gap-2.5">
-                  <div className="flex flex-col">
-                    <label htmlFor="photo1" className="text-sm">
-                      Profil Fotoğrafı
-                    </label>
-                    <input
-                      id="photo1"
-                      name="photo1"
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImage1Change}
-                      className="input pt-1.5  mt-1"
-                    />
-                    {image1 && (
-                      <img
-                        src={URL.createObjectURL(image1)}
-                        alt="Photo 1"
-                        className=" h-96 w-96 object-cover"
-                      />
-                    )}
-                  </div>
-                  <div className="flex flex-col">
-                    <label htmlFor="photo2" className="text-sm">
-                      Banner
-                    </label>
-                    <input
-                      id="photo2"
-                      name="photo2"
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImage2Change}
-                      className="input pt-1.5 mt-1"
-                    />
-                    {image2 && (
-                      <img
-                        src={URL.createObjectURL(image2)}
-                        alt="Photo 2"
-                        className="h-96 w-96 object-cover"
-                      />
-                    )}
-                  </div>
-
-                  <div className="flex flex-col">
-                    <label htmlFor="catalog" className="text-sm">
-                      Katalog
-                    </label>
-                    <input
-                      id="catalog"
-                      name="catalog"
-                      type="file"
-                      accept="application/pdf"
-                      onChange={handleCatalog}
-                      className="input pt-1.5 mt-1"
-                    />
-                    {catalog && <p>{catalog.name}</p>}
-                  </div>
-                </div>
-
-                <>
-                  <hr className="mt-8" />
-                  <header>
-                    <h3 className="text-lg font-medium text-zinc-700 mt-5 md:mt-8 mb-2">
-                      Tasarım
-                    </h3>
-                  </header>
-                  <div className="flex gap-2 md:gap-5">
-                    <div>
-                      <span className="flex font-medium mb-2">Tasarım 1</span>
-                      <div className="flex  md:pr-56  rounded-lg mb-5 flex-col items-center">
-                        <label>
-                          <input
-                            type="radio"
-                            name="selectedTheme"
-                            value="1"
-                            checked={values.themeId === 1}
-                            onChange={() => setFieldValue("themeId", 1)}
-                            className="hidden"
-                          />
-                          <div className="flex gap-2">
-                            <img
-                              src={theme1}
-                              alt="Theme 1"
-                              className={classNames(
-                                "cursor-pointer w-full shadow-lg",
-                                {
-                                  "border-2 border-blue-500 rounded":
-                                    values.themeId === 1,
-                                }
-                              )}
-                            />
-                          </div>
-                        </label>
-                      </div>
-                    </div>
-
-                    <div>
-                      <span className="font-medium mb-4">Tasarım 2</span>
-                      <div className="flex md:pr-56  rounded-lg mb-5 flex-col items-center mt-2">
-                        <label>
-                          <input
-                            type="radio"
-                            name="selectedTheme"
-                            value="1"
-                            checked={values.themeId === 2}
-                            onChange={() => setFieldValue("themeId", 2)}
-                            className="hidden"
-                          />
-                          <div className="flex gap-2">
-                            <img
-                              src={theme2}
-                              alt="Theme 1"
-                              className={classNames(
-                                "cursor-pointer w-full shadow-lg",
-                                {
-                                  "border-2 border-blue-500 rounded":
-                                    values.themeId === 2,
-                                }
-                              )}
-                            />
-                          </div>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </>
-                <div className="grid grid-cols-2 gap-x-4 mt-5">
-                  <div></div>
-                  <button
-                    type="button"
-                    className="bg-emerald-600 w-28 justify-self-end text-white rounded h-10 text-sm disabled:opacity-50"
-                    onClick={submitHandle}
-                  >
-                    OLUŞTUR
-                  </button>
-                </div>
-              </>
+              )}
+              <div className="grid grid-cols-2 gap-x-4 mt-4">
+                {values.step === 1 && (
+                  <>
+                    <div />
+                    <button
+                      onClick={nextHandle}
+                      type="button"
+                      className="bg-emerald-600 w-28 disabled:opacity-50 justify-self-end text-white rounded h-10 text-sm"
+                    >
+                      İLERİ
+                    </button>
+                  </>
+                )}
+                {values.step === 2 && (
+                  <>
+                    <button
+                      onClick={prevHandle}
+                      type="button"
+                      className="bg-emerald-600 w-28 justify-self-start text-white rounded h-10 text-sm"
+                    >
+                      GERİ
+                    </button>
+                    <button
+                      type="button"
+                      onClick={submitHandle}
+                      className="bg-emerald-600 w-28 disabled:opacity-50 justify-self-end text-white rounded h-10 text-sm"
+                      disabled={!isValid || !dirty}
+                    >
+                      TAMAMLA
+                    </button>
+                  </>
+                )}
+              </div>
             </Form>
           );
         }}
