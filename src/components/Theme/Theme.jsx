@@ -29,12 +29,12 @@ function Theme1() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextPhoto = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % gallerys.length);
   };
 
   const prevPhoto = () => {
     setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + photos.length) % photos.length
+      (prevIndex) => (prevIndex - 1 + gallerys.length) % gallerys.length
     );
   };
 
@@ -51,8 +51,8 @@ function Theme1() {
   const [warrantInformation, setWarrantInformation] = useState("");
   const [catalogInformation, setCatalogInformation] = useState("");
 
-  console.log(digitalCardId);
   const [photos, setPhotos] = useState([]);
+  const [gallerys, setGallerys] = useState([]);
   const urlToShare = `https://ecoqrcode.com/${themeInfo.linkId}`;
   const handleShare = () => {
     // URL'yi kopyala
@@ -82,16 +82,26 @@ function Theme1() {
         const username = url.split("/").pop();
 
         const response = await axios.get(
-          ` https://ecoqrcode.com/businessCard/getDigitalCardByLinkId?linkId=efkanyildiz`
+          ` https://ecoqrcode.com/businessCard/getDigitalCardByLinkId?linkId=${username}`
         );
         setThemeInfo(response.data);
         setDigitalCardId(response.data.id);
+
         if (response.data && response.data.linkId) {
           const photosResponse = await axios.get(
             `https://ecoqrcode.com/businessCard/getPhotosByLink?linkId=${response.data.linkId}`
           );
           setPhotos(photosResponse.data);
         }
+
+        if (response.data && response.data.linkId) {
+          console.log("geldi galeriye");
+          const galleryResponse = await axios.get(
+            `https://ecoqrcode.com/businessCard/getGalleryPhotosByLink?linkId=${response.data.linkId}`
+          );
+          setGallerys(galleryResponse.data);
+        }
+
         if (response.data && response.data.id) {
           const bankInformationResponse = await axios.get(
             `https://ecoqrcode.com/bankInformation/getBankInformationDigitalCardId?digitalCardId=${response.data.id}`
@@ -157,13 +167,6 @@ function Theme1() {
   const profilPhoto = photos.find((photo) => photo.name === "profilphoto");
   const bannerPhoto = photos.find((photo) => photo.name === "banner");
   const qrCode = photos.find((photo) => photo.name === "QRCode.png");
-
-  console.log(bankaInformation);
-  console.log(invoiceInformation);
-  console.log(warrantInformation);
-  console.log("catalog", catalogInformation);
-
-  console.log(photos);
 
   return (
     <div>
@@ -690,12 +693,12 @@ function Theme1() {
               </button>
               <div className="flex-grow">
                 <div>
-                  {photos.map((photo, index) => {
+                  {gallerys.map((gallery, index) => {
                     return (
                       index === currentIndex && (
                         <img
                           key={index}
-                          src={photo.url}
+                          src={gallery.url}
                           className="w-full h-76 object-cover rounded-md"
                           alt=""
                         />
