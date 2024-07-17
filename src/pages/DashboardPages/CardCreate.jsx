@@ -115,7 +115,7 @@ function Stepper() {
               sendImageToServer(image2, values.linkId, "banner");
             }
             if (catalog) {
-              sendImageToServer(catalog, values.linkId, "catalog");
+              sendPdfToServer(catalog, values.linkId, catalog.name);
             }
             const requestData = { ...values };
             delete requestData.step;
@@ -166,6 +166,41 @@ function Stepper() {
           const handleCatalog = (event) => {
             const file = event.target.files[0];
             setCatalog(file);
+          };
+
+          const sendPdfToServer = async (image, linkId, name) => {
+            try {
+              const formData = new FormData();
+              formData.append("file", image);
+              formData.append("linkId", values.linkId);
+              formData.append("name", name);
+              const jsonData = {
+                file: image,
+                linkId: values.linkId,
+                name: name,
+              };
+              const token = localStorage.getItem("token");
+              const headers = {
+                Authorization: `Bearer ${token}`,
+              };
+
+              const response = await axios.post(
+                "https://ecoqrcode.com/businessCard/uploadPdf",
+                formData,
+                { headers }
+              );
+              console.log("Yükleme başarılı:", response.data);
+            } catch (error) {
+              console.error(
+                "Yükleme hatası:",
+                error.response ? error.response.data : error.message
+              );
+              Swal.fire({
+                icon: "error",
+                title: "Hata",
+                text: "PDF dokümanı yüklenemedi.",
+              });
+            }
           };
 
           const sendImageToServer = async (image, linkId, name) => {
@@ -803,7 +838,7 @@ function Stepper() {
                     </div>
                     <div className="flex flex-col">
                       <label htmlFor="photo2" className="text-sm">
-                        Banner
+                        Banner Fotoğrafı
                       </label>
                       <input
                         id="photo2"

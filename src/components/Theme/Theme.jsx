@@ -15,8 +15,29 @@ import invoice from "/socialMediaLogo/bill.png";
 import warrant from "/socialMediaLogo/document.png";
 import share from "/socialMediaLogo/share.png";
 import credit from "/socialMediaLogo/credit-card.png";
+import { TbInvoice } from "react-icons/tb";
+import { FaRegCreditCard } from "react-icons/fa6";
+import { GoShareAndroid } from "react-icons/go";
+import { MdOutlineQrCode } from "react-icons/md";
+import { GrCatalog, GrDocumentText, GrGallery } from "react-icons/gr";
+import { IoCloseSharp, IoDocumentTextOutline } from "react-icons/io5";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { RiGalleryLine } from "react-icons/ri";
+import Swal from "sweetalert2";
 
 function Theme1() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextPhoto = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
+  };
+
+  const prevPhoto = () => {
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + photos.length) % photos.length
+    );
+  };
+
   const [openSection, setOpenSection] = useState(null);
 
   const toggleSection = (section) => {
@@ -24,24 +45,76 @@ function Theme1() {
   };
 
   const [themeInfo, setThemeInfo] = useState("");
-  const [photos, setPhotos] = useState([]);
+  const [digitalCardId, setDigitalCardId] = useState("");
+  const [bankaInformation, setBankaInformation] = useState("");
+  const [invoiceInformation, setInvoiceInformation] = useState("");
+  const [warrantInformation, setWarrantInformation] = useState("");
+  const [catalogInformation, setCatalogInformation] = useState("");
 
+  console.log(digitalCardId);
+  const [photos, setPhotos] = useState([]);
+  const urlToShare = `https://ecoqrcode.com/${themeInfo.linkId}`;
+  const handleShare = () => {
+    // URL'yi kopyala
+    navigator.clipboard
+      .writeText(urlToShare)
+      .then(() => {
+        // SweetAlert2 ile bilgi mesajı göster
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "URL KOPYALANDI!",
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            title: "swal-title",
+          },
+        });
+      })
+      .catch((error) => {
+        console.error("Kopyalama işlemi sırasında bir hata oluştu:", error);
+      });
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = window.location.href; // Mevcut sayfa URL'sini al
-        const username = url.split("/").pop(); // '/' karakterinden sonraki kısmı al
+        const url = window.location.href;
+        const username = url.split("/").pop();
 
         const response = await axios.get(
-          ` https://ecoqrcode.com/businessCard/getDigitalCardByLinkId?linkId=${username}`
+          ` https://ecoqrcode.com/businessCard/getDigitalCardByLinkId?linkId=efkanyildiz`
         );
         setThemeInfo(response.data);
-
+        setDigitalCardId(response.data.id);
         if (response.data && response.data.linkId) {
           const photosResponse = await axios.get(
             `https://ecoqrcode.com/businessCard/getPhotosByLink?linkId=${response.data.linkId}`
           );
           setPhotos(photosResponse.data);
+        }
+        if (response.data && response.data.id) {
+          const bankInformationResponse = await axios.get(
+            `https://ecoqrcode.com/bankInformation/getBankInformationDigitalCardId?digitalCardId=${response.data.id}`
+          );
+          setBankaInformation(bankInformationResponse.data);
+        }
+        if (response.data && response.data.id) {
+          const invoiceInformationResponse = await axios.get(
+            `https://ecoqrcode.com/invoiceInformation/getInvoiceInformationByDigitalCardId?digitalCardId=${response.data.id}`
+          );
+          setInvoiceInformation(invoiceInformationResponse.data);
+        }
+        if (response.data && response.data.id) {
+          const warrantInformationResponse = await axios.get(
+            `https://ecoqrcode.com/warrantOfAttorney/getWarrantOfAttorneyByDigitalCardId?digitalCardId=${response.data.id}`
+          );
+          setWarrantInformation(warrantInformationResponse.data);
+        }
+        if (response.data && response.data.id) {
+          const catalogInformationResponse = await axios.get(
+            `https://ecoqrcode.com/businessCard/getCatalogByLink?linkId=${response.data.linkId}`
+          );
+          setCatalogInformation(catalogInformationResponse.data);
         }
       } catch (error) {}
     };
@@ -83,8 +156,37 @@ function Theme1() {
   }
   const profilPhoto = photos.find((photo) => photo.name === "profilphoto");
   const bannerPhoto = photos.find((photo) => photo.name === "banner");
+  const qrCode = photos.find((photo) => photo.name === "QRCode.png");
+
+  console.log(bankaInformation);
+  console.log(invoiceInformation);
+  console.log(warrantInformation);
+  console.log("catalog", catalogInformation);
+
+  console.log(photos);
+
   return (
     <div>
+      <div className="flex justify-between px-2 py-4">
+        <div>
+          <button
+            className="py-1 rounded flex items-center justify-center"
+            onClick={() => toggleSection("qrcode")}
+          >
+            <MdOutlineQrCode className="text-2xl" />
+            <div className="text-sm font-semibold">QR Code</div>
+          </button>
+        </div>
+        <div>
+          <button
+            className="py-1 rounded flex items-center justify-center"
+            onClick={handleShare}
+          >
+            <GoShareAndroid className="text-2xl" />
+            <div className="text-sm font-semibold">Paylaş</div>
+          </button>
+        </div>
+      </div>
       {themeInfo.themeId === 1 && (
         <div className="md:w-2/4 mx-auto">
           {/*banner start*/}
@@ -92,7 +194,7 @@ function Theme1() {
             {bannerPhoto && (
               <img
                 src={bannerPhoto.url}
-                className="object-cover h-[180px] w-full"
+                className="object-cover h-[220px] w-full"
                 alt="Banner"
               />
             )}
@@ -400,77 +502,237 @@ function Theme1() {
       <div>
         <footer className="fixed bottom-0 left-0 w-full bg-emerald-600 text-white  flex justify-around items-start">
           <button
-            className="py-2  rounded  basis-1/5 flex flex-col items-center justify-center"
+            className="py-1 rounded  basis-1/5 flex flex-col items-center justify-center"
             onClick={() => toggleSection("banka")}
           >
-            <img src={credit} className="w-9" alt="" />
-            <div className="text-sm font-medium">Banka Bilgileri</div>
+            <FaRegCreditCard className="text-2xl" />
+            <div className="text-xs font-medium">Banka Bilgileri</div>
           </button>
           <button
-            className="py-2  rounded text-sm font-medium basis-1/5 flex flex-col items-center justify-center"
+            className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
             onClick={() => toggleSection("fatura")}
           >
-            <img src={invoice}  className="w-9" alt="" />
+            <TbInvoice className="text-2xl" />
             Fatura Bilgileri
           </button>
           <button
-            className="py-2  rounded text-sm font-medium basis-1/5 flex flex-col items-center justify-center"
-            onClick={() => toggleSection("fatura")}
+            className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
+            onClick={() => toggleSection("galeri")}
           >
-            <img src={share}  className="w-9" alt="" />
-            Paylaş
+            <RiGalleryLine className="text-2xl" />
+            Galeri
           </button>
+
           <button
-            className="py-2  rounded text-sm font-medium basis-1/5 flex flex-col items-center justify-center"
-            onClick={() => toggleSection("fatura")}
+            className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
+            onClick={() => toggleSection("katalog")}
           >
-            <img src={qrcode}  className="w-9" alt="" />
-            QR Code
+            <GrCatalog className="text-2xl" />
+            Katalog
           </button>
+
           <button
-            className="py-2  rounded text-sm font-medium basis-1/5 flex flex-col items-center justify-center"
-            onClick={() => toggleSection("fatura")}
+            className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
+            onClick={() => toggleSection("vekalet")}
           >
-            <img src={warrant}  className="w-9" alt="" />
+            <IoDocumentTextOutline className="text-2xl" />
             Vekalet Bilgileri
           </button>
         </footer>
 
         {openSection === "banka" && (
           <div
-            className={`fixed bottom-0 left-0 w-full bg-white p-4 border-t transition-transform duration-500 ${
+            className={`fixed bottom-0 left-0 w-full bg-white p-2 border-t transition-transform duration-500 ${
               openSection === "banka" ? "translate-y-0" : "translate-y-full"
             }`}
           >
-            <h2 className="text-lg font-semibold">Kuveyt USD</h2>
-            <p className="text-gray-600">Özçelik Tekstil</p>
-            <p className="text-gray-800">TR50 0020 5000 0013 5209 6001 04</p>
-            <button className="mt-2 bg-blue-300 text-white py-1 px-2 rounded">
-              IBAN Kopyala
-            </button>
             <button
-              className="mt-2 bg-red-500 text-white py-1 px-2 rounded"
+              className="flex w-full justify-end  text-white px-2 rounded"
               onClick={() => setOpenSection(null)}
             >
-              Kapat
+              <IoCloseSharp className="bg-red-600 rounded-md text-2xl  flex-end" />
             </button>
+            <div>
+              {bankaInformation.map((bank) => {
+                return (
+                  <div className="space-y-2 py-1" key={bank.iban}>
+                    <div className="font-semibold">{bank.iban}</div>
+                    <div className="font-medium text-sm">{bank.bankName}</div>
+                    <div className="font-medium text-sm">
+                      {bank.accountName}
+                    </div>
+                    <hr />
+                  </div>
+                );
+              })}
+            </div>
           </div>
         )}
 
         {openSection === "fatura" && (
           <div
-            className={`fixed bottom-0 left-0 w-full bg-white p-4 border-t transition-transform duration-300 ${
+            className={`fixed bottom-0 left-0 w-full bg-white p-2 border-t transition-transform duration-500 ${
               openSection === "fatura" ? "translate-y-0" : "translate-y-full"
             }`}
           >
-            <h2 className="text-lg font-semibold">Fatura Bilgileri</h2>
-            <p className="text-gray-600">Fatura bilgileri içeriği.</p>
             <button
-              className="mt-2 bg-red-500 text-white py-1 px-2 rounded"
+              className="flex w-full justify-end  text-white px-2 rounded"
               onClick={() => setOpenSection(null)}
             >
-              Kapat
+              <IoCloseSharp className="bg-red-600 rounded-md text-2xl  flex-end" />
             </button>
+            <div>
+              {invoiceInformation.map((invoice) => {
+                return (
+                  <div className="space-y-2 py-1" key={invoice.title}>
+                    <div className="font-semibold">{invoice.title}</div>
+                    <div className="font-medium text-sm">
+                      Tax numarası: {invoice.taxNumber}
+                    </div>
+                    <div className="font-medium text-sm">
+                      Tax ofisi: {invoice.taxOffice}
+                    </div>
+                    <div className="font-medium text-sm">
+                      Adres: {invoice.address}
+                    </div>
+                    <hr />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {openSection === "vekalet" && (
+          <div
+            className={`fixed bottom-0 left-0 w-full bg-white p-2 border-t transition-transform duration-500 ${
+              openSection === "vekalet" ? "translate-y-0" : "translate-y-full"
+            }`}
+          >
+            <button
+              className="flex w-full justify-end  text-white px-2 rounded"
+              onClick={() => setOpenSection(null)}
+            >
+              <IoCloseSharp className="bg-red-600 rounded-md text-2xl  flex-end" />
+            </button>
+            <div>
+              {warrantInformation.map((warrant) => {
+                return (
+                  <div className="space-y-2 py-1" key={warrant.title}>
+                    <div className="font-semibold">{warrant.title}</div>
+                    <div className="font-medium text-sm">
+                      {warrant.citizenId}
+                    </div>
+                    <div className="font-medium text-sm">
+                      {warrant.registerNo}
+                    </div>
+                    <div className="font-medium text-sm">
+                      {warrant.barAssociation}
+                    </div>
+                    <div className="font-medium text-sm">
+                      Adres: {warrant.address}
+                    </div>
+                    <hr />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {openSection === "katalog" && (
+          <div
+            className={`fixed bottom-0 left-0 w-full bg-white p-2 border-t transition-transform duration-500 ${
+              openSection === "katalog" ? "translate-y-0" : "translate-y-full"
+            }`}
+          >
+            <button
+              className="flex w-full justify-end  text-white px-2 rounded"
+              onClick={() => setOpenSection(null)}
+            >
+              <IoCloseSharp className="bg-red-600 rounded-md text-2xl  flex-end" />
+            </button>
+            <div>
+              {catalogInformation.map((catalog) => {
+                return (
+                  <div className="space-y-2 py-1" key={catalog.name}>
+                    <a
+                      href={catalog.url}
+                      target="_blank"
+                      className="font-medium text-sm"
+                    >
+                      <div className="font-semibold">{catalog.name}</div>
+                    </a>
+
+                    <hr />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {openSection === "galeri" && (
+          <div
+            className={`fixed bottom-0 left-0 w-full bg-white p-2 border-t transition-transform duration-500 ${
+              openSection === "galeri" ? "translate-y-0" : "translate-y-full"
+            }`}
+          >
+            <button
+              className="flex w-full justify-end  text-white px-2 pb-2 rounded"
+              onClick={() => setOpenSection(null)}
+            >
+              <IoCloseSharp className="bg-red-600 rounded-md text-2xl  flex-end" />
+            </button>
+            <div className="flex items-center">
+              <button onClick={prevPhoto} className="p-2">
+                <FaArrowLeft />
+              </button>
+              <div className="flex-grow">
+                <div>
+                  {photos.map((photo, index) => {
+                    return (
+                      index === currentIndex && (
+                        <img
+                          key={index}
+                          src={photo.url}
+                          className="w-full h-76 object-cover rounded-md"
+                          alt=""
+                        />
+                      )
+                    );
+                  })}
+                </div>
+              </div>
+              <button onClick={nextPhoto} className="p-2">
+                <FaArrowRight />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {openSection === "qrcode" && (
+          <div
+            className={`fixed bottom-0 left-0 w-full bg-white p-2 border-t transition-transform duration-500 ${
+              openSection === "qrcode" ? "translate-y-0" : "translate-y-full"
+            }`}
+          >
+            <button
+              className="flex w-full justify-end  text-white px-2 pb-2 rounded"
+              onClick={() => setOpenSection(null)}
+            >
+              <IoCloseSharp className="bg-red-600 rounded-md text-2xl  flex-end" />
+            </button>
+            <div className="flex items-center">
+              <div className="flex-grow">
+                <div>
+                  <img
+                    src={qrCode.url}
+                    className="w-full h-68 p-5 object-cover rounded-md"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>

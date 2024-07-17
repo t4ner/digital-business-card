@@ -46,3 +46,7 @@ body {
 .translate-y-0 {
   transform: translateY(0);
 }
+
+.swal-title {
+  font-size: 15px; /* Başlık boyutunu burada ayarlayabilirsin */
+}
