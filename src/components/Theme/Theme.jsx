@@ -10,11 +10,6 @@ import rehber from "/staticThemePhoto/rehber.png";
 import email from "/staticThemePhoto/email.png";
 import call from "/staticThemePhoto/call.png";
 import website from "/staticThemePhoto/web.png";
-import qrcode from "/socialMediaLogo/qr-code.png";
-import invoice from "/socialMediaLogo/bill.png";
-import warrant from "/socialMediaLogo/document.png";
-import share from "/socialMediaLogo/share.png";
-import credit from "/socialMediaLogo/credit-card.png";
 import { TbInvoice } from "react-icons/tb";
 import { FaRegCreditCard } from "react-icons/fa6";
 import { GoShareAndroid } from "react-icons/go";
@@ -130,6 +125,7 @@ function Theme1() {
     };
     fetchData();
   }, []);
+
   const downloadVCF = () => {
     if (!themeInfo) return;
 
@@ -167,10 +163,38 @@ function Theme1() {
   const profilPhoto = photos.find((photo) => photo.name === "profilphoto");
   const bannerPhoto = photos.find((photo) => photo.name === "banner");
   const qrCode = photos.find((photo) => photo.name === "QRCode.png");
-
+  function copyToClipboard(text) {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        console.log("IBAN başarıyla panoya kopyalandı:", text);
+        // Kullanıcıya başarılı bildirimi göster
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "IBAN KOPYALANDI!",
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            title: "swal-title",
+          },
+        });
+      })
+      .catch((err) => {
+        console.error("IBAN kopyalanırken hata oluştu:", err);
+        // Kullanıcıya hata bildirimi göster
+        Swal.fire({
+          icon: "error",
+          title: "Kopyalama Başarısız!",
+          text: "IBAN bilgisi kopyalanırken bir hata oluştu. Lütfen tekrar deneyin.",
+          confirmButtonText: "Tamam",
+        });
+      });
+  }
+  console.log(gallerys);
   return (
-    <div>
-      <div className="flex justify-between px-2 py-4">
+    <div className="md:w-2/4 mx-auto">
+      <div className="flex justify-between px-2 py-2">
         <div>
           <button
             className="py-1 rounded flex items-center justify-center"
@@ -191,19 +215,19 @@ function Theme1() {
         </div>
       </div>
       {themeInfo.themeId === 1 && (
-        <div className="md:w-2/4 mx-auto">
+        <div className="">
           {/*banner start*/}
-          <div>
+          <div className="h-[210px] w-full">
             {bannerPhoto && (
               <img
                 src={bannerPhoto.url}
-                className="object-cover h-[220px] w-full"
+                className="object-fill h-full w-full"
                 alt="Banner"
               />
             )}
           </div>
           {/* banner finish */}
-          <div className="relative   bg-gray-100 h-[110px] w-full shadow-lg">
+          <div className="relative bg-zinc-200 h-auto py-4 w-full shadow-lg">
             <div className="absolute bottom-1/2 left-2">
               {profilPhoto && (
                 <img
@@ -213,8 +237,8 @@ function Theme1() {
                 />
               )}
             </div>
-            <div className="mx-auto text-center pl-28">
-              <h2 className="text-xl font-medium pt-3">
+            <div className="mx-auto text-center pl-28 ">
+              <h2 className="text-xl font-medium ">
                 {themeInfo.name} {themeInfo.surname}
               </h2>
               <h4 className="text-lg font-medium text-gray-600">
@@ -235,13 +259,15 @@ function Theme1() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={rehber} className="w-16" />
+                <img
+                  src={rehber}
+                  className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,0.5)]"
+                />
                 <span className="font-medium text-sm md:text-base mt-1">
                   Rehbere ekle
                 </span>
               </a>
             </div>
-
             {themeInfo.email !== "" && (
               <div className="basis-1/3">
                 <a
@@ -249,7 +275,10 @@ function Theme1() {
                   target="_blank"
                   href={`mailto:${themeInfo.email}`}
                 >
-                  <img src={email} className="w-16" />
+                  <img
+                    src={email}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,0.5)]"
+                  />
                   <span className="font-medium text-sm md:text-base mt-1">
                     Email
                   </span>
@@ -264,7 +293,10 @@ function Theme1() {
                 href={`tel:${themeInfo.phoneNumber1}`}
               >
                 {" "}
-                <img src={call} className="w-16" />
+                <img
+                  src={call}
+                  className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,0.5)]"
+                />
                 <span className="font-medium text-sm md:text-base mt-1">
                   Ara
                 </span>
@@ -279,7 +311,10 @@ function Theme1() {
                   href={`https://www.linkedin.com/in/${themeInfo.linkedin}`}
                 >
                   {" "}
-                  <img src={linkedin} className="w-[62px]" />
+                  <img
+                    src={linkedin}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,0.5)]"
+                  />
                   <span className="font-medium text-sm md:text-base mt-1">
                     Linkedin
                   </span>
@@ -297,7 +332,10 @@ function Theme1() {
                     ""
                   )}`}
                 >
-                  <img src={whatsapp} className="w-16" />
+                  <img
+                    src={whatsapp}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,0.5)]"
+                  />
                   <span className="font-medium text-sm md:text-base mt-1">
                     Whatshapp
                   </span>
@@ -306,13 +344,16 @@ function Theme1() {
             )}
 
             {themeInfo.website !== "" && (
-              <div className="basis-1/3">
+              <div className="basis-1/3 ">
                 <a
-                  className="flex flex-col items-center "
+                  className="flex flex-col items-center"
                   href={themeInfo.website}
                   target="_blank"
                 >
-                  <img src={website} className="w-16" />
+                  <img
+                    src={website}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,0.5)]"
+                  />
                   <span className="font-medium text-sm md:text-base mt-1">
                     Website
                   </span>
@@ -502,45 +543,53 @@ function Theme1() {
         </div>
       )}
 
-      <div>
-        <footer className="fixed bottom-0 left-0 w-full bg-emerald-600 text-white  flex justify-around items-start">
-          <button
-            className="py-1 rounded  basis-1/5 flex flex-col items-center justify-center"
-            onClick={() => toggleSection("banka")}
-          >
-            <FaRegCreditCard className="text-2xl" />
-            <div className="text-xs font-medium">Banka Bilgileri</div>
-          </button>
-          <button
-            className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
-            onClick={() => toggleSection("fatura")}
-          >
-            <TbInvoice className="text-2xl" />
-            Fatura Bilgileri
-          </button>
-          <button
-            className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
-            onClick={() => toggleSection("galeri")}
-          >
-            <RiGalleryLine className="text-2xl" />
-            Galeri
-          </button>
-
-          <button
-            className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
-            onClick={() => toggleSection("katalog")}
-          >
-            <GrCatalog className="text-2xl" />
-            Katalog
-          </button>
-
-          <button
-            className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
-            onClick={() => toggleSection("vekalet")}
-          >
-            <IoDocumentTextOutline className="text-2xl" />
-            Vekalet Bilgileri
-          </button>
+      <div className="pt-20 w-full  mx-auto">
+        <footer className="fixed bottom-0 bg-zinc-200 text-black pt-2  flex justify-around items-start w-full md:w-2/4 mx-auto">
+          {bankaInformation[0]?.iban && (
+            <button
+              className="py-1 rounded basis-1/5 flex flex-col items-center justify-center"
+              onClick={() => toggleSection("banka")}
+            >
+              <FaRegCreditCard className="text-2xl" />
+              <div className="text-xs font-medium">Banka Bilgileri</div>
+            </button>
+          )}
+          {invoiceInformation[0]?.title && (
+            <button
+              className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
+              onClick={() => toggleSection("fatura")}
+            >
+              <TbInvoice className="text-2xl" />
+              Fatura Bilgileri
+            </button>
+          )}
+          {gallerys[0]?.linkId && (
+            <button
+              className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
+              onClick={() => toggleSection("galeri")}
+            >
+              <RiGalleryLine className="text-2xl" />
+              Galeri
+            </button>
+          )}
+          {catalogInformation[0]?.linkId && (
+            <button
+              className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
+              onClick={() => toggleSection("katalog")}
+            >
+              <GrCatalog className="text-2xl" />
+              Katalog
+            </button>
+          )}
+          {warrantInformation[0]?.address && (
+            <button
+              className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
+              onClick={() => toggleSection("vekalet")}
+            >
+              <IoDocumentTextOutline className="text-2xl" />
+              Vekalet Bilgileri
+            </button>
+          )}
         </footer>
 
         {openSection === "banka" && (
@@ -563,6 +612,14 @@ function Theme1() {
                     <div className="font-medium text-sm">{bank.bankName}</div>
                     <div className="font-medium text-sm">
                       {bank.accountName}
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <button
+                        className="px-3 py-1 bg-blue-500 text-white rounded-md text-xs font-medium hover:bg-blue-600 focus:outline-none"
+                        onClick={() => copyToClipboard(bank.iban)}
+                      >
+                        IBAN'I KOPYALA
+                      </button>
                     </div>
                     <hr />
                   </div>
@@ -677,7 +734,7 @@ function Theme1() {
 
         {openSection === "galeri" && (
           <div
-            className={`fixed bottom-0 left-0 w-full bg-white p-2 border-t transition-transform duration-500 ${
+            className={`fixed bottom-0 left-0 w-full h-[350px] flex flex-col items-center justify-center bg-white p-2 border-t transition-transform duration-500 ${
               openSection === "galeri" ? "translate-y-0" : "translate-y-full"
             }`}
           >
@@ -692,14 +749,14 @@ function Theme1() {
                 <FaArrowLeft />
               </button>
               <div className="flex-grow">
-                <div>
+                <div className="h-[300px] w-full">
                   {gallerys.map((gallery, index) => {
                     return (
                       index === currentIndex && (
                         <img
                           key={index}
                           src={gallery.url}
-                          className="w-full h-76 object-cover rounded-md"
+                          className="w-full h-full object-cover rounded-md"
                           alt=""
                         />
                       )
@@ -716,7 +773,7 @@ function Theme1() {
 
         {openSection === "qrcode" && (
           <div
-            className={`fixed bottom-0 left-0 w-full bg-white p-2 border-t transition-transform duration-500 ${
+            className={`fixed bottom-0 md:h-[600px] md:w-2/4 w-full bg-white p-2 border-t transition-transform duration-500 ${
               openSection === "qrcode" ? "translate-y-0" : "translate-y-full"
             }`}
           >
@@ -728,10 +785,10 @@ function Theme1() {
             </button>
             <div className="flex items-center">
               <div className="flex-grow">
-                <div>
+                <div className=" md:h-[600px] w-full ">
                   <img
                     src={qrCode.url}
-                    className="w-full h-68 p-5 object-cover rounded-md"
+                    className="w-full h-full p-5 object-cover rounded-md"
                   />
                 </div>
               </div>
