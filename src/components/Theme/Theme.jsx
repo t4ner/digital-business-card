@@ -19,6 +19,7 @@ import { IoCloseSharp, IoDocumentTextOutline } from "react-icons/io5";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { RiGalleryLine } from "react-icons/ri";
 import Swal from "sweetalert2";
+import "ldrs/quantum";
 
 function Theme1() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -45,7 +46,7 @@ function Theme1() {
   const [invoiceInformation, setInvoiceInformation] = useState("");
   const [warrantInformation, setWarrantInformation] = useState("");
   const [catalogInformation, setCatalogInformation] = useState("");
-
+  const [loading, setLoading] = useState(true);
   const [photos, setPhotos] = useState([]);
   const [gallerys, setGallerys] = useState([]);
   const urlToShare = `https://ecoqrcode.com/${themeInfo.linkId}`;
@@ -121,11 +122,20 @@ function Theme1() {
           );
           setCatalogInformation(catalogInformationResponse.data);
         }
-      } catch (error) {}
+      } catch (error) {
+      } finally {
+        setLoading(false); // Veri yüklendiğinde loading'i kapat
+      }
     };
     fetchData();
   }, []);
-
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <l-quantum size="110" speed="1.75" color="green"></l-quantum>
+      </div>
+    );
+  }
   const downloadVCF = () => {
     if (!themeInfo) return;
 
@@ -191,7 +201,9 @@ function Theme1() {
         });
       });
   }
-  console.log(gallerys);
+
+  // Tema bilgisi yüklendiyse render et
+
   return (
     <div className="md:w-2/4 mx-auto">
       <div className="flex justify-between px-2 py-2">
