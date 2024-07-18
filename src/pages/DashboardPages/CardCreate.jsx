@@ -123,19 +123,19 @@ function Stepper() {
               sendImageToServer(image2, values.linkId, "banner");
             }
             if (image3) {
-              sendImageToServer(image3, values.linkId, "gallery1");
+              sendGalleryToServer(image3, values.linkId, "gallery1");
             }
             if (image4) {
-              sendImageToServer(image4, values.linkId, "gallery2");
+              sendGalleryToServer(image4, values.linkId, "gallery2");
             }
             if (image5) {
-              sendImageToServer(image5, values.linkId, "gallery3");
+              sendGalleryToServer(image5, values.linkId, "gallery3");
             }
             if (image6) {
-              sendImageToServer(image6, values.linkId, "gallery4");
+              sendGalleryToServer(image6, values.linkId, "gallery4");
             }
             if (image7) {
-              sendImageToServer(image7, values.linkId, "gallery5");
+              sendGalleryToServer(image7, values.linkId, "gallery5");
             }
             if (catalog) {
               sendPdfToServer(catalog, values.linkId, catalog.name);
@@ -291,6 +291,43 @@ function Stepper() {
                 { headers }
               );
               console.log("Yükleme başarılı:", response.data);
+            } catch (error) {
+              console.error(
+                "Yükleme hatası:",
+                error.response ? error.response.data : error.message
+              );
+              Swal.fire({
+                icon: "error",
+                title: "Hata",
+                text: "PDF dokümanı yüklenemedi.",
+              });
+            }
+          };
+
+          const sendGalleryToServer = async (image, linkId, name) => {
+            try {
+              const formData = new FormData();
+              formData.append("file", image);
+              formData.append("linkId", values.linkId);
+              formData.append("name", name);
+              const jsonData = {
+                file: image,
+                linkId: values.linkId,
+                name: name,
+              };
+              const token = localStorage.getItem("token");
+              const headers = {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+              };
+
+              const response = await axios.post(
+                "https://ecoqrcode.com/businessCard/uploadGallery",
+                formData,
+                { headers }
+              );
+              console.log("Yükleme başarılı:", response.data);
+              console.log("formdata", formData);
             } catch (error) {
               console.error(
                 "Yükleme hatası:",
@@ -1276,7 +1313,9 @@ function Stepper() {
                     </header>
                     <div className="flex gap-2 md:gap-5">
                       <div>
-                        <span className="flex font-medium mb-2">Tasarım 1</span>
+                        <span className="flex font-medium mb-2">
+                          Kurumsal Tasarım
+                        </span>
                         <div className="flex  md:pr-56  rounded-lg mb-5 flex-col items-center">
                           <label>
                             <input
@@ -1305,7 +1344,9 @@ function Stepper() {
                       </div>
 
                       <div>
-                        <span className="font-medium mb-4">Tasarım 2</span>
+                        <span className="font-medium mb-4">
+                          Bireysel Tasarım
+                        </span>
                         <div className="flex md:pr-56  rounded-lg mb-5 flex-col items-center mt-2">
                           <label>
                             <input

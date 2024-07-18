@@ -9,7 +9,7 @@ import whatsapp from "/staticThemePhoto/what.webp";
 import rehber from "/staticThemePhoto/rehber.png";
 import email from "/staticThemePhoto/email.png";
 import call from "/staticThemePhoto/call.png";
-import website from "/staticThemePhoto/web.png";
+import website from "/socialMediaLogo/webs.png";
 import { TbInvoice } from "react-icons/tb";
 import { FaRegCreditCard } from "react-icons/fa6";
 import { GoShareAndroid } from "react-icons/go";
@@ -273,7 +273,7 @@ function Theme1() {
               >
                 <img
                   src={rehber}
-                  className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,0.5)]"
+                  className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                 />
                 <span className="font-medium text-sm md:text-base mt-1">
                   Rehbere ekle
@@ -289,7 +289,7 @@ function Theme1() {
                 >
                   <img
                     src={email}
-                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,0.5)]"
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                   />
                   <span className="font-medium text-sm md:text-base mt-1">
                     Email
@@ -307,7 +307,7 @@ function Theme1() {
                 {" "}
                 <img
                   src={call}
-                  className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,0.5)]"
+                  className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                 />
                 <span className="font-medium text-sm md:text-base mt-1">
                   Ara
@@ -325,7 +325,7 @@ function Theme1() {
                   {" "}
                   <img
                     src={linkedin}
-                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,0.5)]"
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                   />
                   <span className="font-medium text-sm md:text-base mt-1">
                     Linkedin
@@ -346,7 +346,7 @@ function Theme1() {
                 >
                   <img
                     src={whatsapp}
-                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,0.5)]"
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                   />
                   <span className="font-medium text-sm md:text-base mt-1">
                     Whatshapp
@@ -364,7 +364,7 @@ function Theme1() {
                 >
                   <img
                     src={website}
-                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,0.5)]"
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                   />
                   <span className="font-medium text-sm md:text-base mt-1">
                     Website

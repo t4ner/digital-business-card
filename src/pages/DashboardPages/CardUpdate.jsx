@@ -53,6 +53,7 @@ function CardUpdate() {
     const fetchData = async () => {
       try {
         const userEmail = localStorage.getItem("email");
+        console.log(userEmail)
         if (!userEmail) {
           return;
         }
@@ -251,9 +252,10 @@ function CardUpdate() {
   };
 
   console.log("emailPerson", emailPerson)
+  
   return (
     <>
-      {values.linkId !== "" && (
+      {emailPerson.linkId !== "" && (
         <div className="p-7">
           <header>
             <h3 className="text-lg font-medium text-zinc-700 mb-2">İçerik</h3>
@@ -720,7 +722,7 @@ function CardUpdate() {
         </div>
       )}
 
-      {values.linkId === "" && (
+      {emailPerson.linkId === "" && (
         <div
           className="flex items-center justify-center h-screen"
           style={{ backgroundImage: "url('/hero/hero.jpg')" }}

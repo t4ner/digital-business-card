@@ -39,7 +39,7 @@ function Login() {
 
       // Tokenin doğru formatta olduğundan emin olun
       const decodedToken = jwtDecode(token);
-
+console.log(decodedToken)
       localStorage.setItem("token", token);
       localStorage.setItem("email", decodedToken.sub);
 
