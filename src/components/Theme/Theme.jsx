@@ -785,7 +785,7 @@ function Theme1() {
 
         {openSection === "qrcode" && (
           <div
-            className={`fixed bottom-0 md:h-[600px] md:w-2/4 w-full bg-white p-2 border-t transition-transform duration-500 ${
+            className={`fixed bottom-0 md:h-[600px] 2xl:h-[700px] md:w-2/4 w-full bg-white p-2 border-t transition-transform duration-500 ${
               openSection === "qrcode" ? "translate-y-0" : "translate-y-full"
             }`}
           >
@@ -797,7 +797,7 @@ function Theme1() {
             </button>
             <div className="flex items-center">
               <div className="flex-grow">
-                <div className=" md:h-[600px] w-full ">
+                <div className=" md:h-[600px] 2xl:h-[700px] w-full ">
                   <img
                     src={qrCode.url}
                     className="w-full h-full p-5 object-cover rounded-md"
