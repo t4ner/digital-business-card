@@ -19,7 +19,15 @@ import { stepperValidation } from "./StepperValidation";
 function Stepper() {
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
+  const [image3, setImage3] = useState("");
+  const [image4, setImage4] = useState("");
+  const [image5, setImage5] = useState("");
+  const [image6, setImage6] = useState("");
+  const [image7, setImage7] = useState("");
   const [catalog, setCatalog] = useState("");
+  const [catalog2, setCatalog2] = useState("");
+  const [catalog3, setCatalog3] = useState("");
+  const [catalog4, setCatalog4] = useState("");
   const [digitalCardId, setDigitalCardId] = useState("");
 
   console.log(digitalCardId, "digitalCardId");
@@ -114,8 +122,32 @@ function Stepper() {
             if (image2) {
               sendImageToServer(image2, values.linkId, "banner");
             }
+            if (image3) {
+              sendImageToServer(image3, values.linkId, "gallery1");
+            }
+            if (image4) {
+              sendImageToServer(image4, values.linkId, "gallery2");
+            }
+            if (image5) {
+              sendImageToServer(image5, values.linkId, "gallery3");
+            }
+            if (image6) {
+              sendImageToServer(image6, values.linkId, "gallery4");
+            }
+            if (image7) {
+              sendImageToServer(image7, values.linkId, "gallery5");
+            }
             if (catalog) {
               sendPdfToServer(catalog, values.linkId, catalog.name);
+            }
+            if (catalog2) {
+              sendPdfToServer(catalog2, values.linkId, catalog2.name);
+            }
+            if (catalog3) {
+              sendPdfToServer(catalog3, values.linkId, catalog3.name);
+            }
+            if (catalog4) {
+              sendPdfToServer(catalog4, values.linkId, catalog4.name);
             }
             const requestData = { ...values };
             delete requestData.step;
@@ -163,9 +195,42 @@ function Stepper() {
             setImage2(file);
           };
 
+          const handleImage3Change = (event) => {
+            const file = event.target.files[0];
+            setImage3(file);
+          };
+          const handleImage4Change = (event) => {
+            const file = event.target.files[0];
+            setImage4(file);
+          };
+          const handleImage5Change = (event) => {
+            const file = event.target.files[0];
+            setImage5(file);
+          };
+          const handleImage6Change = (event) => {
+            const file = event.target.files[0];
+            setImage6(file);
+          };
+          const handleImage7Change = (event) => {
+            const file = event.target.files[0];
+            setImage7(file);
+          };
+
           const handleCatalog = (event) => {
             const file = event.target.files[0];
             setCatalog(file);
+          };
+          const handleCatalog2 = (event) => {
+            const file = event.target.files[0];
+            setCatalog2(file);
+          };
+          const handleCatalog3 = (event) => {
+            const file = event.target.files[0];
+            setCatalog3(file);
+          };
+          const handleCatalog4 = (event) => {
+            const file = event.target.files[0];
+            setCatalog4(file);
           };
 
           const sendPdfToServer = async (image, linkId, name) => {
@@ -401,14 +466,52 @@ function Stepper() {
           const handleBank4 = () => {
             setShowInputBank4(!showInputBank4);
           };
+          const [showInputGallery, setShowInputGallery] = useState(false);
+          const handleGallery = () => {
+            setShowInputGallery(!showInputGallery);
+          };
 
+          const [showInputGallery2, setShowInputGallery2] = useState(false);
+          const handleGallery2 = () => {
+            setShowInputGallery2(!showInputGallery2);
+          };
+          const [showInputGallery3, setShowInputGallery3] = useState(false);
+          const handleGallery3 = () => {
+            setShowInputGallery3(!showInputGallery3);
+          };
+          const [showInputGallery4, setShowInputGallery4] = useState(false);
+          const handleGallery4 = () => {
+            setShowInputGallery4(!showInputGallery4);
+          };
+          const [showInputGallery5, setShowInputGallery5] = useState(false);
+          const handleGallery5 = () => {
+            setShowInputGallery5(!showInputGallery5);
+          };
+
+          const [showInputPdf, setShowInputPdf] = useState(false);
+          const handlePdf = () => {
+            setShowInputPdf(!showInputPdf);
+          };
+
+          const [showInputPdf2, setShowInputPdf2] = useState(false);
+          const handlePdf2 = () => {
+            setShowInputPdf2(!showInputPdf2);
+          };
+          const [showInputPdf3, setShowInputPdf3] = useState(false);
+          const handlePdf3 = () => {
+            setShowInputPdf3(!showInputPdf3);
+          };
+          const [showInputPdf4, setShowInputPdf4] = useState(false);
+          const handlePdf4 = () => {
+            setShowInputPdf4(!showInputPdf4);
+          };
           return (
             <Form className="p-7">
               {values.step === 1 && (
                 <>
                   <header>
                     <h3 className="text-lg font-medium text-zinc-700 mb-2">
-                      İçerik
+                      İÇERİK
                     </h3>
                   </header>
                   <div className="flex flex-col w-full mb-3">
@@ -417,7 +520,7 @@ function Stepper() {
                         disabled
                         className="input text-gray-600 mr-0.5 bg-zinc-300 flex items-center justify-center"
                       >
-                        linko.page/
+                        ecoqrcode.com/
                       </div>
                       <Field
                         name="linkId"
@@ -812,8 +915,8 @@ function Stepper() {
                     </div>
                   </div>
                   <hr className="mt-8" />
-                  <h3 className="text-lg font-medium text-zinc-700 mt-4 md:mt-8">
-                    Resimler
+                  <h3 className="text-lg font-medium text-zinc-700 mt-4 md:mt-8 pb-3">
+                    FOTOĞRAFLAR
                   </h3>
                   <div className="grid md:grid-cols-2 gap-2.5">
                     <div className="flex flex-col">
@@ -856,28 +959,319 @@ function Stepper() {
                         />
                       )}
                     </div>
+                  </div>
+                  {/* gallery */}
+                  <div className="space-y-5 mt-10">
+                    <button className="text-lg font-medium text-zinc-700 mt-3 md:mt-6">
+                      GALERİYE FOTOĞRAF EKLE
+                    </button>
 
-                    <div className="flex flex-col">
-                      <label htmlFor="catalog" className="text-sm">
-                        Katalog
-                      </label>
-                      <input
-                        id="catalog"
-                        name="catalog"
-                        type="file"
-                        accept="application/pdf"
-                        onChange={handleCatalog}
-                        className="input pt-1.5 mt-1"
-                      />
-                      {catalog && <p>{catalog.name}</p>}
+                    <button
+                      type="button"
+                      onClick={handleGallery}
+                      className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                    >
+                      RESİM EKLE +
+                    </button>
+                    <div className="grid md:grid-cols-2 gap-2.5">
+                      <div>
+                        {showInputGallery && (
+                          <>
+                            <div className="flex flex-col">
+                              <label htmlFor="photo2" className="text-sm">
+                                Galeri Fotoğrafı - 1
+                              </label>
+                              <input
+                                id="photo3"
+                                name="photo3"
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImage3Change}
+                                className="input pt-1.5 mt-1"
+                              />
+                              {image3 && (
+                                <img
+                                  src={URL.createObjectURL(image3)}
+                                  alt="Photo 3"
+                                  className="h-full w-full object-cover"
+                                />
+                              )}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={handleGallery2}
+                              className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                            >
+                              RESİM EKLE +
+                            </button>
+                          </>
+                        )}
+                      </div>
+                      <div>
+                        {showInputGallery2 && (
+                          <>
+                            <div className="flex flex-col">
+                              <label htmlFor="photo4" className="text-sm">
+                                Galeri Fotoğrafı - 2
+                              </label>
+                              <input
+                                id="photo4"
+                                name="photo4"
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImage4Change}
+                                className="input pt-1.5 mt-1"
+                              />
+                              {image4 && (
+                                <img
+                                  src={URL.createObjectURL(image4)}
+                                  alt="Photo 4"
+                                  className="h-full w-full object-cover"
+                                />
+                              )}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={handleGallery3}
+                              className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                            >
+                              RESİM EKLE +
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-2.5">
+                      <div>
+                        {showInputGallery3 && (
+                          <>
+                            {" "}
+                            <div className="flex flex-col">
+                              <label htmlFor="photo5" className="text-sm">
+                                Galeri Fotoğrafı - 3
+                              </label>
+                              <input
+                                id="photo5"
+                                name="photo5"
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImage5Change}
+                                className="input pt-1.5 mt-1"
+                              />
+                              {image5 && (
+                                <img
+                                  src={URL.createObjectURL(image5)}
+                                  alt="Photo 5"
+                                  className="h-full w-full object-cover"
+                                />
+                              )}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={handleGallery4}
+                              className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                            >
+                              RESİM EKLE +
+                            </button>
+                          </>
+                        )}
+                      </div>
+                      <div>
+                        {showInputGallery4 && (
+                          <>
+                            {" "}
+                            <div className="flex flex-col">
+                              <label htmlFor="photo5" className="text-sm">
+                                Galeri Fotoğrafı - 4
+                              </label>
+                              <input
+                                id="photo6"
+                                name="photo6"
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImage6Change}
+                                className="input pt-1.5 mt-1"
+                              />
+                              {image6 && (
+                                <img
+                                  src={URL.createObjectURL(image6)}
+                                  alt="Photo 6"
+                                  className="h-full w-full object-cover"
+                                />
+                              )}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={handleGallery5}
+                              className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                            >
+                              RESİM EKLE +
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-2.5">
+                      {showInputGallery5 && (
+                        <>
+                          {" "}
+                          <div className="flex flex-col">
+                            <label htmlFor="photo6" className="text-sm">
+                              Galeri Fotoğrafı - 5
+                            </label>
+                            <input
+                              id="photo7"
+                              name="photo7"
+                              type="file"
+                              accept="image/*"
+                              onChange={handleImage7Change}
+                              className="input pt-1.5 mt-1"
+                            />
+                            {image7 && (
+                              <img
+                                src={URL.createObjectURL(image7)}
+                                alt="Photo 7"
+                                className="h-full w-full object-cover"
+                              />
+                            )}
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
+
+                  {/* gallery */}
+                  {/* pdf */}
+                  <div className="space-y-5">
+                    <div className="text-lg font-medium text-zinc-700 mt-3 md:mt-6">
+                      PDF / KATALOG EKLE
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handlePdf}
+                      className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                    >
+                      PDF EKLE +
+                    </button>
+
+                    <div className="grid md:grid-cols-2 gap-2.5">
+                      <div>
+                        {showInputPdf && (
+                          <>
+                            {" "}
+                            <div className="flex flex-col">
+                              <label htmlFor="catalog" className="text-sm">
+                                Katalog / PDF ekle
+                              </label>
+                              <input
+                                id="catalog"
+                                name="catalog"
+                                type="file"
+                                accept="application/pdf"
+                                onChange={handleCatalog}
+                                className="input pt-1.5 mt-1"
+                              />
+                              {catalog && <p>{catalog.name}</p>}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={handlePdf2}
+                              className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                            >
+                              PDF EKLE +
+                            </button>
+                          </>
+                        )}
+                      </div>
+                      <div>
+                        {" "}
+                        {showInputPdf2 && (
+                          <>
+                            <div className="flex flex-col">
+                              <label htmlFor="catalog2" className="text-sm">
+                                Katalog / PDF ekle
+                              </label>
+                              <input
+                                id="catalog2"
+                                name="catalog2"
+                                type="file"
+                                accept="application/pdf"
+                                onChange={handleCatalog2}
+                                className="input pt-1.5 mt-1"
+                              />
+                              {catalog2 && <p>{catalog2.name}</p>}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={handlePdf3}
+                              className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                            >
+                              PDF EKLE +
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-2.5">
+                      <div>
+                        {showInputPdf3 && (
+                          <>
+                            {" "}
+                            <div className="flex flex-col">
+                              <label htmlFor="catalog3" className="text-sm">
+                                Katalog / PDF ekle
+                              </label>
+                              <input
+                                id="catalog3"
+                                name="catalog3"
+                                type="file"
+                                accept="application/pdf"
+                                onChange={handleCatalog3}
+                                className="input pt-1.5 mt-1"
+                              />
+                              {catalog3 && <p>{catalog3.name}</p>}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={handlePdf4}
+                              className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                            >
+                              PDF EKLE +
+                            </button>
+                          </>
+                        )}
+                      </div>
+                      <div>
+                        {showInputPdf4 && (
+                          <>
+                            {" "}
+                            <div className="flex flex-col">
+                              <label htmlFor="catalog" className="text-sm">
+                                Katalog / PDF ekle
+                              </label>
+                              <input
+                                id="catalog4"
+                                name="catalog4"
+                                type="file"
+                                accept="application/pdf"
+                                onChange={handleCatalog4}
+                                className="input pt-1.5 mt-1"
+                              />
+                              {catalog4 && <p>{catalog4.name}</p>}
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  {/* pdf */}
 
                   <>
                     <hr className="mt-8" />
                     <header>
                       <h3 className="text-lg font-medium text-zinc-700 mt-5 md:mt-8 mb-2">
-                        Tasarım
+                        TASARIM
                       </h3>
                     </header>
                     <div className="flex gap-2 md:gap-5">
