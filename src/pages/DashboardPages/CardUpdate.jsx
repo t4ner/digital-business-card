@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 function CardUpdate() {
   const [bankaInformation, setBankaInformation] = useState([]);
   const [invoiceInformation, setInvoiceInformation] = useState([]);
+  const [warrantInformation, setWarrantInformation] = useState([]);
 
   const [values, setValues] = useState({
     id: "",
@@ -58,7 +59,7 @@ function CardUpdate() {
         const token = localStorage.getItem("token");
         console.log(token);
         const response = await axios.get(
-          ` https://ecoqrcode.com/businessCard/getDigitalCardByEmail?email=tanerdokmetas00@gmail.com`
+          ` https://ecoqrcode.com/businessCard/getDigitalCardByEmail?email=${userEmail}`
         );
 
         setValues({
@@ -99,6 +100,11 @@ function CardUpdate() {
         );
         setInvoiceInformation(invoice.data);
 
+        const warrant = await axios.get(
+          `https://ecoqrcode.com/warrantOfAttorney/getWarrantOfAttorneyByDigitalCardId?digitalCardId=3957`
+        );
+        setWarrantInformation(warrant.data);
+
         const updatedBankaInformationCreate = bankaInformationCreate.map(
           (item, index) => ({
             ...item,
@@ -107,6 +113,24 @@ function CardUpdate() {
         );
 
         setBankaInformationCreate(updatedBankaInformationCreate);
+
+        const updatedInvoiceInformationCreate = invoiceInformationCreate.map(
+          (item, index) => ({
+            ...item,
+            digitalCardId: response.data.name,
+          })
+        );
+
+        setInvoiceInformationCreate(updatedInvoiceInformationCreate);
+
+        const updatedWarrantInformationCreate = warrantInformationCreate.map(
+          (item, index) => ({
+            ...item,
+            digitalCardId: response.data.name,
+          })
+        );
+
+        setWarrantInformationCreate(updatedWarrantInformationCreate);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -137,6 +161,26 @@ function CardUpdate() {
       iban: "",
       accountName: "",
       bankName: "",
+      digitalCardId: 0,
+    },
+  ]);
+  const [invoiceInformationCreate, setInvoiceInformationCreate] = useState([
+    {
+      title: "",
+      address: "",
+      taxNumber: "",
+      taxOffice: "",
+      digitalCardId: 0,
+    },
+  ]);
+
+  const [warrantInformationCreate, setWarrantInformationCreate] = useState([
+    {
+      title: "",
+      address: "",
+      citizenId: "",
+      registerNo: "",
+      barAssociation: "",
       digitalCardId: 0,
     },
   ]);
@@ -316,7 +360,7 @@ function CardUpdate() {
       console.log("Banka bilgisi silindi:", response.data);
       // Banka bilgisi silindikten sonra bankaBilgileri listesini güncellemek için
       // fetchBankaBilgileri fonksiyonunu yeniden çağırabiliriz.
-      fetchBankaBilgileri();
+      // fetchBankaBilgileri();
     } catch (error) {
       console.error("Banka bilgisi silinirken hata oluştu:", error);
       // Hata durumunda kullanıcıya uygun bir mesaj gösterebiliriz veya uygun bir
@@ -328,6 +372,17 @@ function CardUpdate() {
     try {
       const response = await axios.delete(
         `https://ecoqrcode.com/invoiceInformation/deleteInvoiceInformation?taxNumber=${taxNumber}`
+      );
+      console.log("Fatura bilgisi silindi:", response.data);
+    } catch (error) {
+      console.error("Fatura bilgisi silinirken hata oluştu:", error);
+    }
+  };
+
+  const deleteWarrantInformation = async (citizenId) => {
+    try {
+      const response = await axios.delete(
+        `https://ecoqrcode.com//warrantOfAttorney/deleteWarrantOfAttorney?citizenId=${citizenId}`
       );
       console.log("Fatura bilgisi silindi:", response.data);
     } catch (error) {
@@ -346,7 +401,33 @@ function CardUpdate() {
       return updatedBankaInformationCreate; // Güncellenmiş durumu döndür
     });
   };
-  console.log("invoice", invoiceInformation);
+  const handleChangeInvoice = (event, index) => {
+    const { name, value } = event.target;
+    setInvoiceInformationCreate((prevInvoiceInformationCreate) => {
+      const updatedInvoiceInformationCreate = [...prevInvoiceInformationCreate]; // Önceki banka bilgilerini kopyala
+      updatedInvoiceInformationCreate[index] = {
+        ...updatedInvoiceInformationCreate[index], // İlgili indeksi kopyala
+        [name]: value, // İstenen özelliği güncelle
+      };
+      return updatedInvoiceInformationCreate; // Güncellenmiş durumu döndür
+    });
+  };
+
+  const handleChangeWarrant = (event, index) => {
+    const { name, value } = event.target;
+    setWarrantInformationCreate((prevWarrantInformationCreate) => {
+      const updatedWarrantInformationCreate = [...prevWarrantInformationCreate]; // Önceki banka bilgilerini kopyala
+      updatedWarrantInformationCreate[index] = {
+        ...updatedWarrantInformationCreate[index], // İlgili indeksi kopyala
+        [name]: value, // İstenen özelliği güncelle
+      };
+      return updatedWarrantInformationCreate; // Güncellenmiş durumu döndür
+    });
+  };
+  console.log("invoice", invoiceInformationCreate);
+  console.log("warrant", warrantInformationCreate);
+  console.log("banka", bankaInformationCreate);
+
   return (
     <>
       {values.linkId !== "" && (
@@ -815,7 +896,6 @@ function CardUpdate() {
               </div>
             ))}
           </div>
-          <hr className="border-1 border-emerald-700  pb-10" />
 
           {/* bankInformation */}
 
@@ -913,7 +993,7 @@ function CardUpdate() {
                     placeholder="Başlık"
                     disabled
                     value={invoiceInfo.title || ""}
-                    onChange={(event) => handleChangeBanka(event, index)}
+                    onChange={(event) => handleChangeInvoice(event, index)}
                   />
                 </div>
                 <div className="flex flex-col">
@@ -923,7 +1003,7 @@ function CardUpdate() {
                     className="input"
                     placeholder="Adres"
                     value={invoiceInfo.address || ""}
-                    onChange={(event) => handleChangeBanka(event, index)}
+                    onChange={(event) => handleChangeInvoice(event, index)}
                   />
                 </div>
                 <div className="flex flex-col">
@@ -933,7 +1013,7 @@ function CardUpdate() {
                     className="input"
                     placeholder="Tax Ofisi"
                     value={invoiceInfo.taxOffice || ""}
-                    onChange={(event) => handleChangeBanka(event, index)}
+                    onChange={(event) => handleChangeInvoice(event, index)}
                   />
                 </div>
                 <div className="flex flex-col">
@@ -943,7 +1023,7 @@ function CardUpdate() {
                     className="input"
                     placeholder="Tax numarası"
                     value={invoiceInfo.taxNumber || ""}
-                    onChange={(event) => handleChangeBanka(event, index)}
+                    onChange={(event) => handleChangeInvoice(event, index)}
                   />
                 </div>
                 <button
@@ -960,7 +1040,183 @@ function CardUpdate() {
           {/* invoicedelete */}
 
           {/* invoicecreate */}
+
+          <div className="md:flex md:flex-row flex-wrap flex-col pt-5 ">
+            {invoiceInformationCreate.map((invoiceInfo, index) => (
+              <div className="basis-1/2 space-y-3 pb-10 pl-[11px]" key={index}>
+                <p>Fatura bilgileri - {`${index + 1}`}</p>
+                <div className="flex flex-col">
+                  <input
+                    name="title"
+                    className="input"
+                    placeholder="Başlık"
+                    value={invoiceInfo.title || ""}
+                    onChange={(event) => handleChangeInvoice(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    name="address"
+                    className="input"
+                    placeholder="Adres"
+                    value={invoiceInfo.address || ""}
+                    onChange={(event) => handleChangeInvoice(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    name="taxNumber"
+                    className="input"
+                    placeholder="Tax numarası"
+                    value={invoiceInfo.taxNumber || ""}
+                    onChange={(event) => handleChangeInvoice(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    name="taxOffice"
+                    className="input"
+                    placeholder="Tax ofisi"
+                    value={invoiceInfo.taxOffice || ""}
+                    onChange={(event) => handleChangeInvoice(event, index)}
+                  />
+                </div>
+                <button className="bg-emerald-600 text-white font-medium px-5 py-1 rounded-lg">
+                  Ekle
+                </button>
+              </div>
+            ))}
+          </div>
           {/* invoicecreate */}
+          <hr className="border-1 border-emerald-700  pb-10" />
+
+          {/* warrantdelete */}
+          <h3 className="font-medium pl-3">VEKALET BİLGİLERİNİ GÜNCELLE</h3>
+          <div className="md:flex md:flex-row flex-wrap flex-col pt-10 pb-5">
+            {warrantInformation.map((warrantInfo, index) => (
+              <div className="basis-1/2 space-y-3 pb-10 pl-[11px]" key={index}>
+                <p>Vekalet bilgileri - {`${index + 1}`}</p>
+                <div className="flex flex-col">
+                  <input
+                    name="title"
+                    className="input"
+                    placeholder="Başlık"
+                    disabled
+                    value={warrantInfo.title || ""}
+                    onChange={(event) => handleChangeWarrant(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    name="address"
+                    disabled
+                    className="input"
+                    placeholder="Adres"
+                    value={warrantInfo.address || ""}
+                    onChange={(event) => handleChangeWarrant(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    disabled
+                    name="citizenId"
+                    className="input"
+                    placeholder="Kimlik Numarası"
+                    value={warrantInfo.citizenId || ""}
+                    onChange={(event) => handleChangeWarrant(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    disabled
+                    name="registerNo"
+                    className="input"
+                    placeholder="Registir No"
+                    value={warrantInfo.registerNo || ""}
+                    onChange={(event) => handleChangeWarrant(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    disabled
+                    name="barAssociation"
+                    className="input"
+                    placeholder="Baro Numarası"
+                    value={warrantInfo.barAssociation || ""}
+                    onChange={(event) => handleChangeWarrant(event, index)}
+                  />
+                </div>
+                <button
+                  className="bg-red-600 text-white font-medium px-5 py-1 rounded-lg"
+                  onClick={() =>
+                    deleteInvoiceInformation(warrantInfo.citizenId)
+                  }
+                >
+                  Sil
+                </button>
+              </div>
+            ))}
+          </div>
+          {/* warrantdelete */}
+
+          {/* warrantcreate */}
+
+          <div className="md:flex md:flex-row flex-wrap flex-col pt-5 ">
+            {warrantInformationCreate.map((warrantInfo, index) => (
+              <div className="basis-1/2 space-y-3 pb-10 pl-[11px]" key={index}>
+                <p>Vekalet bilgileri - {`${index + 1}`}</p>
+                <div className="flex flex-col">
+                  <input
+                    name="title"
+                    className="input"
+                    placeholder="Başlık"
+                    value={warrantInfo.title || ""}
+                    onChange={(event) => handleChangeWarrant(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    name="address"
+                    className="input"
+                    placeholder="Adres"
+                    value={warrantInfo.address || ""}
+                    onChange={(event) => handleChangeWarrant(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    name="citizenId"
+                    className="input"
+                    placeholder="Kimlik numarası"
+                    value={warrantInfo.citizenId || ""}
+                    onChange={(event) => handleChangeWarrant(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    name="registerNo"
+                    className="input"
+                    placeholder="Kayıt numarası"
+                    value={warrantInfo.registerNo || ""}
+                    onChange={(event) => handleChangeWarrant(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    name="barAssociation"
+                    className="input"
+                    placeholder="Baro numarası"
+                    value={warrantInfo.barAssociation || ""}
+                    onChange={(event) => handleChangeWarrant(event, index)}
+                  />
+                </div>
+                <button className="bg-emerald-600 text-white font-medium px-5 py-1 rounded-lg">
+                  Ekle
+                </button>
+              </div>
+            ))}
+          </div>
+          {/* warrantcreate */}
 
           <h3 className="text-lg font-medium text-zinc-700 mt-20">Images</h3>
           <div className="grid md:grid-cols-2 gap-2.5 ">

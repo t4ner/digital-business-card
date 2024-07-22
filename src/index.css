@@ -50,3 +50,44 @@ body {
 .swal-title {
   font-size: 15px; /* Başlık boyutunu burada ayarlayabilirsin */
 }
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(211, 209, 209);
+  color: black;
+}
+
+.banka-button {
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.banka-bilgileri {
+  position: absolute;
+  bottom: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  border-radius: 6px;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease, bottom 0.5s ease;
+}
+
+.banka-bilgileri.open {
+  opacity: 1;
+  pointer-events: auto;
+  bottom: 100px; /* Yavaşça yukarı kayacak mesafe */
+}

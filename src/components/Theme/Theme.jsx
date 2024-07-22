@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import instagram from "/socialMediaLogo/instagram.png";
 import telegram from "/socialMediaLogo/telegram.png";
 import twitter from "/socialMediaLogo/twitter.png";
+import cat from "/socialMediaLogo/cat.png";
+import gallery from "/socialMediaLogo/gallerys.svg";
+import warrant from "/socialMediaLogo/warrant.svg";
+import doc from "/socialMediaLogo/docum.svg";
 import vCard from "vcf";
 import axios from "axios";
 import linkedin from "/staticThemePhoto/linkedin.webp";
@@ -10,36 +14,78 @@ import rehber from "/staticThemePhoto/rehber.png";
 import email from "/staticThemePhoto/email.png";
 import call from "/staticThemePhoto/call.png";
 import website from "/socialMediaLogo/webs.png";
-import { TbInvoice } from "react-icons/tb";
-import { FaRegCreditCard } from "react-icons/fa6";
-import { GoShareAndroid } from "react-icons/go";
-import { MdOutlineQrCode } from "react-icons/md";
-import { GrCatalog, GrDocumentText, GrGallery } from "react-icons/gr";
-import { IoCloseSharp, IoDocumentTextOutline } from "react-icons/io5";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { RiGalleryLine } from "react-icons/ri";
+import { FaCreditCard, FaQrcode } from "react-icons/fa6";
+import { IoCloseSharp, IoDocument } from "react-icons/io5";
+import { FaArrowLeft, FaArrowRight, FaShareAlt } from "react-icons/fa";
+
 import Swal from "sweetalert2";
 import "ldrs/quantum";
+import { GrCatalog } from "react-icons/gr";
 
 function Theme1() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isBankaBilgileriOpen, setIsBankaBilgileriOpen] = useState(false);
 
-  const nextPhoto = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % gallerys.length);
+  const toggleBankaBilgileri = () => {
+    setIsBankaBilgileriOpen(!isBankaBilgileriOpen);
+    setIsVekaletBilgileriOpen(false);
+    setIsGaleriBilgileriOpen(false);
+    setIsKatalogBilgileriOpen(false);
+    setIsFaturaBilgileriOpen(false);
+    setIsQrcodeBilgileriOpen(false);
+  };
+  const [isVekaletBilgileriOpen, setIsVekaletBilgileriOpen] = useState(false);
+
+  const toggleVekaletBilgileri = () => {
+    setIsVekaletBilgileriOpen(!isVekaletBilgileriOpen);
+    setIsGaleriBilgileriOpen(false);
+    setIsKatalogBilgileriOpen(false);
+    setIsFaturaBilgileriOpen(false);
+    setIsBankaBilgileriOpen(false);
+    setIsQrcodeBilgileriOpen(false);
+  };
+  const [isGaleriBilgileriOpen, setIsGaleriBilgileriOpen] = useState(false);
+
+  const toggleGaleriBilgileri = () => {
+    setIsGaleriBilgileriOpen(!isGaleriBilgileriOpen);
+    setIsKatalogBilgileriOpen(false);
+    setIsFaturaBilgileriOpen(false);
+    setIsBankaBilgileriOpen(false);
+    setIsVekaletBilgileriOpen(false);
+    setIsQrcodeBilgileriOpen(false);
   };
 
-  const prevPhoto = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + gallerys.length) % gallerys.length
-    );
+  const [isKatalogBilgileriOpen, setIsKatalogBilgileriOpen] = useState(false);
+
+  const toggleKatalogBilgileri = () => {
+    setIsKatalogBilgileriOpen(!isKatalogBilgileriOpen);
+    setIsFaturaBilgileriOpen(false);
+    setIsBankaBilgileriOpen(false);
+    setIsVekaletBilgileriOpen(false);
+    setIsGaleriBilgileriOpen(false);
+    setIsQrcodeBilgileriOpen(false);
   };
 
-  const [openSection, setOpenSection] = useState(null);
+  const [isFaturaBilgileriOpen, setIsFaturaBilgileriOpen] = useState(false);
 
-  const toggleSection = (section) => {
-    setOpenSection((prev) => (prev === section ? null : section));
+  const toggleFaturaBilgileri = () => {
+    setIsFaturaBilgileriOpen(!isFaturaBilgileriOpen);
+    setIsBankaBilgileriOpen(false);
+    setIsVekaletBilgileriOpen(false);
+    setIsGaleriBilgileriOpen(false);
+    setIsKatalogBilgileriOpen(false);
+    setIsQrcodeBilgileriOpen(false);
   };
 
+  const [isQrcodeBilgileriOpen, setIsQrcodeBilgileriOpen] = useState(false);
+
+  const toggleQrcodeBilgileri = () => {
+    setIsQrcodeBilgileriOpen(!isQrcodeBilgileriOpen);
+    setIsBankaBilgileriOpen(false);
+    setIsFaturaBilgileriOpen(false);
+    setIsVekaletBilgileriOpen(false);
+    setIsGaleriBilgileriOpen(false);
+    setIsKatalogBilgileriOpen(false);
+  };
   const [themeInfo, setThemeInfo] = useState("");
   const [digitalCardId, setDigitalCardId] = useState("");
   const [bankaInformation, setBankaInformation] = useState("");
@@ -210,9 +256,9 @@ function Theme1() {
         <div>
           <button
             className="py-1 rounded flex items-center justify-center"
-            onClick={() => toggleSection("qrcode")}
+            onClick={toggleQrcodeBilgileri}
           >
-            <MdOutlineQrCode className="text-2xl" />
+            <FaQrcode className="text-xl mr-1" />
             <div className="text-sm font-semibold">QR Code</div>
           </button>
         </div>
@@ -221,7 +267,7 @@ function Theme1() {
             className="py-1 rounded flex items-center justify-center"
             onClick={handleShare}
           >
-            <GoShareAndroid className="text-2xl" />
+            <FaShareAlt className="text-xl mr-1" />
             <div className="text-sm font-semibold">Paylaş</div>
           </button>
         </div>
@@ -554,259 +600,108 @@ function Theme1() {
           {/* social media finish */}
         </div>
       )}
+      <div>
+        <footer className="footer flex items-center justify-around">
+          <div>
+            <button
+              className="banka-button flex flex-col items-center justify-center  text-xs font-medium"
+              onClick={toggleBankaBilgileri}
+            >
+              <FaCreditCard className="text-2xl pb-1" />
+              <span className="pt-1">Banka</span>
+            </button>
 
-      <div className="pt-20 w-full  mx-auto">
-        <footer className="fixed bottom-0 bg-zinc-200 text-black pt-2  flex justify-around items-start w-full md:w-2/4 mx-auto">
-          {bankaInformation[0]?.iban && (
-            <button
-              className="py-1 rounded basis-1/5 flex flex-col items-center justify-center"
-              onClick={() => toggleSection("banka")}
+            <div
+              className={`banka-bilgileri ${
+                isBankaBilgileriOpen ? "open" : ""
+              }`}
             >
-              <FaRegCreditCard className="text-2xl" />
-              <div className="text-xs font-medium">Banka Bilgileri</div>
+              <h2>Banka Bilgileri</h2>
+              <p>Bu kısımda banka bilgileri yer alacak.</p>
+            </div>
+          </div>
+
+          <div>
+            <button
+              className="banka-button flex flex-col items-center justify-center  text-xs font-medium"
+              onClick={toggleGaleriBilgileri}
+            >
+              <img src={gallery} className="w-[32px] pt-1" />
+              <p className="mb-2">Galeri</p>
             </button>
-          )}
-          {invoiceInformation[0]?.title && (
-            <button
-              className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
-              onClick={() => toggleSection("fatura")}
+
+            <div
+              className={`banka-bilgileri ${
+                isGaleriBilgileriOpen ? "open" : ""
+              }`}
             >
-              <TbInvoice className="text-2xl" />
-              Fatura Bilgileri
-            </button>
-          )}
-          {gallerys[0]?.linkId && (
+              <h2>Galeri Bilgileri</h2>
+              <p>Bu kısımda galeri bilgileri yer alacak.</p>
+            </div>
+          </div>
+
+          <div>
             <button
-              className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
-              onClick={() => toggleSection("galeri")}
+              className="banka-button flex flex-col items-center justify-center  text-xs font-medium"
+              onClick={toggleKatalogBilgileri}
             >
-              <RiGalleryLine className="text-2xl" />
-              Galeri
-            </button>
-          )}
-          {catalogInformation[0]?.linkId && (
-            <button
-              className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
-              onClick={() => toggleSection("katalog")}
-            >
-              <GrCatalog className="text-2xl" />
+              <GrCatalog className="text-[27px]  text-black" />
               Katalog
             </button>
-          )}
-          {warrantInformation[0]?.address && (
-            <button
-              className="py-1 rounded text-xs font-medium basis-1/5 flex flex-col items-center justify-center"
-              onClick={() => toggleSection("vekalet")}
+
+            <div
+              className={`banka-bilgileri ${
+                isKatalogBilgileriOpen ? "open" : ""
+              }`}
             >
-              <IoDocumentTextOutline className="text-2xl" />
-              Vekalet Bilgileri
+              <h2>Katalog Bilgileri</h2>
+              <p>Bu kısımda katalog bilgileri yer alacak.</p>
+            </div>
+          </div>
+
+          <div>
+            <button
+              className="banka-button flex flex-col items-center justify-center  text-xs font-medium"
+              onClick={toggleFaturaBilgileri}
+            >
+              <img src={doc} className="w-[29px]" />
+              Fatura
             </button>
-          )}
+
+            <div
+              className={`banka-bilgileri ${
+                isFaturaBilgileriOpen ? "open" : ""
+              }`}
+            >
+              <h2>fatura Bilgileri</h2>
+              <p>Bu kısımda fatura bilgileri yer alacak.</p>
+            </div>
+          </div>
+          <div>
+            <button
+              className="banka-button flex flex-col items-center justify-center  text-xs font-medium"
+              onClick={toggleVekaletBilgileri}
+            >
+              <IoDocument className="text-[29px]" />
+              Vekalet
+            </button>
+
+            <div
+              className={`banka-bilgileri ${
+                isVekaletBilgileriOpen ? "open" : ""
+              }`}
+            >
+              <h2>vekalet Bilgileri</h2>
+              <p>Bu kısımda vekalet bilgileri yer alacak.</p>
+            </div>
+          </div>
+          <div
+            className={`banka-bilgileri ${isQrcodeBilgileriOpen ? "open" : ""}`}
+          >
+            <h2>qrcode Bilgileri</h2>
+            <p>Bu kısımda qrcode bilgileri yer alacak.</p>
+          </div>
         </footer>
-
-        {openSection === "banka" && (
-          <div
-            className={`fixed bottom-0 left-0 w-full bg-white p-2 border-t transition-transform duration-500 ${
-              openSection === "banka" ? "translate-y-0" : "translate-y-full"
-            }`}
-          >
-            <button
-              className="flex w-full justify-end  text-white px-2 rounded"
-              onClick={() => setOpenSection(null)}
-            >
-              <IoCloseSharp className="bg-red-600 rounded-md text-2xl  flex-end" />
-            </button>
-            <div>
-              {bankaInformation.map((bank) => {
-                return (
-                  <div className="space-y-2 py-1" key={bank.iban}>
-                    <div className="font-semibold">{bank.iban}</div>
-                    <div className="font-medium text-sm">{bank.bankName}</div>
-                    <div className="font-medium text-sm">
-                      {bank.accountName}
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <button
-                        className="px-3 py-1 bg-blue-500 text-white rounded-md text-xs font-medium hover:bg-blue-600 focus:outline-none"
-                        onClick={() => copyToClipboard(bank.iban)}
-                      >
-                        IBAN'I KOPYALA
-                      </button>
-                    </div>
-                    <hr />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {openSection === "fatura" && (
-          <div
-            className={`fixed bottom-0 left-0 w-full bg-white p-2 border-t transition-transform duration-500 ${
-              openSection === "fatura" ? "translate-y-0" : "translate-y-full"
-            }`}
-          >
-            <button
-              className="flex w-full justify-end  text-white px-2 rounded"
-              onClick={() => setOpenSection(null)}
-            >
-              <IoCloseSharp className="bg-red-600 rounded-md text-2xl  flex-end" />
-            </button>
-            <div>
-              {invoiceInformation.map((invoice) => {
-                return (
-                  <div className="space-y-2 py-1" key={invoice.title}>
-                    <div className="font-semibold">{invoice.title}</div>
-                    <div className="font-medium text-sm">
-                      Tax numarası: {invoice.taxNumber}
-                    </div>
-                    <div className="font-medium text-sm">
-                      Tax ofisi: {invoice.taxOffice}
-                    </div>
-                    <div className="font-medium text-sm">
-                      Adres: {invoice.address}
-                    </div>
-                    <hr />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {openSection === "vekalet" && (
-          <div
-            className={`fixed bottom-0 left-0 w-full bg-white p-2 border-t transition-transform duration-500 ${
-              openSection === "vekalet" ? "translate-y-0" : "translate-y-full"
-            }`}
-          >
-            <button
-              className="flex w-full justify-end  text-white px-2 rounded"
-              onClick={() => setOpenSection(null)}
-            >
-              <IoCloseSharp className="bg-red-600 rounded-md text-2xl  flex-end" />
-            </button>
-            <div>
-              {warrantInformation.map((warrant) => {
-                return (
-                  <div className="space-y-2 py-1" key={warrant.title}>
-                    <div className="font-semibold">{warrant.title}</div>
-                    <div className="font-medium text-sm">
-                      {warrant.citizenId}
-                    </div>
-                    <div className="font-medium text-sm">
-                      {warrant.registerNo}
-                    </div>
-                    <div className="font-medium text-sm">
-                      {warrant.barAssociation}
-                    </div>
-                    <div className="font-medium text-sm">
-                      Adres: {warrant.address}
-                    </div>
-                    <hr />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {openSection === "katalog" && (
-          <div
-            className={`fixed bottom-0 left-0 w-full bg-white p-2 border-t transition-transform duration-500 ${
-              openSection === "katalog" ? "translate-y-0" : "translate-y-full"
-            }`}
-          >
-            <button
-              className="flex w-full justify-end  text-white px-2 rounded"
-              onClick={() => setOpenSection(null)}
-            >
-              <IoCloseSharp className="bg-red-600 rounded-md text-2xl  flex-end" />
-            </button>
-            <div>
-              {catalogInformation.map((catalog) => {
-                return (
-                  <div className="space-y-2 py-1" key={catalog.name}>
-                    <a
-                      href={catalog.url}
-                      target="_blank"
-                      className="font-medium text-sm"
-                    >
-                      <div className="font-semibold">{catalog.name}</div>
-                    </a>
-
-                    <hr />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {openSection === "galeri" && (
-          <div
-            className={`fixed bottom-0 left-0 w-full h-[350px] flex flex-col items-center justify-center bg-white p-2 border-t transition-transform duration-500 ${
-              openSection === "galeri" ? "translate-y-0" : "translate-y-full"
-            }`}
-          >
-            <button
-              className="flex w-full justify-end  text-white px-2 pb-2 rounded"
-              onClick={() => setOpenSection(null)}
-            >
-              <IoCloseSharp className="bg-red-600 rounded-md text-2xl  flex-end" />
-            </button>
-            <div className="flex items-center">
-              <button onClick={prevPhoto} className="p-2">
-                <FaArrowLeft />
-              </button>
-              <div className="flex-grow">
-                <div className="h-[300px] w-full">
-                  {gallerys.map((gallery, index) => {
-                    return (
-                      index === currentIndex && (
-                        <img
-                          key={index}
-                          src={gallery.url}
-                          className="w-full h-full object-cover rounded-md"
-                          alt=""
-                        />
-                      )
-                    );
-                  })}
-                </div>
-              </div>
-              <button onClick={nextPhoto} className="p-2">
-                <FaArrowRight />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {openSection === "qrcode" && (
-          <div
-            className={`fixed bottom-0 md:h-[600px] 2xl:h-[700px] md:w-2/4 w-full bg-white p-2 border-t transition-transform duration-500 ${
-              openSection === "qrcode" ? "translate-y-0" : "translate-y-full"
-            }`}
-          >
-            <button
-              className="flex w-full justify-end  text-white px-2 pb-2 rounded"
-              onClick={() => setOpenSection(null)}
-            >
-              <IoCloseSharp className="bg-red-600 rounded-md text-2xl  flex-end" />
-            </button>
-            <div className="flex items-center">
-              <div className="flex-grow">
-                <div className=" md:h-[600px] 2xl:h-[700px] w-full ">
-                  <img
-                    src={qrCode.url}
-                    className="w-full h-full p-5 object-cover rounded-md"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
