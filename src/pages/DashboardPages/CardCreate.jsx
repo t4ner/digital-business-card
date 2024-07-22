@@ -400,6 +400,7 @@ function Stepper() {
                 { headers }
               );
               console.log("Bank Response:", bankResponse.data);
+              console.log("Bank gidişat:", bankInformation);
               // Handle success for bank information
 
               // Post warrant of attorney
@@ -1786,7 +1787,6 @@ function Stepper() {
                       type="button"
                       onClick={submitHandle}
                       className="bg-emerald-600 w-28 disabled:opacity-50 justify-self-end text-white rounded h-10 text-sm"
-                      disabled={!isValid || !dirty}
                     >
                       TAMAMLA
                     </button>

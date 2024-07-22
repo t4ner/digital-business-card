@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
-import instagram from "/socialMediaLogo/instagram.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function Contact() {
@@ -24,75 +23,63 @@ function Contact() {
       );
   };
   return (
-    <div className="md:mb-20 mb-10 mt-10 md:mt-20 md:bg-purple-300">
+    <section id="contact" className="mb-20 mt-20 flex-col justify-center px-4">
       <ToastContainer />
-      <div className="md:w-4/5 mx-auto flex-col md:flex md:flex-row justify-between gap-10 md:py-10">
-        <div className="bg-white basis-full md:basis-1/3 md:p-5 rounded-lg">
-          <h3 className="text-2xl md:text-6xl font-bold p-1 from-green-600 via-purple-600 to-blue-600 bg-gradient-to-r bg-clip-text border-0 text-transparent">
-            Bizimle iletişime geçin
-          </h3>
-          <div className="flex items-center md:gap-3 gap-1  md:mt-8">
-            <img src={instagram} />
-            <span className="font-medium text-lg md:text-2xl bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] bg-clip-text border-0 text-transparent">
-              @ecoqrcode.tr
-            </span>
+      <div className="relative py-3 sm:max-w-xl sm:mx-auto">
+        <div className="absolute inset-0 bg-gradient-to-r from-zinc-200 to-white shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 rounded-3xl"></div>
+        <div className="text-white relative px-4 py-10 bg-emerald-200 shadow-lg rounded-3xl sm:p-20">
+          <div className="text-center pb-6">
+            <h1 className="text-xl md:text-3xl font-medium">
+              Bizimle iletişime geçin!
+            </h1>
           </div>
-        </div>
-        <div className="bg-white flex-1 px-2 md:p-5 rounded-lg">
+
           <form ref={form} onSubmit={sendEmail}>
-            <div className="flex-col md:flex md:flex-row flex-wrap md:gap-10">
-              <div className="relative my-2 md:my-4 pb-2">
-                <input
-                  type="text"
-                  required
-                  name="user_name"
-                  placeholder="Adınız"
-                  className="block w-full md:w-72 py-1 pt-5  px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
-                />
-              </div>
+            <input
+              className="shadow border-none text-sm md:text-base mb-4 appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              required
+              name="user_name"
+              placeholder="Adınız"
+            />
 
-              <div className="relative my-2 md:my-4 pb-2">
-                <input
-                  type="email"
-                  required
-                  name="user_email"
-                  placeholder="Mail adresiniz"
-                  className="block w-full md:w-72 py-1 pt-5  px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
-                />
-              </div>
+            <input
+              className="shadow mb-4 border-none text-sm md:text-base appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="email"
+              required
+              name="user_email"
+              placeholder="Mail adresiniz"
+            />
 
-              <div className="relative my-2 md:my-4 pb-2">
-                <input
-                  type="text"
-                  required
-                  id="name"
-                  name="user_telephone"
-                  placeholder="Telefon Numaranız"
-                  className="block w-full md:w-72 py-1 pt-5  px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
-                />
-              </div>
+            <input
+              className="shadow mb-4 border-none text-sm md:text-base appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              required
+              id="name"
+              name="user_telephone"
+              placeholder="Telefon Numaranız"
+            />
 
-              <div className="relative my-2 md:my-4 pb-2">
-                <input
-                  required
-                  name="message"
-                  placeholder="Mesajınız..."
-                  className="block w-full md:w-72 py-1 pt-5 placeholder:text-base px-0 placeholder:text-black font-medium  text-purple-500 bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer"
-                />
-              </div>
+            <textarea
+              className="shadow mb-4 min-h-0 border-none text-sm md:text-base appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+              name="message"
+              placeholder="Mesajınız..."
+              style={{ height: "121px" }}
+            />
 
+            <div className="flex justify-between">
               <button
+                className="shadow bg-white text-emerald-600 text-sm md:text-base font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit"
-                className="font-medium border-2 border-purple-600 rounded-lg px-4 py-2 text-black"
               >
-                {" "}
-                Gönder
+                Gönder ➤
               </button>
             </div>
           </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

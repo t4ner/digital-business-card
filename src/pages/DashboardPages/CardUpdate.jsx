@@ -5,6 +5,7 @@ import telegram from "/socialMediaLogo/telegram.svg";
 import facebook from "/socialMediaLogo/facebook.svg";
 import whatsapp from "/socialMediaLogo/whatsapp.svg";
 import linkedin from "/socialMediaLogo/linkedin.svg";
+import ciceksepeti from "/socialMediaLogo/ciceksepeti.png";
 import discord from "/socialMediaLogo/discord.svg";
 import Swal from "sweetalert2";
 import theme1 from "/themes/10.png";
@@ -14,118 +15,151 @@ import wechat from "/socialMediaLogo/wechat.svg";
 import axios from "axios";
 import { Link } from "react-router-dom";
 function CardUpdate() {
-  const [emailPerson, setEmailPerson] = useState({});
+  const [bankaInformation, setBankaInformation] = useState([]);
+  const [invoiceInformation, setInvoiceInformation] = useState([]);
+
   const [values, setValues] = useState({
+    id: "",
     linkId: "",
     themeId: 0,
     name: "",
     surname: "",
     title: "",
     description: "",
+    email: "",
+    twitter: "",
+    instagram: "",
+    website: "",
+    wechat: "",
     phoneNumber1: "",
     phoneNumber2: "",
-    photo1: "",
-    photo2: "",
-    photo3: "",
-    photo4: "",
-    photo5: "",
-    email: "",
-    website: "",
-    location: "",
-    instagram: "",
-    twitter: "",
-    telegram: "",
-    facebook: "",
     whatsapp: "",
     linkedin: "",
+    telegram: "",
+    facebook: "",
+    location: "",
     discord: "",
-    wechat: "",
-    bankInformationList: [
-      {
-        iban: "",
-        bankName: "",
-        accountName: "",
-      },
-    ],
+    whatsappBusiness: "",
+    cicekSepeti: "",
+    sahibinden: "",
+    trendyol: "",
+    hepsiburada: "",
+    firm: "",
   });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userEmail = localStorage.getItem("email");
-        console.log(userEmail)
+        console.log(userEmail);
         if (!userEmail) {
           return;
         }
-
+        const token = localStorage.getItem("token");
+        console.log(token);
         const response = await axios.get(
-          ` https://ecoqrcode.com/businessCard/getDigitalCardByEmail?email=${userEmail}`
+          ` https://ecoqrcode.com/businessCard/getDigitalCardByEmail?email=tanerdokmetas00@gmail.com`
         );
 
-        setEmailPerson(response.data);
-        // Set each value individually
         setValues({
-          linkId: response.data.linkId,
-          name: response.data.name,
-          surname: response.data.surname,
-          title: response.data.title,
+          id: response.data.id || "",
+          linkId: response.data.linkId || "",
           themeId: response.data.themeId,
-          description: response.data.description,
-          phoneNumber1: response.data.phoneNumber1,
-          phoneNumber2: response.data.phoneNumber2 || "",
-          photo1: response.data.photo1 || "",
-          photo2: response.data.photo2 || "",
-          photo3: response.data.photo3 || "",
-          photo4: response.data.photo4 || "",
-          photo5: response.data.photo5 || "",
-          email: response.data.email,
-          website: response.data.website || "",
-          location: response.data.location || "",
-          instagram: response.data.instagram || "",
+          name: response.data.name || "",
+          surname: response.data.surname || "",
+          title: response.data.title || "",
+          description: response.data.description || "",
+          email: response.data.email || "",
           twitter: response.data.twitter || "",
-          telegram: response.data.telegram || "",
-          facebook: response.data.facebook || "",
+          instagram: response.data.instagram || "",
+          website: response.data.website || "",
+          wechat: response.data.wechat || "",
+          phoneNumber1: response.data.phoneNumber1 || "",
+          phoneNumber2: response.data.phoneNumber2 || "",
           whatsapp: response.data.whatsapp || "",
           linkedin: response.data.linkedin || "",
+          telegram: response.data.telegram || "",
+          facebook: response.data.facebook || "",
+          location: response.data.location || "",
           discord: response.data.discord || "",
-
-          wechat: response.data.wechat || "",
-          bankInformationList: response.data.bankInformationList.map(
-            (info) => ({
-              iban: info.iban || "",
-              bankName: info.bankName || "",
-              accountName: info.accountName || "",
-            })
-          ),
+          whatsappBusiness: response.data.whatsappBusiness || "",
+          cicekSepeti: response.data.cicekSepeti || "",
+          sahibinden: response.data.sahibinden || "",
+          trendyol: response.data.trendyol || "",
+          hepsiburada: response.data.hepsiburada || "",
+          firm: response.data.firm || "",
         });
-      } catch (error) {}
+        const banka = await axios.get(
+          `https://ecoqrcode.com/bankInformation/getBankInformationDigitalCardId?digitalCardId=3957`
+        );
+        setBankaInformation(banka.data);
+
+        const invoice = await axios.get(
+          `https://ecoqrcode.com/invoiceInformation/getInvoiceInformationByDigitalCardId?digitalCardId=3957`
+        );
+        setInvoiceInformation(invoice.data);
+
+        const updatedBankaInformationCreate = bankaInformationCreate.map(
+          (item, index) => ({
+            ...item,
+            digitalCardId: response.data.name,
+          })
+        );
+
+        setBankaInformationCreate(updatedBankaInformationCreate);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
     fetchData();
   }, []);
-
+  const [bankaInformationCreate, setBankaInformationCreate] = useState([
+    {
+      iban: "",
+      accountName: "",
+      bankName: "",
+      digitalCardId: 0,
+    },
+    {
+      iban: "",
+      accountName: "",
+      bankName: "",
+      digitalCardId: 0,
+    },
+    {
+      iban: "",
+      accountName: "",
+      bankName: "",
+      digitalCardId: 0,
+    },
+    {
+      iban: "",
+      accountName: "",
+      bankName: "",
+      digitalCardId: 0,
+    },
+  ]);
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if (name.startsWith("bankInformationList")) {
-      const [listIndex, fieldName] = name.match(/\[(\d+)\]\.(.+)/).slice(1);
-      setValues((prevValues) => ({
-        ...prevValues,
-        bankInformationList: prevValues.bankInformationList.map((item, index) =>
-          index === parseInt(listIndex)
-            ? {
-                ...item,
-                [fieldName]: value,
-              }
-            : item
-        ),
-      }));
-    } else {
-      setValues((prevValues) => ({
-        ...prevValues,
-        [name]: value,
-      }));
-    }
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   };
+
+  const handleChangeBanka = (event, index) => {
+    const { name, value } = event.target;
+    setBankaInformation((prevBankaInformation) => {
+      const updatedBankaInformation = [...prevBankaInformation]; // Önceki banka bilgilerini kopyala
+      updatedBankaInformation[index] = {
+        ...updatedBankaInformation[index], // İlgili indeksi kopyala
+        [name]: value, // İstenen özelliği güncelle
+      };
+      return updatedBankaInformation; // Güncellenmiş durumu döndür
+    });
+  };
+
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
   const [image3, setImage3] = useState("");
@@ -215,6 +249,30 @@ function CardUpdate() {
     setShowInputWeChat(!showInputWeChat);
   };
 
+  const [showInputWhatsappBusiness, setShowWhatsappBusiness] = useState(false);
+  const showWhatsappBusiness = () => {
+    setShowWhatsappBusiness(!showInputWhatsappBusiness);
+  };
+  const [showInputCiceksepeti, setShowInputCiceksepeti] = useState(false);
+  const showCiceksepeti = () => {
+    setShowInputCiceksepeti(!showInputCiceksepeti);
+  };
+
+  const [showInputSahibinden, setShowInputSahibinden] = useState(false);
+  const showSahibinden = () => {
+    setShowInputSahibinden(!showInputSahibinden);
+  };
+
+  const [showInputTrendyol, setShowInputTrendyol] = useState(false);
+  const showTrendyol = () => {
+    setShowInputTrendyol(!showInputTrendyol);
+  };
+
+  const [showInputHepsiburada, setShowInputHepsiburada] = useState(false);
+  const showHepsiburada = () => {
+    setShowInputHepsiburada(!showInputHepsiburada);
+  };
+
   const handleChangeTheme1 = (e) => {
     const value = parseInt(e.target.value);
     setValues((prevValues) => ({
@@ -229,14 +287,14 @@ function CardUpdate() {
       themeId: value,
     }));
   };
-
+  console.log("values", values);
+  console.log("bank", bankaInformationCreate);
   const sendDataToServer = async () => {
     try {
       const response = await axios.put(
         "https://ecoqrcode.com/businessCard/updateDigitalCard",
         values
       );
-
       Swal.fire({
         icon: "success",
         title: "Başarılı!",
@@ -250,30 +308,66 @@ function CardUpdate() {
       });
     }
   };
+  const deleteBankaInformation = async (iban) => {
+    try {
+      const response = await axios.delete(
+        `https://ecoqrcode.com/bankInformation/deleteBankInformation?iban=${iban}`
+      );
+      console.log("Banka bilgisi silindi:", response.data);
+      // Banka bilgisi silindikten sonra bankaBilgileri listesini güncellemek için
+      // fetchBankaBilgileri fonksiyonunu yeniden çağırabiliriz.
+      fetchBankaBilgileri();
+    } catch (error) {
+      console.error("Banka bilgisi silinirken hata oluştu:", error);
+      // Hata durumunda kullanıcıya uygun bir mesaj gösterebiliriz veya uygun bir
+      // hata işleme mekanizması kullanılabilir.
+    }
+  };
 
-  console.log("emailPerson", emailPerson)
-  
+  const deleteInvoiceInformation = async (taxNumber) => {
+    try {
+      const response = await axios.delete(
+        `https://ecoqrcode.com/invoiceInformation/deleteInvoiceInformation?taxNumber=${taxNumber}`
+      );
+      console.log("Fatura bilgisi silindi:", response.data);
+    } catch (error) {
+      console.error("Fatura bilgisi silinirken hata oluştu:", error);
+    }
+  };
+  console.log("bankaınformation", bankaInformation);
+  const handleChangeBank = (event, index) => {
+    const { name, value } = event.target;
+    setBankaInformationCreate((prevBankaInformationCreate) => {
+      const updatedBankaInformationCreate = [...prevBankaInformationCreate]; // Önceki banka bilgilerini kopyala
+      updatedBankaInformationCreate[index] = {
+        ...updatedBankaInformationCreate[index], // İlgili indeksi kopyala
+        [name]: value, // İstenen özelliği güncelle
+      };
+      return updatedBankaInformationCreate; // Güncellenmiş durumu döndür
+    });
+  };
+  console.log("invoice", invoiceInformation);
   return (
     <>
-      {emailPerson.linkId !== "" && (
+      {values.linkId !== "" && (
         <div className="p-7">
           <header>
-            <h3 className="text-lg font-medium text-zinc-700 mb-2">İçerik</h3>
+            <h3 className="text-lg font-medium text-zinc-700 mb-2">İÇERİK</h3>
           </header>
           <div className="flex flex-col w-full mb-3">
             <div className="flex items-center">
               <div
                 disabled
-                className="input text-gray-600 mr-0.5 bg-zinc-300 flex items-center justify-center"
+                className="input text-gray-600 mr-0.5 bg-zinc-200 flex items-center justify-center"
               >
                 linko.page/
               </div>
               <input
                 name="linkId"
                 disabled
-                className="input text-gray-600 mr-0.5 bg-zinc-100 flex items-center justify-center w-full"
+                className="input text-gray-600 mr-0.5 bg-zinc-50 flex items-center justify-center w-full"
                 placeholder="Sayfanızın URL'si"
-                value={emailPerson.linkId}
+                value={values.linkId}
               />
             </div>
           </div>
@@ -327,7 +421,7 @@ function CardUpdate() {
               <input
                 name="email"
                 disabled
-                className="input text-gray-600 mr-0.5 bg-zinc-100 flex items-center justify-center"
+                className="input text-gray-600 mr-0.5 bg-zinc-50 flex items-center justify-center"
                 placeholder="E-posta"
                 value={values.email}
                 onChange={handleChange}
@@ -352,7 +446,7 @@ function CardUpdate() {
                 onChange={handleChange}
               />
             </div>
-            {values.bankInformationList.map((bankInfo, index) => (
+            {/* {values.bankInformationList.map((bankInfo, index) => (
               <React.Fragment key={index}>
                 <div className="flex flex-col">
                   <input
@@ -382,7 +476,7 @@ function CardUpdate() {
                   />
                 </div>
               </React.Fragment>
-            ))}
+            ))} */}
 
             <div className="flex flex-col">
               <button
@@ -542,7 +636,117 @@ function CardUpdate() {
               )}
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col ">
+              <button
+                type="button"
+                onClick={showWhatsappBusiness}
+                className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+              >
+                <span className="font-medium text-green-600">
+                  Whatshapp Business
+                </span>
+
+                <img src={whatsapp} className="w-6" />
+              </button>
+              {showInputWhatsappBusiness && (
+                <>
+                  <input
+                    name="whatsappBusiness"
+                    className="input mt-3"
+                    placeholder="Whatshapp Business"
+                    value={values.whatsappBusiness}
+                    onChange={handleChange}
+                  />
+                </>
+              )}
+            </div>
+
+            <div className="flex flex-col md:basis-1/2 ">
+              <button
+                type="button"
+                onClick={showCiceksepeti}
+                className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+              >
+                <span className="font-medium text-blue-700">Çiçek Sepeti</span>
+
+                <img src={ciceksepeti} className="w-6" />
+              </button>
+              {showInputCiceksepeti && (
+                <>
+                  <input
+                    name="cicekSepeti"
+                    className="input mt-3"
+                    placeholder="Çiçek Sepeti"
+                    value={values.cicekSepeti}
+                    onChange={handleChange}
+                  />
+                </>
+              )}
+            </div>
+
+            <div className="flex flex-col md:basis-1/2 ">
+              <button
+                type="button"
+                onClick={showSahibinden}
+                className="flex gap-1  items-center justify-center border border-zinc-400 py-[9px] rounded "
+              >
+                <span className="font-medium text-yellow-300">Sahibinden</span>
+              </button>
+              {showInputSahibinden && (
+                <>
+                  <input
+                    name="sahibinden"
+                    className="input mt-3"
+                    placeholder="Sahibinden"
+                    value={values.sahibinden}
+                    onChange={handleChange}
+                  />
+                </>
+              )}
+            </div>
+
+            <div className="flex flex-col md:basis-1/2 ">
+              <button
+                type="button"
+                onClick={showTrendyol}
+                className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+              >
+                <span className="font-medium text-orange-500">Trendyol</span>
+              </button>
+              {showInputTrendyol && (
+                <>
+                  <input
+                    name="trendyol"
+                    className="input mt-3"
+                    placeholder="Trendyol"
+                    value={values.trendyol}
+                    onChange={handleChange}
+                  />
+                </>
+              )}
+            </div>
+
+            <div className="flex flex-col md:basis-1/2">
+              <button
+                type="button"
+                onClick={showHepsiburada}
+                className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+              >
+                <span className="font-medium text-orange-500">Hepsiburada</span>
+              </button>
+              {showInputHepsiburada && (
+                <>
+                  <input
+                    name="hepsiburada"
+                    className="input mt-3"
+                    placeholder="Hepsiburada"
+                    value={values.hepsiburada}
+                    onChange={handleChange}
+                  />
+                </>
+              )}
+            </div>
+            <div className="flex flex-col pb-10">
               <button
                 type="button"
                 onClick={showWeChat}
@@ -565,9 +769,201 @@ function CardUpdate() {
               )}
             </div>
           </div>
-          <hr className="mt-3" />
-          <h3 className="text-lg font-medium text-zinc-700 ">Images</h3>
-          <div className="grid md:grid-cols-2 gap-2.5">
+          <hr className="border-1 border-emerald-700  pt-10" />
+          <h3 className="font-medium pl-3">BANKA BİLGİLERİNİ GÜNCELLE</h3>
+          {/* bankInformation */}
+          <div className="md:flex md:flex-row flex-wrap flex-col pt-10 pb-5">
+            {bankaInformation.map((bankInfo, index) => (
+              <div className="basis-1/2 space-y-3 pb-10 pl-[11px]" key={index}>
+                <p>Banka bilgileri - {`${index + 1}`}</p>
+                <div className="flex flex-col">
+                  <input
+                    name="iban"
+                    className="input"
+                    placeholder="IBAN"
+                    disabled
+                    value={bankInfo.iban || ""}
+                    onChange={(event) => handleChangeBanka(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    name="bankName"
+                    disabled
+                    className="input"
+                    placeholder="Banka Adı"
+                    value={bankInfo.bankName || ""}
+                    onChange={(event) => handleChangeBanka(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    disabled
+                    name="accountName"
+                    className="input"
+                    placeholder="Hesap Adı"
+                    value={bankInfo.accountName || ""}
+                    onChange={(event) => handleChangeBanka(event, index)}
+                  />
+                </div>
+                <button
+                  className="bg-red-600 text-white font-medium px-5 py-1 rounded-lg"
+                  onClick={() => deleteBankaInformation(bankInfo.iban)}
+                >
+                  Sil
+                </button>
+              </div>
+            ))}
+          </div>
+          <hr className="border-1 border-emerald-700  pb-10" />
+
+          {/* bankInformation */}
+
+          {/* bankaCreate */}
+
+          <div className="md:flex md:flex-row flex-wrap flex-col pt-5 ">
+            {bankaInformationCreate.map((bankInfo, index) => (
+              <div className="basis-1/2 space-y-3 pb-10 pl-[11px]" key={index}>
+                <p>Banka bilgileri - {`${index + 1}`}</p>
+                <div className="flex flex-col">
+                  <input
+                    name="iban"
+                    className="input"
+                    placeholder="IBAN"
+                    value={bankInfo.iban || ""}
+                    onChange={(event) => handleChangeBank(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    name="bankName"
+                    className="input"
+                    placeholder="Banka Adı"
+                    value={bankInfo.bankName || ""}
+                    onChange={(event) => handleChangeBank(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    name="accountName"
+                    className="input"
+                    placeholder="Hesap Adı"
+                    value={bankInfo.accountName || ""}
+                    onChange={(event) => handleChangeBank(event, index)}
+                  />
+                </div>
+                <button className="bg-emerald-600 text-white font-medium px-5 py-1 rounded-lg">
+                  Ekle
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {/* <div className="flex flex-wrap  pt-10 ">
+            {bankaInformationCreate.map((bankaInfo, index) => (
+              <div className="flex-col flex-wrap   basis-1/2 pb-10" key={index}>
+                <div className="flex flex-col ">
+                  {" "}
+                  <input
+                    type="text"
+                    name="bankName"
+                    className="input"
+                    placeholder="Banka Adı"
+                    value={bankaInfo.bankName || ""}
+                    onChange={(event) => handleChangeBank(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col ">
+                  {" "}
+                  <input
+                    type="text"
+                    name="accountName"
+                    className="input"
+                    placeholder="Hesap Adı"
+                    value={bankaInfo.accountName || ""}
+                    onChange={(event) => handleChangeBank(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col ">
+                  <input
+                    type="text"
+                    name="iban"
+                    className="input"
+                    placeholder="IBAN"
+                    value={bankaInfo.iban || ""}
+                    onChange={(event) => handleChangeBank(event, index)}
+                  />
+                </div>
+              </div>
+            ))}
+          </div> */}
+          {/* bankaCreate */}
+          <hr className="border-1 border-emerald-700  pb-10" />
+          <h3 className="font-medium pl-3">FATURA BİLGİLERİNİ GÜNCELLE</h3>
+
+          {/* invoicedelete */}
+          <div className="md:flex md:flex-row flex-wrap flex-col pt-10 pb-5">
+            {invoiceInformation.map((invoiceInfo, index) => (
+              <div className="basis-1/2 space-y-3 pb-10 pl-[11px]" key={index}>
+                <p>Fatura bilgileri - {`${index + 1}`}</p>
+                <div className="flex flex-col">
+                  <input
+                    name="title"
+                    className="input"
+                    placeholder="Başlık"
+                    disabled
+                    value={invoiceInfo.title || ""}
+                    onChange={(event) => handleChangeBanka(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    name="address"
+                    disabled
+                    className="input"
+                    placeholder="Adres"
+                    value={invoiceInfo.address || ""}
+                    onChange={(event) => handleChangeBanka(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    disabled
+                    name="taxOffice"
+                    className="input"
+                    placeholder="Tax Ofisi"
+                    value={invoiceInfo.taxOffice || ""}
+                    onChange={(event) => handleChangeBanka(event, index)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    disabled
+                    name="taxNumber"
+                    className="input"
+                    placeholder="Tax numarası"
+                    value={invoiceInfo.taxNumber || ""}
+                    onChange={(event) => handleChangeBanka(event, index)}
+                  />
+                </div>
+                <button
+                  className="bg-red-600 text-white font-medium px-5 py-1 rounded-lg"
+                  onClick={() =>
+                    deleteInvoiceInformation(invoiceInfo.taxNumber)
+                  }
+                >
+                  Sil
+                </button>
+              </div>
+            ))}
+          </div>
+          {/* invoicedelete */}
+
+          {/* invoicecreate */}
+          {/* invoicecreate */}
+
+          <h3 className="text-lg font-medium text-zinc-700 mt-20">Images</h3>
+          <div className="grid md:grid-cols-2 gap-2.5 ">
             <div className="flex flex-col">
               <label htmlFor="photo1" className="text-sm">
                 Profil Photo
@@ -649,7 +1045,6 @@ function CardUpdate() {
               )}
             </div>
           </div>
-
           <div className="mt-5">
             <header>
               <h3 className="text-lg font-medium text-zinc-700 mb-2">Design</h3>
@@ -722,7 +1117,7 @@ function CardUpdate() {
         </div>
       )}
 
-      {emailPerson.linkId === "" && (
+      {values.linkId === "" && (
         <div
           className="flex items-center justify-center h-screen"
           style={{ backgroundImage: "url('/hero/hero.jpg')" }}
