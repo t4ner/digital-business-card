@@ -14,15 +14,30 @@ import rehber from "/staticThemePhoto/rehber.png";
 import email from "/staticThemePhoto/email.png";
 import call from "/staticThemePhoto/call.png";
 import website from "/socialMediaLogo/webs.png";
+import ImageGallery from "react-image-gallery";
 import { FaCreditCard, FaQrcode } from "react-icons/fa6";
 import { IoCloseSharp, IoDocument } from "react-icons/io5";
 import { FaArrowLeft, FaArrowRight, FaShareAlt } from "react-icons/fa";
-
 import Swal from "sweetalert2";
 import "ldrs/quantum";
 import { GrCatalog } from "react-icons/gr";
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 
 function Theme1() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const gallerys1 = [
+    {
+      url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg",
+    },
+    {
+      url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg",
+    },
+    {
+      url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg",
+    },
+    // Diğer resim URL'leri
+  ];
+
   const [isBankaBilgileriOpen, setIsBankaBilgileriOpen] = useState(false);
 
   const toggleBankaBilgileri = () => {
@@ -247,9 +262,17 @@ function Theme1() {
         });
       });
   }
+  const prevSlide = () => {
+    const newIndex = (currentIndex - 1 + gallerys.length) % gallerys.length;
+    setCurrentIndex(newIndex);
+  };
 
-  // Tema bilgisi yüklendiyse render et
+  const nextSlide = () => {
+    const newIndex = (currentIndex + 1) % gallerys.length;
+    setCurrentIndex(newIndex);
+  };
 
+  console.log("gallerys", gallerys);
   return (
     <div className="md:w-2/4 mx-auto">
       <div className="flex justify-between px-2 py-2">
@@ -612,16 +635,35 @@ function Theme1() {
             </button>
 
             <div
-              className={`banka-bilgileri ${
+              className={`banka-bilgileri p-5 border bg-white shadow-xl ${
                 isBankaBilgileriOpen ? "open" : ""
               }`}
             >
-              <h2>Banka Bilgileri</h2>
-              <p>Bu kısımda banka bilgileri yer alacak.</p>
+              <div>
+                {bankaInformation.map((bank) => {
+                  return (
+                    <div className="space-y-2 py-1" key={bank.iban}>
+                      <div className="font-semibold">{bank.iban}</div>
+                      <div className="font-medium text-sm">{bank.bankName}</div>
+                      <div className="font-medium text-sm">
+                        {bank.accountName}
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <button
+                          className="px-3 py-1 bg-emerald-600 text-white rounded-md text-xs font-medium focus:outline-none"
+                          onClick={() => copyToClipboard(bank.iban)}
+                        >
+                          IBAN'I KOPYALA
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
-          <div>
+          <div className="overflow-hidden">
             <button
               className="banka-button flex flex-col items-center justify-center  text-xs font-medium"
               onClick={toggleGaleriBilgileri}
@@ -635,8 +677,35 @@ function Theme1() {
                 isGaleriBilgileriOpen ? "open" : ""
               }`}
             >
-              <h2>Galeri Bilgileri</h2>
-              <p>Bu kısımda galeri bilgileri yer alacak.</p>
+              {/* galeri */}
+              <div className="h-[300px] w-full m-auto relative group overflow-hidden">
+                {gallerys.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image.url}
+                    alt={`Image ${index}`}
+                    className={`w-full h-full rounded-2xl absolute top-0 left-0 transition-opacity duration-500 ${
+                      index === currentIndex ? "opacity-100" : "opacity-0"
+                    }`}
+                    style={{
+                      zIndex: index === currentIndex ? 1 : 0,
+                    }}
+                  />
+                ))}
+                <div
+                  className="absolute top-1/2 transform -translate-y-1/2 left-2 text-2xl rounded-full bg-black/20 text-white cursor-pointer z-10"
+                  onClick={prevSlide}
+                >
+                  <BsChevronCompactLeft size={30} />
+                </div>
+                <div
+                  className="absolute top-1/2 transform -translate-y-1/2 right-2 text-2xl rounded-full bg-black/20 text-white cursor-pointer z-10"
+                  onClick={nextSlide}
+                >
+                  <BsChevronCompactRight size={30} />
+                </div>
+              </div>
+              {/* galeri */}
             </div>
           </div>
 
@@ -645,17 +714,32 @@ function Theme1() {
               className="banka-button flex flex-col items-center justify-center  text-xs font-medium"
               onClick={toggleKatalogBilgileri}
             >
-              <GrCatalog className="text-[27px]  text-black" />
+              <GrCatalog size={24} className="  text-black" />
               Katalog
             </button>
 
             <div
-              className={`banka-bilgileri ${
+              className={`banka-bilgileri p-5 border bg-white shadow-xl ${
                 isKatalogBilgileriOpen ? "open" : ""
               }`}
             >
-              <h2>Katalog Bilgileri</h2>
-              <p>Bu kısımda katalog bilgileri yer alacak.</p>
+              <div>
+                {catalogInformation.map((catalog) => {
+                  return (
+                    <div className="space-y-2 py-1" key={catalog.name}>
+                      <a
+                        href={catalog.url}
+                        target="_blank"
+                        className="font-medium text-sm"
+                      >
+                        <div className="font-semibold">{catalog.name}</div>
+                      </a>
+
+                      <hr />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -669,12 +753,29 @@ function Theme1() {
             </button>
 
             <div
-              className={`banka-bilgileri ${
+              className={`banka-bilgileri p-5 border bg-white shadow-xl ${
                 isFaturaBilgileriOpen ? "open" : ""
               }`}
             >
-              <h2>fatura Bilgileri</h2>
-              <p>Bu kısımda fatura bilgileri yer alacak.</p>
+              <div>
+                {invoiceInformation.map((invoice) => {
+                  return (
+                    <div className="space-y-2 py-1" key={invoice.title}>
+                      <div className="font-semibold">{invoice.title}</div>
+                      <div className="font-medium text-sm">
+                        Tax numarası: {invoice.taxNumber}
+                      </div>
+                      <div className="font-medium text-sm">
+                        Tax ofisi: {invoice.taxOffice}
+                      </div>
+                      <div className="font-medium text-sm">
+                        Adres: {invoice.address}
+                      </div>
+                      <hr />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
           <div>
@@ -687,19 +788,47 @@ function Theme1() {
             </button>
 
             <div
-              className={`banka-bilgileri ${
+              className={`banka-bilgileri p-5 border bg-white shadow-xl ${
                 isVekaletBilgileriOpen ? "open" : ""
               }`}
             >
-              <h2>vekalet Bilgileri</h2>
-              <p>Bu kısımda vekalet bilgileri yer alacak.</p>
+              <div>
+                {warrantInformation.map((warrant) => {
+                  return (
+                    <div className="space-y-2 py-1" key={warrant.title}>
+                      <div className="font-semibold">{warrant.title}</div>
+                      <div className="font-medium text-sm">
+                        {warrant.citizenId}
+                      </div>
+                      <div className="font-medium text-sm">
+                        {warrant.registerNo}
+                      </div>
+                      <div className="font-medium text-sm">
+                        {warrant.barAssociation}
+                      </div>
+                      <div className="font-medium text-sm">
+                        Adres: {warrant.address}
+                      </div>
+                      <hr />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
           <div
-            className={`banka-bilgileri ${isQrcodeBilgileriOpen ? "open" : ""}`}
+            className={`banka-bilgileri p-5 border bg-white shadow-xl ${isQrcodeBilgileriOpen ? "open" : ""}`}
           >
-            <h2>qrcode Bilgileri</h2>
-            <p>Bu kısımda qrcode bilgileri yer alacak.</p>
+            <div className="flex items-center">
+              <div className="flex-grow">
+                <div className=" md:h-[600px] 2xl:h-[700px] w-full ">
+                  <img
+                    src={qrCode.url}
+                    className="w-full h-full p-5 object-cover rounded-md"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </footer>
       </div>
