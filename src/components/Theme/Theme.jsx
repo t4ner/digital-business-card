@@ -2,10 +2,6 @@ import React, { useEffect, useState } from "react";
 import instagram from "/socialMediaLogo/instagram.png";
 import telegram from "/socialMediaLogo/telegram.png";
 import twitter from "/socialMediaLogo/twitter.png";
-import cat from "/socialMediaLogo/cat.png";
-import gallery from "/socialMediaLogo/gallerys.svg";
-import warrant from "/socialMediaLogo/warrant.svg";
-import doc from "/socialMediaLogo/docum.svg";
 import vCard from "vcf";
 import axios from "axios";
 import linkedin from "/staticThemePhoto/linkedin.webp";
@@ -14,29 +10,19 @@ import rehber from "/staticThemePhoto/rehber.png";
 import email from "/staticThemePhoto/email.png";
 import call from "/staticThemePhoto/call.png";
 import website from "/socialMediaLogo/webs.png";
-import ImageGallery from "react-image-gallery";
-import { FaCreditCard, FaQrcode } from "react-icons/fa6";
-import { IoCloseSharp, IoDocument } from "react-icons/io5";
-import { FaArrowLeft, FaArrowRight, FaShareAlt } from "react-icons/fa";
+import { FaAddressCard, FaCreditCard, FaQrcode } from "react-icons/fa6";
+import { IoBook, IoClose } from "react-icons/io5";
+import { FaListAlt, FaShareAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import "ldrs/quantum";
-import { GrCatalog } from "react-icons/gr";
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import {
+  BsChevronCompactLeft,
+  BsChevronCompactRight,
+  BsFillImageFill,
+} from "react-icons/bs";
 
 function Theme1() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const gallerys1 = [
-    {
-      url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg",
-    },
-    {
-      url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg",
-    },
-    {
-      url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg",
-    },
-    // Diğer resim URL'leri
-  ];
 
   const [isBankaBilgileriOpen, setIsBankaBilgileriOpen] = useState(false);
 
@@ -100,6 +86,15 @@ function Theme1() {
     setIsVekaletBilgileriOpen(false);
     setIsGaleriBilgileriOpen(false);
     setIsKatalogBilgileriOpen(false);
+  };
+
+  const closeFooter = () => {
+    setIsBankaBilgileriOpen(false);
+    setIsGaleriBilgileriOpen(false);
+    setIsKatalogBilgileriOpen(false);
+    setIsFaturaBilgileriOpen(false);
+    setIsVekaletBilgileriOpen(false);
+    setIsQrcodeBilgileriOpen(false);
   };
   const [themeInfo, setThemeInfo] = useState("");
   const [digitalCardId, setDigitalCardId] = useState("");
@@ -272,7 +267,6 @@ function Theme1() {
     setCurrentIndex(newIndex);
   };
 
-  console.log("gallerys", gallerys);
   return (
     <div className="md:w-2/4 mx-auto">
       <div className="flex justify-between px-2 py-2">
@@ -624,14 +618,14 @@ function Theme1() {
         </div>
       )}
       <div>
-        <footer className="footer flex items-center justify-around">
+        <footer className="footer flex items-center justify-around py-2">
           <div>
             <button
-              className="banka-button flex flex-col items-center justify-center  text-xs font-medium"
+              className="banka-button flex flex-col items-center justify-center  text-xs font-medium space-y-0.5"
               onClick={toggleBankaBilgileri}
             >
-              <FaCreditCard className="text-2xl pb-1" />
-              <span className="pt-1">Banka</span>
+              <FaCreditCard size={24} />
+              <span>Banka</span>
             </button>
 
             <div
@@ -640,9 +634,35 @@ function Theme1() {
               }`}
             >
               <div>
+                <div className="text-end">
+                  <button
+                    onClick={closeFooter}
+                    className="bg-red-600 rounded-md text-white"
+                  >
+                    <IoClose size={24} />
+                  </button>
+                </div>
+                <h4 className="font-semibold pb-2 border-b-2 mb-3">
+                  BANKA BİLGİLERİ
+                </h4>
                 {bankaInformation.map((bank) => {
+                  const handleShare = () => {
+                    if (navigator.share) {
+                      navigator
+                        .share({
+                          text: `${bank.iban}`,
+                        })
+                        .then(() => console.log("Başarıyla paylaşıldı!"))
+                        .catch((error) =>
+                          console.error("Paylaşım başarısız:", error)
+                        );
+                    } else {
+                      alert("Paylaşım özelliği bu tarayıcıda desteklenmiyor.");
+                    }
+                  };
+
                   return (
-                    <div className="space-y-2 py-1" key={bank.iban}>
+                    <div className="space-y-2 py-1 pb-4" key={bank.iban}>
                       <div className="font-semibold">{bank.iban}</div>
                       <div className="font-medium text-sm">{bank.bankName}</div>
                       <div className="font-medium text-sm">
@@ -650,10 +670,10 @@ function Theme1() {
                       </div>
                       <div className="flex items-center space-x-2">
                         <button
-                          className="px-3 py-1 bg-emerald-600 text-white rounded-md text-xs font-medium focus:outline-none"
-                          onClick={() => copyToClipboard(bank.iban)}
+                          className="px-3 py-1 bg-emerald-600 text-white rounded-md text-xs font-medium focus:outline-none "
+                          onClick={handleShare}
                         >
-                          IBAN'I KOPYALA
+                          PAYLAŞ
                         </button>
                       </div>
                     </div>
@@ -665,11 +685,11 @@ function Theme1() {
 
           <div className="overflow-hidden">
             <button
-              className="banka-button flex flex-col items-center justify-center  text-xs font-medium"
+              className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
               onClick={toggleGaleriBilgileri}
             >
-              <img src={gallery} className="w-[32px] pt-1" />
-              <p className="mb-2">Galeri</p>
+              <BsFillImageFill size={23} />
+              <p>Galeri</p>
             </button>
 
             <div
@@ -678,7 +698,15 @@ function Theme1() {
               }`}
             >
               {/* galeri */}
-              <div className="h-[300px] w-full m-auto relative group overflow-hidden">
+              <div className="h-[300px] w-full m-auto relative group overflow-hidden bg-white rounded-2xl ">
+                <div className="absolute top-1 right-1 z-50">
+                  <button
+                    onClick={closeFooter}
+                    className="bg-red-600 rounded-md text-white"
+                  >
+                    <IoClose size={24} />
+                  </button>
+                </div>
                 {gallerys.map((image, index) => (
                   <img
                     key={index}
@@ -711,10 +739,10 @@ function Theme1() {
 
           <div>
             <button
-              className="banka-button flex flex-col items-center justify-center  text-xs font-medium"
+              className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
               onClick={toggleKatalogBilgileri}
             >
-              <GrCatalog size={24} className="  text-black" />
+              <IoBook size={25} />
               Katalog
             </button>
 
@@ -723,10 +751,22 @@ function Theme1() {
                 isKatalogBilgileriOpen ? "open" : ""
               }`}
             >
-              <div>
+              <div className="pb-2">
+                <div className="text-end">
+                  <button
+                    onClick={closeFooter}
+                    className="bg-red-600 rounded-md text-white"
+                  >
+                    <IoClose size={24} />
+                  </button>
+                </div>
+                <h4 className="font-semibold pb-2 border-b-2 mb-3">KATALOG</h4>
                 {catalogInformation.map((catalog) => {
                   return (
-                    <div className="space-y-2 py-1" key={catalog.name}>
+                    <div
+                      className="space-y-2 border-b-2 py-2"
+                      key={catalog.name}
+                    >
                       <a
                         href={catalog.url}
                         target="_blank"
@@ -734,8 +774,6 @@ function Theme1() {
                       >
                         <div className="font-semibold">{catalog.name}</div>
                       </a>
-
-                      <hr />
                     </div>
                   );
                 })}
@@ -745,10 +783,10 @@ function Theme1() {
 
           <div>
             <button
-              className="banka-button flex flex-col items-center justify-center  text-xs font-medium"
+              className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
               onClick={toggleFaturaBilgileri}
             >
-              <img src={doc} className="w-[29px]" />
+              <FaListAlt size={23} />
               Fatura
             </button>
 
@@ -758,7 +796,32 @@ function Theme1() {
               }`}
             >
               <div>
+                <div className="text-end">
+                  <button
+                    onClick={closeFooter}
+                    className="bg-red-600 rounded-md text-white"
+                  >
+                    <IoClose size={24} />
+                  </button>
+                </div>
+                <h4 className="font-semibold pb-2 border-b-2 mb-3">
+                  FATURA BİLGİLERİ
+                </h4>
                 {invoiceInformation.map((invoice) => {
+                  const shareInvoice = async (invoice) => {
+                    if (navigator.share) {
+                      try {
+                        await navigator.share({
+                          text: `Fatura Başlığı: ${invoice.title}\n Tax Numarası: ${invoice.taxNumber}\nTax Ofisi: ${invoice.taxOffice}\nFatura Adresi: ${invoice.address}`,
+                        });
+                        console.log("Invoice shared successfully");
+                      } catch (error) {
+                        console.error("Error sharing invoice:", error);
+                      }
+                    } else {
+                      alert("Web Share API is not supported in your browser.");
+                    }
+                  };
                   return (
                     <div className="space-y-2 py-1" key={invoice.title}>
                       <div className="font-semibold">{invoice.title}</div>
@@ -771,7 +834,14 @@ function Theme1() {
                       <div className="font-medium text-sm">
                         Adres: {invoice.address}
                       </div>
-                      <hr />
+                      <div className="flex items-center space-x-2">
+                        <button
+                          className="px-3 py-1 bg-emerald-600 text-white rounded-md text-xs font-medium focus:outline-none"
+                          onClick={() => shareInvoice(invoice)}
+                        >
+                          PAYLAŞ
+                        </button>
+                      </div>
                     </div>
                   );
                 })}
@@ -780,10 +850,10 @@ function Theme1() {
           </div>
           <div>
             <button
-              className="banka-button flex flex-col items-center justify-center  text-xs font-medium"
+              className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
               onClick={toggleVekaletBilgileri}
             >
-              <IoDocument className="text-[29px]" />
+              <FaAddressCard size={26} />
               Vekalet
             </button>
 
@@ -793,7 +863,32 @@ function Theme1() {
               }`}
             >
               <div>
+                <div className="text-end">
+                  <button
+                    onClick={closeFooter}
+                    className="bg-red-600 rounded-md text-white"
+                  >
+                    <IoClose size={24} />
+                  </button>
+                </div>
+                <h4 className="font-semibold pb-2 border-b-2 mb-3">
+                  VEKALET BİLGİLERİ
+                </h4>
                 {warrantInformation.map((warrant) => {
+                  const shareWarrant = async (warrant) => {
+                    if (navigator.share) {
+                      try {
+                        await navigator.share({
+                          text: `Vekalet Başlığı: ${warrant.title}\n Vekalet Kimliği: ${warrant.citizenId}\nVekalet Baro Numarası: ${warrant.barAssociation}\nVekalet Adresi: ${warrant.address}`,
+                        });
+                        console.log("warrant shared successfully");
+                      } catch (error) {
+                        console.error("Error sharing warrant:", error);
+                      }
+                    } else {
+                      alert("Web Share API is not supported in your browser.");
+                    }
+                  };
                   return (
                     <div className="space-y-2 py-1" key={warrant.title}>
                       <div className="font-semibold">{warrant.title}</div>
@@ -809,7 +904,12 @@ function Theme1() {
                       <div className="font-medium text-sm">
                         Adres: {warrant.address}
                       </div>
-                      <hr />
+                      <button
+                        className="px-3 py-1 bg-emerald-600 text-white rounded-md text-xs font-medium focus:outline-none"
+                        onClick={() => shareWarrant(warrant)}
+                      >
+                        PAYLAŞ
+                      </button>
                     </div>
                   );
                 })}
@@ -817,10 +917,20 @@ function Theme1() {
             </div>
           </div>
           <div
-            className={`banka-bilgileri p-5 border bg-white shadow-xl ${isQrcodeBilgileriOpen ? "open" : ""}`}
+            className={`banka-bilgileri p-5 border bg-white shadow-xl ${
+              isQrcodeBilgileriOpen ? "open" : ""
+            }`}
           >
             <div className="flex items-center">
               <div className="flex-grow">
+                <div className="text-end">
+                  <button
+                    onClick={closeFooter}
+                    className="bg-red-600 rounded-md text-white"
+                  >
+                    <IoClose size={24} />
+                  </button>
+                </div>
                 <div className=" md:h-[600px] 2xl:h-[700px] w-full ">
                   <img
                     src={qrCode.url}

@@ -73,8 +73,6 @@ body {
   transform: translateX(-50%);
   width: 95%;
   border-radius: 6px;
-  
-  
 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -87,5 +85,5 @@ body {
 .banka-bilgileri.open {
   opacity: 1;
   pointer-events: auto;
-  bottom: 100px; /* Yavaşça yukarı kayacak mesafe */
+  bottom: 9.5px; /* Yavaşça yukarı kayacak mesafe */
 }
