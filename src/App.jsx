@@ -16,6 +16,7 @@ import ThemeEfkan from "./components/StaticTheme/ThemeEfkan";
 import ThemeAhmet from "./components/StaticTheme/ThemeAhmet";
 import CardCreate from "./pages/DashboardPages/CardCreate";
 import Theme from "./components/Theme/Theme";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path="/ahmetyakarr" element={<ThemeAhmet />} />
 
         <Route path="/*" element={<Theme />} />
+        <Route path="/notfound" element={<NotFound />} />
       </Routes>
     </div>
   );

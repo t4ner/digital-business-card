@@ -52,12 +52,10 @@ function CardUpdate() {
     const fetchData = async () => {
       try {
         const userEmail = localStorage.getItem("email");
-        console.log(userEmail);
         if (!userEmail) {
           return;
         }
         const token = localStorage.getItem("token");
-        console.log(token);
         const response = await axios.get(
           ` https://ecoqrcode.com/businessCard/getDigitalCardByEmail?email=${userEmail}`
         );
@@ -91,24 +89,24 @@ function CardUpdate() {
           firm: response.data.firm || "",
         });
         const banka = await axios.get(
-          `https://ecoqrcode.com/bankInformation/getBankInformationDigitalCardId?digitalCardId=3957`
+          `https://ecoqrcode.com/bankInformation/getBankInformationDigitalCardId?digitalCardId=${response.data.id}`
         );
         setBankaInformation(banka.data);
 
         const invoice = await axios.get(
-          `https://ecoqrcode.com/invoiceInformation/getInvoiceInformationByDigitalCardId?digitalCardId=3957`
+          `https://ecoqrcode.com/invoiceInformation/getInvoiceInformationByDigitalCardId?digitalCardId=${response.data.id}`
         );
         setInvoiceInformation(invoice.data);
 
         const warrant = await axios.get(
-          `https://ecoqrcode.com/warrantOfAttorney/getWarrantOfAttorneyByDigitalCardId?digitalCardId=3957`
+          `https://ecoqrcode.com/warrantOfAttorney/getWarrantOfAttorneyByDigitalCardId?digitalCardId=${response.data.id}`
         );
         setWarrantInformation(warrant.data);
 
         const updatedBankaInformationCreate = bankaInformationCreate.map(
           (item, index) => ({
             ...item,
-            digitalCardId: response.data.name,
+            digitalCardId: response.data.id,
           })
         );
 
@@ -117,7 +115,7 @@ function CardUpdate() {
         const updatedInvoiceInformationCreate = invoiceInformationCreate.map(
           (item, index) => ({
             ...item,
-            digitalCardId: response.data.name,
+            digitalCardId: response.data.id,
           })
         );
 
@@ -126,7 +124,7 @@ function CardUpdate() {
         const updatedWarrantInformationCreate = warrantInformationCreate.map(
           (item, index) => ({
             ...item,
-            digitalCardId: response.data.name,
+            digitalCardId: response.data.id,
           })
         );
 
@@ -331,13 +329,17 @@ function CardUpdate() {
       themeId: value,
     }));
   };
-  console.log("values", values);
-  console.log("bank", bankaInformationCreate);
   const sendDataToServer = async () => {
     try {
+      const token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
       const response = await axios.put(
         "https://ecoqrcode.com/businessCard/updateDigitalCard",
-        values
+        values,
+        { headers }
       );
       Swal.fire({
         icon: "success",
@@ -357,6 +359,9 @@ function CardUpdate() {
       const response = await axios.delete(
         `https://ecoqrcode.com/bankInformation/deleteBankInformation?iban=${iban}`
       );
+      setBankaInformation((prevState) =>
+        prevState.filter((bankInfo) => bankInfo.iban !== iban)
+      );
       console.log("Banka bilgisi silindi:", response.data);
       // Banka bilgisi silindikten sonra bankaBilgileri listesini güncellemek için
       // fetchBankaBilgileri fonksiyonunu yeniden çağırabiliriz.
@@ -373,6 +378,9 @@ function CardUpdate() {
       const response = await axios.delete(
         `https://ecoqrcode.com/invoiceInformation/deleteInvoiceInformation?taxNumber=${taxNumber}`
       );
+      setInvoiceInformation((prevState) =>
+        prevState.filter((invoiceInfo) => invoiceInfo.taxNumber !== taxNumber)
+      );
       console.log("Fatura bilgisi silindi:", response.data);
     } catch (error) {
       console.error("Fatura bilgisi silinirken hata oluştu:", error);
@@ -382,14 +390,16 @@ function CardUpdate() {
   const deleteWarrantInformation = async (citizenId) => {
     try {
       const response = await axios.delete(
-        `https://ecoqrcode.com//warrantOfAttorney/deleteWarrantOfAttorney?citizenId=${citizenId}`
+        `https://ecoqrcode.com/warrantOfAttorney/deleteWarrantOfAttorney?citizenId=${citizenId}`
+      );
+      setWarrantInformation((prevState) =>
+        prevState.filter((warrantInfo) => warrantInfo.citizenId !== citizenId)
       );
       console.log("Fatura bilgisi silindi:", response.data);
     } catch (error) {
       console.error("Fatura bilgisi silinirken hata oluştu:", error);
     }
   };
-  console.log("bankaınformation", bankaInformation);
   const handleChangeBank = (event, index) => {
     const { name, value } = event.target;
     setBankaInformationCreate((prevBankaInformationCreate) => {
@@ -424,9 +434,104 @@ function CardUpdate() {
       return updatedWarrantInformationCreate; // Güncellenmiş durumu döndür
     });
   };
-  console.log("invoice", invoiceInformationCreate);
-  console.log("warrant", warrantInformationCreate);
-  console.log("banka", bankaInformationCreate);
+  const sendBankaServer = async () => {
+    try {
+      // Boş olanları filtrele
+      const filteredData = bankaInformationCreate.filter(
+        (bankInfo) =>
+          bankInfo.iban.trim() !== "" &&
+          bankInfo.accountName.trim() !== "" &&
+          bankInfo.bankName.trim() !== ""
+      );
+      console.log("filteredData", filteredData);
+      // Filtrelenmiş verileri gönder
+      if (filteredData.length > 0) {
+        await axios.post(
+          "https://ecoqrcode.com/bankInformation/createBankInformation",
+          filteredData
+        );
+        console.log("Banka bilgileri başarıyla gönderildi");
+        setBankaInformationCreate([
+          {
+            iban: "",
+            accountName: "",
+            bankName: "",
+            digitalCardId: 0,
+          },
+          {
+            iban: "",
+            accountName: "",
+            bankName: "",
+            digitalCardId: 0,
+          },
+          {
+            iban: "",
+            accountName: "",
+            bankName: "",
+            digitalCardId: 0,
+          },
+          {
+            iban: "",
+            accountName: "",
+            bankName: "",
+            digitalCardId: 0,
+          },
+        ]);
+      } else {
+        console.log("Gönderilecek banka bilgisi bulunamadı.");
+      }
+    } catch (error) {
+      console.error("Banka bilgisi gönderilirken hata oluştu:", error);
+      // Hata yönetimi veya kullanıcı bildirimleri ekleyebilirsiniz
+    }
+  };
+
+  const sendInvoiceServer = async () => {
+    try {
+      await axios.post(
+        "https://ecoqrcode.com/invoiceInformation/createInvoiceInformation",
+        invoiceInformationCreate
+      );
+      console.log("Fatura bilgileri başarıyla gönderildi");
+      setInvoiceInformationCreate([
+        {
+          title: "",
+          address: "",
+          taxNumber: "",
+          taxOffice: "",
+          digitalCardId: 0,
+        },
+      ]);
+    } catch (error) {
+      console.error("Fatura bilgisi gönderilirken hata oluştu:", error);
+      // Hata yönetimi veya kullanıcı bildirimleri ekleyebilirsiniz
+    }
+  };
+  const sendWarrantServer = async () => {
+    try {
+      await axios.post(
+        "https://ecoqrcode.com/warrantOfAttorney/createWarrantOfAttorney",
+        warrantInformationCreate
+      );
+      console.log("Vekalet bilgileri başarıyla gönderildi");
+      setWarrantInformationCreate([
+        {
+          title: "",
+          address: "",
+          citizenId: "",
+          registerNo: "",
+          barAssociation: "",
+          digitalCardId: 0,
+        },
+      ]);
+    } catch (error) {
+      console.error("Vekalet bilgisi gönderilirken hata oluştu:", error);
+      // Hata yönetimi veya kullanıcı bildirimleri ekleyebilirsiniz
+    }
+  };
+  console.log("bankaInformationCreate", bankaInformationCreate);
+  console.log("invoiceInformationCreate", invoiceInformationCreate);
+  console.log("warrantInformationCreate", warrantInformationCreate);
 
   return (
     <>
@@ -441,7 +546,7 @@ function CardUpdate() {
                 disabled
                 className="input text-gray-600 mr-0.5 bg-zinc-200 flex items-center justify-center"
               >
-                linko.page/
+                ecoqrcode.com/
               </div>
               <input
                 name="linkId"
@@ -932,11 +1037,16 @@ function CardUpdate() {
                     onChange={(event) => handleChangeBank(event, index)}
                   />
                 </div>
-                <button className="bg-emerald-600 text-white font-medium px-5 py-1 rounded-lg">
-                  Ekle
-                </button>
               </div>
             ))}
+            <div className="text-end w-full pb-10">
+              <button
+                onClick={sendBankaServer}
+                className="bg-emerald-600 text-white font-medium px-5 py-1 rounded-lg"
+              >
+                BANKA BİLGİLERİNİ EKLE
+              </button>
+            </div>
           </div>
 
           {/* <div className="flex flex-wrap  pt-10 ">
@@ -982,7 +1092,7 @@ function CardUpdate() {
           <h3 className="font-medium pl-3">FATURA BİLGİLERİNİ GÜNCELLE</h3>
 
           {/* invoicedelete */}
-          <div className="md:flex md:flex-row flex-wrap flex-col pt-10 pb-5">
+          <div className="md:flex md:flex-row flex-wrap flex-col pt-10">
             {invoiceInformation.map((invoiceInfo, index) => (
               <div className="basis-1/2 space-y-3 pb-10 pl-[11px]" key={index}>
                 <p>Fatura bilgileri - {`${index + 1}`}</p>
@@ -1041,7 +1151,7 @@ function CardUpdate() {
 
           {/* invoicecreate */}
 
-          <div className="md:flex md:flex-row flex-wrap flex-col pt-5 ">
+          <div className="md:flex md:flex-row flex-wrap flex-col ">
             {invoiceInformationCreate.map((invoiceInfo, index) => (
               <div className="basis-1/2 space-y-3 pb-10 pl-[11px]" key={index}>
                 <p>Fatura bilgileri - {`${index + 1}`}</p>
@@ -1081,7 +1191,10 @@ function CardUpdate() {
                     onChange={(event) => handleChangeInvoice(event, index)}
                   />
                 </div>
-                <button className="bg-emerald-600 text-white font-medium px-5 py-1 rounded-lg">
+                <button
+                  onClick={sendInvoiceServer}
+                  className="bg-emerald-600 text-white font-medium px-5 py-1 rounded-lg"
+                >
                   Ekle
                 </button>
               </div>
@@ -1092,7 +1205,7 @@ function CardUpdate() {
 
           {/* warrantdelete */}
           <h3 className="font-medium pl-3">VEKALET BİLGİLERİNİ GÜNCELLE</h3>
-          <div className="md:flex md:flex-row flex-wrap flex-col pt-10 pb-5">
+          <div className="md:flex md:flex-row flex-wrap flex-col pt-10 ">
             {warrantInformation.map((warrantInfo, index) => (
               <div className="basis-1/2 space-y-3 pb-10 pl-[11px]" key={index}>
                 <p>Vekalet bilgileri - {`${index + 1}`}</p>
@@ -1149,7 +1262,7 @@ function CardUpdate() {
                 <button
                   className="bg-red-600 text-white font-medium px-5 py-1 rounded-lg"
                   onClick={() =>
-                    deleteInvoiceInformation(warrantInfo.citizenId)
+                    deleteWarrantInformation(warrantInfo.citizenId)
                   }
                 >
                   Sil
@@ -1161,7 +1274,7 @@ function CardUpdate() {
 
           {/* warrantcreate */}
 
-          <div className="md:flex md:flex-row flex-wrap flex-col pt-5 ">
+          <div className="md:flex md:flex-row flex-wrap flex-col ">
             {warrantInformationCreate.map((warrantInfo, index) => (
               <div className="basis-1/2 space-y-3 pb-10 pl-[11px]" key={index}>
                 <p>Vekalet bilgileri - {`${index + 1}`}</p>
@@ -1210,7 +1323,10 @@ function CardUpdate() {
                     onChange={(event) => handleChangeWarrant(event, index)}
                   />
                 </div>
-                <button className="bg-emerald-600 text-white font-medium px-5 py-1 rounded-lg">
+                <button
+                  onClick={sendWarrantServer}
+                  className="bg-emerald-600 text-white font-medium px-5 py-1 rounded-lg"
+                >
                   Ekle
                 </button>
               </div>

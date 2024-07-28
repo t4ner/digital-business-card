@@ -20,6 +20,7 @@ import {
   BsChevronCompactRight,
   BsFillImageFill,
 } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 function Theme1() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -127,6 +128,7 @@ function Theme1() {
         console.error("Kopyalama işlemi sırasında bir hata oluştu:", error);
       });
   };
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -136,6 +138,11 @@ function Theme1() {
         const response = await axios.get(
           ` https://ecoqrcode.com/businessCard/getDigitalCardByLinkId?linkId=${username}`
         );
+        if (!response.data || !response.data.linkId) {
+          // Veri yoksa veya linkId yoksa yönlendirme yap
+          navigate("/notfound");
+          return;
+        }
         setThemeInfo(response.data);
         setDigitalCardId(response.data.id);
 
@@ -370,7 +377,7 @@ function Theme1() {
                 {" "}
                 <img
                   src={call}
-                  className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
+                  className="w-[56px] h-[56px] overflow-hidden drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                 />
                 <span className="font-medium text-sm md:text-base mt-1">
                   Ara
@@ -617,7 +624,7 @@ function Theme1() {
           {/* social media finish */}
         </div>
       )}
-      <div>
+      <div className="pt-10">
         <footer className="footer flex items-center justify-around py-2">
           <div>
             <button
