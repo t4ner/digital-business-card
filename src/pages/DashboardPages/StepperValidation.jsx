@@ -2,8 +2,6 @@ import * as yup from "yup";
 
 export const stepperValidation = yup.object().shape({
   linkId: yup.string().required("Sayfanızın URL'si gereklidir."),
-  title: yup.string().required("Meslek alanı gereklidir."),
-  description: yup.string().required("Açıklama gereklidir."),
   name: yup.string().required("Ad alanı gereklidir."),
   surname: yup.string().required("Soyad alanı gereklidir."),
   phoneNumber1: yup

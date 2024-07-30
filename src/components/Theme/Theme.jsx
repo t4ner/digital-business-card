@@ -10,6 +10,14 @@ import rehber from "/staticThemePhoto/rehber.png";
 import email from "/staticThemePhoto/email.png";
 import call from "/staticThemePhoto/call.png";
 import website from "/socialMediaLogo/webs.png";
+import discord from "/socialMediaLogo/discord.svg";
+import sahibinden from "/socialMediaLogo/sahibinden.png";
+import facebook from "/socialMediaLogo/facebookk.svg";
+import whatshapbus from "/socialMediaLogo/whatshapbus.png";
+import ciceksepeti from "/socialMediaLogo/ciceksepetii.png";
+import hepsiburada from "/socialMediaLogo/hepsiburada.png";
+import trendyol from "/socialMediaLogo/trendyol.png";
+
 import { FaAddressCard, FaCreditCard, FaQrcode } from "react-icons/fa6";
 import { IoBook, IoClose } from "react-icons/io5";
 import { FaListAlt, FaShareAlt } from "react-icons/fa";
@@ -107,27 +115,7 @@ function Theme1() {
   const [photos, setPhotos] = useState([]);
   const [gallerys, setGallerys] = useState([]);
   const urlToShare = `https://ecoqrcode.com/${themeInfo.linkId}`;
-  const handleShare = () => {
-    // URL'yi kopyala
-    navigator.clipboard
-      .writeText(urlToShare)
-      .then(() => {
-        // SweetAlert2 ile bilgi mesajı göster
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "URL KOPYALANDI!",
-          showConfirmButton: false,
-          timer: 1500,
-          customClass: {
-            title: "swal-title",
-          },
-        });
-      })
-      .catch((error) => {
-        console.error("Kopyalama işlemi sırasında bir hata oluştu:", error);
-      });
-  };
+
   const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
@@ -154,7 +142,6 @@ function Theme1() {
         }
 
         if (response.data && response.data.linkId) {
-          console.log("geldi galeriye");
           const galleryResponse = await axios.get(
             `https://ecoqrcode.com/businessCard/getGalleryPhotosByLink?linkId=${response.data.linkId}`
           );
@@ -240,7 +227,6 @@ function Theme1() {
     navigator.clipboard
       .writeText(text)
       .then(() => {
-        console.log("IBAN başarıyla panoya kopyalandı:", text);
         // Kullanıcıya başarılı bildirimi göster
         Swal.fire({
           position: "top-end",
@@ -273,6 +259,19 @@ function Theme1() {
     const newIndex = (currentIndex + 1) % gallerys.length;
     setCurrentIndex(newIndex);
   };
+  const handleShareCard = () => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "ecoQr Dijital Kartvizitim",
+          url: urlToShare,
+        })
+        .then(() => console.log("Başarıyla paylaşıldı!"))
+        .catch((error) => console.error("Paylaşım başarısız:", error));
+    } else {
+      alert("Paylaşım özelliği bu tarayıcıda desteklenmiyor.");
+    }
+  };
 
   return (
     <div className="md:w-2/4 mx-auto">
@@ -289,7 +288,7 @@ function Theme1() {
         <div>
           <button
             className="py-1 rounded flex items-center justify-center"
-            onClick={handleShare}
+            onClick={handleShareCard}
           >
             <FaShareAlt className="text-xl mr-1" />
             <div className="text-sm font-semibold">Paylaş</div>
@@ -299,7 +298,7 @@ function Theme1() {
       {themeInfo.themeId === 1 && (
         <div className="">
           {/*banner start*/}
-          <div className="h-[210px] w-full">
+          <div className="h-[230px] md:h-[450px] w-full">
             {bannerPhoto && (
               <img
                 src={bannerPhoto.url}
@@ -314,7 +313,7 @@ function Theme1() {
               {profilPhoto && (
                 <img
                   src={profilPhoto.url}
-                  className="rounded-full object-cover w-28 h-28"
+                  className="rounded-full object-cover w-28 h-28 md:w-32 md:h-32"
                   alt="Profil"
                 />
               )}
@@ -333,7 +332,7 @@ function Theme1() {
           </div>
 
           {/* social media links start*/}
-          <div className="mt-10 flex flex-wrap gap-y-10">
+          <div className="mt-10 flex flex-wrap gap-y-10 pb-10">
             <div className="basis-1/3">
               <a
                 className="flex flex-col items-center"
@@ -447,7 +446,7 @@ function Theme1() {
         </div>
       )}
       {themeInfo.themeId === 2 && (
-        <div className="md:w-2/6 mx-auto px-3">
+        <div className="md:w-5/6 mx-auto px-3 pb-5">
           {/* banner start */}
           <div className="flex items-center p-5 justify-between">
             {profilPhoto && (
@@ -470,6 +469,12 @@ function Theme1() {
             <p className="uppercase text-zinc-500">{themeInfo.title}</p>
           </div>
           {/* description end */}
+          {themeInfo?.location && (
+            <div className="border rounded-md mt-5 shadow-lg border-zinc-500 text-center text-lg font-semibold  py-2">
+              <p className="uppercase">ADRES</p>
+              <p className="uppercase text-zinc-500">{themeInfo.location}</p>
+            </div>
+          )}
 
           {/* iletişim start */}
           <div className="border shadow-lg rounded-md border-zinc-500 text-center text-lg font-semibold  py-2 mt-5">
@@ -583,8 +588,8 @@ function Theme1() {
                     href={`https://x.com/${themeInfo.twitter}/`}
                     target="_blank"
                   >
-                    <img src={twitter} className="w-16" />
-                    <span className="font-medium text-sm md:text-base mt-1">
+                    <img src={twitter} className="w-14" />
+                    <span className="font-medium text-sm md:text-base mt-2">
                       Twitter
                     </span>
                   </a>
@@ -619,6 +624,104 @@ function Theme1() {
                   </a>
                 </div>
               )}
+              {themeInfo.discord !== "" && (
+                <div className="basis-1/3">
+                  <a
+                    className="flex flex-col items-center "
+                    href={themeInfo.discord}
+                    target="_blank"
+                  >
+                    <img src={discord} className="w-16" />
+                    <span className="font-medium text-sm md:text-base mt-1">
+                      Discord
+                    </span>
+                  </a>
+                </div>
+              )}
+              {themeInfo.facebook !== "" && (
+                <div className="basis-1/3">
+                  <a
+                    className="flex flex-col items-center "
+                    href={themeInfo.facebook}
+                    target="_blank"
+                  >
+                    <img src={facebook} className="w-16" />
+                    <span className="font-medium text-sm md:text-base mt-2">
+                      Facebook
+                    </span>
+                  </a>
+                </div>
+              )}
+              {themeInfo.whatsappBusiness !== "" && (
+                <div className="basis-1/3">
+                  <a
+                    className="flex flex-col items-center "
+                    href={themeInfo.whatsappBusiness}
+                    target="_blank"
+                  >
+                    <img src={whatshapbus} className="w-[70px]" />
+                    <span className="font-medium text-sm md:text-base mt-1">
+                      Whatsapp
+                    </span>
+                  </a>
+                </div>
+              )}
+              {themeInfo.sahibinden !== "" && (
+                <div className="basis-1/3">
+                  <a
+                    className="flex flex-col items-center "
+                    href={themeInfo.sahibinden}
+                    target="_blank"
+                  >
+                    <img src={sahibinden} className="w-16 rounded-lg" />
+                    <span className="font-medium text-sm md:text-base mt-1">
+                      Sahibinden
+                    </span>
+                  </a>
+                </div>
+              )}
+              {themeInfo.cicekspeti !== "" && (
+                <div className="basis-1/3">
+                  <a
+                    className="flex flex-col items-center "
+                    href={themeInfo.ciceksepeti}
+                    target="_blank"
+                  >
+                    <img src={ciceksepeti} className="w-16" />
+                    <span className="font-medium text-sm md:text-base mt-1">
+                      Çiçek Sepeti
+                    </span>
+                  </a>
+                </div>
+              )}
+              {themeInfo.hepsiburada !== "" && (
+                <div className="basis-1/3">
+                  <a
+                    className="flex flex-col items-center "
+                    href={themeInfo.hepsiburada}
+                    target="_blank"
+                  >
+                    <img src={hepsiburada} className="w-16" />
+                    <span className="font-medium text-sm md:text-base mt-1">
+                      Hepsiburada
+                    </span>
+                  </a>
+                </div>
+              )}
+              {themeInfo.trendyol !== "" && (
+                <div className="basis-1/3">
+                  <a
+                    className="flex flex-col items-center "
+                    href={themeInfo.trendyol}
+                    target="_blank"
+                  >
+                    <img src={trendyol} className="w-16 rounded-lg" />
+                    <span className="font-medium text-sm md:text-base mt-1">
+                      Trendyol
+                    </span>
+                  </a>
+                </div>
+              )}
             </div>
           </div>
           {/* social media finish */}
@@ -626,303 +729,321 @@ function Theme1() {
       )}
       <div className="pt-10">
         <footer className="footer flex items-center justify-around py-2">
-          <div>
-            <button
-              className="banka-button flex flex-col items-center justify-center  text-xs font-medium space-y-0.5"
-              onClick={toggleBankaBilgileri}
-            >
-              <FaCreditCard size={24} />
-              <span>Banka</span>
-            </button>
+          {bankaInformation[0]?.iban && (
+            <div>
+              <button
+                className="banka-button flex flex-col items-center justify-center  text-xs font-medium space-y-0.5"
+                onClick={toggleBankaBilgileri}
+              >
+                <FaCreditCard size={24} />
+                <span>Banka</span>
+              </button>
 
-            <div
-              className={`banka-bilgileri p-5 border bg-white shadow-xl ${
-                isBankaBilgileriOpen ? "open" : ""
-              }`}
-            >
-              <div>
-                <div className="text-end">
-                  <button
-                    onClick={closeFooter}
-                    className="bg-red-600 rounded-md text-white"
-                  >
-                    <IoClose size={24} />
-                  </button>
-                </div>
-                <h4 className="font-semibold pb-2 border-b-2 mb-3">
-                  BANKA BİLGİLERİ
-                </h4>
-                {bankaInformation.map((bank) => {
-                  const handleShare = () => {
-                    if (navigator.share) {
-                      navigator
-                        .share({
-                          text: `${bank.iban}`,
-                        })
-                        .then(() => console.log("Başarıyla paylaşıldı!"))
-                        .catch((error) =>
-                          console.error("Paylaşım başarısız:", error)
-                        );
-                    } else {
-                      alert("Paylaşım özelliği bu tarayıcıda desteklenmiyor.");
-                    }
-                  };
-
-                  return (
-                    <div className="space-y-2 py-1 pb-4" key={bank.iban}>
-                      <div className="font-semibold">{bank.iban}</div>
-                      <div className="font-medium text-sm">{bank.bankName}</div>
-                      <div className="font-medium text-sm">
-                        {bank.accountName}
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <button
-                          className="px-3 py-1 bg-emerald-600 text-white rounded-md text-xs font-medium focus:outline-none "
-                          onClick={handleShare}
-                        >
-                          PAYLAŞ
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          <div className="overflow-hidden">
-            <button
-              className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
-              onClick={toggleGaleriBilgileri}
-            >
-              <BsFillImageFill size={23} />
-              <p>Galeri</p>
-            </button>
-
-            <div
-              className={`banka-bilgileri ${
-                isGaleriBilgileriOpen ? "open" : ""
-              }`}
-            >
-              {/* galeri */}
-              <div className="h-[300px] w-full m-auto relative group overflow-hidden bg-white rounded-2xl ">
-                <div className="absolute top-1 right-1 z-50">
-                  <button
-                    onClick={closeFooter}
-                    className="bg-red-600 rounded-md text-white"
-                  >
-                    <IoClose size={24} />
-                  </button>
-                </div>
-                {gallerys.map((image, index) => (
-                  <img
-                    key={index}
-                    src={image.url}
-                    alt={`Image ${index}`}
-                    className={`w-full h-full rounded-2xl absolute top-0 left-0 transition-opacity duration-500 ${
-                      index === currentIndex ? "opacity-100" : "opacity-0"
-                    }`}
-                    style={{
-                      zIndex: index === currentIndex ? 1 : 0,
-                    }}
-                  />
-                ))}
-                <div
-                  className="absolute top-1/2 transform -translate-y-1/2 left-2 text-2xl rounded-full bg-black/20 text-white cursor-pointer z-10"
-                  onClick={prevSlide}
-                >
-                  <BsChevronCompactLeft size={30} />
-                </div>
-                <div
-                  className="absolute top-1/2 transform -translate-y-1/2 right-2 text-2xl rounded-full bg-black/20 text-white cursor-pointer z-10"
-                  onClick={nextSlide}
-                >
-                  <BsChevronCompactRight size={30} />
-                </div>
-              </div>
-              {/* galeri */}
-            </div>
-          </div>
-
-          <div>
-            <button
-              className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
-              onClick={toggleKatalogBilgileri}
-            >
-              <IoBook size={25} />
-              Katalog
-            </button>
-
-            <div
-              className={`banka-bilgileri p-5 border bg-white shadow-xl ${
-                isKatalogBilgileriOpen ? "open" : ""
-              }`}
-            >
-              <div className="pb-2">
-                <div className="text-end">
-                  <button
-                    onClick={closeFooter}
-                    className="bg-red-600 rounded-md text-white"
-                  >
-                    <IoClose size={24} />
-                  </button>
-                </div>
-                <h4 className="font-semibold pb-2 border-b-2 mb-3">KATALOG</h4>
-                {catalogInformation.map((catalog) => {
-                  return (
-                    <div
-                      className="space-y-2 border-b-2 py-2"
-                      key={catalog.name}
+              <div
+                className={`banka-bilgileri p-5 border bg-white shadow-xl ${
+                  isBankaBilgileriOpen ? "open" : ""
+                }`}
+              >
+                <div>
+                  <div className="text-end">
+                    <button
+                      onClick={closeFooter}
+                      className="bg-red-600 rounded-md text-white"
                     >
-                      <a
-                        href={catalog.url}
-                        target="_blank"
-                        className="font-medium text-sm"
-                      >
-                        <div className="font-semibold">{catalog.name}</div>
-                      </a>
-                    </div>
-                  );
-                })}
+                      <IoClose size={24} />
+                    </button>
+                  </div>
+                  <h4 className="font-semibold pb-2 border-b-2 mb-3">
+                    BANKA BİLGİLERİ
+                  </h4>
+                  {bankaInformation.map((bank) => {
+                    const handleShare = () => {
+                      if (navigator.share) {
+                        navigator
+                          .share({
+                            text: `${bank.iban}`,
+                          })
+                          .then(() => console.log("Başarıyla paylaşıldı!"))
+                          .catch((error) =>
+                            console.error("Paylaşım başarısız:", error)
+                          );
+                      } else {
+                        alert(
+                          "Paylaşım özelliği bu tarayıcıda desteklenmiyor."
+                        );
+                      }
+                    };
+
+                    return (
+                      <div className="space-y-2 py-1 pb-4" key={bank.iban}>
+                        <div className="font-semibold">{bank.iban}</div>
+                        <div className="font-medium text-sm">
+                          {bank.bankName}
+                        </div>
+                        <div className="font-medium text-sm">
+                          {bank.accountName}
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <button
+                            className="px-3 py-1 bg-emerald-600 text-white rounded-md text-xs font-medium focus:outline-none "
+                            onClick={handleShare}
+                          >
+                            PAYLAŞ
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
+          )}
+          {gallerys[0]?.linkId && (
+            <div className="overflow-hidden">
+              <button
+                className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
+                onClick={toggleGaleriBilgileri}
+              >
+                <BsFillImageFill size={23} />
+                <p>Galeri</p>
+              </button>
 
-          <div>
-            <button
-              className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
-              onClick={toggleFaturaBilgileri}
-            >
-              <FaListAlt size={23} />
-              Fatura
-            </button>
-
-            <div
-              className={`banka-bilgileri p-5 border bg-white shadow-xl ${
-                isFaturaBilgileriOpen ? "open" : ""
-              }`}
-            >
-              <div>
-                <div className="text-end">
-                  <button
-                    onClick={closeFooter}
-                    className="bg-red-600 rounded-md text-white"
+              <div
+                className={`banka-bilgileri ${
+                  isGaleriBilgileriOpen ? "open" : ""
+                }`}
+              >
+                {/* galeri */}
+                <div className="h-[300px] md:h-[400px] md:w-[600px] w-full m-auto relative group overflow-hidden bg-white rounded-2xl ">
+                  <div className="absolute top-1 right-1 z-50">
+                    <button
+                      onClick={closeFooter}
+                      className="bg-red-600 rounded-md text-white"
+                    >
+                      <IoClose size={24} />
+                    </button>
+                  </div>
+                  {gallerys.map((image, index) => (
+                    <img
+                      key={index}
+                      src={image.url}
+                      alt={`Image ${index}`}
+                      className={`w-full h-full  md:h-[400px] md:w-[600px] rounded-2xl absolute top-0 left-0 transition-opacity duration-500 ${
+                        index === currentIndex ? "opacity-100" : "opacity-0"
+                      }`}
+                      style={{
+                        zIndex: index === currentIndex ? 1 : 0,
+                      }}
+                    />
+                  ))}
+                  <div
+                    className="absolute top-1/2 transform -translate-y-1/2 left-2 text-2xl rounded-full bg-black/20 text-white cursor-pointer z-10"
+                    onClick={prevSlide}
                   >
-                    <IoClose size={24} />
-                  </button>
+                    <BsChevronCompactLeft size={30} />
+                  </div>
+                  <div
+                    className="absolute top-1/2 transform -translate-y-1/2 right-2 text-2xl rounded-full bg-black/20 text-white cursor-pointer z-10"
+                    onClick={nextSlide}
+                  >
+                    <BsChevronCompactRight size={30} />
+                  </div>
                 </div>
-                <h4 className="font-semibold pb-2 border-b-2 mb-3">
-                  FATURA BİLGİLERİ
-                </h4>
-                {invoiceInformation.map((invoice) => {
-                  const shareInvoice = async (invoice) => {
-                    if (navigator.share) {
-                      try {
-                        await navigator.share({
-                          text: `Fatura Başlığı: ${invoice.title}\n Tax Numarası: ${invoice.taxNumber}\nTax Ofisi: ${invoice.taxOffice}\nFatura Adresi: ${invoice.address}`,
-                        });
-                        console.log("Invoice shared successfully");
-                      } catch (error) {
-                        console.error("Error sharing invoice:", error);
+                {/* galeri */}
+              </div>
+            </div>
+          )}
+          {catalogInformation[0]?.linkId && (
+            <div>
+              <button
+                className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
+                onClick={toggleKatalogBilgileri}
+              >
+                <IoBook size={25} />
+                Katalog
+              </button>
+
+              <div
+                className={`banka-bilgileri p-5 border bg-white shadow-xl ${
+                  isKatalogBilgileriOpen ? "open" : ""
+                }`}
+              >
+                <div className="pb-2">
+                  <div className="text-end">
+                    <button
+                      onClick={closeFooter}
+                      className="bg-red-600 rounded-md text-white"
+                    >
+                      <IoClose size={24} />
+                    </button>
+                  </div>
+                  <h4 className="font-semibold pb-2 border-b-2 mb-3">
+                    KATALOG
+                  </h4>
+                  {catalogInformation.map((catalog) => {
+                    return (
+                      <div
+                        className="space-y-2 border-b-2 py-2"
+                        key={catalog.name}
+                      >
+                        <a
+                          href={catalog.url}
+                          target="_blank"
+                          className="font-medium text-sm"
+                        >
+                          <div className="font-semibold">{catalog.name}</div>
+                        </a>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
+          {invoiceInformation[0]?.digitalCardId && (
+            <div>
+              <button
+                className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
+                onClick={toggleFaturaBilgileri}
+              >
+                <FaListAlt size={23} />
+                Fatura
+              </button>
+
+              <div
+                className={`banka-bilgileri p-5 border bg-white shadow-xl ${
+                  isFaturaBilgileriOpen ? "open" : ""
+                }`}
+              >
+                <div>
+                  <div className="text-end">
+                    <button
+                      onClick={closeFooter}
+                      className="bg-red-600 rounded-md text-white"
+                    >
+                      <IoClose size={24} />
+                    </button>
+                  </div>
+                  <h4 className="font-semibold pb-2 border-b-2 mb-3">
+                    FATURA BİLGİLERİ
+                  </h4>
+                  {invoiceInformation.map((invoice) => {
+                    const shareInvoice = async (invoice) => {
+                      if (navigator.share) {
+                        try {
+                          await navigator.share({
+                            text: `Fatura Başlığı: ${invoice.title}\n Tax Numarası: ${invoice.taxNumber}\nTax Ofisi: ${invoice.taxOffice}\nFatura Adresi: ${invoice.address}`,
+                          });
+                          console.log("Invoice shared successfully");
+                        } catch (error) {
+                          console.error("Error sharing invoice:", error);
+                        }
+                      } else {
+                        alert(
+                          "Web Share API is not supported in your browser."
+                        );
                       }
-                    } else {
-                      alert("Web Share API is not supported in your browser.");
-                    }
-                  };
-                  return (
-                    <div className="space-y-2 py-1" key={invoice.title}>
-                      <div className="font-semibold">{invoice.title}</div>
-                      <div className="font-medium text-sm">
-                        Tax numarası: {invoice.taxNumber}
+                    };
+                    return (
+                      <div className="space-y-2 py-1" key={invoice.title}>
+                        <div className="font-semibold">{invoice.title}</div>
+                        <div className="font-medium text-sm">
+                          Tax numarası: {invoice.taxNumber}
+                        </div>
+                        <div className="font-medium text-sm">
+                          Tax ofisi: {invoice.taxOffice}
+                        </div>
+                        <div className="font-medium text-sm">
+                          Adres: {invoice.address}
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <button
+                            className="px-3 py-1 bg-emerald-600 text-white rounded-md text-xs font-medium focus:outline-none"
+                            onClick={() => shareInvoice(invoice)}
+                          >
+                            PAYLAŞ
+                          </button>
+                        </div>
                       </div>
-                      <div className="font-medium text-sm">
-                        Tax ofisi: {invoice.taxOffice}
-                      </div>
-                      <div className="font-medium text-sm">
-                        Adres: {invoice.address}
-                      </div>
-                      <div className="flex items-center space-x-2">
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
+          {warrantInformation[0]?.digitalCardId && (
+            <div>
+              <button
+                className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
+                onClick={toggleVekaletBilgileri}
+              >
+                <FaAddressCard size={26} />
+                Vekalet
+              </button>
+
+              <div
+                className={`banka-bilgileri p-5 border bg-white shadow-xl ${
+                  isVekaletBilgileriOpen ? "open" : ""
+                }`}
+              >
+                <div>
+                  <div className="text-end">
+                    <button
+                      onClick={closeFooter}
+                      className="bg-red-600 rounded-md text-white"
+                    >
+                      <IoClose size={24} />
+                    </button>
+                  </div>
+                  <h4 className="font-semibold pb-2 border-b-2 mb-3">
+                    VEKALET BİLGİLERİ
+                  </h4>
+                  {warrantInformation.map((warrant) => {
+                    const shareWarrant = async (warrant) => {
+                      if (navigator.share) {
+                        try {
+                          await navigator.share({
+                            text: `Vekalet Başlığı: ${warrant.title}\n Vekalet Kimliği: ${warrant.citizenId}\nVekalet Baro Numarası: ${warrant.barAssociation}\nVekalet Adresi: ${warrant.address}`,
+                          });
+                          console.log("warrant shared successfully");
+                        } catch (error) {
+                          console.error("Error sharing warrant:", error);
+                        }
+                      } else {
+                        alert(
+                          "Web Share API is not supported in your browser."
+                        );
+                      }
+                    };
+                    return (
+                      <div className="space-y-2 py-1" key={warrant.title}>
+                        <div className="font-semibold">{warrant.title}</div>
+                        <div className="font-medium text-sm">
+                          {warrant.citizenId}
+                        </div>
+                        <div className="font-medium text-sm">
+                          {warrant.registerNo}
+                        </div>
+                        <div className="font-medium text-sm">
+                          {warrant.barAssociation}
+                        </div>
+                        <div className="font-medium text-sm">
+                          Adres: {warrant.address}
+                        </div>
                         <button
                           className="px-3 py-1 bg-emerald-600 text-white rounded-md text-xs font-medium focus:outline-none"
-                          onClick={() => shareInvoice(invoice)}
+                          onClick={() => shareWarrant(warrant)}
                         >
                           PAYLAŞ
                         </button>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-          <div>
-            <button
-              className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
-              onClick={toggleVekaletBilgileri}
-            >
-              <FaAddressCard size={26} />
-              Vekalet
-            </button>
-
-            <div
-              className={`banka-bilgileri p-5 border bg-white shadow-xl ${
-                isVekaletBilgileriOpen ? "open" : ""
-              }`}
-            >
-              <div>
-                <div className="text-end">
-                  <button
-                    onClick={closeFooter}
-                    className="bg-red-600 rounded-md text-white"
-                  >
-                    <IoClose size={24} />
-                  </button>
+                    );
+                  })}
                 </div>
-                <h4 className="font-semibold pb-2 border-b-2 mb-3">
-                  VEKALET BİLGİLERİ
-                </h4>
-                {warrantInformation.map((warrant) => {
-                  const shareWarrant = async (warrant) => {
-                    if (navigator.share) {
-                      try {
-                        await navigator.share({
-                          text: `Vekalet Başlığı: ${warrant.title}\n Vekalet Kimliği: ${warrant.citizenId}\nVekalet Baro Numarası: ${warrant.barAssociation}\nVekalet Adresi: ${warrant.address}`,
-                        });
-                        console.log("warrant shared successfully");
-                      } catch (error) {
-                        console.error("Error sharing warrant:", error);
-                      }
-                    } else {
-                      alert("Web Share API is not supported in your browser.");
-                    }
-                  };
-                  return (
-                    <div className="space-y-2 py-1" key={warrant.title}>
-                      <div className="font-semibold">{warrant.title}</div>
-                      <div className="font-medium text-sm">
-                        {warrant.citizenId}
-                      </div>
-                      <div className="font-medium text-sm">
-                        {warrant.registerNo}
-                      </div>
-                      <div className="font-medium text-sm">
-                        {warrant.barAssociation}
-                      </div>
-                      <div className="font-medium text-sm">
-                        Adres: {warrant.address}
-                      </div>
-                      <button
-                        className="px-3 py-1 bg-emerald-600 text-white rounded-md text-xs font-medium focus:outline-none"
-                        onClick={() => shareWarrant(warrant)}
-                      >
-                        PAYLAŞ
-                      </button>
-                    </div>
-                  );
-                })}
               </div>
             </div>
-          </div>
+          )}
+
           <div
             className={`banka-bilgileri p-5 border bg-white shadow-xl ${
               isQrcodeBilgileriOpen ? "open" : ""
@@ -938,7 +1059,7 @@ function Theme1() {
                     <IoClose size={24} />
                   </button>
                 </div>
-                <div className=" md:h-[600px] 2xl:h-[700px] w-full ">
+                <div className=" md:h-[400px] 2xl:h-[700px] 2xl:w-[700px] md:mx-auto md:w-[400px] ">
                   <img
                     src={qrCode.url}
                     className="w-full h-full p-5 object-cover rounded-md"

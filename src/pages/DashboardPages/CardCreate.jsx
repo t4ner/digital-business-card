@@ -41,6 +41,7 @@ function Stepper() {
           linkId: "",
           title: "",
           description: "",
+          firm: "",
           name: "",
           surname: "",
           phoneNumber1: "",
@@ -598,7 +599,7 @@ function Stepper() {
                       <Field
                         name="title"
                         className="input"
-                        placeholder="Meslek"
+                        placeholder="Şirketiniz"
                       />
                       <ErrorMessage
                         name="title"
@@ -610,7 +611,7 @@ function Stepper() {
                       <Field
                         name="description"
                         className="input"
-                        placeholder="Açıklama"
+                        placeholder="Unvanınız"
                       />
                       <ErrorMessage
                         name="description"
@@ -619,6 +620,18 @@ function Stepper() {
                       />
                     </div>
                     <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                      <Field
+                        name="firm"
+                        className="input"
+                        placeholder="Açıklama"
+                      />
+                      <ErrorMessage
+                        name="firm"
+                        component="small"
+                        className=" text-xs text-red-600 mt-1"
+                      />
+                    </div>
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
                       <Field
                         name="phoneNumber1"
                         className="input"
@@ -630,7 +643,7 @@ function Stepper() {
                         className=" text-xs text-red-600 mt-1"
                       />
                     </div>
-                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
                       <Field
                         name="email"
                         className="input"
@@ -643,7 +656,7 @@ function Stepper() {
                       />
                     </div>
 
-                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
                       <Field
                         name="website"
                         className="input"
@@ -655,7 +668,7 @@ function Stepper() {
                         className=" text-xs text-red-600 mt-1"
                       />
                     </div>
-                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
                       <Field
                         name="location"
                         className="input"
@@ -668,7 +681,7 @@ function Stepper() {
                       />
                     </div>
 
-                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
                       <button
                         type="button"
                         onClick={showInstagram}
@@ -690,7 +703,7 @@ function Stepper() {
                         </>
                       )}
                     </div>
-                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
                       <button
                         type="button"
                         onClick={showX}
@@ -710,7 +723,7 @@ function Stepper() {
                         </>
                       )}
                     </div>
-                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
                       <button
                         type="button"
                         onClick={showTelegram}
@@ -732,7 +745,7 @@ function Stepper() {
                         </>
                       )}
                     </div>
-                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
                       <button
                         type="button"
                         onClick={showDiscord}
@@ -754,7 +767,7 @@ function Stepper() {
                         </>
                       )}
                     </div>
-                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
                       <button
                         type="button"
                         onClick={showFacebook}
@@ -776,7 +789,7 @@ function Stepper() {
                         </>
                       )}
                     </div>
-                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
                       <button
                         type="button"
                         onClick={showWhatshapp}
@@ -798,7 +811,7 @@ function Stepper() {
                         </>
                       )}
                     </div>
-                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
                       <button
                         type="button"
                         onClick={showLinkedin}
@@ -821,7 +834,7 @@ function Stepper() {
                       )}
                     </div>
 
-                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
                       <button
                         type="button"
                         onClick={showWhatsappBusiness}
@@ -844,7 +857,7 @@ function Stepper() {
                       )}
                     </div>
 
-                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
                       <button
                         type="button"
                         onClick={showCiceksepeti}
@@ -867,7 +880,7 @@ function Stepper() {
                       )}
                     </div>
 
-                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
                       <button
                         type="button"
                         onClick={showSahibinden}
@@ -888,7 +901,7 @@ function Stepper() {
                       )}
                     </div>
 
-                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
                       <button
                         type="button"
                         onClick={showTrendyol}
@@ -909,7 +922,7 @@ function Stepper() {
                       )}
                     </div>
 
-                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
                       <button
                         type="button"
                         onClick={showHepsiburada}
@@ -929,7 +942,7 @@ function Stepper() {
                         </>
                       )}
                     </div>
-                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
+                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
                       <button
                         type="button"
                         onClick={showWeChat}
@@ -1776,13 +1789,7 @@ function Stepper() {
                 )}
                 {values.step === 2 && (
                   <>
-                    <button
-                      onClick={prevHandle}
-                      type="button"
-                      className="bg-emerald-600 w-28 justify-self-start text-white rounded h-10 text-sm"
-                    >
-                      GERİ
-                    </button>
+                    <div></div>
                     <button
                       type="button"
                       onClick={submitHandle}

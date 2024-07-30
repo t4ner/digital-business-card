@@ -580,7 +580,7 @@ function CardUpdate() {
               <input
                 name="title"
                 className="input"
-                placeholder="Başlık"
+                placeholder="Şirketiniz"
                 value={values.title}
                 onChange={handleChange}
               />
@@ -589,8 +589,17 @@ function CardUpdate() {
               <input
                 name="description"
                 className="input"
-                placeholder="Açıklama"
+                placeholder="Unvanınız"
                 value={values.description}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="flex flex-col">
+              <input
+                name="firm"
+                className="input"
+                placeholder="Açıklama"
+                value={values.firm}
                 onChange={handleChange}
               />
             </div>

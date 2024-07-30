@@ -12,11 +12,8 @@ const Header = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
   const handleLogout = () => {
-    // Oturum bilgilerini temizleme
     localStorage.removeItem("token");
     localStorage.removeItem("email");
-
-    // Kullanıcıyı giriş sayfasına yönlendirme
     navigate("/login");
   };
   return (
