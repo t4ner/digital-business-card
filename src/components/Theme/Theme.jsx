@@ -17,6 +17,7 @@ import whatshapbus from "/socialMediaLogo/whatshapbus.png";
 import ciceksepeti from "/socialMediaLogo/ciceksepetii.png";
 import hepsiburada from "/socialMediaLogo/hepsiburada.png";
 import trendyol from "/socialMediaLogo/trendyol.png";
+import map from "/socialMediaLogo/maps.png";
 
 import { FaAddressCard, FaCreditCard, FaQrcode } from "react-icons/fa6";
 import { IoBook, IoClose } from "react-icons/io5";
@@ -272,7 +273,13 @@ function Theme1() {
       alert("Paylaşım özelliği bu tarayıcıda desteklenmiyor.");
     }
   };
-
+  const getFullUrl = (link) => {
+    if (!/^https?:\/\//i.test(link)) {
+      return `https://${link}`;
+    }
+    return link;
+  };
+  console.log("location", themeInfo.location);
   return (
     <div className="md:w-2/4 mx-auto">
       <div className="flex justify-between px-2 py-2">
@@ -428,7 +435,7 @@ function Theme1() {
               <div className="basis-1/3 ">
                 <a
                   className="flex flex-col items-center"
-                  href={themeInfo.website}
+                  href={getFullUrl(themeInfo.website)}
                   target="_blank"
                 >
                   <img
@@ -469,10 +476,10 @@ function Theme1() {
             <p className="uppercase text-zinc-500">{themeInfo.title}</p>
           </div>
           {/* description end */}
-          {themeInfo?.location && (
+          {themeInfo?.firm && (
             <div className="border rounded-md mt-5 shadow-lg border-zinc-500 text-center text-lg font-semibold  py-2">
-              <p className="uppercase">ADRES</p>
-              <p className="uppercase text-zinc-500">{themeInfo.location}</p>
+              <p className="uppercase">HAKKIMDA</p>
+              <p className="uppercase text-zinc-500 px-1">{themeInfo.firm}</p>
             </div>
           )}
 
@@ -480,7 +487,7 @@ function Theme1() {
           <div className="border shadow-lg rounded-md border-zinc-500 text-center text-lg font-semibold  py-2 mt-5">
             <p>İLETİŞİM</p>
             <div className="flex mt-5">
-              <div className="basis-1/3">
+              <div className="basis-1/4">
                 <a
                   className="flex flex-col items-center"
                   onClick={downloadVCF}
@@ -495,7 +502,7 @@ function Theme1() {
               </div>
 
               {themeInfo.email !== "" && (
-                <div className="basis-1/3">
+                <div className="basis-1/4">
                   <a
                     className="flex flex-col items-center"
                     target="_blank"
@@ -510,7 +517,7 @@ function Theme1() {
               )}
 
               {themeInfo.phoneNumber1 !== "" && (
-                <div className="basis-1/3">
+                <div className="basis-1/4">
                   <a
                     className="flex flex-col items-center"
                     target="_blank"
@@ -520,6 +527,21 @@ function Theme1() {
                     <img src={call} className="w-[67px]" />
                     <span className="font-medium text-sm md:text-base mt-0.5">
                       Ara
+                    </span>
+                  </a>
+                </div>
+              )}
+              {themeInfo.location !== "" && (
+                <div className="basis-1/4">
+                  <a
+                    className="flex flex-col items-center"
+                    target="_blank"
+                    href={getFullUrl(themeInfo.location)}
+                  >
+                    {" "}
+                    <img src={map} className="w-[63px] pt-0.5" />
+                    <span className="font-medium text-sm md:text-base mt-1">
+                      Harita
                     </span>
                   </a>
                 </div>
@@ -614,7 +636,7 @@ function Theme1() {
                 <div className="basis-1/3">
                   <a
                     className="flex flex-col items-center "
-                    href={themeInfo.website}
+                    href={getFullUrl(themeInfo.website)}
                     target="_blank"
                   >
                     <img src={website} className="w-16" />

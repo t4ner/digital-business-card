@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Google Analytics Script -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HK29QKPVZ4"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-HK29QKPVZ4");
+    </script>
+
+    <!-- Meta Tags -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       http-equiv="Content-Security-Policy"
       content="upgrade-insecure-requests"
     />
+
+    <!-- Font and Stylesheets -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,16 +34,118 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Edu+VIC+WA+NT+Beginner:wght@400..700&display=swap"
       rel="stylesheet"
     />
+
     <title>ecoQr</title>
+
+    <!-- Inline Styles -->
+    <style>
+      #cookiePopup {
+        background-color: #ffffff;
+        display: none;
+        position: fixed;
+        bottom: 1em;
+        left: 1em;
+        right: 1em;
+        width: auto;
+        max-width: 500px;
+        box-shadow: 0 0 2em rgba(5, 0, 31, 0.15);
+        z-index: 1000;
+        text-align: center;
+        line-height: 1.8em;
+        padding: 1em;
+        border-radius: 6px;
+        transition: all 0.5s ease-in;
+        margin: 0 1em;
+      }
+      #cookiePopup p {
+        font-family: "Montserrat", sans-serif;
+        margin: 1em 0;
+        font-size: 1em;
+      }
+      #cookiePopup button {
+        background-color: #6859fe;
+        border: none;
+        color: #ffffff;
+        font-size: 1em;
+        padding: 8px 1.5em;
+        display: inline-block;
+        margin: 0.5em;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #cookiePopup .close {
+        background-color: red;
+      }
+      @media (max-width: 600px) {
+        #cookiePopup {
+          width: 92%;
+          bottom: 1em;
+          left: 0;
+          right: 0;
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+    <div id="cookiePopup">
+      <p class="text-base md:text-lg">
+        Web sitemiz, tarama deneyiminizi ve ilgili bilgileri sağlamak için
+        çerezler kullanır. Web sitemizi kullanmaya devam etmeden önce, Çerez
+        Politikamızı ve Gizlilik'i kabul etmiş sayılırsınız.
+      </p>
+      <div class="flex gap-5">
+        <button id="acceptCookie" class="text-xs">KABUL ET</button>
+        <button id="closeCookiePopup" class="close text-xs">REDDET</button>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const popUp = document.getElementById("cookiePopup");
+
+        // When user clicks the accept button
+        document
+          .getElementById("acceptCookie")
+          .addEventListener("click", () => {
+            let d = new Date();
+            d.setHours(d.getHours() + 1); // Set the expiration time to 1 hour from now
+            document.cookie =
+              "myCookieName=thisIsMyCookie; expires=" +
+              d.toUTCString() +
+              "; path=/";
+            popUp.style.display = "none"; // Hide the popup
+          });
+
+        // When user clicks the close button
+        document
+          .getElementById("closeCookiePopup")
+          .addEventListener("click", () => {
+            popUp.style.display = "none"; // Hide the popup
+          });
+
+        // Check if cookie is already present
+        const checkCookie = () => {
+          let cookies = document.cookie.split(";");
+          let cookieExists = cookies.some((cookie) =>
+            cookie.trim().startsWith("myCookieName=")
+          );
+          if (cookieExists) {
+            popUp.style.display = "none"; // Hide the popup
+          } else {
+            popUp.style.display = "block"; // Show the popup
+          }
+        };
+
+        // Check if cookie exists when page loads
+        setTimeout(() => {
+          checkCookie();
+        }, 2000);
+      });
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -18,6 +18,21 @@ function CardUpdate() {
   const [bankaInformation, setBankaInformation] = useState([]);
   const [invoiceInformation, setInvoiceInformation] = useState([]);
   const [warrantInformation, setWarrantInformation] = useState([]);
+  const [catalogInformation, setCatalogInformation] = useState([]);
+  const [imagesInformation, setImagesInformation] = useState([]);
+  const [profilPhoto, setProfilPhoto] = useState(null);
+  const [bannerPhoto, setBannerPhoto] = useState(null);
+  const [image3, setImage3] = useState("");
+  const [image4, setImage4] = useState("");
+  const [image5, setImage5] = useState("");
+  const [image6, setImage6] = useState("");
+  const [image7, setImage7] = useState("");
+  const [catalog, setCatalog] = useState("");
+  const [catalog2, setCatalog2] = useState("");
+  const [catalog3, setCatalog3] = useState("");
+  const [catalog4, setCatalog4] = useState("");
+  const [imageAdded, setImageAdded] = useState(null);
+  const [imageAdded2, setImageAdded2] = useState(null);
 
   const [values, setValues] = useState({
     id: "",
@@ -47,7 +62,7 @@ function CardUpdate() {
     hepsiburada: "",
     firm: "",
   });
-
+  console.log("values", values);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -88,6 +103,12 @@ function CardUpdate() {
           hepsiburada: response.data.hepsiburada || "",
           firm: response.data.firm || "",
         });
+
+        const imagesList = await axios.get(
+          `https://ecoqrcode.com/businessCard/getPhotosByLink?linkId=${response.data.linkId}`
+        );
+        setImagesInformation(imagesList.data);
+
         const banka = await axios.get(
           `https://ecoqrcode.com/bankInformation/getBankInformationDigitalCardId?digitalCardId=${response.data.id}`
         );
@@ -103,6 +124,11 @@ function CardUpdate() {
         );
         setWarrantInformation(warrant.data);
 
+        const catalog = await axios.get(
+          `https://ecoqrcode.com/businessCard/getCatalogByLink?linkId=${response.data.linkId}`
+        );
+        setCatalogInformation(catalog.data);
+        console.log("catalog", catalog);
         const updatedBankaInformationCreate = bankaInformationCreate.map(
           (item, index) => ({
             ...item,
@@ -202,60 +228,35 @@ function CardUpdate() {
     });
   };
 
-  const [image1, setImage1] = useState("");
-  const [image2, setImage2] = useState("");
-  const [image3, setImage3] = useState("");
-  const [image4, setImage4] = useState("");
-  const handleImage1Change = (event) => {
-    const file = event.target.files[0];
-    setImage1(file);
-    // Call service for image 1
-    if (file) {
-      sendImageToServer(file, values.linkId, "profilphoto");
-    }
+  const handleImage1Change = (e) => {
+    setProfilPhoto(e.target.files[0]);
   };
 
-  const handleImage2Change = (event) => {
-    const file = event.target.files[0];
-    setImage2(file);
-    if (file) {
-      sendImageToServer(file, values.linkId, "banner");
-    }
+  const handleImage2Change = (e) => {
+    setBannerPhoto(e.target.files[0]);
   };
 
-  const handleImage3Change = (event) => {
-    const file = event.target.files[0];
-    setImage3(file);
-    if (file) {
-      sendImageToServer(file, values.linkId, values.name);
+  const getImageProfil = (name) => {
+    const image = imagesInformation.find((img) => img.name === name);
+    if (image) {
+      console.log("getImageProfil", image); // ID'yi kontrol et
+      return { url: image.url, id: image.id };
     }
+    return { url: "", id: null }; // Bulunamazsa varsayılan değer döndür
   };
 
-  const handleImage4Change = (event) => {
-    const file = event.target.files[0];
-    setImage4(file);
-    if (file) {
-      sendImageToServer(file, values.linkId, values.name);
+  const getImageBanner = (name) => {
+    const image = imagesInformation.find((img) => img.name === name);
+    if (image) {
+      console.log("getImageBanner", image); // ID'yi kontrol et
+      return { url: image.url, id: image.id };
     }
+    return { url: "", id: null }; // Bulunamazsa varsayılan değer döndür
   };
-  const sendImageToServer = async (image, linkId, name) => {
-    try {
-      const formData = new FormData();
-      formData.append("file", image);
-      formData.append("linkId", values.linkId);
-      formData.append("name", name);
-      const jsonData = {
-        file: image,
-        linkId: values.linkId,
-        name: name,
-      };
 
-      const response = await axios.post(
-        "https://ecoqrcode.com/businessCard/upload",
-        formData
-      );
-    } catch (error) {}
-  };
+  console.log("profil", profilPhoto);
+  console.log("banner", bannerPhoto);
+
   const [showInputInstagram, setShowInputInstagram] = useState(false);
   const showInstagram = () => {
     setShowInputInstagram(!showInputInstagram);
@@ -314,7 +315,82 @@ function CardUpdate() {
   const showHepsiburada = () => {
     setShowInputHepsiburada(!showInputHepsiburada);
   };
+  const [showInputGallery, setShowInputGallery] = useState(false);
+  const handleGallery = () => {
+    setShowInputGallery(!showInputGallery);
+  };
 
+  const [showInputGallery2, setShowInputGallery2] = useState(false);
+  const handleGallery2 = () => {
+    setShowInputGallery2(!showInputGallery2);
+  };
+  const [showInputGallery3, setShowInputGallery3] = useState(false);
+  const handleGallery3 = () => {
+    setShowInputGallery3(!showInputGallery3);
+  };
+  const [showInputGallery4, setShowInputGallery4] = useState(false);
+  const handleGallery4 = () => {
+    setShowInputGallery4(!showInputGallery4);
+  };
+  const [showInputGallery5, setShowInputGallery5] = useState(false);
+  const handleGallery5 = () => {
+    setShowInputGallery5(!showInputGallery5);
+  };
+
+  const [showInputPdf, setShowInputPdf] = useState(false);
+  const handlePdf = () => {
+    setShowInputPdf(!showInputPdf);
+  };
+
+  const [showInputPdf2, setShowInputPdf2] = useState(false);
+  const handlePdf2 = () => {
+    setShowInputPdf2(!showInputPdf2);
+  };
+  const [showInputPdf3, setShowInputPdf3] = useState(false);
+  const handlePdf3 = () => {
+    setShowInputPdf3(!showInputPdf3);
+  };
+  const [showInputPdf4, setShowInputPdf4] = useState(false);
+  const handlePdf4 = () => {
+    setShowInputPdf4(!showInputPdf4);
+  };
+  const handleCatalog = (event) => {
+    const file = event.target.files[0];
+    setCatalog(file);
+  };
+  const handleCatalog2 = (event) => {
+    const file = event.target.files[0];
+    setCatalog2(file);
+  };
+  const handleCatalog3 = (event) => {
+    const file = event.target.files[0];
+    setCatalog3(file);
+  };
+  const handleCatalog4 = (event) => {
+    const file = event.target.files[0];
+    setCatalog4(file);
+  };
+
+  const handleImage3Change = (event) => {
+    const file = event.target.files[0];
+    setImage3(file);
+  };
+  const handleImage4Change = (event) => {
+    const file = event.target.files[0];
+    setImage4(file);
+  };
+  const handleImage5Change = (event) => {
+    const file = event.target.files[0];
+    setImage5(file);
+  };
+  const handleImage6Change = (event) => {
+    const file = event.target.files[0];
+    setImage6(file);
+  };
+  const handleImage7Change = (event) => {
+    const file = event.target.files[0];
+    setImage7(file);
+  };
   const handleChangeTheme1 = (e) => {
     const value = parseInt(e.target.value);
     setValues((prevValues) => ({
@@ -329,7 +405,81 @@ function CardUpdate() {
       themeId: value,
     }));
   };
+  const sendGalleryToServer = async (image, linkId, name) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("linkId", values.linkId);
+      formData.append("name", name);
+      const jsonData = {
+        file: image,
+        linkId: values.linkId,
+        name: name,
+      };
+      const token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      };
+
+      const response = await axios.post(
+        "https://ecoqrcode.com/businessCard/uploadGallery",
+        formData,
+        { headers }
+      );
+      console.log("Yükleme başarılı:", response.data);
+      console.log("formdata", formData);
+      setImage3("");
+      setImage4("");
+      setImage5("");
+      setImage6("");
+      setImage7("");
+    } catch (error) {
+      console.error(
+        "Yükleme hatası:",
+        error.response ? error.response.data : error.message
+      );
+      Swal.fire({
+        icon: "error",
+        title: "Hata",
+        text: "Resmin boyutu çok yüksek.",
+      });
+    }
+  };
   const sendDataToServer = async () => {
+    if (profilPhoto) {
+      sendGalleryToServer(profilPhoto, values.linkId, "profilphoto");
+    }
+    if (bannerPhoto) {
+      sendGalleryToServer(bannerPhoto, values.linkId, "banner");
+    }
+    if (image3) {
+      sendGalleryToServer(image3, values.linkId, "gallery1", true);
+    }
+    if (image4) {
+      sendGalleryToServer(image4, values.linkId, "gallery2", true);
+    }
+    if (image5) {
+      sendGalleryToServer(image5, values.linkId, "gallery3", true);
+    }
+    if (image6) {
+      sendGalleryToServer(image6, values.linkId, "gallery4", true);
+    }
+    if (image7) {
+      sendGalleryToServer(image7, values.linkId, "gallery5", true);
+    }
+    if (catalog) {
+      sendPdfToServer(catalog, values.linkId, catalog.name);
+    }
+    if (catalog2) {
+      sendPdfToServer(catalog2, values.linkId, catalog2.name);
+    }
+    if (catalog3) {
+      sendPdfToServer(catalog3, values.linkId, catalog3.name);
+    }
+    if (catalog4) {
+      sendPdfToServer(catalog4, values.linkId, catalog4.name);
+    }
     try {
       const token = localStorage.getItem("token");
       const headers = {
@@ -346,6 +496,7 @@ function CardUpdate() {
         title: "Başarılı!",
         text: "Kartınız başarıyla güncellendi!",
       });
+      window.location.reload();
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -356,44 +507,117 @@ function CardUpdate() {
   };
   const deleteBankaInformation = async (iban) => {
     try {
+      // Silme işlemi
       const response = await axios.delete(
         `https://ecoqrcode.com/bankInformation/deleteBankInformation?iban=${iban}`
       );
+
+      // Durum güncelleme
       setBankaInformation((prevState) =>
         prevState.filter((bankInfo) => bankInfo.iban !== iban)
       );
+
+      // Başarı bildirimini göster
+      Swal.fire({
+        icon: "success",
+        title: "Silindi",
+        text: "Banka bilgisi başarıyla silindi.",
+        confirmButtonText: "Tamam",
+      });
+
       console.log("Banka bilgisi silindi:", response.data);
-      // Banka bilgisi silindikten sonra bankaBilgileri listesini güncellemek için
+
+      // Silme işleminden sonra banka bilgilerini güncellemek için
       // fetchBankaBilgileri fonksiyonunu yeniden çağırabiliriz.
       // fetchBankaBilgileri();
     } catch (error) {
       console.error("Banka bilgisi silinirken hata oluştu:", error);
-      // Hata durumunda kullanıcıya uygun bir mesaj gösterebiliriz veya uygun bir
-      // hata işleme mekanizması kullanılabilir.
+
+      // Hata bildirimini göster
+      Swal.fire({
+        icon: "error",
+        title: "Hata",
+        text: "Banka bilgisi silinirken bir hata oluştu.",
+        confirmButtonText: "Tamam",
+      });
     }
   };
 
   const deleteInvoiceInformation = async (taxNumber) => {
     try {
+      // Silme işlemi
       const response = await axios.delete(
         `https://ecoqrcode.com/invoiceInformation/deleteInvoiceInformation?taxNumber=${taxNumber}`
       );
+
+      // Durum güncelleme
       setInvoiceInformation((prevState) =>
         prevState.filter((invoiceInfo) => invoiceInfo.taxNumber !== taxNumber)
       );
+
+      // Başarı bildirimini göster
+      Swal.fire({
+        icon: "success",
+        title: "Silindi",
+        text: "Fatura bilgisi başarıyla silindi.",
+        confirmButtonText: "Tamam",
+      });
+
       console.log("Fatura bilgisi silindi:", response.data);
     } catch (error) {
       console.error("Fatura bilgisi silinirken hata oluştu:", error);
+
+      // Hata bildirimini göster
+      Swal.fire({
+        icon: "error",
+        title: "Hata",
+        text: "Fatura bilgisi silinirken bir hata oluştu.",
+        confirmButtonText: "Tamam",
+      });
     }
   };
 
   const deleteWarrantInformation = async (citizenId) => {
     try {
+      // Silme işlemi
       const response = await axios.delete(
         `https://ecoqrcode.com/warrantOfAttorney/deleteWarrantOfAttorney?citizenId=${citizenId}`
       );
+
+      // Durum güncelleme
       setWarrantInformation((prevState) =>
         prevState.filter((warrantInfo) => warrantInfo.citizenId !== citizenId)
+      );
+
+      // Başarı bildirimini göster
+      Swal.fire({
+        icon: "success",
+        title: "Silindi",
+        text: "Vekalet bilgisi başarıyla silindi.",
+        confirmButtonText: "Tamam",
+      });
+
+      console.log("Vekalet belgesi silindi:", response.data);
+    } catch (error) {
+      console.error("Vekalet bilgisi silinirken hata oluştu:", error);
+
+      // Hata bildirimini göster
+      Swal.fire({
+        icon: "error",
+        title: "Hata",
+        text: "Vekalet bilgisi silinirken bir hata oluştu.",
+        confirmButtonText: "Tamam",
+      });
+    }
+  };
+
+  const deleteCatalogInformation = async (id) => {
+    try {
+      const response = await axios.delete(
+        `https://ecoqrcode.com/businessCard/deleteCatalog?id=${id}`
+      );
+      setCatalogInformation((prevState) =>
+        prevState.filter((catalogInfo) => catalogInfo.id !== id)
       );
       console.log("Fatura bilgisi silindi:", response.data);
     } catch (error) {
@@ -444,13 +668,23 @@ function CardUpdate() {
           bankInfo.bankName.trim() !== ""
       );
       console.log("filteredData", filteredData);
+
       // Filtrelenmiş verileri gönder
       if (filteredData.length > 0) {
         await axios.post(
           "https://ecoqrcode.com/bankInformation/createBankInformation",
           filteredData
         );
-        console.log("Banka bilgileri başarıyla gönderildi");
+
+        // Başarı bildirimini göster
+        Swal.fire({
+          icon: "success",
+          title: "Başarıyla Gönderildi",
+          text: "Banka bilgileri başarıyla gönderildi.",
+          confirmButtonText: "Tamam",
+        });
+
+        // Verileri sıfırla
         setBankaInformationCreate([
           {
             iban: "",
@@ -478,21 +712,41 @@ function CardUpdate() {
           },
         ]);
       } else {
-        console.log("Gönderilecek banka bilgisi bulunamadı.");
+        Swal.fire({
+          icon: "info",
+          title: "Bilgi",
+          text: "Gönderilecek banka bilgisi bulunamadı.",
+          confirmButtonText: "Tamam",
+        });
       }
     } catch (error) {
       console.error("Banka bilgisi gönderilirken hata oluştu:", error);
-      // Hata yönetimi veya kullanıcı bildirimleri ekleyebilirsiniz
+      Swal.fire({
+        icon: "error",
+        title: "Hata",
+        text: "Banka bilgisi gönderilirken bir hata oluştu.",
+        confirmButtonText: "Tamam",
+      });
     }
   };
 
   const sendInvoiceServer = async () => {
     try {
+      // Fatura bilgilerini gönderme işlemi
       await axios.post(
         "https://ecoqrcode.com/invoiceInformation/createInvoiceInformation",
         invoiceInformationCreate
       );
-      console.log("Fatura bilgileri başarıyla gönderildi");
+
+      // Başarı bildirimini göster
+      Swal.fire({
+        icon: "success",
+        title: "Başarı",
+        text: "Fatura bilgileri başarıyla gönderildi.",
+        confirmButtonText: "Tamam",
+      });
+
+      // Gönderim başarılı olduğunda verileri sıfırlama
       setInvoiceInformationCreate([
         {
           title: "",
@@ -504,16 +758,33 @@ function CardUpdate() {
       ]);
     } catch (error) {
       console.error("Fatura bilgisi gönderilirken hata oluştu:", error);
-      // Hata yönetimi veya kullanıcı bildirimleri ekleyebilirsiniz
+
+      // Hata bildirimini göster
+      Swal.fire({
+        icon: "error",
+        title: "Hata",
+        text: "Fatura bilgisi gönderilirken bir hata oluştu.",
+        confirmButtonText: "Tamam",
+      });
     }
   };
   const sendWarrantServer = async () => {
     try {
+      // Vekalet bilgilerini gönderme işlemi
       await axios.post(
         "https://ecoqrcode.com/warrantOfAttorney/createWarrantOfAttorney",
         warrantInformationCreate
       );
-      console.log("Vekalet bilgileri başarıyla gönderildi");
+
+      // Başarı bildirimini göster
+      Swal.fire({
+        icon: "success",
+        title: "Başarı",
+        text: "Vekalet bilgileri başarıyla gönderildi.",
+        confirmButtonText: "Tamam",
+      });
+
+      // Gönderim başarılı olduğunda verileri sıfırlama
       setWarrantInformationCreate([
         {
           title: "",
@@ -526,13 +797,123 @@ function CardUpdate() {
       ]);
     } catch (error) {
       console.error("Vekalet bilgisi gönderilirken hata oluştu:", error);
-      // Hata yönetimi veya kullanıcı bildirimleri ekleyebilirsiniz
+
+      // Hata bildirimini göster
+      Swal.fire({
+        icon: "error",
+        title: "Hata",
+        text: "Vekalet bilgisi gönderilirken bir hata oluştu.",
+        confirmButtonText: "Tamam",
+      });
     }
   };
-  console.log("bankaInformationCreate", bankaInformationCreate);
-  console.log("invoiceInformationCreate", invoiceInformationCreate);
-  console.log("warrantInformationCreate", warrantInformationCreate);
+  const sendPdfToServer = async (image, linkId, name) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("linkId", values.linkId);
+      formData.append("name", name);
 
+      const jsonData = {
+        file: image,
+        linkId: values.linkId,
+        name: name,
+      };
+      const token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await axios.post(
+        "https://ecoqrcode.com/businessCard/uploadPdf",
+        formData,
+        { headers }
+      );
+      console.log("Yükleme başarılı:", response.data);
+      setCatalog("");
+      setCatalog2("");
+      setCatalog3("");
+      setCatalog4("");
+    } catch (error) {
+      console.error(
+        "Yükleme hatası:",
+        error.response ? error.response.data : error.message
+      );
+      Swal.fire({
+        icon: "error",
+        title: "Hata",
+        text: "PDF dokümanı yüklenemedi.",
+      });
+    }
+  };
+
+  const galleryImages = imagesInformation.filter((img) =>
+    img.name.startsWith("gallery")
+  );
+  const deleteGalleryImage = async (id) => {
+    const url = `https://ecoqrcode.com/businessCard/deleteImages?id=${id}`;
+    console.log("Request URL:", url); // URL'yi kontrol edin
+    try {
+      const token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      console.log("headers", headers);
+      await axios.delete(url, { headers });
+      console.log("Image deleted successfully");
+
+      // Resim başarıyla silindikten sonra galeri listesini güncelle
+      setImagesInformation((prevImages) =>
+        prevImages.filter((img) => img.id !== id)
+      );
+    } catch (error) {
+      console.error(
+        "Error deleting image:",
+        error.response ? error.response.data : error.message
+      );
+    }
+  };
+
+  const deleteProfilPhoto = async () => {
+    const { id } = getImageProfil("profilphoto");
+    if (id) {
+      try {
+        const token = localStorage.getItem("token");
+        await axios.delete(
+          `https://ecoqrcode.com/businessCard/deleteImages?id=${id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        // Resim silindikten sonra state'i güncelle
+        setImagesInformation(imagesInformation.filter((img) => img.id !== id));
+        setImageAdded(null);
+      } catch (error) {
+        console.error("Error deleting image:", error);
+      }
+    }
+  };
+  const isInputDisabled = !!getImageProfil("profilphoto").url;
+  const deleteBannerPhoto = async () => {
+    const { id } = getImageBanner("banner");
+    if (id) {
+      try {
+        const token = localStorage.getItem("token");
+        await axios.delete(
+          `https://ecoqrcode.com/businessCard/deleteImages?id=${id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        // Resim silindikten sonra state'i güncelle
+        setImagesInformation(imagesInformation.filter((img) => img.id !== id));
+        setImageAdded(null);
+      } catch (error) {
+        console.error("Error deleting image:", error);
+      }
+    }
+  };
+  const isInputDisabled2 = !!getImageProfil("banner").url;
   return (
     <>
       {values.linkId !== "" && (
@@ -855,30 +1236,34 @@ function CardUpdate() {
                 </>
               )}
             </div>
-
-            <div className="flex flex-col md:basis-1/2 ">
+            <div className="flex flex-col pb-10">
               <button
                 type="button"
-                onClick={showCiceksepeti}
-                className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                onClick={showWeChat}
+                className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
               >
-                <span className="font-medium text-blue-700">Çiçek Sepeti</span>
+                <span className="font-medium text-emerald-600">WeChat</span>
 
-                <img src={ciceksepeti} className="w-6" />
+                <img src={wechat} className="w-6" />
               </button>
-              {showInputCiceksepeti && (
+              {showInputWeChat && (
                 <>
                   <input
-                    name="cicekSepeti"
+                    name="wechat"
                     className="input mt-3"
-                    placeholder="Çiçek Sepeti"
-                    value={values.cicekSepeti}
+                    placeholder="WeChat"
+                    value={values.wechat}
                     onChange={handleChange}
                   />
                 </>
               )}
             </div>
 
+            <hr className="my-7 border-1 border-emerald-700 " />
+            <hr className="my-7 border-1 border-emerald-700 " />
+
+            <h3 className="font-medium mb-5">PAZAR YERLERİ</h3>
+            <div></div>
             <div className="flex flex-col md:basis-1/2 ">
               <button
                 type="button"
@@ -941,30 +1326,30 @@ function CardUpdate() {
                 </>
               )}
             </div>
-            <div className="flex flex-col pb-10">
+            <div className="flex flex-col md:basis-1/2 ">
               <button
                 type="button"
-                onClick={showWeChat}
-                className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
+                onClick={showCiceksepeti}
+                className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
               >
-                <span className="font-medium text-emerald-600">WeChat</span>
+                <span className="font-medium text-blue-700">Çiçek Sepeti</span>
 
-                <img src={wechat} className="w-6" />
+                <img src={ciceksepeti} className="w-6" />
               </button>
-              {showInputWeChat && (
+              {showInputCiceksepeti && (
                 <>
                   <input
-                    name="wechat"
+                    name="cicekSepeti"
                     className="input mt-3"
-                    placeholder="WeChat"
-                    value={values.wechat}
+                    placeholder="Çiçek Sepeti"
+                    value={values.cicekSepeti}
                     onChange={handleChange}
                   />
                 </>
               )}
             </div>
           </div>
-          <hr className="border-1 border-emerald-700  pt-10" />
+          <hr className="border-1 border-emerald-700  my-10" />
           <h3 className="font-medium pl-3">BANKA BİLGİLERİNİ GÜNCELLE</h3>
           {/* bankInformation */}
           <div className="md:flex md:flex-row flex-wrap flex-col pt-10 pb-5">
@@ -1343,11 +1728,166 @@ function CardUpdate() {
           </div>
           {/* warrantcreate */}
 
-          <h3 className="text-lg font-medium text-zinc-700 mt-20">Images</h3>
+          {/* KATALOG DELETE */}
+          <h3 className="font-medium pl-3">KATALOG BİLGİLERİNİ GÜNCELLE</h3>
+          <div className="md:flex md:flex-row flex-wrap flex-col pt-10 ">
+            {catalogInformation.map((catalog, index) => (
+              <div className="basis-1/2 space-y-3 pb-10 pl-[11px]" key={index}>
+                <p>Katalog bilgileri - {`${index + 1}`}</p>
+                <div className="flex flex-col">
+                  <input
+                    name="title"
+                    className="input"
+                    placeholder="Başlık"
+                    disabled
+                    value={catalog.name || ""}
+                    onChange={(event) => handleChangeWarrant(event, index)}
+                  />
+                </div>
+
+                <button
+                  className="bg-red-600 text-white font-medium px-5 py-1 rounded-lg"
+                  onClick={() => deleteCatalogInformation(catalog.id)}
+                >
+                  Sil
+                </button>
+              </div>
+            ))}
+          </div>
+          {/* KATALOG DELETE */}
+
+          {/* KATALOG CREATE */}
+
+          <div className="space-y-5">
+            <h3 className="font-medium pl-3">KATALOG BİLGİLERİNİ GÜNCELLE</h3>
+
+            <button
+              type="button"
+              onClick={handlePdf}
+              className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2 ml-3"
+            >
+              PDF EKLE +
+            </button>
+
+            <div className="grid md:grid-cols-2 gap-2.5 pl-3">
+              <div>
+                {showInputPdf && (
+                  <>
+                    {" "}
+                    <div className="flex flex-col">
+                      <label htmlFor="catalog" className="text-sm">
+                        Katalog / PDF ekle
+                      </label>
+                      <input
+                        id="catalog"
+                        name="catalog"
+                        type="file"
+                        accept="application/pdf"
+                        onChange={handleCatalog}
+                        className="input pt-1.5 mt-1"
+                      />
+                      {catalog && <p>{catalog.name}</p>}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handlePdf2}
+                      className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                    >
+                      PDF EKLE +
+                    </button>
+                  </>
+                )}
+              </div>
+              <div>
+                {" "}
+                {showInputPdf2 && (
+                  <>
+                    <div className="flex flex-col">
+                      <label htmlFor="catalog2" className="text-sm">
+                        Katalog / PDF ekle
+                      </label>
+                      <input
+                        id="catalog2"
+                        name="catalog2"
+                        type="file"
+                        accept="application/pdf"
+                        onChange={handleCatalog2}
+                        className="input pt-1.5 mt-1"
+                      />
+                      {catalog2 && <p>{catalog2.name}</p>}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handlePdf3}
+                      className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                    >
+                      PDF EKLE +
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+            <div className="grid md:grid-cols-2 gap-2.5 pl-3">
+              <div>
+                {showInputPdf3 && (
+                  <>
+                    {" "}
+                    <div className="flex flex-col">
+                      <label htmlFor="catalog3" className="text-sm">
+                        Katalog / PDF ekle
+                      </label>
+                      <input
+                        id="catalog3"
+                        name="catalog3"
+                        type="file"
+                        accept="application/pdf"
+                        onChange={handleCatalog3}
+                        className="input pt-1.5 mt-1"
+                      />
+                      {catalog3 && <p>{catalog3.name}</p>}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handlePdf4}
+                      className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                    >
+                      PDF EKLE +
+                    </button>
+                  </>
+                )}
+              </div>
+              <div>
+                {showInputPdf4 && (
+                  <>
+                    {" "}
+                    <div className="flex flex-col">
+                      <label htmlFor="catalog" className="text-sm">
+                        Katalog / PDF ekle
+                      </label>
+                      <input
+                        id="catalog4"
+                        name="catalog4"
+                        type="file"
+                        accept="application/pdf"
+                        onChange={handleCatalog4}
+                        className="input pt-1.5 mt-1"
+                      />
+                      {catalog4 && <p>{catalog4.name}</p>}
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+          {/* KATALOG CREATE */}
+
+          <h3 className="text-lg font-medium text-zinc-700 mt-20 mb-10">
+            FOTOĞRAFLAR
+          </h3>
           <div className="grid md:grid-cols-2 gap-2.5 ">
             <div className="flex flex-col">
               <label htmlFor="photo1" className="text-sm">
-                Profil Photo
+                Profil Fotoğrafı
               </label>
               <input
                 id="photo1"
@@ -1356,18 +1896,36 @@ function CardUpdate() {
                 accept="image/*"
                 onChange={handleImage1Change}
                 className="input pt-1.5  mt-1"
+                disabled={isInputDisabled}
               />
-              {image1 && (
+              {profilPhoto && (
                 <img
-                  src={URL.createObjectURL(image1)}
-                  alt="Photo 1"
-                  className=" h-40"
+                  src={URL.createObjectURL(profilPhoto)}
+                  className="h-60 w-96 mt-2"
+                  alt="Profil Fotoğrafı"
                 />
+              )}
+              {!profilPhoto && getImageProfil("profilphoto") && (
+                <>
+                  <img
+                    src={getImageProfil("profilphoto").url}
+                    className="h-60 w-96 mt-2"
+                    alt="Profil Fotoğrafı"
+                  />
+                  <button
+                    onClick={deleteProfilPhoto}
+                    className="text-start mt-3"
+                  >
+                    <span className="bg-red-600 text-white font-medium px-5 py-1 rounded-lg">
+                      Sil
+                    </span>
+                  </button>
+                </>
               )}
             </div>
             <div className="flex flex-col">
               <label htmlFor="photo2" className="text-sm">
-                Photo 2
+                Banner Fotoğrafı
               </label>
               <input
                 id="photo2"
@@ -1376,16 +1934,34 @@ function CardUpdate() {
                 accept="image/*"
                 onChange={handleImage2Change}
                 className="input pt-1.5 mt-1"
+                disabled={isInputDisabled2}
               />
-              {image2 && (
+              {bannerPhoto && (
                 <img
-                  src={URL.createObjectURL(image2)}
-                  alt="Photo 2"
-                  className="h-40"
+                  src={URL.createObjectURL(bannerPhoto)}
+                  alt="Banner Fotoğrafı"
+                  className="h-60 w-96 mt-2"
                 />
               )}
+              {!bannerPhoto && getImageBanner("banner") && (
+                <>
+                  <img
+                    src={getImageBanner("banner").url}
+                    alt="Banner Fotoğrafı"
+                    className="h-60 w-96 mt-2"
+                  />
+                  <button
+                    onClick={deleteBannerPhoto}
+                    className="text-start mt-3"
+                  >
+                    <span className="bg-red-600 text-white font-medium px-5 py-1 rounded-lg">
+                      Sil
+                    </span>
+                  </button>
+                </>
+              )}
             </div>
-            <div className="flex flex-col">
+            {/* <div className="flex flex-col">
               <label htmlFor="photo3" className="text-sm">
                 Photo 3
               </label>
@@ -1424,15 +2000,224 @@ function CardUpdate() {
                   className="h-40"
                 />
               )}
+            </div> */}
+          </div>
+
+          {/* GALERİ */}
+          <hr className="border-1 border-emerald-700  mt-10" />
+          <h3 className="text-lg font-medium text-zinc-700 mt-20 mb-10">
+            GALERİYİ DÜZENLE
+          </h3>
+          <div className="grid md:grid-cols-2 gap-2.5 ">
+            {galleryImages.map((image, index) => (
+              <div className="flex flex-col mb-5">
+                <img
+                  key={index}
+                  src={image.url}
+                  alt={`Galeri Fotoğrafı ${index + 1}`}
+                  className="h-60 w-96 mt-2" // Stil eklemek isterseniz
+                />
+                <button
+                  onClick={() => deleteGalleryImage(image.id)}
+                  className="text-start flex-start mt-3"
+                >
+                  <span className="bg-red-600 text-white font-medium px-5 py-1 rounded-lg">
+                    SİL
+                  </span>
+                </button>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-5 mt-10">
+            <button className="text-lg font-medium text-zinc-700 mt-3 md:mt-6">
+              GALERİYE FOTOĞRAF EKLE
+            </button>
+
+            <button
+              type="button"
+              onClick={handleGallery}
+              className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+            >
+              RESİM EKLE +
+            </button>
+            <div className="grid md:grid-cols-2 gap-2.5">
+              <div>
+                {showInputGallery && (
+                  <>
+                    <div className="flex flex-col">
+                      <label htmlFor="photo2" className="text-sm">
+                        Galeri Fotoğrafı - 1
+                      </label>
+                      <input
+                        id="photo3"
+                        name="photo3"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImage3Change}
+                        className="input pt-1.5 mt-1"
+                      />
+                      {image3 && (
+                        <img
+                          src={URL.createObjectURL(image3)}
+                          alt="Photo 3"
+                          className="h-60  w-96 object-cover"
+                        />
+                      )}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleGallery2}
+                      className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                    >
+                      RESİM EKLE +
+                    </button>
+                  </>
+                )}
+              </div>
+              <div>
+                {showInputGallery2 && (
+                  <>
+                    <div className="flex flex-col">
+                      <label htmlFor="photo4" className="text-sm">
+                        Galeri Fotoğrafı - 2
+                      </label>
+                      <input
+                        id="photo4"
+                        name="photo4"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImage4Change}
+                        className="input pt-1.5 mt-1"
+                      />
+                      {image4 && (
+                        <img
+                          src={URL.createObjectURL(image4)}
+                          alt="Photo 4"
+                          className="h-60  w-96 object-cover"
+                        />
+                      )}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleGallery3}
+                      className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                    >
+                      RESİM EKLE +
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+            <div className="grid md:grid-cols-2 gap-2.5">
+              <div>
+                {showInputGallery3 && (
+                  <>
+                    {" "}
+                    <div className="flex flex-col">
+                      <label htmlFor="photo5" className="text-sm">
+                        Galeri Fotoğrafı - 3
+                      </label>
+                      <input
+                        id="photo5"
+                        name="photo5"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImage5Change}
+                        className="input pt-1.5 mt-1"
+                      />
+                      {image5 && (
+                        <img
+                          src={URL.createObjectURL(image5)}
+                          alt="Photo 5"
+                          className="h-60  w-96 object-cover"
+                        />
+                      )}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleGallery4}
+                      className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                    >
+                      RESİM EKLE +
+                    </button>
+                  </>
+                )}
+              </div>
+              <div>
+                {showInputGallery4 && (
+                  <>
+                    {" "}
+                    <div className="flex flex-col">
+                      <label htmlFor="photo5" className="text-sm">
+                        Galeri Fotoğrafı - 4
+                      </label>
+                      <input
+                        id="photo6"
+                        name="photo6"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImage6Change}
+                        className="input pt-1.5 mt-1"
+                      />
+                      {image6 && (
+                        <img
+                          src={URL.createObjectURL(image6)}
+                          alt="Photo 6"
+                          className="h-60  w-96 object-cover"
+                        />
+                      )}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleGallery5}
+                      className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center mt-2"
+                    >
+                      RESİM EKLE +
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+            <div className="grid md:grid-cols-2 gap-2.5">
+              {showInputGallery5 && (
+                <>
+                  {" "}
+                  <div className="flex flex-col">
+                    <label htmlFor="photo6" className="text-sm">
+                      Galeri Fotoğrafı - 5
+                    </label>
+                    <input
+                      id="photo7"
+                      name="photo7"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImage7Change}
+                      className="input pt-1.5 mt-1"
+                    />
+                    {image7 && (
+                      <img
+                        src={URL.createObjectURL(image7)}
+                        alt="Photo 7"
+                        className="h-60  w-96 object-cover"
+                      />
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           </div>
+          {/* GALERİ */}
+
           <div className="mt-5">
             <header>
-              <h3 className="text-lg font-medium text-zinc-700 mb-2">Design</h3>
+              <h3 className="text-lg font-medium text-zinc-700 mb-2">
+                TASARIM
+              </h3>
             </header>
             <div className="flex gap-4 md:gap-8">
               <div>
-                <span className="flex font-medium mb-2">Theme 1</span>
+                <span className="flex font-medium mb-2">Kurumsal Tasarım</span>
                 <div className="flex mb-5 flex-col items-center md:pr-56 justify-center mx-auto  ">
                   <label>
                     <input
@@ -1458,7 +2243,7 @@ function CardUpdate() {
               </div>
 
               <div>
-                <span className="font-medium mb-4">Theme 2</span>
+                <span className="font-medium mb-4">Bireysel Tasarım</span>
                 <div className="flex mb-5 flex-col items-center md:pr-56 mt-2 md:mt-0">
                   <label>
                     <input

@@ -7,6 +7,7 @@ import telegram from "/socialMediaLogo/telegram.svg";
 import facebook from "/socialMediaLogo/facebook.svg";
 import whatsapp from "/socialMediaLogo/whatsapp.svg";
 import ciceksepeti from "/socialMediaLogo/ciceksepeti.png";
+import link from "/socialMediaLogo/link.png";
 import discord from "/socialMediaLogo/discord.svg";
 import linkedin from "/socialMediaLogo/linkedin.svg";
 import wechat from "/socialMediaLogo/wechat.svg";
@@ -29,6 +30,8 @@ function Stepper() {
   const [catalog3, setCatalog3] = useState("");
   const [catalog4, setCatalog4] = useState("");
   const [digitalCardId, setDigitalCardId] = useState("");
+  const [showBusinessStore, setShowBusinessStore] = useState(false);
+  const [showLink, setShowLink] = useState(false);
 
   console.log(digitalCardId, "digitalCardId");
   return (
@@ -108,6 +111,24 @@ function Stepper() {
               barAssociation: "",
             },
           ],
+          createLinkInformation: [
+            {
+              title: "link1",
+              link: "",
+            },
+            {
+              title: "link2",
+              link: "",
+            },
+            {
+              title: "link3",
+              link: "",
+            },
+            {
+              title: "link4",
+              link: "",
+            },
+          ],
         }}
         onSubmit={(values, actions) => {}}
       >
@@ -118,25 +139,25 @@ function Stepper() {
           const nextHandle = async (e) => {
             setFieldValue("step", values.step + 1);
             if (image1) {
-              sendImageToServer(image1, values.linkId, "profilphoto");
+              sendImageToServer(image1, values.linkId, "profilphoto", false);
             }
             if (image2) {
-              sendImageToServer(image2, values.linkId, "banner");
+              sendImageToServer(image2, values.linkId, "banner", false);
             }
             if (image3) {
-              sendGalleryToServer(image3, values.linkId, "gallery1");
+              sendGalleryToServer(image3, values.linkId, "gallery1", true);
             }
             if (image4) {
-              sendGalleryToServer(image4, values.linkId, "gallery2");
+              sendGalleryToServer(image4, values.linkId, "gallery2", true);
             }
             if (image5) {
-              sendGalleryToServer(image5, values.linkId, "gallery3");
+              sendGalleryToServer(image5, values.linkId, "gallery3", true);
             }
             if (image6) {
-              sendGalleryToServer(image6, values.linkId, "gallery4");
+              sendGalleryToServer(image6, values.linkId, "gallery4", true);
             }
             if (image7) {
-              sendGalleryToServer(image7, values.linkId, "gallery5");
+              sendGalleryToServer(image7, values.linkId, "gallery5", true);
             }
             if (catalog) {
               sendPdfToServer(catalog, values.linkId, catalog.name);
@@ -155,6 +176,7 @@ function Stepper() {
             delete requestData.bankInformationList;
             delete requestData.invoiceInformationList;
             delete requestData.warrantOfAttorneyDtoList;
+            delete requestData.createLinkInformation;
 
             console.log("requestData", requestData);
             localStorage.setItem("email", values.email);
@@ -240,6 +262,7 @@ function Stepper() {
               formData.append("file", image);
               formData.append("linkId", values.linkId);
               formData.append("name", name);
+
               const jsonData = {
                 file: image,
                 linkId: values.linkId,
@@ -269,16 +292,19 @@ function Stepper() {
             }
           };
 
-          const sendImageToServer = async (image, linkId, name) => {
+          const sendImageToServer = async (image, linkId, name, boolean) => {
             try {
               const formData = new FormData();
               formData.append("file", image);
               formData.append("linkId", values.linkId);
               formData.append("name", name);
+              formData.append("isGallery", boolean);
+
               const jsonData = {
                 file: image,
                 linkId: values.linkId,
                 name: name,
+                isGallery: boolean,
               };
               const token = localStorage.getItem("token");
               const headers = {
@@ -293,6 +319,7 @@ function Stepper() {
               );
               console.log("Yükleme başarılı:", response.data);
             } catch (error) {
+              console.log("Image", response.data);
               console.error(
                 "Yükleme hatası:",
                 error.response ? error.response.data : error.message
@@ -371,6 +398,15 @@ function Stepper() {
 
             console.log("warrantOfAttorney", warrantOfAttorney);
 
+            const linkInfo = values.createLinkInformation
+              .filter(
+                (link) => link.title && link.link // Add other necessary checks
+              )
+              .map((link) => ({
+                ...link, // Spread existing warrant info
+                digitalCardId: digitalCardId, // Add digitalCardId
+              }));
+            console.log("linkInfo", linkInfo);
             // Prepare invoice information with digitalCardId
             const invoiceInformation = values.invoiceInformationList
               .filter(
@@ -421,6 +457,13 @@ function Stepper() {
               );
               console.log("Invoice Response:", invoiceResponse.data);
               // Handle success for invoice information
+
+              const linkResponse = await axios.post(
+                "https://ecoqrcode.com/linkInformation/createLinkInformation", // Update this URL as needed
+                linkInfo,
+                { headers }
+              );
+              console.log("link Response:", linkResponse.data);
             } catch (error) {
               console.error("Error:", error);
               // Handle error (e.g., show an error message)
@@ -543,6 +586,14 @@ function Stepper() {
           const [showInputPdf4, setShowInputPdf4] = useState(false);
           const handlePdf4 = () => {
             setShowInputPdf4(!showInputPdf4);
+          };
+
+          const showBusiness = () => {
+            setShowBusinessStore(!showBusinessStore);
+          };
+
+          const showLinks = () => {
+            setShowLink(!showLink);
           };
           return (
             <Form className="p-7">
@@ -745,6 +796,7 @@ function Stepper() {
                         </>
                       )}
                     </div>
+
                     <div className="flex flex-col md:basis-1/2 md:pr-1.5">
                       <button
                         type="button"
@@ -856,92 +908,6 @@ function Stepper() {
                         </>
                       )}
                     </div>
-
-                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
-                      <button
-                        type="button"
-                        onClick={showCiceksepeti}
-                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
-                      >
-                        <span className="font-medium text-blue-700">
-                          Çiçek Sepeti
-                        </span>
-
-                        <img src={ciceksepeti} className="w-6" />
-                      </button>
-                      {showInputCiceksepeti && (
-                        <>
-                          <Field
-                            name="cicekSepeti"
-                            className="input mt-3"
-                            placeholder="Çiçek Sepeti"
-                          />
-                        </>
-                      )}
-                    </div>
-
-                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
-                      <button
-                        type="button"
-                        onClick={showSahibinden}
-                        className="flex gap-1  items-center justify-center border border-zinc-400 py-[9px] rounded "
-                      >
-                        <span className="font-medium text-yellow-300">
-                          Sahibinden
-                        </span>
-                      </button>
-                      {showInputSahibinden && (
-                        <>
-                          <Field
-                            name="sahibinden"
-                            className="input mt-3"
-                            placeholder="Sahibinden"
-                          />
-                        </>
-                      )}
-                    </div>
-
-                    <div className="flex flex-col md:basis-1/2 md:pl-1.5">
-                      <button
-                        type="button"
-                        onClick={showTrendyol}
-                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
-                      >
-                        <span className="font-medium text-orange-500">
-                          Trendyol
-                        </span>
-                      </button>
-                      {showInputTrendyol && (
-                        <>
-                          <Field
-                            name="trendyol"
-                            className="input mt-3"
-                            placeholder="Trendyol"
-                          />
-                        </>
-                      )}
-                    </div>
-
-                    <div className="flex flex-col md:basis-1/2 md:pr-1.5">
-                      <button
-                        type="button"
-                        onClick={showHepsiburada}
-                        className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
-                      >
-                        <span className="font-medium text-orange-500">
-                          Hepsiburada
-                        </span>
-                      </button>
-                      {showInputHepsiburada && (
-                        <>
-                          <Field
-                            name="hepsiburada"
-                            className="input mt-3"
-                            placeholder="Hepsiburada"
-                          />
-                        </>
-                      )}
-                    </div>
                     <div className="flex flex-col md:basis-1/2 md:pl-1.5">
                       <button
                         type="button"
@@ -964,6 +930,193 @@ function Stepper() {
                         </>
                       )}
                     </div>
+                    <div className="flex flex-col md:basis-1/2 md:pr-1.5"></div>
+                    <button
+                      type="button"
+                      onClick={showBusiness}
+                      className="flex flex-col w-full md:pl-1.5 "
+                    >
+                      <span className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center my-2">
+                        {" "}
+                        PAZAR YERİ EKLE +
+                      </span>
+                    </button>
+                    {/* pazar yerleri start*/}
+                    {showBusinessStore && (
+                      <div className="md:flex md:flex-row flex-wrap  w-full ">
+                        {" "}
+                        <div className="flex flex-col md:basis-1/2 md:pr-1.5 pb-3">
+                          <button
+                            type="button"
+                            onClick={showCiceksepeti}
+                            className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                          >
+                            <span className="font-medium text-blue-700">
+                              Çiçek Sepeti
+                            </span>
+
+                            <img src={ciceksepeti} className="w-6" />
+                          </button>
+                          {showInputCiceksepeti && (
+                            <>
+                              <Field
+                                name="cicekSepeti"
+                                className="input mt-3"
+                                placeholder="Çiçek Sepeti"
+                              />
+                            </>
+                          )}
+                        </div>
+                        <div className="flex flex-col md:basis-1/2 md:pl-1.5 mb-3">
+                          <button
+                            type="button"
+                            onClick={showSahibinden}
+                            className="flex gap-1  items-center justify-center border border-zinc-400 py-[9px] rounded "
+                          >
+                            <span className="font-medium text-yellow-300">
+                              Sahibinden
+                            </span>
+                          </button>
+                          {showInputSahibinden && (
+                            <>
+                              <Field
+                                name="sahibinden"
+                                className="input mt-3"
+                                placeholder="Sahibinden"
+                              />
+                            </>
+                          )}
+                        </div>
+                        <div className="flex flex-col md:basis-1/2 md:pr-1.5 pb-3">
+                          <button
+                            type="button"
+                            onClick={showTrendyol}
+                            className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                          >
+                            <span className="font-medium text-orange-500">
+                              Trendyol
+                            </span>
+                          </button>
+                          {showInputTrendyol && (
+                            <>
+                              <Field
+                                name="trendyol"
+                                className="input mt-3"
+                                placeholder="Trendyol"
+                              />
+                            </>
+                          )}
+                        </div>
+                        <div className="flex flex-col md:basis-1/2 md:pl-1.5">
+                          <button
+                            type="button"
+                            onClick={showHepsiburada}
+                            className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+                          >
+                            <span className="font-medium text-orange-500">
+                              Hepsiburada
+                            </span>
+                          </button>
+                          {showInputHepsiburada && (
+                            <>
+                              <Field
+                                name="hepsiburada"
+                                className="input mt-3"
+                                placeholder="Hepsiburada"
+                              />
+                            </>
+                          )}
+                        </div>{" "}
+                      </div>
+                    )}
+
+                    {/* pazar yerleri end */}
+
+                    {/* bağlantı ekle */}
+
+                    <button
+                      type="button"
+                      onClick={showLinks}
+                      className="flex flex-col w-full md:pl-1.5 pt-4 md:pt-0"
+                    >
+                      <span className="font-medium text-zinc-600 text-sm py-1 px-2 border-zinc-700 rounded-md border flex items-center justify-center my-2">
+                        {" "}
+                        BAĞLANTI EKLE +
+                      </span>
+                    </button>
+                    <div className="flex flex-col  w-full space-y-3 ">
+                      {" "}
+                      <div className="w-full md:w-1/2 md:pr-1.5">
+                        {showLink && (
+                          <div className="flex items-center basis-1/2">
+                            <div
+                              disabled
+                              className="h-10 rounded px-2 outline-none border border-zinc-400 text-sm focus:border-black text-gray-600 mr-0.5 bg-zinc-300 flex items-center justify-center"
+                            >
+                              <img src={link} className="w-6" />
+                            </div>
+                            <Field
+                              name="createLinkInformation[0].link"
+                              className="input w-full"
+                              placeholder="Bağlantı url"
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div className="w-full md:w-1/2 md:pr-1.5">
+                        {showLink && (
+                          <div className="flex items-center basis-1/2">
+                            <div
+                              disabled
+                              className="h-10 rounded px-2 outline-none border border-zinc-400 text-sm focus:border-black text-gray-600 mr-0.5 bg-zinc-300 flex items-center justify-center"
+                            >
+                              <img src={link} className="w-6" />
+                            </div>
+                            <Field
+                              name="createLinkInformation[1].link"
+                              className="input w-full"
+                              placeholder="Bağlantı url"
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div className="w-full md:w-1/2 md:pr-1.5">
+                        {showLink && (
+                          <div className="flex items-center basis-1/2">
+                            <div
+                              disabled
+                              className="h-10 rounded px-2 outline-none border border-zinc-400 text-sm focus:border-black text-gray-600 mr-0.5 bg-zinc-300 flex items-center justify-center"
+                            >
+                              <img src={link} className="w-6" />
+                            </div>
+                            <Field
+                              name="createLinkInformation[2].link"
+                              className="input w-full"
+                              placeholder="Bağlantı url"
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div className="w-full md:w-1/2 md:pr-1.5">
+                        {showLink && (
+                          <div className="flex items-center basis-1/2">
+                            <div
+                              disabled
+                              className="h-10 rounded px-2 outline-none border border-zinc-400 text-sm focus:border-black text-gray-600 mr-0.5 bg-zinc-300 flex items-center justify-center"
+                            >
+                              <img src={link} className="w-6" />
+                            </div>
+                            <Field
+                              name="createLinkInformation[3].link"
+                              className="input w-full"
+                              placeholder="Bağlantı url"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* bağlantı ekle */}
                   </div>
                   <hr className="mt-8" />
                   <h3 className="text-lg font-medium text-zinc-700 mt-4 md:mt-8 pb-3">
@@ -986,7 +1139,7 @@ function Stepper() {
                         <img
                           src={URL.createObjectURL(image1)}
                           alt="Photo 1"
-                          className=" h-96 w-96 object-cover"
+                          className="h-60 w-96 object-cover"
                         />
                       )}
                     </div>
@@ -1006,7 +1159,7 @@ function Stepper() {
                         <img
                           src={URL.createObjectURL(image2)}
                           alt="Photo 2"
-                          className="h-96 w-96 object-cover"
+                          className="h-60 w-96 object-cover"
                         />
                       )}
                     </div>
@@ -1044,7 +1197,7 @@ function Stepper() {
                                 <img
                                   src={URL.createObjectURL(image3)}
                                   alt="Photo 3"
-                                  className="h-full w-full object-cover"
+                                  className="h-60 w-96 object-cover"
                                 />
                               )}
                             </div>
@@ -1077,7 +1230,7 @@ function Stepper() {
                                 <img
                                   src={URL.createObjectURL(image4)}
                                   alt="Photo 4"
-                                  className="h-full w-full object-cover"
+                                  className="h-60 w-96 object-cover"
                                 />
                               )}
                             </div>
@@ -1113,7 +1266,7 @@ function Stepper() {
                                 <img
                                   src={URL.createObjectURL(image5)}
                                   alt="Photo 5"
-                                  className="h-full w-full object-cover"
+                                  className="h-60 w-96 object-cover"
                                 />
                               )}
                             </div>
@@ -1147,7 +1300,7 @@ function Stepper() {
                                 <img
                                   src={URL.createObjectURL(image6)}
                                   alt="Photo 6"
-                                  className="h-full w-full object-cover"
+                                  className="h-60 w-96 object-cover"
                                 />
                               )}
                             </div>
@@ -1182,7 +1335,7 @@ function Stepper() {
                               <img
                                 src={URL.createObjectURL(image7)}
                                 alt="Photo 7"
-                                className="h-full w-full object-cover"
+                                className="h-60 w-96 object-cover"
                               />
                             )}
                           </div>

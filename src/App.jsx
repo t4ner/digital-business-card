@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Stepper from "./components/FormStepper/Stepper";
 import Login from "./pages/Login";
@@ -17,6 +17,15 @@ import ThemeAhmet from "./components/StaticTheme/ThemeAhmet";
 import CardCreate from "./pages/DashboardPages/CardCreate";
 import Theme from "./components/Theme/Theme";
 import NotFound from "./components/NotFound/NotFound";
+import { logPageView } from "./components/Analytics/analytics";
+
+function usePageViews() {
+  const location = useLocation();
+
+  useEffect(() => {
+    logPageView();
+  }, [location]);
+}
 
 function App() {
   return (

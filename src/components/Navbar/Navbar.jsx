@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "/logo/logo.png";
+import logo2 from "/logo/logo.svg";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -17,15 +17,14 @@ const Header = () => {
     navigate("/login");
   };
   return (
-    <header className="bg-white  py-3 ">
+    <header className="bg-white py-2">
       <nav className="flex justify-between items-center w-[92%] mx-auto">
         <div className="text-emerald-500 text-4xl font-bold flex gap-2">
-          <img src={logo} className="w-14 rounded-lg" />
-          <Link to="/">ecoQr</Link>
+          <img src={logo2} className="w-56  rounded-lg pt-1" />
         </div>
         <div
           className={`nav-links duration-500  md:static absolute z-50 bg-white md:min-h-fit min-h-full left-0 ${
-            isMenuOpen ? "top-[10%]" : "top-[-100%]"
+            isMenuOpen ? "top-[75px]" : "top-[-100%]"
           } md:w-auto w-full flex px-5`}
         >
           <ul className="flex md:flex-row flex-col z-50  md:hidden md:items-center md:gap-[4vw] gap-2 mt-5">
@@ -43,7 +42,7 @@ const Header = () => {
                   className="hover:text-gray-500 block md:hidden font-semibold text-zinc-500"
                   to="/dashboard/digital-business-card-update"
                 >
-                  ADMİN PANELİ
+                  KARTVİZİT İŞLEMLERİ
                 </Link>
               </li>
             )}
@@ -79,7 +78,7 @@ const Header = () => {
               className="hover:text-gray-500 hidden md:block font-semibold text-zinc-500 mr-4"
               to="/dashboard/digital-business-card-update"
             >
-              ADMİN PANELİ
+              KARTVİZİT İŞLEMLERİ
             </Link>
           )}
 
