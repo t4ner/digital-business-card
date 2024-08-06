@@ -25,7 +25,7 @@ import map from "/socialMediaLogo/maps.png";
 
 import { FaAddressCard, FaCreditCard, FaQrcode } from "react-icons/fa6";
 import { IoBook, IoClose } from "react-icons/io5";
-import { FaListAlt, FaShareAlt } from "react-icons/fa";
+import { FaListAlt, FaShareAlt, FaUnlink } from "react-icons/fa";
 import Swal from "sweetalert2";
 import "ldrs/quantum";
 import {
@@ -1090,7 +1090,8 @@ function Theme1() {
                 className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
                 onClick={toggleLinkBilgileri}
               >
-                <IoBook size={25} />
+                <FaUnlink size={25} />
+
                 Bağlantı
               </button>
 
