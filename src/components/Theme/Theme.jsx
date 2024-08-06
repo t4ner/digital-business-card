@@ -23,7 +23,7 @@ import hepsiburada from "/socialMediaLogo/hepsiburada.png";
 import trendyol from "/socialMediaLogo/trendyol.png";
 import map from "/socialMediaLogo/maps.png";
 
-import { FaAddressCard, FaCreditCard, FaQrcode } from "react-icons/fa6";
+import { FaAddressCard, FaCreditCard, FaLink, FaQrcode } from "react-icons/fa6";
 import { IoBook, IoClose } from "react-icons/io5";
 import { FaListAlt, FaShareAlt, FaUnlink } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -1090,7 +1090,7 @@ function Theme1() {
                 className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
                 onClick={toggleLinkBilgileri}
               >
-                <FaUnlink size={25} />
+                <FaLink size={26} />
 
                 Bağlantı
               </button>
