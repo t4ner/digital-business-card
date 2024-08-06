@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import instagram from "/socialMediaLogo/instagram.png";
 import telegram from "/socialMediaLogo/telegram.png";
-import twitter from "/socialMediaLogo/twitter.png";
+import twitter from "/socialMediaLogo/x.jpg";
 import vCard from "vcf";
 import axios from "axios";
 import linkedin from "/staticThemePhoto/linkedin.webp";
@@ -13,6 +13,10 @@ import website from "/socialMediaLogo/webs.png";
 import discord from "/socialMediaLogo/discord.svg";
 import sahibinden from "/socialMediaLogo/sahibinden.png";
 import facebook from "/socialMediaLogo/facebookk.svg";
+import discord2 from "/socialMediaLogo/discord.png";
+
+import facebook2 from "/socialMediaLogo/face.png";
+
 import whatshapbus from "/socialMediaLogo/whatshapbus.png";
 import ciceksepeti from "/socialMediaLogo/ciceksepetii.png";
 import hepsiburada from "/socialMediaLogo/hepsiburada.png";
@@ -43,6 +47,7 @@ function Theme1() {
     setIsKatalogBilgileriOpen(false);
     setIsFaturaBilgileriOpen(false);
     setIsQrcodeBilgileriOpen(false);
+    setIsLinkBilgileriOpen(false);
   };
   const [isVekaletBilgileriOpen, setIsVekaletBilgileriOpen] = useState(false);
 
@@ -53,6 +58,7 @@ function Theme1() {
     setIsFaturaBilgileriOpen(false);
     setIsBankaBilgileriOpen(false);
     setIsQrcodeBilgileriOpen(false);
+    setIsLinkBilgileriOpen(false);
   };
   const [isGaleriBilgileriOpen, setIsGaleriBilgileriOpen] = useState(false);
 
@@ -63,6 +69,7 @@ function Theme1() {
     setIsBankaBilgileriOpen(false);
     setIsVekaletBilgileriOpen(false);
     setIsQrcodeBilgileriOpen(false);
+    setIsLinkBilgileriOpen(false);
   };
 
   const [isKatalogBilgileriOpen, setIsKatalogBilgileriOpen] = useState(false);
@@ -74,12 +81,26 @@ function Theme1() {
     setIsVekaletBilgileriOpen(false);
     setIsGaleriBilgileriOpen(false);
     setIsQrcodeBilgileriOpen(false);
+    setIsLinkBilgileriOpen(false);
   };
 
   const [isFaturaBilgileriOpen, setIsFaturaBilgileriOpen] = useState(false);
 
   const toggleFaturaBilgileri = () => {
     setIsFaturaBilgileriOpen(!isFaturaBilgileriOpen);
+    setIsBankaBilgileriOpen(false);
+    setIsVekaletBilgileriOpen(false);
+    setIsGaleriBilgileriOpen(false);
+    setIsKatalogBilgileriOpen(false);
+    setIsQrcodeBilgileriOpen(false);
+    setIsLinkBilgileriOpen(false);
+  };
+
+  const [isLinkBilgileriOpen, setIsLinkBilgileriOpen] = useState(false);
+
+  const toggleLinkBilgileri = () => {
+    setIsLinkBilgileriOpen(!isLinkBilgileriOpen);
+    setIsFaturaBilgileriOpen(false);
     setIsBankaBilgileriOpen(false);
     setIsVekaletBilgileriOpen(false);
     setIsGaleriBilgileriOpen(false);
@@ -96,6 +117,7 @@ function Theme1() {
     setIsVekaletBilgileriOpen(false);
     setIsGaleriBilgileriOpen(false);
     setIsKatalogBilgileriOpen(false);
+    setIsLinkBilgileriOpen(false);
   };
 
   const closeFooter = () => {
@@ -105,6 +127,7 @@ function Theme1() {
     setIsFaturaBilgileriOpen(false);
     setIsVekaletBilgileriOpen(false);
     setIsQrcodeBilgileriOpen(false);
+    setIsLinkBilgileriOpen(false);
   };
   const [themeInfo, setThemeInfo] = useState("");
   const [digitalCardId, setDigitalCardId] = useState("");
@@ -112,6 +135,8 @@ function Theme1() {
   const [invoiceInformation, setInvoiceInformation] = useState("");
   const [warrantInformation, setWarrantInformation] = useState("");
   const [catalogInformation, setCatalogInformation] = useState("");
+  const [linkInformation, setLinkInformation] = useState("");
+
   const [loading, setLoading] = useState(true);
   const [photos, setPhotos] = useState([]);
   const [gallerys, setGallerys] = useState([]);
@@ -166,6 +191,12 @@ function Theme1() {
             `https://ecoqrcode.com/warrantOfAttorney/getWarrantOfAttorneyByDigitalCardId?digitalCardId=${response.data.id}`
           );
           setWarrantInformation(warrantInformationResponse.data);
+        }
+        if (response.data && response.data.id) {
+          const linkInformationResponse = await axios.get(
+            `https://ecoqrcode.com/linkInformation/getLinkInformationByDigitalCardId?digitalCardId=${response.data.id}`
+          );
+          setLinkInformation(linkInformationResponse.data);
         }
         if (response.data && response.data.id) {
           const catalogInformationResponse = await axios.get(
@@ -396,7 +427,7 @@ function Theme1() {
                 <a
                   className="flex flex-col items-center"
                   target="_blank"
-                  href={`https://www.linkedin.com/in/${themeInfo.linkedin}`}
+                  href={themeInfo.linkedin}
                 >
                   {" "}
                   <img
@@ -444,6 +475,181 @@ function Theme1() {
                   />
                   <span className="font-medium text-sm md:text-base mt-1">
                     Website
+                  </span>
+                </a>
+              </div>
+            )}
+            {themeInfo.instagram !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center "
+                  href={themeInfo.instagram}
+                  target="_blank"
+                >
+                  <img
+                    src={instagram}
+                    className="w-[63px] h-[63px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
+                  />
+                  <span className="font-medium text-sm md:text-base">
+                    Instagram
+                  </span>
+                </a>
+              </div>
+            )}
+            {themeInfo.twitter !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center "
+                  href={themeInfo.twitter}
+                  target="_blank"
+                >
+                  <img
+                    src={twitter}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)] rounded-lg"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1.5 ">
+                    Twitter
+                  </span>
+                </a>
+              </div>
+            )}
+
+            {themeInfo.telegram !== "" && (
+              <div className="basis-1/3 ">
+                <a
+                  className="flex flex-col items-center "
+                  href={themeInfo.telegram}
+                  target="_blank"
+                >
+                  <img
+                    src={telegram}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    Telegram
+                  </span>
+                </a>
+              </div>
+            )}
+
+            {themeInfo.discord !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center "
+                  href={themeInfo.discord}
+                  target="_blank"
+                >
+                  <img
+                    src={discord2}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)] rounded"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    Discord
+                  </span>
+                </a>
+              </div>
+            )}
+            {themeInfo.facebook !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center"
+                  href={themeInfo.facebook}
+                  target="_blank"
+                >
+                  <img
+                    src={facebook2}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)]"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    Facebook
+                  </span>
+                </a>
+              </div>
+            )}
+            {themeInfo.whatsappBusiness !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center "
+                  href={`https://api.whatsapp.com/send?phone=9${themeInfo.whatsappBusiness.replace(
+                    /\s/g,
+                    ""
+                  )}`}
+                  target="_blank"
+                >
+                  <img
+                    src={whatshapbus}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)]"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    Whatsapp
+                  </span>
+                </a>
+              </div>
+            )}
+            {themeInfo.sahibinden !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center "
+                  href={themeInfo.sahibinden}
+                  target="_blank"
+                >
+                  <img
+                    src={sahibinden}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)] rounded-lg"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    Sahibinden
+                  </span>
+                </a>
+              </div>
+            )}
+            {themeInfo.cicekspeti !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center "
+                  href={themeInfo.ciceksepeti}
+                  target="_blank"
+                >
+                  <img
+                    src={ciceksepeti}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)]"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    Çiçek Sepeti
+                  </span>
+                </a>
+              </div>
+            )}
+            {themeInfo.hepsiburada !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center "
+                  href={themeInfo.hepsiburada}
+                  target="_blank"
+                >
+                  <img
+                    src={hepsiburada}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)]"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    Hepsiburada
+                  </span>
+                </a>
+              </div>
+            )}
+            {themeInfo.trendyol !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center "
+                  href={themeInfo.trendyol}
+                  target="_blank"
+                >
+                  <img
+                    src={trendyol}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)] rounded-lg"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    Trendyol
                   </span>
                 </a>
               </div>
@@ -559,7 +765,7 @@ function Theme1() {
                   <a
                     className="flex flex-col items-center"
                     target="_blank"
-                    href={`https://www.linkedin.com/in/${themeInfo.linkedin}`}
+                    href={themeInfo.linkedin}
                   >
                     {" "}
                     <img src={linkedin} className="w-[62px]" />
@@ -592,7 +798,7 @@ function Theme1() {
                 <div className="basis-1/3">
                   <a
                     className="flex flex-col items-center "
-                    href={`https://www.instagram.com/${themeInfo.instagram}/`}
+                    href={themeInfo.instagram}
                     target="_blank"
                   >
                     <img src={instagram} className="w-[69px]" />
@@ -607,11 +813,11 @@ function Theme1() {
                 <div className="basis-1/3">
                   <a
                     className="flex flex-col items-center "
-                    href={`https://x.com/${themeInfo.twitter}/`}
+                    href={themeInfo.twitter}
                     target="_blank"
                   >
-                    <img src={twitter} className="w-14" />
-                    <span className="font-medium text-sm md:text-base mt-2">
+                    <img src={twitter} className="w-16 h-[67px] rounded-lg" />
+                    <span className="font-medium text-sm md:text-base mt-1">
                       Twitter
                     </span>
                   </a>
@@ -622,7 +828,7 @@ function Theme1() {
                 <div className="basis-1/3 ">
                   <a
                     className="flex flex-col items-center "
-                    href={`https://t.me/${themeInfo.telegram}/`}
+                    href={themeInfo.telegram}
                     target="_blank"
                   >
                     <img src={telegram} className="w-16" />
@@ -653,7 +859,7 @@ function Theme1() {
                     href={themeInfo.discord}
                     target="_blank"
                   >
-                    <img src={discord} className="w-16" />
+                    <img src={discord2} className="w-16 rounded-lg" />
                     <span className="font-medium text-sm md:text-base mt-1">
                       Discord
                     </span>
@@ -667,7 +873,7 @@ function Theme1() {
                     href={themeInfo.facebook}
                     target="_blank"
                   >
-                    <img src={facebook} className="w-16" />
+                    <img src={facebook} className="w-[62px]" />
                     <span className="font-medium text-sm md:text-base mt-2">
                       Facebook
                     </span>
@@ -678,7 +884,10 @@ function Theme1() {
                 <div className="basis-1/3">
                   <a
                     className="flex flex-col items-center "
-                    href={themeInfo.whatsappBusiness}
+                    href={`https://api.whatsapp.com/send?phone=9${themeInfo.whatsappBusiness.replace(
+                      /\s/g,
+                      ""
+                    )}`}
                     target="_blank"
                   >
                     <img src={whatshapbus} className="w-[70px]" />
@@ -872,6 +1081,54 @@ function Theme1() {
                   </div>
                 </div>
                 {/* galeri */}
+              </div>
+            </div>
+          )}
+          {linkInformation[0]?.link && (
+            <div>
+              <button
+                className="banka-button flex flex-col items-center justify-center  text-xs font-medium  space-y-0.5"
+                onClick={toggleLinkBilgileri}
+              >
+                <IoBook size={25} />
+                Bağlantı
+              </button>
+
+              <div
+                className={`banka-bilgileri p-5 border bg-white shadow-xl ${
+                  isLinkBilgileriOpen ? "open" : ""
+                }`}
+              >
+                <div className="pb-2">
+                  <div className="text-end">
+                    <button
+                      onClick={closeFooter}
+                      className="bg-red-600 rounded-md text-white"
+                    >
+                      <IoClose size={24} />
+                    </button>
+                  </div>
+                  <h4 className="font-semibold pb-2 border-b-2 mb-3">
+                    BAĞLANTILAR
+                  </h4>
+                  {linkInformation.map((link) => {
+                    return (
+                      <div
+                        className="space-y-2 border-b-2 py-2"
+                        key={link.title}
+                      >
+                        <div>
+                          <div className="font-medium ">{link.title}</div>
+                          <div>
+                            <a href={getFullUrl(link.link)} target="_blank">
+                              {link.link}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           )}

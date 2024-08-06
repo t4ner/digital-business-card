@@ -16,6 +16,7 @@ import Swal from "sweetalert2";
 import theme2 from "/themes/11.png";
 import axios from "axios";
 import { stepperValidation } from "./StepperValidation";
+import { useNavigate } from "react-router-dom";
 
 function Stepper() {
   const [image1, setImage1] = useState("");
@@ -32,6 +33,7 @@ function Stepper() {
   const [digitalCardId, setDigitalCardId] = useState("");
   const [showBusinessStore, setShowBusinessStore] = useState(false);
   const [showLink, setShowLink] = useState(false);
+  const navigate = useNavigate();
 
   console.log(digitalCardId, "digitalCardId");
   return (
@@ -113,19 +115,19 @@ function Stepper() {
           ],
           createLinkInformation: [
             {
-              title: "link1",
+              title: "",
               link: "",
             },
             {
-              title: "link2",
+              title: "",
               link: "",
             },
             {
-              title: "link3",
+              title: "",
               link: "",
             },
             {
-              title: "link4",
+              title: "",
               link: "",
             },
           ],
@@ -451,7 +453,7 @@ function Stepper() {
 
               // Post invoice information
               const invoiceResponse = await axios.post(
-                "https://ecoqrcode.com/invoiceInformation/createInvoiceInformation", // Update this URL as needed
+                "https://ecoqrcode.com/invoiceInformation/createInvoiceInformation",
                 invoiceInformation,
                 { headers }
               );
@@ -459,11 +461,12 @@ function Stepper() {
               // Handle success for invoice information
 
               const linkResponse = await axios.post(
-                "https://ecoqrcode.com/linkInformation/createLinkInformation", // Update this URL as needed
+                "https://ecoqrcode.com/linkInformation/createLinkInformation",
                 linkInfo,
                 { headers }
               );
               console.log("link Response:", linkResponse.data);
+              navigate(`/${values.linkId}`);
             } catch (error) {
               console.error("Error:", error);
               // Handle error (e.g., show an error message)
@@ -723,7 +726,7 @@ function Stepper() {
                       <Field
                         name="location"
                         className="input"
-                        placeholder="Konum"
+                        placeholder="https://www.google.com/maps/place/konum_adı/@enlem, boylam, zoom_level"
                       />
                       <ErrorMessage
                         name="location"
@@ -749,7 +752,7 @@ function Stepper() {
                           <Field
                             name="instagram"
                             className="input mt-3"
-                            placeholder="Instagram kullanıcı adı"
+                            placeholder="https://www.instagram.com/kullanici_adi/"
                           />
                         </>
                       )}
@@ -769,7 +772,7 @@ function Stepper() {
                           <Field
                             name="twitter"
                             className="input mt-3"
-                            placeholder="Twitter kullanıcı adı"
+                            placeholder="https://x.com/kullanici_adi"
                           />
                         </>
                       )}
@@ -791,7 +794,7 @@ function Stepper() {
                           <Field
                             name="telegram"
                             className="input mt-3"
-                            placeholder="Telegram"
+                            placeholder="https://t.me/kullanici_adi"
                           />
                         </>
                       )}
@@ -814,7 +817,7 @@ function Stepper() {
                           <Field
                             name="discord"
                             className="input mt-3"
-                            placeholder="Discord"
+                            placeholder="https://discord.gg/sunucu_kodu"
                           />
                         </>
                       )}
@@ -836,7 +839,7 @@ function Stepper() {
                           <Field
                             name="facebook"
                             className="input mt-3"
-                            placeholder="Facebook"
+                            placeholder="https://www.facebook.com/kullanici_adi"
                           />
                         </>
                       )}
@@ -858,7 +861,7 @@ function Stepper() {
                           <Field
                             name="whatsapp"
                             className="input mt-3"
-                            placeholder="Whatshapp"
+                            placeholder="05555555555"
                           />
                         </>
                       )}
@@ -880,7 +883,7 @@ function Stepper() {
                           <Field
                             name="linkedin"
                             className="input mt-3"
-                            placeholder="Linkedin"
+                            placeholder="https://www.linkedin.com/in/kullanici_adi"
                           />
                         </>
                       )}
@@ -903,7 +906,7 @@ function Stepper() {
                           <Field
                             name="whatsappBusiness"
                             className="input mt-3"
-                            placeholder="Whatshapp Business"
+                            placeholder="05555555555"
                           />
                         </>
                       )}
@@ -962,7 +965,7 @@ function Stepper() {
                               <Field
                                 name="cicekSepeti"
                                 className="input mt-3"
-                                placeholder="Çiçek Sepeti"
+                                placeholder="https://www.ciceksepeti.com/magaza/magaza-adi"
                               />
                             </>
                           )}
@@ -982,7 +985,7 @@ function Stepper() {
                               <Field
                                 name="sahibinden"
                                 className="input mt-3"
-                                placeholder="Sahibinden"
+                                placeholder="https://www.sahibinden.com/mağaza/mağaza_adı"
                               />
                             </>
                           )}
@@ -1002,7 +1005,7 @@ function Stepper() {
                               <Field
                                 name="trendyol"
                                 className="input mt-3"
-                                placeholder="Trendyol"
+                                placeholder="https://www.trendyol.com/mağaza/mağaza-adi"
                               />
                             </>
                           )}
@@ -1022,7 +1025,7 @@ function Stepper() {
                               <Field
                                 name="hepsiburada"
                                 className="input mt-3"
-                                placeholder="Hepsiburada"
+                                placeholder="https://www.hepsiburada.com/mağaza/mağaza-adi"
                               />
                             </>
                           )}
@@ -1046,15 +1049,20 @@ function Stepper() {
                     </button>
                     <div className="flex flex-col  w-full space-y-3 ">
                       {" "}
-                      <div className="w-full md:w-1/2 md:pr-1.5">
+                      <div className="w-full ">
                         {showLink && (
-                          <div className="flex items-center basis-1/2">
+                          <div className="md:flex md:flex-row flex-col space-y-3 md:space-y-0 items-center w-full">
                             <div
                               disabled
-                              className="h-10 rounded px-2 outline-none border border-zinc-400 text-sm focus:border-black text-gray-600 mr-0.5 bg-zinc-300 flex items-center justify-center"
+                              className="h-10 rounded px-2 outline-none border border-zinc-400 text-sm focus:border-black text-gray-600 md:mr-1 bg-zinc-300 flex items-center justify-center"
                             >
-                              <img src={link} className="w-6" />
+                              <img src={link} className="w-9" />
                             </div>
+                            <Field
+                              name="createLinkInformation[0].title"
+                              className="input w-full  md:w-1/3 mr-1"
+                              placeholder="Bağlantı başlığı"
+                            />
                             <Field
                               name="createLinkInformation[0].link"
                               className="input w-full"
@@ -1063,15 +1071,20 @@ function Stepper() {
                           </div>
                         )}
                       </div>
-                      <div className="w-full md:w-1/2 md:pr-1.5">
+                      <div className="w-full  ">
                         {showLink && (
-                          <div className="flex items-center basis-1/2">
+                          <div className="md:flex md:flex-row flex-col space-y-3 md:space-y-0 items-center basis-1/2">
                             <div
                               disabled
-                              className="h-10 rounded px-2 outline-none border border-zinc-400 text-sm focus:border-black text-gray-600 mr-0.5 bg-zinc-300 flex items-center justify-center"
+                              className="h-10 rounded px-2 outline-none border border-zinc-400 text-sm focus:border-black text-gray-600 md:mr-1 bg-zinc-300 flex items-center justify-center"
                             >
-                              <img src={link} className="w-6" />
+                              <img src={link} className="w-9" />
                             </div>
+                            <Field
+                              name="createLinkInformation[1].title"
+                              className="input w-full md:w-1/3 mr-1"
+                              placeholder="Bağlantı başlığı"
+                            />
                             <Field
                               name="createLinkInformation[1].link"
                               className="input w-full"
@@ -1080,15 +1093,20 @@ function Stepper() {
                           </div>
                         )}
                       </div>
-                      <div className="w-full md:w-1/2 md:pr-1.5">
+                      <div className="w-full  ">
                         {showLink && (
-                          <div className="flex items-center basis-1/2">
+                          <div className="md:flex md:flex-row flex-col space-y-3 md:space-y-0 items-center w-full">
                             <div
                               disabled
-                              className="h-10 rounded px-2 outline-none border border-zinc-400 text-sm focus:border-black text-gray-600 mr-0.5 bg-zinc-300 flex items-center justify-center"
+                              className="h-10 rounded px-2 outline-none border border-zinc-400 text-sm focus:border-black text-gray-600 md:mr-1 bg-zinc-300 flex items-center justify-center"
                             >
-                              <img src={link} className="w-6" />
+                              <img src={link} className="w-9" />
                             </div>
+                            <Field
+                              name="createLinkInformation[2].title"
+                              className="input w-full md:w-1/3  mr-1"
+                              placeholder="Bağlantı başlığı"
+                            />
                             <Field
                               name="createLinkInformation[2].link"
                               className="input w-full"
@@ -1097,15 +1115,20 @@ function Stepper() {
                           </div>
                         )}
                       </div>
-                      <div className="w-full md:w-1/2 md:pr-1.5">
+                      <div className="w-full ">
                         {showLink && (
-                          <div className="flex items-center basis-1/2">
+                          <div className="md:flex md:flex-row flex-col space-y-3 md:space-y-0 items-center w-full">
                             <div
                               disabled
-                              className="h-10 rounded px-2 outline-none border border-zinc-400 text-sm focus:border-black text-gray-600 mr-0.5 bg-zinc-300 flex items-center justify-center"
+                              className="h-10 rounded px-2 outline-none border border-zinc-400 text-sm focus:border-black text-gray-600 md:mr-1 bg-zinc-300 flex items-center justify-center"
                             >
-                              <img src={link} className="w-6" />
+                              <img src={link} className="w-9" />
                             </div>
+                            <Field
+                              name="createLinkInformation[3].title"
+                              className="input w-full  md:w-1/3 mr-1"
+                              placeholder="Bağlantı başlığı"
+                            />
                             <Field
                               name="createLinkInformation[3].link"
                               className="input w-full"
@@ -1935,6 +1958,7 @@ function Stepper() {
                       onClick={nextHandle}
                       type="button"
                       className="bg-emerald-600 w-28 disabled:opacity-50 justify-self-end text-white rounded h-10 text-sm"
+                      disabled={!isValid || !dirty}
                     >
                       İLERİ
                     </button>

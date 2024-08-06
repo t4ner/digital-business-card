@@ -20,6 +20,8 @@ function CardUpdate() {
   const [warrantInformation, setWarrantInformation] = useState([]);
   const [catalogInformation, setCatalogInformation] = useState([]);
   const [imagesInformation, setImagesInformation] = useState([]);
+  const [linkInformation, setLinkInformation] = useState([]);
+
   const [profilPhoto, setProfilPhoto] = useState(null);
   const [bannerPhoto, setBannerPhoto] = useState(null);
   const [image3, setImage3] = useState("");
@@ -109,6 +111,11 @@ function CardUpdate() {
         );
         setImagesInformation(imagesList.data);
 
+        const linkList = await axios.get(
+          `https://ecoqrcode.com/linkInformation/getLinkInformationByDigitalCardId?digitalCardId=${response.data.id}`
+        );
+        setLinkInformation(linkList.data);
+
         const banka = await axios.get(
           `https://ecoqrcode.com/bankInformation/getBankInformationDigitalCardId?digitalCardId=${response.data.id}`
         );
@@ -153,8 +160,14 @@ function CardUpdate() {
             digitalCardId: response.data.id,
           })
         );
-
         setWarrantInformationCreate(updatedWarrantInformationCreate);
+        const updatedLinkInformationCreate = linkInformationCreate.map(
+          (item, index) => ({
+            ...item,
+            digitalCardId: response.data.id,
+          })
+        );
+        setLinkInformationCreate(updatedLinkInformationCreate);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -185,6 +198,29 @@ function CardUpdate() {
       iban: "",
       accountName: "",
       bankName: "",
+      digitalCardId: 0,
+    },
+  ]);
+
+  const [linkInformationCreate, setLinkInformationCreate] = useState([
+    {
+      title: "",
+      link: "",
+      digitalCardId: 0,
+    },
+    {
+      title: "",
+      link: "",
+      digitalCardId: 0,
+    },
+    {
+      title: "",
+      link: "",
+      digitalCardId: 0,
+    },
+    {
+      title: "",
+      link: "",
       digitalCardId: 0,
     },
   ]);
@@ -370,26 +406,86 @@ function CardUpdate() {
     const file = event.target.files[0];
     setCatalog4(file);
   };
-
+  const [error, setError] = useState("");
   const handleImage3Change = (event) => {
     const file = event.target.files[0];
-    setImage3(file);
+    if (file) {
+      // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+      const fileSizeInMB = file.size / (1024 * 1024);
+
+      if (fileSizeInMB > 1) {
+        setError("Dosya boyutu 1 MB'den büyük olamaz.");
+        setImage3(null);
+      } else {
+        setError("");
+        setImage3(file); // Resim önizlemesi için
+      }
+    }
   };
+  const [error2, setError2] = useState("");
   const handleImage4Change = (event) => {
     const file = event.target.files[0];
-    setImage4(file);
+    if (file) {
+      // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+      const fileSizeInMB = file.size / (1024 * 1024);
+
+      if (fileSizeInMB > 1) {
+        setError2("Dosya boyutu 1 MB'den büyük olamaz.");
+        setImage4(null);
+      } else {
+        setError2("");
+        setImage4(file); // Resim önizlemesi için
+      }
+    }
   };
+
+  const [error3, setError3] = useState("");
   const handleImage5Change = (event) => {
     const file = event.target.files[0];
-    setImage5(file);
+    if (file) {
+      // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+      const fileSizeInMB = file.size / (1024 * 1024);
+
+      if (fileSizeInMB > 1) {
+        setError3("Dosya boyutu 1 MB'den büyük olamaz.");
+        setImage5(null);
+      } else {
+        setError3("");
+        setImage5(file); // Resim önizlemesi için
+      }
+    }
   };
+  const [error4, setError4] = useState("");
   const handleImage6Change = (event) => {
     const file = event.target.files[0];
-    setImage6(file);
+    if (file) {
+      // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+      const fileSizeInMB = file.size / (1024 * 1024);
+
+      if (fileSizeInMB > 1) {
+        setError4("Dosya boyutu 1 MB'den büyük olamaz.");
+        setImage6(null);
+      } else {
+        setError4("");
+        setImage6(file); // Resim önizlemesi için
+      }
+    }
   };
+  const [error5, setError5] = useState("");
   const handleImage7Change = (event) => {
     const file = event.target.files[0];
-    setImage7(file);
+    if (file) {
+      // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+      const fileSizeInMB = file.size / (1024 * 1024);
+
+      if (fileSizeInMB > 1) {
+        setError5("Dosya boyutu 1 MB'den büyük olamaz.");
+        setImage7(null);
+      } else {
+        setError5("");
+        setImage7(file); // Resim önizlemesi için
+      }
+    }
   };
   const handleChangeTheme1 = (e) => {
     const value = parseInt(e.target.value);
@@ -543,6 +639,44 @@ function CardUpdate() {
     }
   };
 
+  const deleteLinkInformation = async (id) => {
+    try {
+      // Silme işlemi
+      const response = await axios.delete(
+        `https://ecoqrcode.com/linkInformation/deleteLinkInformation?id=${id}`
+      );
+
+      // Durum güncelleme
+      setLinkInformation((prevState) =>
+        prevState.filter((linkInfo) => linkInfo.id !== id)
+      );
+
+      // Başarı bildirimini göster
+      Swal.fire({
+        icon: "success",
+        title: "Silindi",
+        text: "Bağlantı başarıyla silindi.",
+        confirmButtonText: "Tamam",
+      });
+
+      console.log("Bağlantı bilgisi silindi:", response.data);
+
+      // Silme işleminden sonra banka bilgilerini güncellemek için
+      // fetchBankaBilgileri fonksiyonunu yeniden çağırabiliriz.
+      // fetchBankaBilgileri();
+    } catch (error) {
+      console.error("Bağlantı silinirken hata oluştu:", error);
+
+      // Hata bildirimini göster
+      Swal.fire({
+        icon: "error",
+        title: "Hata",
+        text: "Bağlantı silinirken bir hata oluştu.",
+        confirmButtonText: "Tamam",
+      });
+    }
+  };
+
   const deleteInvoiceInformation = async (taxNumber) => {
     try {
       // Silme işlemi
@@ -635,6 +769,18 @@ function CardUpdate() {
       return updatedBankaInformationCreate; // Güncellenmiş durumu döndür
     });
   };
+
+  const handleChangeLink = (event, index) => {
+    const { name, value } = event.target;
+    const updatedLinkInformation = [...linkInformationCreate];
+    updatedLinkInformation[index] = {
+      ...updatedLinkInformation[index],
+      [name]: value,
+    };
+    setLinkInformationCreate(updatedLinkInformation);
+  };
+  console.log("link state", linkInformationCreate);
+
   const handleChangeInvoice = (event, index) => {
     const { name, value } = event.target;
     setInvoiceInformationCreate((prevInvoiceInformationCreate) => {
@@ -725,6 +871,72 @@ function CardUpdate() {
         icon: "error",
         title: "Hata",
         text: "Banka bilgisi gönderilirken bir hata oluştu.",
+        confirmButtonText: "Tamam",
+      });
+    }
+  };
+
+  const sendLinkServer = async () => {
+    try {
+      // Boş olanları filtrele
+      const filteredData = linkInformationCreate.filter(
+        (linkInfo) =>
+          linkInfo.title.trim() !== "" && linkInfo.link.trim() !== ""
+      );
+      console.log("filteredData", filteredData);
+
+      // Filtrelenmiş verileri gönder
+      if (filteredData.length > 0) {
+        await axios.post(
+          "https://ecoqrcode.com/linkInformation/createLinkInformation",
+          filteredData
+        );
+
+        // Başarı bildirimini göster
+        Swal.fire({
+          icon: "success",
+          title: "Başarıyla Gönderildi",
+          text: "Bağlantı başarıyla gönderildi.",
+          confirmButtonText: "Tamam",
+        });
+
+        // Verileri sıfırla
+        setLinkInformationCreate([
+          {
+            title: "",
+            link: "",
+            digitalCardId: 0,
+          },
+          {
+            title: "",
+            link: "",
+            digitalCardId: 0,
+          },
+          {
+            title: "",
+            link: "",
+            digitalCardId: 0,
+          },
+          {
+            title: "",
+            link: "",
+            digitalCardId: 0,
+          },
+        ]);
+      } else {
+        Swal.fire({
+          icon: "info",
+          title: "Bilgi",
+          text: "Gönderilecek bağlantı bulunamadı.",
+          confirmButtonText: "Tamam",
+        });
+      }
+    } catch (error) {
+      console.error("Bağlantı gönderilirken hata oluştu:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Hata",
+        text: "Bağlantı gönderilirken bir hata oluştu.",
         confirmButtonText: "Tamam",
       });
     }
@@ -914,6 +1126,7 @@ function CardUpdate() {
     }
   };
   const isInputDisabled2 = !!getImageProfil("banner").url;
+  console.log("image3", image3);
   return (
     <>
       {values.linkId !== "" && (
@@ -988,7 +1201,7 @@ function CardUpdate() {
               <input
                 name="phoneNumber1"
                 className="input"
-                placeholder="Telefon Numarası"
+                placeholder="05555555555"
                 value={values.phoneNumber1}
                 onChange={handleChange}
               />
@@ -1017,7 +1230,7 @@ function CardUpdate() {
               <input
                 name="location"
                 className="input"
-                placeholder="Konum"
+                placeholder="https://www.google.com/maps/place/konum_adı/@enlem, boylam, zoom_level"
                 value={values.location}
                 onChange={handleChange}
               />
@@ -1071,7 +1284,7 @@ function CardUpdate() {
                   <input
                     name="instagram"
                     className="input mt-3"
-                    placeholder="Instagram"
+                    placeholder="https://www.instagram.com/kullanici_adi/"
                     value={values.instagram}
                     onChange={handleChange}
                   />
@@ -1093,7 +1306,7 @@ function CardUpdate() {
                   <input
                     name="twitter"
                     className="input mt-3"
-                    placeholder="Twitter"
+                    placeholder="https://x.com/kullanici_adi"
                     value={values.twitter}
                     onChange={handleChange}
                   />
@@ -1115,7 +1328,7 @@ function CardUpdate() {
                   <input
                     name="telegram"
                     className="input mt-3"
-                    placeholder="Telegram"
+                    placeholder="https://t.me/kullanici_adi"
                     value={values.telegram}
                     onChange={handleChange}
                   />
@@ -1137,7 +1350,7 @@ function CardUpdate() {
                   <input
                     name="facebook"
                     className="input mt-3"
-                    placeholder="Facebook"
+                    placeholder="https://www.facebook.com/kullanici_adi"
                     value={values.facebook}
                     onChange={handleChange}
                   />
@@ -1159,7 +1372,7 @@ function CardUpdate() {
                   <input
                     name="whatsapp"
                     className="input mt-3"
-                    placeholder="Whatshapp"
+                    placeholder="05555555555"
                     value={values.whatsapp}
                     onChange={handleChange}
                   />
@@ -1181,7 +1394,7 @@ function CardUpdate() {
                   <input
                     name="linkedin"
                     className="input mt-3"
-                    placeholder="Linkedin"
+                    placeholder="https://www.linkedin.com/in/kullanici_adi"
                     value={values.linkedin}
                     onChange={handleChange}
                   />
@@ -1204,7 +1417,7 @@ function CardUpdate() {
                   <input
                     name="discord"
                     className="input mt-3"
-                    placeholder="Discord"
+                    placeholder="https://discord.gg/sunucu_kodu"
                     value={values.discord}
                     onChange={handleChange}
                   />
@@ -1229,7 +1442,7 @@ function CardUpdate() {
                   <input
                     name="whatsappBusiness"
                     className="input mt-3"
-                    placeholder="Whatshapp Business"
+                    placeholder="05555555555"
                     value={values.whatsappBusiness}
                     onChange={handleChange}
                   />
@@ -1277,7 +1490,7 @@ function CardUpdate() {
                   <input
                     name="sahibinden"
                     className="input mt-3"
-                    placeholder="Sahibinden"
+                    placeholder="https://www.sahibinden.com/mağaza/mağaza_adı"
                     value={values.sahibinden}
                     onChange={handleChange}
                   />
@@ -1298,7 +1511,7 @@ function CardUpdate() {
                   <input
                     name="trendyol"
                     className="input mt-3"
-                    placeholder="Trendyol"
+                    placeholder="https://www.trendyol.com/mağaza/mağaza-adi"
                     value={values.trendyol}
                     onChange={handleChange}
                   />
@@ -1319,7 +1532,7 @@ function CardUpdate() {
                   <input
                     name="hepsiburada"
                     className="input mt-3"
-                    placeholder="Hepsiburada"
+                    placeholder="https://www.hepsiburada.com/mağaza/mağaza-adi"
                     value={values.hepsiburada}
                     onChange={handleChange}
                   />
@@ -1341,7 +1554,7 @@ function CardUpdate() {
                   <input
                     name="cicekSepeti"
                     className="input mt-3"
-                    placeholder="Çiçek Sepeti"
+                    placeholder="https://www.ciceksepeti.com/magaza/magaza-adi"
                     value={values.cicekSepeti}
                     onChange={handleChange}
                   />
@@ -1349,6 +1562,77 @@ function CardUpdate() {
               )}
             </div>
           </div>
+          <hr className="border-1 border-emerald-700  my-10" />
+          {/* BANKA */}
+          <h3 className="font-medium pl-3">BAĞLANTILARI GÜNCELLE</h3>
+          {/* bankInformation */}
+          <div className="md:flex md:flex-row flex-wrap flex-col pt-10 pb-5">
+            {linkInformation.map((linkInfo, index) => (
+              <div className="basis-1/2 space-y-3 pb-10 pl-[11px]" key={index}>
+                <p>Bağlantı - {`${index + 1}`}</p>
+                <div className="flex flex-col space-y-3">
+                  <input
+                    name="link"
+                    className="input"
+                    placeholder="Bağlantı"
+                    disabled
+                    value={linkInfo.title || ""}
+                  />
+                  <input
+                    name="link"
+                    className="input"
+                    placeholder="Bağlantı"
+                    disabled
+                    value={linkInfo.link || ""}
+                  />
+                </div>
+
+                <button
+                  className="bg-red-600 text-white font-medium px-5 py-1 rounded-lg"
+                  onClick={() => deleteLinkInformation(linkInfo.id)}
+                >
+                  Sil
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {/* bankInformation */}
+
+          {/* bankaCreate */}
+
+          <div className="md:flex md:flex-row flex-wrap flex-col pt-5 ">
+            {linkInformationCreate.map((linkInfo, index) => (
+              <div className="basis-1/2 space-y-3 pb-10 pl-[11px]" key={index}>
+                <p>Bağlantı - {`${index + 1}`}</p>
+                <div className="flex flex-col space-y-3">
+                  <input
+                    name="title"
+                    className="input"
+                    placeholder="Bağlantı başlığı"
+                    value={linkInfo.title || ""}
+                    onChange={(event) => handleChangeLink(event, index)}
+                  />
+                  <input
+                    name="link"
+                    className="input"
+                    placeholder="Bağlantı"
+                    value={linkInfo.link || ""}
+                    onChange={(event) => handleChangeLink(event, index)}
+                  />
+                </div>
+              </div>
+            ))}
+            <div className="text-end w-full pb-10">
+              <button
+                onClick={sendLinkServer}
+                className="bg-emerald-600 text-white font-medium px-5 py-1 rounded-lg"
+              >
+                BAĞLANTILARI EKLE
+              </button>
+            </div>
+          </div>
+          {/* LİNK */}
           <hr className="border-1 border-emerald-700  my-10" />
           <h3 className="font-medium pl-3">BANKA BİLGİLERİNİ GÜNCELLE</h3>
           {/* bankInformation */}
@@ -2057,6 +2341,7 @@ function CardUpdate() {
                         onChange={handleImage3Change}
                         className="input pt-1.5 mt-1"
                       />
+                      {error && <p style={{ color: "red" }}>{error}</p>}
                       {image3 && (
                         <img
                           src={URL.createObjectURL(image3)}
@@ -2090,6 +2375,7 @@ function CardUpdate() {
                         onChange={handleImage4Change}
                         className="input pt-1.5 mt-1"
                       />
+                      {error2 && <p style={{ color: "red" }}>{error2}</p>}
                       {image4 && (
                         <img
                           src={URL.createObjectURL(image4)}
@@ -2126,6 +2412,7 @@ function CardUpdate() {
                         onChange={handleImage5Change}
                         className="input pt-1.5 mt-1"
                       />
+                      {error3 && <p style={{ color: "red" }}>{error3}</p>}
                       {image5 && (
                         <img
                           src={URL.createObjectURL(image5)}
@@ -2160,6 +2447,7 @@ function CardUpdate() {
                         onChange={handleImage6Change}
                         className="input pt-1.5 mt-1"
                       />
+                      {error4 && <p style={{ color: "red" }}>{error4}</p>}
                       {image6 && (
                         <img
                           src={URL.createObjectURL(image6)}
@@ -2195,6 +2483,7 @@ function CardUpdate() {
                       onChange={handleImage7Change}
                       className="input pt-1.5 mt-1"
                     />
+                    {error5 && <p style={{ color: "red" }}>{error5}</p>}
                     {image7 && (
                       <img
                         src={URL.createObjectURL(image7)}
