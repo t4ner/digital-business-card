@@ -225,7 +225,7 @@ function Theme1() {
     const formattedPhoneNumber = phoneNumber1.replace(/\s/g, "");
 
     const vcfContent = generateVCF(
-      `${name}`,
+      `${name} ${surname}`, // Tam ad ve soyadı birleştirin
       emailAddress,
       formattedPhoneNumber
     );
@@ -238,6 +238,9 @@ function Theme1() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+
+    // Temizlik
+    URL.revokeObjectURL(url);
   };
 
   const generateVCF = (name, email, phone) => {
@@ -248,7 +251,6 @@ function Theme1() {
 
     return vcard.toString();
   };
-
   if (!themeInfo) {
     return null;
   }
@@ -373,7 +375,7 @@ function Theme1() {
           <div className="mt-10 flex flex-wrap gap-y-10 pb-10">
             <div className="basis-1/3">
               <a
-                className="flex flex-col items-center"
+                className="flex flex-col items-center cursor-pointer"
                 onClick={downloadVCF}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -422,12 +424,31 @@ function Theme1() {
               </a>
             </div>
 
+            {themeInfo.location !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center"
+                  target="_blank"
+                  href={getFullUrl(themeInfo.location)}
+                >
+                  {" "}
+                  <img
+                    src={map}
+                    className="w-[55px] h-[55px] overflow-hidden drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    Harita
+                  </span>
+                </a>
+              </div>
+            )}
+
             {themeInfo.linkedin !== "" && (
               <div className="basis-1/3">
                 <a
                   className="flex flex-col items-center"
                   target="_blank"
-                  href={themeInfo.linkedin}
+                  href={getFullUrl(themeInfo.linkedin)}
                 >
                   {" "}
                   <img
@@ -483,7 +504,7 @@ function Theme1() {
               <div className="basis-1/3">
                 <a
                   className="flex flex-col items-center "
-                  href={themeInfo.instagram}
+                  href={getFullUrl(themeInfo.instagram)}
                   target="_blank"
                 >
                   <img
@@ -500,7 +521,7 @@ function Theme1() {
               <div className="basis-1/3">
                 <a
                   className="flex flex-col items-center "
-                  href={themeInfo.twitter}
+                  href={getFullUrl(themeInfo.twitter)}
                   target="_blank"
                 >
                   <img
@@ -518,7 +539,7 @@ function Theme1() {
               <div className="basis-1/3 ">
                 <a
                   className="flex flex-col items-center "
-                  href={themeInfo.telegram}
+                  href={getFullUrl(themeInfo.telegram)}
                   target="_blank"
                 >
                   <img
@@ -536,7 +557,7 @@ function Theme1() {
               <div className="basis-1/3">
                 <a
                   className="flex flex-col items-center "
-                  href={themeInfo.discord}
+                  href={getFullUrl(themeInfo.discord)}
                   target="_blank"
                 >
                   <img
@@ -553,7 +574,7 @@ function Theme1() {
               <div className="basis-1/3">
                 <a
                   className="flex flex-col items-center"
-                  href={themeInfo.facebook}
+                  href={getFullUrl(themeInfo.facebook)}
                   target="_blank"
                 >
                   <img
@@ -590,7 +611,7 @@ function Theme1() {
               <div className="basis-1/3">
                 <a
                   className="flex flex-col items-center "
-                  href={themeInfo.sahibinden}
+                  href={getFullUrl(themeInfo.sahibinden)}
                   target="_blank"
                 >
                   <img
@@ -603,11 +624,11 @@ function Theme1() {
                 </a>
               </div>
             )}
-            {themeInfo.cicekspeti !== "" && (
+            {themeInfo.cicekSepeti !== "" && (
               <div className="basis-1/3">
                 <a
                   className="flex flex-col items-center "
-                  href={themeInfo.ciceksepeti}
+                  href={getFullUrl(themeInfo.cicekSepeti)}
                   target="_blank"
                 >
                   <img
@@ -624,7 +645,7 @@ function Theme1() {
               <div className="basis-1/3">
                 <a
                   className="flex flex-col items-center "
-                  href={themeInfo.hepsiburada}
+                  href={getFullUrl(themeInfo.hepsiburada)}
                   target="_blank"
                 >
                   <img
@@ -641,7 +662,7 @@ function Theme1() {
               <div className="basis-1/3">
                 <a
                   className="flex flex-col items-center "
-                  href={themeInfo.trendyol}
+                  href={getFullUrl(themeInfo.trendyol)}
                   target="_blank"
                 >
                   <img
@@ -675,7 +696,6 @@ function Theme1() {
             </div>
           </div>
           {/* banner end */}
-
           {/* descriptin start */}
           <div className="border rounded-md shadow-lg border-zinc-500 text-center text-lg font-semibold  py-2">
             <p className="uppercase">{themeInfo.description}</p>
@@ -688,11 +708,10 @@ function Theme1() {
               <p className="uppercase text-zinc-500 px-1">{themeInfo.firm}</p>
             </div>
           )}
-
           {/* iletişim start */}
           <div className="border shadow-lg rounded-md border-zinc-500 text-center text-lg font-semibold  py-2 mt-5">
             <p>İLETİŞİM</p>
-            <div className="flex mt-5">
+            <div className="flex mt-5 justify-center">
               <div className="basis-1/4">
                 <a
                   className="flex flex-col items-center"
@@ -755,7 +774,6 @@ function Theme1() {
             </div>
           </div>
           {/* iletişim finish */}
-
           {/* social media start */}
           <div className="border shadow-lg rounded-md border-zinc-500 text-center text-lg font-semibold  py-2 my-5">
             <p>SOSYAL MEDYA</p>
@@ -765,7 +783,7 @@ function Theme1() {
                   <a
                     className="flex flex-col items-center"
                     target="_blank"
-                    href={themeInfo.linkedin}
+                    href={getFullUrl(themeInfo.linkedin)}
                   >
                     {" "}
                     <img src={linkedin} className="w-[62px]" />
@@ -798,7 +816,7 @@ function Theme1() {
                 <div className="basis-1/3">
                   <a
                     className="flex flex-col items-center "
-                    href={themeInfo.instagram}
+                    href={getFullUrl(themeInfo.instagram)}
                     target="_blank"
                   >
                     <img src={instagram} className="w-[69px]" />
@@ -813,7 +831,7 @@ function Theme1() {
                 <div className="basis-1/3">
                   <a
                     className="flex flex-col items-center "
-                    href={themeInfo.twitter}
+                    href={getFullUrl(themeInfo.twitter)}
                     target="_blank"
                   >
                     <img src={twitter} className="w-16 h-[67px] rounded-lg" />
@@ -828,7 +846,7 @@ function Theme1() {
                 <div className="basis-1/3 ">
                   <a
                     className="flex flex-col items-center "
-                    href={themeInfo.telegram}
+                    href={getFullUrl(themeInfo.telegram)}
                     target="_blank"
                   >
                     <img src={telegram} className="w-16" />
@@ -856,7 +874,7 @@ function Theme1() {
                 <div className="basis-1/3">
                   <a
                     className="flex flex-col items-center "
-                    href={themeInfo.discord}
+                    href={getFullUrl(themeInfo.discord)}
                     target="_blank"
                   >
                     <img src={discord2} className="w-16 rounded-lg" />
@@ -870,7 +888,7 @@ function Theme1() {
                 <div className="basis-1/3">
                   <a
                     className="flex flex-col items-center "
-                    href={themeInfo.facebook}
+                    href={getFullUrl(themeInfo.facebook)}
                     target="_blank"
                   >
                     <img src={facebook} className="w-[62px]" />
@@ -897,68 +915,85 @@ function Theme1() {
                   </a>
                 </div>
               )}
-              {themeInfo.sahibinden !== "" && (
-                <div className="basis-1/3">
-                  <a
-                    className="flex flex-col items-center "
-                    href={themeInfo.sahibinden}
-                    target="_blank"
-                  >
-                    <img src={sahibinden} className="w-16 rounded-lg" />
-                    <span className="font-medium text-sm md:text-base mt-1">
-                      Sahibinden
-                    </span>
-                  </a>
-                </div>
-              )}
-              {themeInfo.cicekspeti !== "" && (
-                <div className="basis-1/3">
-                  <a
-                    className="flex flex-col items-center "
-                    href={themeInfo.ciceksepeti}
-                    target="_blank"
-                  >
-                    <img src={ciceksepeti} className="w-16" />
-                    <span className="font-medium text-sm md:text-base mt-1">
-                      Çiçek Sepeti
-                    </span>
-                  </a>
-                </div>
-              )}
-              {themeInfo.hepsiburada !== "" && (
-                <div className="basis-1/3">
-                  <a
-                    className="flex flex-col items-center "
-                    href={themeInfo.hepsiburada}
-                    target="_blank"
-                  >
-                    <img src={hepsiburada} className="w-16" />
-                    <span className="font-medium text-sm md:text-base mt-1">
-                      Hepsiburada
-                    </span>
-                  </a>
-                </div>
-              )}
-              {themeInfo.trendyol !== "" && (
-                <div className="basis-1/3">
-                  <a
-                    className="flex flex-col items-center "
-                    href={themeInfo.trendyol}
-                    target="_blank"
-                  >
-                    <img src={trendyol} className="w-16 rounded-lg" />
-                    <span className="font-medium text-sm md:text-base mt-1">
-                      Trendyol
-                    </span>
-                  </a>
-                </div>
-              )}
             </div>
           </div>
           {/* social media finish */}
+          {(themeInfo.sahibinden ||
+            themeInfo.cicekSepeti ||
+            themeInfo.hepsiburada ||
+            themeInfo.trendyol) && (
+            <div className="border shadow-lg rounded-md border-zinc-500 text-center text-lg font-semibold  py-2 mt-5 ">
+              <p>PAZAR YERLERİ</p>
+              <div className="flex mt-5 justify-center">
+                <>
+                  {themeInfo.sahibinden !== "" && (
+                    <div className="basis-1/3">
+                      <a
+                        className="flex flex-col items-center"
+                        href={getFullUrl(themeInfo.sahibinden)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src={sahibinden} className="w-16 rounded-lg" />
+                        <span className="font-medium text-sm md:text-base mt-1">
+                          Sahibinden
+                        </span>
+                      </a>
+                    </div>
+                  )}
+                  {themeInfo.cicekSepeti !== "" && (
+                    <div className="basis-1/3">
+                      <a
+                        className="flex flex-col items-center"
+                        href={getFullUrl(themeInfo.cicekSepeti)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src={ciceksepeti} className="w-16" />
+                        <span className="font-medium text-sm md:text-base mt-1">
+                          Çiçek Sepeti
+                        </span>
+                      </a>
+                    </div>
+                  )}
+                  {themeInfo.hepsiburada !== "" && (
+                    <div className="basis-1/3">
+                      <a
+                        className="flex flex-col items-center"
+                        href={getFullUrl(themeInfo.hepsiburada)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src={hepsiburada} className="w-16" />
+                        <span className="font-medium text-sm md:text-base mt-1">
+                          Hepsiburada
+                        </span>
+                      </a>
+                    </div>
+                  )}
+                  {themeInfo.trendyol !== "" && (
+                    <div className="basis-1/3">
+                      <a
+                        className="flex flex-col items-center"
+                        href={getFullUrl(themeInfo.trendyol)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src={trendyol} className="w-16 rounded-lg" />
+                        <span className="font-medium text-sm md:text-base mt-1">
+                          Trendyol
+                        </span>
+                      </a>
+                    </div>
+                  )}
+                </>
+              </div>
+            </div>
+          )}{" "}
+          {/* iletişim finish */}
         </div>
       )}
-      <div className="pt-10">
+      <div className="pt-14">
         <footer className="footer flex items-center justify-around py-2">
           {bankaInformation[0]?.iban && (
             <div>
@@ -1091,7 +1126,6 @@ function Theme1() {
                 onClick={toggleLinkBilgileri}
               >
                 <FaLink size={26} />
-
                 Bağlantı
               </button>
 
@@ -1212,7 +1246,7 @@ function Theme1() {
                       if (navigator.share) {
                         try {
                           await navigator.share({
-                            text: `Fatura Başlığı: ${invoice.title}\n Tax Numarası: ${invoice.taxNumber}\nTax Ofisi: ${invoice.taxOffice}\nFatura Adresi: ${invoice.address}`,
+                            text: `Fatura Başlığı: ${invoice.title}\n Vergi Numarası: ${invoice.taxNumber}\nVergi Ofisi: ${invoice.taxOffice}\nFatura Adresi: ${invoice.address}`,
                           });
                           console.log("Invoice shared successfully");
                         } catch (error) {
@@ -1228,10 +1262,10 @@ function Theme1() {
                       <div className="space-y-2 py-1" key={invoice.title}>
                         <div className="font-semibold">{invoice.title}</div>
                         <div className="font-medium text-sm">
-                          Tax numarası: {invoice.taxNumber}
+                          Vergi numarası: {invoice.taxNumber}
                         </div>
                         <div className="font-medium text-sm">
-                          Tax ofisi: {invoice.taxOffice}
+                          Vergi dairesi: {invoice.taxOffice}
                         </div>
                         <div className="font-medium text-sm">
                           Adres: {invoice.address}

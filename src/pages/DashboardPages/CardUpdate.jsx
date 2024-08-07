@@ -413,7 +413,7 @@ function CardUpdate() {
       // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
       const fileSizeInMB = file.size / (1024 * 1024);
 
-      if (fileSizeInMB > 1) {
+      if (fileSizeInMB > 10) {
         setError("Dosya boyutu 1 MB'den büyük olamaz.");
         setImage3(null);
       } else {
@@ -1799,7 +1799,7 @@ function CardUpdate() {
                     disabled
                     name="taxOffice"
                     className="input"
-                    placeholder="Tax Ofisi"
+                    placeholder="Vergi Dairesi"
                     value={invoiceInfo.taxOffice || ""}
                     onChange={(event) => handleChangeInvoice(event, index)}
                   />
@@ -1809,7 +1809,7 @@ function CardUpdate() {
                     disabled
                     name="taxNumber"
                     className="input"
-                    placeholder="Tax numarası"
+                    placeholder="Vergi Numarası"
                     value={invoiceInfo.taxNumber || ""}
                     onChange={(event) => handleChangeInvoice(event, index)}
                   />
@@ -1855,7 +1855,7 @@ function CardUpdate() {
                   <input
                     name="taxNumber"
                     className="input"
-                    placeholder="Tax numarası"
+                    placeholder="Vergi Numarası"
                     value={invoiceInfo.taxNumber || ""}
                     onChange={(event) => handleChangeInvoice(event, index)}
                   />
@@ -1864,7 +1864,7 @@ function CardUpdate() {
                   <input
                     name="taxOffice"
                     className="input"
-                    placeholder="Tax ofisi"
+                    placeholder="Vergi Dairesi"
                     value={invoiceInfo.taxOffice || ""}
                     onChange={(event) => handleChangeInvoice(event, index)}
                   />
@@ -2574,10 +2574,10 @@ function CardUpdate() {
 
       {values.linkId === "" && (
         <div
-          className="flex items-center justify-center h-screen"
+          className="flex items-center justify-center h-screen p-2 md:p-0"
           style={{ backgroundImage: "url('/hero/hero.jpg')" }}
         >
-          <div className="bg-green-300 border border-slate-499 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative w-1/2">
+          <div className="bg-green-300 border border-slate-499 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative md:w-1/2">
             <h1 className="text-3xl md:text-4xl text-white font-bold text-center mb-6">
               Güncelleme yapabilmeniz için önce kartvizit oluşturmanız gerekiyor
             </h1>
