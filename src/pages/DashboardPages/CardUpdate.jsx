@@ -390,21 +390,72 @@ function CardUpdate() {
   const handlePdf4 = () => {
     setShowInputPdf4(!showInputPdf4);
   };
+  const [error9, setError9] = useState("");
   const handleCatalog = (event) => {
     const file = event.target.files[0];
-    setCatalog(file);
+    if (file) {
+      // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+      const fileSizeInMB = file.size / (1024 * 1024);
+
+      if (fileSizeInMB > 25) {
+        setError9("Dosya boyutu 25 MB'den büyük olamaz.");
+        setCatalog(null);
+      } else {
+        setError9("");
+        setCatalog(file); // Resim önizlemesi için
+      }
+    }
   };
+  const [error8, setError8] = useState("");
   const handleCatalog2 = (event) => {
     const file = event.target.files[0];
-    setCatalog2(file);
+
+    if (file) {
+      // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+      const fileSizeInMB = file.size / (1024 * 1024);
+
+      if (fileSizeInMB > 25) {
+        setError8("Dosya boyutu 25 MB'den büyük olamaz.");
+        setCatalog2(null);
+      } else {
+        setError8("");
+        setCatalog2(file); // Resim önizlemesi için
+      }
+    }
   };
+  const [error7, setError7] = useState("");
   const handleCatalog3 = (event) => {
     const file = event.target.files[0];
-    setCatalog3(file);
+    if (file) {
+      // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+      const fileSizeInMB = file.size / (1024 * 1024);
+
+      if (fileSizeInMB > 25) {
+        setError7("Dosya boyutu 25 MB'den büyük olamaz.");
+        setCatalog3(null);
+      } else {
+        setError7("");
+        setCatalog3(file); // Resim önizlemesi için
+      }
+    }
   };
+
+  const [error6, setError6] = useState("");
   const handleCatalog4 = (event) => {
     const file = event.target.files[0];
-    setCatalog4(file);
+
+    if (file) {
+      // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+      const fileSizeInMB = file.size / (1024 * 1024);
+
+      if (fileSizeInMB > 25) {
+        setError6("Dosya boyutu 25 MB'den büyük olamaz.");
+        setCatalog4(null);
+      } else {
+        setError6("");
+        setCatalog4(file); // Resim önizlemesi için
+      }
+    }
   };
   const [error, setError] = useState("");
   const handleImage3Change = (event) => {
@@ -413,8 +464,8 @@ function CardUpdate() {
       // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
       const fileSizeInMB = file.size / (1024 * 1024);
 
-      if (fileSizeInMB > 10) {
-        setError("Dosya boyutu 1 MB'den büyük olamaz.");
+      if (fileSizeInMB > 20) {
+        setError("Dosya boyutu 20 MB'den büyük olamaz.");
         setImage3(null);
       } else {
         setError("");
@@ -429,8 +480,8 @@ function CardUpdate() {
       // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
       const fileSizeInMB = file.size / (1024 * 1024);
 
-      if (fileSizeInMB > 1) {
-        setError2("Dosya boyutu 1 MB'den büyük olamaz.");
+      if (fileSizeInMB > 20) {
+        setError2("Dosya boyutu 20 MB'den büyük olamaz.");
         setImage4(null);
       } else {
         setError2("");
@@ -446,8 +497,8 @@ function CardUpdate() {
       // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
       const fileSizeInMB = file.size / (1024 * 1024);
 
-      if (fileSizeInMB > 1) {
-        setError3("Dosya boyutu 1 MB'den büyük olamaz.");
+      if (fileSizeInMB > 20) {
+        setError3("Dosya boyutu 20 MB'den büyük olamaz.");
         setImage5(null);
       } else {
         setError3("");
@@ -462,8 +513,8 @@ function CardUpdate() {
       // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
       const fileSizeInMB = file.size / (1024 * 1024);
 
-      if (fileSizeInMB > 1) {
-        setError4("Dosya boyutu 1 MB'den büyük olamaz.");
+      if (fileSizeInMB > 20) {
+        setError4("Dosya boyutu 20 MB'den büyük olamaz.");
         setImage6(null);
       } else {
         setError4("");
@@ -478,8 +529,8 @@ function CardUpdate() {
       // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
       const fileSizeInMB = file.size / (1024 * 1024);
 
-      if (fileSizeInMB > 1) {
-        setError5("Dosya boyutu 1 MB'den büyük olamaz.");
+      if (fileSizeInMB > 20) {
+        setError5("Dosya boyutu 20 MB'den büyük olamaz.");
         setImage7(null);
       } else {
         setError5("");
@@ -2070,6 +2121,7 @@ function CardUpdate() {
                         onChange={handleCatalog}
                         className="input pt-1.5 mt-1"
                       />
+                      {error9 && <p style={{ color: "red" }}>{error9}</p>}
                       {catalog && <p>{catalog.name}</p>}
                     </div>
                     <button
@@ -2098,6 +2150,7 @@ function CardUpdate() {
                         onChange={handleCatalog2}
                         className="input pt-1.5 mt-1"
                       />
+                      {error8 && <p style={{ color: "red" }}>{error8}</p>}
                       {catalog2 && <p>{catalog2.name}</p>}
                     </div>
                     <button
@@ -2128,6 +2181,7 @@ function CardUpdate() {
                         onChange={handleCatalog3}
                         className="input pt-1.5 mt-1"
                       />
+                      {error7 && <p style={{ color: "red" }}>{error7}</p>}
                       {catalog3 && <p>{catalog3.name}</p>}
                     </div>
                     <button
@@ -2156,6 +2210,7 @@ function CardUpdate() {
                         onChange={handleCatalog4}
                         className="input pt-1.5 mt-1"
                       />
+                      {error6 && <p style={{ color: "red" }}>{error6}</p>}
                       {catalog4 && <p>{catalog4.name}</p>}
                     </div>
                   </>

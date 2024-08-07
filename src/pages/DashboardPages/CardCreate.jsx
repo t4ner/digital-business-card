@@ -210,52 +210,181 @@ function Stepper() {
           };
 
           console.log(values);
+          const [error, setError] = useState("");
           const handleImage1Change = (event) => {
             const file = event.target.files[0];
-            setImage1(file);
-          };
+            if (file) {
+              // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+              const fileSizeInMB = file.size / (1024 * 1024);
 
+              if (fileSizeInMB > 20) {
+                setError("Dosya boyutu 20 MB'den büyük olamaz.");
+                setImage1(null);
+              } else {
+                setError("");
+                setImage1(file); // Resim önizlemesi için
+              }
+            }
+          };
+          const [error2, setError2] = useState("");
           const handleImage2Change = (event) => {
             const file = event.target.files[0];
-            setImage2(file);
-          };
+            if (file) {
+              // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+              const fileSizeInMB = file.size / (1024 * 1024);
 
+              if (fileSizeInMB > 20) {
+                setError2("Dosya boyutu 20 MB'den büyük olamaz.");
+                setImage2(null);
+              } else {
+                setError2("");
+                setImage2(file); // Resim önizlemesi için
+              }
+            }
+          };
+          const [error3, setError3] = useState("");
           const handleImage3Change = (event) => {
             const file = event.target.files[0];
-            setImage3(file);
+            if (file) {
+              // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+              const fileSizeInMB = file.size / (1024 * 1024);
+
+              if (fileSizeInMB > 20) {
+                setError3("Dosya boyutu 20 MB'den büyük olamaz.");
+                setImage3(null);
+              } else {
+                setError3("");
+                setImage3(file); // Resim önizlemesi için
+              }
+            }
           };
+          const [error4, setError4] = useState("");
           const handleImage4Change = (event) => {
             const file = event.target.files[0];
-            setImage4(file);
+            if (file) {
+              // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+              const fileSizeInMB = file.size / (1024 * 1024);
+
+              if (fileSizeInMB > 20) {
+                setError4("Dosya boyutu 20 MB'den büyük olamaz.");
+                setImage4(null);
+              } else {
+                setError4("");
+                setImage4(file); // Resim önizlemesi için
+              }
+            }
           };
+          const [error5, setError5] = useState("");
           const handleImage5Change = (event) => {
             const file = event.target.files[0];
-            setImage5(file);
+            if (file) {
+              // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+              const fileSizeInMB = file.size / (1024 * 1024);
+
+              if (fileSizeInMB > 20) {
+                setError5("Dosya boyutu 20 MB'den büyük olamaz.");
+                setImage5(null);
+              } else {
+                setError5("");
+                setImage5(file); // Resim önizlemesi için
+              }
+            }
           };
+          const [error6, setError6] = useState("");
           const handleImage6Change = (event) => {
             const file = event.target.files[0];
-            setImage6(file);
+            if (file) {
+              // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+              const fileSizeInMB = file.size / (1024 * 1024);
+
+              if (fileSizeInMB > 20) {
+                setError6("Dosya boyutu 20 MB'den büyük olamaz.");
+                setImage6(null);
+              } else {
+                setError6("");
+                setImage6(file); // Resim önizlemesi için
+              }
+            }
           };
+          const [error7, setError7] = useState("");
           const handleImage7Change = (event) => {
             const file = event.target.files[0];
-            setImage7(file);
-          };
+            if (file) {
+              // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+              const fileSizeInMB = file.size / (1024 * 1024);
 
+              if (fileSizeInMB > 20) {
+                setError7("Dosya boyutu 20 MB'den büyük olamaz.");
+                setImage7(null);
+              } else {
+                setError7("");
+                setImage7(file); // Resim önizlemesi için
+              }
+            }
+          };
+          const [error8, setError8] = useState("");
           const handleCatalog = (event) => {
             const file = event.target.files[0];
-            setCatalog(file);
+            if (file) {
+              // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+              const fileSizeInMB = file.size / (1024 * 1024);
+
+              if (fileSizeInMB > 25) {
+                setError8("Dosya boyutu 25 MB'den büyük olamaz.");
+                setCatalog(null);
+              } else {
+                setError8("");
+                setCatalog(file); // Resim önizlemesi için
+              }
+            }
           };
+          const [error9, setError9] = useState("");
           const handleCatalog2 = (event) => {
             const file = event.target.files[0];
-            setCatalog2(file);
+            if (file) {
+              // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+              const fileSizeInMB = file.size / (1024 * 1024);
+
+              if (fileSizeInMB > 25) {
+                setError9("Dosya boyutu 25 MB'den büyük olamaz.");
+                setCatalog2(null);
+              } else {
+                setError9("");
+                setCatalog2(file); // Resim önizlemesi için
+              }
+            }
           };
+          const [error10, setError10] = useState("");
           const handleCatalog3 = (event) => {
             const file = event.target.files[0];
-            setCatalog3(file);
+            if (file) {
+              // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+              const fileSizeInMB = file.size / (1024 * 1024);
+
+              if (fileSizeInMB > 25) {
+                setError10("Dosya boyutu 25 MB'den büyük olamaz.");
+                setCatalog3(null);
+              } else {
+                setError10("");
+                setCatalog3(file); // Resim önizlemesi için
+              }
+            }
           };
+          const [error11, setError11] = useState("");
           const handleCatalog4 = (event) => {
             const file = event.target.files[0];
-            setCatalog4(file);
+            if (file) {
+              // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
+              const fileSizeInMB = file.size / (1024 * 1024);
+
+              if (fileSizeInMB > 25) {
+                setError11("Dosya boyutu 25 MB'den büyük olamaz.");
+                setCatalog4(null);
+              } else {
+                setError11("");
+                setCatalog4(file); // Resim önizlemesi için
+              }
+            }
           };
 
           const sendPdfToServer = async (image, linkId, name) => {
@@ -1158,6 +1287,7 @@ function Stepper() {
                         onChange={handleImage1Change}
                         className="input pt-1.5  mt-1"
                       />
+                      {error && <p style={{ color: "red" }}>{error}</p>}
                       {image1 && (
                         <img
                           src={URL.createObjectURL(image1)}
@@ -1178,6 +1308,7 @@ function Stepper() {
                         onChange={handleImage2Change}
                         className="input pt-1.5 mt-1"
                       />
+                      {error2 && <p style={{ color: "red" }}>{error2}</p>}
                       {image2 && (
                         <img
                           src={URL.createObjectURL(image2)}
@@ -1216,6 +1347,9 @@ function Stepper() {
                                 onChange={handleImage3Change}
                                 className="input pt-1.5 mt-1"
                               />
+                              {error3 && (
+                                <p style={{ color: "red" }}>{error3}</p>
+                              )}
                               {image3 && (
                                 <img
                                   src={URL.createObjectURL(image3)}
@@ -1249,6 +1383,9 @@ function Stepper() {
                                 onChange={handleImage4Change}
                                 className="input pt-1.5 mt-1"
                               />
+                              {error4 && (
+                                <p style={{ color: "red" }}>{error4}</p>
+                              )}
                               {image4 && (
                                 <img
                                   src={URL.createObjectURL(image4)}
@@ -1285,6 +1422,9 @@ function Stepper() {
                                 onChange={handleImage5Change}
                                 className="input pt-1.5 mt-1"
                               />
+                              {error5 && (
+                                <p style={{ color: "red" }}>{error5}</p>
+                              )}
                               {image5 && (
                                 <img
                                   src={URL.createObjectURL(image5)}
@@ -1319,6 +1459,9 @@ function Stepper() {
                                 onChange={handleImage6Change}
                                 className="input pt-1.5 mt-1"
                               />
+                              {error6 && (
+                                <p style={{ color: "red" }}>{error6}</p>
+                              )}
                               {image6 && (
                                 <img
                                   src={URL.createObjectURL(image6)}
@@ -1354,6 +1497,7 @@ function Stepper() {
                               onChange={handleImage7Change}
                               className="input pt-1.5 mt-1"
                             />
+                            {error7 && <p style={{ color: "red" }}>{error7}</p>}
                             {image7 && (
                               <img
                                 src={URL.createObjectURL(image7)}
@@ -1399,6 +1543,9 @@ function Stepper() {
                                 onChange={handleCatalog}
                                 className="input pt-1.5 mt-1"
                               />
+                              {error8 && (
+                                <p style={{ color: "red" }}>{error8}</p>
+                              )}
                               {catalog && <p>{catalog.name}</p>}
                             </div>
                             <button
@@ -1427,6 +1574,9 @@ function Stepper() {
                                 onChange={handleCatalog2}
                                 className="input pt-1.5 mt-1"
                               />
+                              {error9 && (
+                                <p style={{ color: "red" }}>{error9}</p>
+                              )}
                               {catalog2 && <p>{catalog2.name}</p>}
                             </div>
                             <button
@@ -1457,6 +1607,9 @@ function Stepper() {
                                 onChange={handleCatalog3}
                                 className="input pt-1.5 mt-1"
                               />
+                              {error10 && (
+                                <p style={{ color: "red" }}>{error10}</p>
+                              )}
                               {catalog3 && <p>{catalog3.name}</p>}
                             </div>
                             <button
@@ -1485,6 +1638,9 @@ function Stepper() {
                                 onChange={handleCatalog4}
                                 className="input pt-1.5 mt-1"
                               />
+                              {error11 && (
+                                <p style={{ color: "red" }}>{error11}</p>
+                              )}
                               {catalog4 && <p>{catalog4.name}</p>}
                             </div>
                           </>
