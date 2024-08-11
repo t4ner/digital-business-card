@@ -218,38 +218,80 @@ function Theme1() {
       </div>
     );
   }
+
+  const convertTurkishToEnglish = (text) => {
+    const turkishToEnglishMap = {
+      ı: "i",
+      İ: "I",
+      ş: "s",
+      Ş: "S",
+      ç: "c",
+      Ç: "C",
+      ğ: "g",
+      Ğ: "G",
+      ü: "u",
+      Ü: "U",
+      ö: "o",
+      Ö: "O",
+    };
+
+    return text.replace(
+      /[ıİşŞçÇğĞüÜöÖ]/g,
+      (match) => turkishToEnglishMap[match]
+    );
+  };
+
   const downloadVCF = () => {
     if (!themeInfo) return;
 
     const { name, surname, email: emailAddress, phoneNumber1 } = themeInfo;
     const formattedPhoneNumber = phoneNumber1.replace(/\s/g, "");
 
+    // Türkçe karakterleri İngilizce karakterlere çevir
+    const englishName = convertTurkishToEnglish(name);
+    const englishSurname = convertTurkishToEnglish(surname);
+
+    // Konsol çıktısı
+    console.log("English Name:", englishName);
+    console.log("English Surname:", englishSurname);
+
+    // VCF içeriğini oluştur
     const vcfContent = generateVCF(
-      `${name} ${surname}`, // Tam ad ve soyadı birleştirin
+      `${englishName} ${englishSurname}`, // İsim ve soyadı İngilizceye çevir
       emailAddress,
       formattedPhoneNumber
     );
 
-    const blob = new Blob([vcfContent], { type: "text/vcard;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "contact.vcf");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    try {
+      const blob = new Blob([vcfContent], { type: "text/vcard;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "contact.vcf");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
 
-    // Temizlik
-    URL.revokeObjectURL(url);
+      // Temizlik
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error generating or downloading VCF:", error);
+    }
   };
 
   const generateVCF = (name, email, phone) => {
-    const vcard = new vCard();
-    vcard.add("fn", name);
-    vcard.add("email", email);
-    vcard.add("tel", phone);
+    // vCard kütüphanesinin doğru şekilde yüklendiğinden emin olun
+    try {
+      const vcard = new vCard();
+      vcard.add("fn", name);
+      vcard.add("email", email);
+      vcard.add("tel", phone);
 
-    return vcard.toString();
+      return vcard.toString();
+    } catch (error) {
+      console.error("Error generating VCF:", error);
+      return "";
+    }
   };
   if (!themeInfo) {
     return null;
@@ -304,6 +346,47 @@ function Theme1() {
         .catch((error) => console.error("Paylaşım başarısız:", error));
     } else {
       alert("Paylaşım özelliği bu tarayıcıda desteklenmiyor.");
+    }
+  };
+
+  const handleShareQr = async () => {
+    // 1. QR kodunu bulma
+    const qrCode = photos.find((photo) => photo.name === "QRCode.png");
+
+    if (!qrCode) {
+      console.error("QR Kodu bulunamadı.");
+      return;
+    }
+
+    // 2. Resmi Blob olarak almak
+    try {
+      const response = await fetch(qrCode.url); // `qrCode.url` resim URL'si olmalıdır
+      const imageBlob = await response.blob();
+
+      // 3. Blob'dan bir File nesnesi oluşturma
+      const imageFile = new File([imageBlob], qrCode.name, {
+        type: imageBlob.type,
+      });
+
+      // 4. Paylaşım verilerini oluşturma
+      const shareData = {
+        title: "ecoQr Dijital Kartvizitim",
+        files: [imageFile],
+      };
+
+      // Paylaşım işlemi
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+          console.log("Başarıyla paylaşıldı!");
+        } catch (error) {
+          console.error("Paylaşım başarısız:", error);
+        }
+      } else {
+        alert("Paylaşım özelliği bu tarayıcıda desteklenmiyor.");
+      }
+    } catch (error) {
+      console.error("Resim indirme başarısız:", error);
     }
   };
   const getFullUrl = (link) => {
@@ -1080,7 +1163,7 @@ function Theme1() {
                 }`}
               >
                 {/* galeri */}
-                <div className="h-[300px] md:h-[400px] md:w-[600px] w-full m-auto relative group overflow-hidden bg-white rounded-2xl ">
+                <div className="h-[330px] md:h-[400px] md:w-[600px] w-full m-auto relative group overflow-hidden bg-white rounded-2xl ">
                   <div className="absolute top-1 right-1 z-50">
                     <button
                       onClick={closeFooter}
@@ -1378,6 +1461,15 @@ function Theme1() {
                     src={qrCode.url}
                     className="w-full h-full p-5 object-cover rounded-md"
                   />
+                </div>
+                <div className="text-sm font-semibold  w-full text-end flex-end">
+                  <button
+                    className="py-1 rounded text-end flex"
+                    onClick={handleShareQr}
+                  >
+                    <FaShareAlt className="text-xl mr-1 " />
+                    <div className="text-sm font-semibold ">Paylaş</div>
+                  </button>
                 </div>
               </div>
             </div>

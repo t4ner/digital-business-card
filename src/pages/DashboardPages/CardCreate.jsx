@@ -1303,7 +1303,7 @@ function Stepper() {
                         <img
                           src={URL.createObjectURL(image1)}
                           alt="Photo 1"
-                          className="h-60 w-96 object-cover"
+                          className="h-64 w-96 object-cover"
                         />
                       )}
                     </div>
@@ -1324,7 +1324,7 @@ function Stepper() {
                         <img
                           src={URL.createObjectURL(image2)}
                           alt="Photo 2"
-                          className="h-60 w-96 object-cover"
+                          className="h-64 w-96 object-cover"
                         />
                       )}
                     </div>
@@ -1365,7 +1365,7 @@ function Stepper() {
                                 <img
                                   src={URL.createObjectURL(image3)}
                                   alt="Photo 3"
-                                  className="h-60 w-96 object-cover"
+                                  className="h-64 w-96 object-cover"
                                 />
                               )}
                             </div>
@@ -1401,7 +1401,7 @@ function Stepper() {
                                 <img
                                   src={URL.createObjectURL(image4)}
                                   alt="Photo 4"
-                                  className="h-60 w-96 object-cover"
+                                  className="h-64 w-96 object-cover"
                                 />
                               )}
                             </div>
@@ -1440,7 +1440,7 @@ function Stepper() {
                                 <img
                                   src={URL.createObjectURL(image5)}
                                   alt="Photo 5"
-                                  className="h-60 w-96 object-cover"
+                                  className="h-64 w-96 object-cover"
                                 />
                               )}
                             </div>
@@ -1477,7 +1477,7 @@ function Stepper() {
                                 <img
                                   src={URL.createObjectURL(image6)}
                                   alt="Photo 6"
-                                  className="h-60 w-96 object-cover"
+                                  className="h-64 w-96 object-cover"
                                 />
                               )}
                             </div>
@@ -1513,7 +1513,7 @@ function Stepper() {
                               <img
                                 src={URL.createObjectURL(image7)}
                                 alt="Photo 7"
-                                className="h-60 w-96 object-cover"
+                                className="h-64 w-96 object-cover"
                               />
                             )}
                           </div>

@@ -644,16 +644,18 @@ function CardUpdate() {
         title: "Başarılı!",
         text: "Kartınız başarıyla güncellendi!",
       });
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Oturum süreniz doldu. Tekrar giriş yapınız.",
       });
-       localStorage.removeItem("token");
-       localStorage.removeItem("email");
-       navigate("/login");
+      localStorage.removeItem("token");
+      localStorage.removeItem("email");
+      navigate("/login");
     }
   };
   const deleteBankaInformation = async (iban) => {
@@ -2244,7 +2246,7 @@ function CardUpdate() {
               {profilPhoto && (
                 <img
                   src={URL.createObjectURL(profilPhoto)}
-                  className="h-60 w-96 mt-2"
+                  className="h-64 w-96 mt-2"
                   alt="Profil Fotoğrafı"
                 />
               )}
@@ -2252,7 +2254,7 @@ function CardUpdate() {
                 <>
                   <img
                     src={getImageProfil("profilphoto").url}
-                    className="h-60 w-96 mt-2"
+                    className="h-64 w-96 mt-2"
                     alt="Profil Fotoğrafı"
                   />
                   <button
@@ -2283,7 +2285,7 @@ function CardUpdate() {
                 <img
                   src={URL.createObjectURL(bannerPhoto)}
                   alt="Banner Fotoğrafı"
-                  className="h-60 w-96 mt-2"
+                  className="h-64 w-96 mt-2"
                 />
               )}
               {!bannerPhoto && getImageBanner("banner") && (
@@ -2291,7 +2293,7 @@ function CardUpdate() {
                   <img
                     src={getImageBanner("banner").url}
                     alt="Banner Fotoğrafı"
-                    className="h-60 w-96 mt-2"
+                    className="h-64 w-96 mt-2"
                   />
                   <button
                     onClick={deleteBannerPhoto}
@@ -2358,7 +2360,7 @@ function CardUpdate() {
                   key={index}
                   src={image.url}
                   alt={`Galeri Fotoğrafı ${index + 1}`}
-                  className="h-60 w-96 mt-2" // Stil eklemek isterseniz
+                  className="h-64 w-96 mt-2" // Stil eklemek isterseniz
                 />
                 <button
                   onClick={() => deleteGalleryImage(image.id)}
@@ -2405,7 +2407,7 @@ function CardUpdate() {
                         <img
                           src={URL.createObjectURL(image3)}
                           alt="Photo 3"
-                          className="h-60  w-96 object-cover"
+                          className="h-64  w-96 object-cover"
                         />
                       )}
                     </div>
@@ -2439,7 +2441,7 @@ function CardUpdate() {
                         <img
                           src={URL.createObjectURL(image4)}
                           alt="Photo 4"
-                          className="h-60  w-96 object-cover"
+                          className="h-64  w-96 object-cover"
                         />
                       )}
                     </div>
@@ -2476,7 +2478,7 @@ function CardUpdate() {
                         <img
                           src={URL.createObjectURL(image5)}
                           alt="Photo 5"
-                          className="h-60  w-96 object-cover"
+                          className="h-64  w-96 object-cover"
                         />
                       )}
                     </div>
@@ -2511,7 +2513,7 @@ function CardUpdate() {
                         <img
                           src={URL.createObjectURL(image6)}
                           alt="Photo 6"
-                          className="h-60  w-96 object-cover"
+                          className="h-64  w-96 object-cover"
                         />
                       )}
                     </div>
@@ -2547,7 +2549,7 @@ function CardUpdate() {
                       <img
                         src={URL.createObjectURL(image7)}
                         alt="Photo 7"
-                        className="h-60  w-96 object-cover"
+                        className="h-64  w-96 object-cover"
                       />
                     )}
                   </div>
