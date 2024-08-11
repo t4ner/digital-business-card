@@ -13,8 +13,9 @@ import theme2 from "/themes/11.png";
 import classNames from "classnames";
 import wechat from "/socialMediaLogo/wechat.svg";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function CardUpdate() {
+  const navigate = useNavigate();
   const [bankaInformation, setBankaInformation] = useState([]);
   const [invoiceInformation, setInvoiceInformation] = useState([]);
   const [warrantInformation, setWarrantInformation] = useState([]);
@@ -397,8 +398,8 @@ function CardUpdate() {
       // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
       const fileSizeInMB = file.size / (1024 * 1024);
 
-      if (fileSizeInMB > 25) {
-        setError9("Dosya boyutu 25 MB'den büyük olamaz.");
+      if (fileSizeInMB > 10) {
+        setError9("Dosya boyutu 10 MB'den büyük olamaz.");
         setCatalog(null);
       } else {
         setError9("");
@@ -414,8 +415,8 @@ function CardUpdate() {
       // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
       const fileSizeInMB = file.size / (1024 * 1024);
 
-      if (fileSizeInMB > 25) {
-        setError8("Dosya boyutu 25 MB'den büyük olamaz.");
+      if (fileSizeInMB > 10) {
+        setError8("Dosya boyutu 10 MB'den büyük olamaz.");
         setCatalog2(null);
       } else {
         setError8("");
@@ -430,8 +431,8 @@ function CardUpdate() {
       // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
       const fileSizeInMB = file.size / (1024 * 1024);
 
-      if (fileSizeInMB > 25) {
-        setError7("Dosya boyutu 25 MB'den büyük olamaz.");
+      if (fileSizeInMB > 10) {
+        setError7("Dosya boyutu 10 MB'den büyük olamaz.");
         setCatalog3(null);
       } else {
         setError7("");
@@ -448,8 +449,8 @@ function CardUpdate() {
       // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
       const fileSizeInMB = file.size / (1024 * 1024);
 
-      if (fileSizeInMB > 25) {
-        setError6("Dosya boyutu 25 MB'den büyük olamaz.");
+      if (fileSizeInMB > 10) {
+        setError6("Dosya boyutu 10 MB'den büyük olamaz.");
         setCatalog4(null);
       } else {
         setError6("");
@@ -648,8 +649,11 @@ function CardUpdate() {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Bir hata oluştu. Lütfen tekrar deneyin.",
+        text: "Oturum süreniz doldu. Tekrar giriş yapınız.",
       });
+       localStorage.removeItem("token");
+       localStorage.removeItem("email");
+       navigate("/login");
     }
   };
   const deleteBankaInformation = async (iban) => {

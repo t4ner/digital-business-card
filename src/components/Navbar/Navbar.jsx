@@ -20,7 +20,9 @@ const Header = () => {
     <header className="bg-white py-2">
       <nav className="flex justify-between items-center w-[92%] mx-auto">
         <div className="text-emerald-500 text-4xl font-bold flex gap-2">
-          <img src={logo2} className="w-56  rounded-lg pt-1" />
+          <a href="/">
+            <img src={logo2} className="w-56  rounded-lg pt-1" />
+          </a>
         </div>
         <div
           className={`nav-links duration-500  md:static absolute z-50 bg-white md:min-h-fit min-h-full left-0 ${

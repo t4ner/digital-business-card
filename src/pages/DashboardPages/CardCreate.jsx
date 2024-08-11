@@ -34,7 +34,7 @@ function Stepper() {
   const [showBusinessStore, setShowBusinessStore] = useState(false);
   const [showLink, setShowLink] = useState(false);
   const navigate = useNavigate();
-
+  const localStrogeEmail = localStorage.getItem("email");
   console.log(digitalCardId, "digitalCardId");
   return (
     <div>
@@ -61,7 +61,7 @@ function Stepper() {
           wechat: "",
           telegram: "",
           themeId: 0,
-          email: "",
+          email: localStrogeEmail,
           discord: "",
           whatsappBusiness: "",
           cicekSepeti: "",
@@ -188,24 +188,32 @@ function Stepper() {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             };
+            console.log("requestData", requestData);
             try {
               const response = await axios.post(
                 "https://ecoqrcode.com/businessCard/createDigiCard",
                 requestData,
                 { headers: headers }
               );
+              console.log("requestData", requestData);
               setDigitalCardId(response.data.digitalCardId);
+              console.log("requestData", requestData);
               Swal.fire({
                 icon: "success",
                 title: "Başarılı!",
                 text: "Kartınız başarıyla oluşturuldu!",
               });
+              console.log("requestData", requestData);
             } catch (error) {
+              console.log("requestData", requestData);
               Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Bir hata oluştu. Lütfen tekrar deneyin.",
+                text: "Oturum süreniz doldu. Tekrar giriş yapınız.",
               });
+              // localStorage.removeItem("token");
+              // localStorage.removeItem("email");
+              // navigate("/login");
             }
           };
 
@@ -329,8 +337,8 @@ function Stepper() {
               // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
               const fileSizeInMB = file.size / (1024 * 1024);
 
-              if (fileSizeInMB > 25) {
-                setError8("Dosya boyutu 25 MB'den büyük olamaz.");
+              if (fileSizeInMB > 10) {
+                setError8("Dosya boyutu 10 MB'den büyük olamaz.");
                 setCatalog(null);
               } else {
                 setError8("");
@@ -345,8 +353,8 @@ function Stepper() {
               // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
               const fileSizeInMB = file.size / (1024 * 1024);
 
-              if (fileSizeInMB > 25) {
-                setError9("Dosya boyutu 25 MB'den büyük olamaz.");
+              if (fileSizeInMB > 10) {
+                setError9("Dosya boyutu 10 MB'den büyük olamaz.");
                 setCatalog2(null);
               } else {
                 setError9("");
@@ -361,8 +369,8 @@ function Stepper() {
               // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
               const fileSizeInMB = file.size / (1024 * 1024);
 
-              if (fileSizeInMB > 25) {
-                setError10("Dosya boyutu 25 MB'den büyük olamaz.");
+              if (fileSizeInMB > 10) {
+                setError10("Dosya boyutu 10 MB'den büyük olamaz.");
                 setCatalog3(null);
               } else {
                 setError10("");
@@ -377,8 +385,8 @@ function Stepper() {
               // Resim boyutunu kontrol et (1 MB = 1024 * 1024 byte)
               const fileSizeInMB = file.size / (1024 * 1024);
 
-              if (fileSizeInMB > 25) {
-                setError11("Dosya boyutu 25 MB'den büyük olamaz.");
+              if (fileSizeInMB > 10) {
+                setError11("Dosya boyutu 10 MB'den büyük olamaz.");
                 setCatalog4(null);
               } else {
                 setError11("");
@@ -727,6 +735,7 @@ function Stepper() {
           const showLinks = () => {
             setShowLink(!showLink);
           };
+
           return (
             <Form className="p-7">
               {values.step === 1 && (
@@ -830,7 +839,9 @@ function Stepper() {
                       <Field
                         name="email"
                         className="input"
+                        disabled
                         placeholder="E-posta"
+                        value={localStrogeEmail}
                       />
                       <ErrorMessage
                         name="email"
