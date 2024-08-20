@@ -10,13 +10,15 @@ import rehber from "/staticThemePhoto/rehber.png";
 import email from "/staticThemePhoto/email.png";
 import call from "/staticThemePhoto/call.png";
 import website from "/socialMediaLogo/webs.png";
-import discord from "/socialMediaLogo/discord.svg";
 import sahibinden from "/socialMediaLogo/sahibinden.png";
 import facebook from "/socialMediaLogo/facebookk.svg";
 import discord2 from "/socialMediaLogo/discord.png";
-
+import youtube from "/socialMediaLogo/youtube.png";
+import amazonn from "/socialMediaLogo/amazonn.png";
+import n11 from "/socialMediaLogo/n11.jpg";
+import getir from "/socialMediaLogo/getir.jpg";
+import pttavm from "/socialMediaLogo/pttavm.png";
 import facebook2 from "/socialMediaLogo/face.png";
-
 import whatshapbus from "/socialMediaLogo/whatshapbus.png";
 import ciceksepeti from "/socialMediaLogo/ciceksepetii.png";
 import hepsiburada from "/socialMediaLogo/hepsiburada.png";
@@ -25,7 +27,7 @@ import map from "/socialMediaLogo/maps.png";
 
 import { FaAddressCard, FaCreditCard, FaLink, FaQrcode } from "react-icons/fa6";
 import { IoBook, IoClose } from "react-icons/io5";
-import { FaListAlt, FaShareAlt, FaUnlink } from "react-icons/fa";
+import { FaListAlt, FaShareAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import "ldrs/quantum";
 import {
@@ -395,7 +397,7 @@ function Theme1() {
     }
     return link;
   };
-  console.log("location", themeInfo.location);
+  console.log("themeInfo", themeInfo);
   return (
     <div className="md:w-2/4 mx-auto">
       <div className="flex justify-between px-2 py-2">
@@ -981,6 +983,21 @@ function Theme1() {
                   </a>
                 </div>
               )}
+              {themeInfo.youtube !== "" && (
+                <div className="basis-1/3">
+                  <a
+                    className="flex flex-col items-center "
+                    href={getFullUrl(themeInfo.youtube)}
+                    target="_blank"
+                  >
+                    <img src={youtube} className="w-[62px]" />
+                    <span className="font-medium text-sm md:text-base mt-2">
+                      Youtube
+                    </span>
+                  </a>
+                </div>
+              )}
+            
               {themeInfo.whatsappBusiness !== "" && (
                 <div className="basis-1/3">
                   <a
@@ -1007,10 +1024,10 @@ function Theme1() {
             themeInfo.trendyol) && (
             <div className="border shadow-lg rounded-md border-zinc-500 text-center text-lg font-semibold  py-2 mt-5 ">
               <p>PAZAR YERLERİ</p>
-              <div className="flex mt-5 justify-center">
+              <div className="flex flex-wrap mt-5  gap-y-6">
                 <>
                   {themeInfo.sahibinden !== "" && (
-                    <div className="basis-1/3">
+                    <div className="basis-1/4">
                       <a
                         className="flex flex-col items-center"
                         href={getFullUrl(themeInfo.sahibinden)}
@@ -1025,7 +1042,7 @@ function Theme1() {
                     </div>
                   )}
                   {themeInfo.cicekSepeti !== "" && (
-                    <div className="basis-1/3">
+                    <div className="basis-1/4">
                       <a
                         className="flex flex-col items-center"
                         href={getFullUrl(themeInfo.cicekSepeti)}
@@ -1040,7 +1057,7 @@ function Theme1() {
                     </div>
                   )}
                   {themeInfo.hepsiburada !== "" && (
-                    <div className="basis-1/3">
+                    <div className="basis-1/4">
                       <a
                         className="flex flex-col items-center"
                         href={getFullUrl(themeInfo.hepsiburada)}
@@ -1055,7 +1072,7 @@ function Theme1() {
                     </div>
                   )}
                   {themeInfo.trendyol !== "" && (
-                    <div className="basis-1/3">
+                    <div className="basis-1/4">
                       <a
                         className="flex flex-col items-center"
                         href={getFullUrl(themeInfo.trendyol)}
@@ -1065,6 +1082,66 @@ function Theme1() {
                         <img src={trendyol} className="w-16 rounded-lg" />
                         <span className="font-medium text-sm md:text-base mt-1">
                           Trendyol
+                        </span>
+                      </a>
+                    </div>
+                  )}
+                  {themeInfo.amazon !== "" && (
+                    <div className="basis-1/4">
+                      <a
+                        className="flex flex-col items-center"
+                        href={getFullUrl(themeInfo.amazon)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src={amazonn} className="w-16 rounded-lg" />
+                        <span className="font-medium text-sm md:text-base mt-2">
+                          Amazon
+                        </span>
+                      </a>
+                    </div>
+                  )}
+                  {themeInfo.n11 !== "" && (
+                    <div className="basis-1/4">
+                      <a
+                        className="flex flex-col items-center"
+                        href={getFullUrl(themeInfo.n11)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src={n11} className="w-16 rounded-md" />
+                        <span className="font-medium text-sm md:text-base mt-1">
+                          N11
+                        </span>
+                      </a>
+                    </div>
+                  )}
+                  {themeInfo.getir !== "" && (
+                    <div className="basis-1/4">
+                      <a
+                        className="flex flex-col items-center"
+                        href={getFullUrl(themeInfo.getir)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src={getir} className="w-16 rounded-md" />
+                        <span className="font-medium text-sm md:text-base mt-1">
+                          Getir
+                        </span>
+                      </a>
+                    </div>
+                  )}
+                  {themeInfo.ePttAvm !== "" && (
+                    <div className="basis-1/4">
+                      <a
+                        className="flex flex-col items-center"
+                        href={getFullUrl(themeInfo.ePttAvm)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src={pttavm} className="w-16 rounded-lg" />
+                        <span className="font-medium text-sm md:text-base mt-1">
+                          PttAVM
                         </span>
                       </a>
                     </div>

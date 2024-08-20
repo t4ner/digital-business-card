@@ -5,6 +5,8 @@ import telegram from "/socialMediaLogo/telegram.svg";
 import facebook from "/socialMediaLogo/facebook.svg";
 import whatsapp from "/socialMediaLogo/whatsapp.svg";
 import linkedin from "/socialMediaLogo/linkedin.svg";
+import youtube from "/socialMediaLogo/youtube.svg";
+
 import ciceksepeti from "/socialMediaLogo/ciceksepeti.png";
 import discord from "/socialMediaLogo/discord.svg";
 import Swal from "sweetalert2";
@@ -54,6 +56,7 @@ function CardUpdate() {
     phoneNumber2: "",
     whatsapp: "",
     linkedin: "",
+    youtube: "",
     telegram: "",
     facebook: "",
     location: "",
@@ -63,6 +66,10 @@ function CardUpdate() {
     sahibinden: "",
     trendyol: "",
     hepsiburada: "",
+    n11: "",
+    amazon: "",
+    getir: "",
+    epttAvm: "",
     firm: "",
   });
   console.log("values", values);
@@ -95,6 +102,7 @@ function CardUpdate() {
           phoneNumber2: response.data.phoneNumber2 || "",
           whatsapp: response.data.whatsapp || "",
           linkedin: response.data.linkedin || "",
+          youtube: response.data.youtube || "",
           telegram: response.data.telegram || "",
           facebook: response.data.facebook || "",
           location: response.data.location || "",
@@ -104,6 +112,10 @@ function CardUpdate() {
           sahibinden: response.data.sahibinden || "",
           trendyol: response.data.trendyol || "",
           hepsiburada: response.data.hepsiburada || "",
+          n11: response.data.n11 || "",
+          amazon: response.data.amazon || "",
+          getir: response.data.getir || "",
+          epttAvm: response.data.epttAvm || "",
           firm: response.data.firm || "",
         });
 
@@ -319,6 +331,11 @@ function CardUpdate() {
     setShowInputLinkedin(!showInputLinkedin);
   };
 
+  const [showInputYoutube, setShowInputYoutube] = useState(false);
+  const showYoutube = () => {
+    setShowInputYoutube(!showInputYoutube);
+  };
+
   const [showInputDiscord, setShowInputDiscord] = useState(false);
   const showDiscord = () => {
     setShowInputDiscord(!showInputDiscord);
@@ -351,6 +368,22 @@ function CardUpdate() {
   const [showInputHepsiburada, setShowInputHepsiburada] = useState(false);
   const showHepsiburada = () => {
     setShowInputHepsiburada(!showInputHepsiburada);
+  };
+  const [showInputAmazon, setShowInputAmazon] = useState(false);
+  const showAmazon = () => {
+    setShowInputAmazon(!showInputAmazon);
+  };
+  const [showInputN11, setShowInputN11] = useState(false);
+  const showN11 = () => {
+    setShowInputN11(!showInputN11);
+  };
+  const [showInputGetir, setShowInputGetir] = useState(false);
+  const showGetir = () => {
+    setShowInputGetir(!showInputGetir);
+  };
+  const [showInputePttAvm, setShowInputePttAvm] = useState(false);
+  const showePttAvm = () => {
+    setShowInputePttAvm(!showInputePttAvm);
   };
   const [showInputGallery, setShowInputGallery] = useState(false);
   const handleGallery = () => {
@@ -1462,6 +1495,29 @@ function CardUpdate() {
             <div className="flex flex-col">
               <button
                 type="button"
+                onClick={showYoutube}
+                className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+              >
+                <span className="font-medium text-red-600">Youtube</span>
+
+                <img src={youtube} className="w-6" />
+              </button>
+              {showInputYoutube && (
+                <>
+                  <input
+                    name="youtube"
+                    className="input mt-3"
+                    placeholder="https://www.youtube.com/channel/UCxxxxxxxxxxxxxx"
+                    value={values.youtube}
+                    onChange={handleChange}
+                  />
+                </>
+              )}
+            </div>
+
+            <div className="flex flex-col">
+              <button
+                type="button"
                 onClick={showDiscord}
                 className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded"
               >
@@ -1528,6 +1584,7 @@ function CardUpdate() {
                 </>
               )}
             </div>
+            <div className="opacity-0">s</div>
 
             <hr className="my-7 border-1 border-emerald-700 " />
             <hr className="my-7 border-1 border-emerald-700 " />
@@ -1613,6 +1670,86 @@ function CardUpdate() {
                     className="input mt-3"
                     placeholder="https://www.ciceksepeti.com/magaza/magaza-adi"
                     value={values.cicekSepeti}
+                    onChange={handleChange}
+                  />
+                </>
+              )}
+            </div>
+            <div className="flex flex-col md:basis-1/2 ">
+              <button
+                type="button"
+                onClick={showAmazon}
+                className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+              >
+                <span className="font-medium text-[#ff9900]">Amazon</span>
+              </button>
+              {showInputAmazon && (
+                <>
+                  <input
+                    name="amazon"
+                    className="input mt-3"
+                    placeholder="https://www.amazon.com/shops/[mağaza-adi]"
+                    value={values.amazon}
+                    onChange={handleChange}
+                  />
+                </>
+              )}
+            </div>
+            <div className="flex flex-col md:basis-1/2 ">
+              <button
+                type="button"
+                onClick={showN11}
+                className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+              >
+                <span className="font-medium text-[#0033A0]">N11</span>
+              </button>
+              {showInputN11 && (
+                <>
+                  <input
+                    name="n11"
+                    className="input mt-3"
+                    placeholder="https://www.n11.com/mağaza/[mağaza-adi]"
+                    value={values.n11}
+                    onChange={handleChange}
+                  />
+                </>
+              )}
+            </div>
+            <div className="flex flex-col md:basis-1/2 ">
+              <button
+                type="button"
+                onClick={showGetir}
+                className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+              >
+                <span className="font-medium text-purple-500">Getir</span>
+              </button>
+              {showInputGetir && (
+                <>
+                  <input
+                    name="getir"
+                    className="input mt-3"
+                    placeholder="https://getir.com/[mağaza-adi]"
+                    value={values.getir}
+                    onChange={handleChange}
+                  />
+                </>
+              )}
+            </div>
+            <div className="flex flex-col md:basis-1/2 ">
+              <button
+                type="button"
+                onClick={showePttAvm}
+                className="flex gap-1  items-center justify-center border border-zinc-400 py-2 rounded "
+              >
+                <span className="font-medium text-[#0033A0]">PttAVM</span>
+              </button>
+              {showInputePttAvm && (
+                <>
+                  <input
+                    name="epttAvm"
+                    className="input mt-3"
+                    placeholder="https://www.pttavm.com/mağaza/[mağaza-adi]"
+                    value={values.epttAvm}
                     onChange={handleChange}
                   />
                 </>
