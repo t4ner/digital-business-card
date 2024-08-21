@@ -24,6 +24,7 @@ import ciceksepeti from "/socialMediaLogo/ciceksepetii.png";
 import hepsiburada from "/socialMediaLogo/hepsiburada.png";
 import trendyol from "/socialMediaLogo/trendyol.png";
 import map from "/socialMediaLogo/maps.png";
+import wechat from "/socialMediaLogo/wechat.svg";
 
 import { FaAddressCard, FaCreditCard, FaLink, FaQrcode } from "react-icons/fa6";
 import { IoBook, IoClose } from "react-icons/io5";
@@ -562,7 +563,7 @@ function Theme1() {
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                   />
                   <span className="font-medium text-sm md:text-base mt-1">
-                    Whatshapp
+                    Whatsapp
                   </span>
                 </a>
               </div>
@@ -692,6 +693,40 @@ function Theme1() {
                 </a>
               </div>
             )}
+              {themeInfo.youtube !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center "
+                  href={getFullUrl(themeInfo.youtube)}
+                  target="_blank"
+                >
+                  <img
+                    src={youtube}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)]"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    YouTube
+                  </span>
+                </a>
+              </div>
+            )}
+            {themeInfo.wechat !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center"
+                  target="_blank"
+                  href={getFullUrl(themeInfo.wechat)}
+                >
+                  <img
+                    src={wechat}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    Wechat
+                  </span>
+                </a>
+              </div>
+            )}
             {themeInfo.sahibinden !== "" && (
               <div className="basis-1/3">
                 <a
@@ -756,6 +791,78 @@ function Theme1() {
                   />
                   <span className="font-medium text-sm md:text-base mt-1">
                     Trendyol
+                  </span>
+                </a>
+              </div>
+            )}
+
+            {themeInfo.getir !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center "
+                  href={getFullUrl(themeInfo.getir)}
+                  target="_blank"
+                >
+                  <img
+                    src={getir}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)] rounded-lg"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    Getir
+                  </span>
+                </a>
+              </div>
+            )}
+
+            {themeInfo.n11 !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center "
+                  href={getFullUrl(themeInfo.n11)}
+                  target="_blank"
+                >
+                  <img
+                    src={n11}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)] rounded-lg"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    N11
+                  </span>
+                </a>
+              </div>
+            )}
+
+            {themeInfo.amazon !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center "
+                  href={getFullUrl(themeInfo.amazon)}
+                  target="_blank"
+                >
+                  <img
+                    src={amazonn}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)] rounded-lg"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    Amazon
+                  </span>
+                </a>
+              </div>
+            )}
+
+            {themeInfo.epttAvm !== "" && (
+              <div className="basis-1/3">
+                <a
+                  className="flex flex-col items-center "
+                  href={getFullUrl(themeInfo.epttAvm)}
+                  target="_blank"
+                >
+                  <img
+                    src={pttavm}
+                    className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)] rounded-lg"
+                  />
+                  <span className="font-medium text-sm md:text-base mt-1">
+                    PttAVM
                   </span>
                 </a>
               </div>
@@ -891,7 +998,7 @@ function Theme1() {
                   >
                     <img src={whatsapp} className="w-16" />
                     <span className="font-medium text-sm md:text-base mt-1">
-                      Whatshapp
+                      Whatsapp
                     </span>
                   </a>
                 </div>
@@ -997,7 +1104,7 @@ function Theme1() {
                   </a>
                 </div>
               )}
-            
+
               {themeInfo.whatsappBusiness !== "" && (
                 <div className="basis-1/3">
                   <a
@@ -1011,6 +1118,21 @@ function Theme1() {
                     <img src={whatshapbus} className="w-[70px]" />
                     <span className="font-medium text-sm md:text-base mt-1">
                       Whatsapp
+                    </span>
+                  </a>
+                </div>
+              )}
+
+              {themeInfo.wechat !== "" && (
+                <div className="basis-1/3">
+                  <a
+                    className="flex flex-col items-center "
+                    href={getFullUrl(themeInfo.wechat)}
+                    target="_blank"
+                  >
+                    <img src={wechat} className="w-[70px]" />
+                    <span className="font-medium text-sm md:text-base mt-1">
+                      Wechat
                     </span>
                   </a>
                 </div>
@@ -1131,11 +1253,11 @@ function Theme1() {
                       </a>
                     </div>
                   )}
-                  {themeInfo.ePttAvm !== "" && (
+                  {themeInfo.epttAvm !== "" && (
                     <div className="basis-1/4">
                       <a
                         className="flex flex-col items-center"
-                        href={getFullUrl(themeInfo.ePttAvm)}
+                        href={getFullUrl(themeInfo.epttAvm)}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
