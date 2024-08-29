@@ -5,11 +5,11 @@ function Dashboard() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex">
+    <div className="flex font-montserrat">
       <div
         className={` ${
-          open ? "w-76" : "w-24 "
-        } border-r-2 border-[#50c878] p-5  pt-8 relative duration-300 shadow-lg shadow-[#50c878]`}
+          open ? "w-80" : "w-20 "
+        } border-r-2 bg-white border-[#50c878] p-5  pt-8 relative duration-300 shadow-lg shadow-[#50c878]`}
       >
         {" "}
         <img
@@ -20,12 +20,7 @@ function Dashboard() {
         />
         <div className="flex gap-x-4 w-12 md:w-auto pr-2 md:pr-0 items-center">
           <Link to="/">
-            <img
-              src="/logo/logo.svg"
-              className={`cursor-pointer duration-500 ${
-                open && "rotate-[360deg]"
-              }`}
-            />
+            <img src="/logo/logo.png" className="cursor-pointer duration-500" />
           </Link>
         </div>
         <ul className="pt-10 space-y-4">

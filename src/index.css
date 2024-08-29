@@ -1,11 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 body {
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
 }
+
 @layer components {
   .input {
     @apply h-10 rounded px-4 outline-none border border-zinc-400 text-sm focus:border-black;
@@ -13,22 +14,6 @@ body {
   .textarea {
     @apply rounded p-2 outline-none border border-zinc-400 text-sm focus:border-black;
   }
-}
-
-.App {
-  height: calc(100vh - 70px);
-  background: url("/hero/hero.jpg") center center;
-}
-
-.title {
-  font-weight: 700;
-  color: white;
-  filter: drop-shadow(0 0 20px white);
-  -webkit-filter: drop-shadow(0 0 20px white);
-}
-
-.sub-title {
-  font-family: "Dancing Script", cursive;
 }
 .fixed-bottom {
   position: fixed;
@@ -86,4 +71,30 @@ body {
   opacity: 1;
   pointer-events: auto;
   bottom: 9.5px; /* Yavaşça yukarı kayacak mesafe */
+}
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.slider {
+  height: 150px; /* 100px + 50px büyütme */
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.slider .slide-track {
+  animation: scroll 60s linear infinite;
+  width: calc(300px * 38); /* 150px (büyütülmüş) * 2 * 19 slide */
+}
+
+.slider img {
+  max-height: 100%;
+  max-width: 100%;
 }

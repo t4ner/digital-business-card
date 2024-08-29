@@ -6,9 +6,8 @@ export default {
       center: true,
     },
     extend: {
-      colors: {
-        "dark-purple": "#081A51",
-        "light-white": "rgba(255,255,255,0.17)",
+      fontFamily: {
+        montserrat: ["Montserrat", "sans-serif"],
       },
     },
   },

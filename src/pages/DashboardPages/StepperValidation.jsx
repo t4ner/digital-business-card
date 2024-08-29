@@ -17,5 +17,4 @@ export const stepperValidation = yup.object().shape({
     .number()
     .oneOf([1, 2], "Tasarım seçimi yapılmalıdır.")
     .required("Tasarım seçimi gereklidir."),
-
 });

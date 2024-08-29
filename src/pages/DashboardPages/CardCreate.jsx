@@ -12,14 +12,14 @@ import discord from "/socialMediaLogo/discord.svg";
 import linkedin from "/socialMediaLogo/linkedin.svg";
 import youtube from "/socialMediaLogo/youtube.svg";
 import wechat from "/socialMediaLogo/wechat.svg";
-import theme1 from "/themes/10.png";
+import theme1 from "/themes/12.png";
 import Swal from "sweetalert2";
-import theme2 from "/themes/11.png";
+import theme2 from "/themes/13.png";
 import axios from "axios";
 import { stepperValidation } from "./StepperValidation";
 import { useNavigate } from "react-router-dom";
 
-function Stepper() {
+function CardCreate() {
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
   const [image3, setImage3] = useState("");
@@ -36,7 +36,7 @@ function Stepper() {
   const [showLink, setShowLink] = useState(false);
   const navigate = useNavigate();
   const localStrogeEmail = localStorage.getItem("email");
-  console.log(digitalCardId, "digitalCardId");
+
   return (
     <div>
       <Formik
@@ -74,6 +74,7 @@ function Stepper() {
           amazon: "",
           getir: "",
           epttAvm: "",
+          channelId: "2",
 
           //step2
           bankInformationList: [
@@ -187,32 +188,29 @@ function Stepper() {
             delete requestData.warrantOfAttorneyDtoList;
             delete requestData.createLinkInformation;
 
-            console.log("requestData", requestData);
             localStorage.setItem("email", values.email);
             const token = localStorage.getItem("token");
-            console.log(token, "token");
+
             const headers = {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             };
-            console.log("requestData", requestData);
+
             try {
               const response = await axios.post(
                 "https://ecoqrcode.com/businessCard/createDigiCard",
                 requestData,
                 { headers: headers }
               );
-              console.log("requestData", requestData);
+
               setDigitalCardId(response.data.digitalCardId);
-              console.log("requestData", requestData);
+
               Swal.fire({
                 icon: "success",
                 title: "Başarılı!",
                 text: "Kartınız başarıyla oluşturuldu!",
               });
-              console.log("requestData", requestData);
             } catch (error) {
-              console.log("requestData", requestData);
               Swal.fire({
                 icon: "error",
                 title: "Oops...",
@@ -224,7 +222,6 @@ function Stepper() {
             }
           };
 
-          console.log(values);
           const [error, setError] = useState("");
           const handleImage1Change = (event) => {
             const file = event.target.files[0];
@@ -424,12 +421,7 @@ function Stepper() {
                 formData,
                 { headers }
               );
-              console.log("Yükleme başarılı:", response.data);
             } catch (error) {
-              console.error(
-                "Yükleme hatası:",
-                error.response ? error.response.data : error.message
-              );
               Swal.fire({
                 icon: "error",
                 title: "Hata",
@@ -463,13 +455,7 @@ function Stepper() {
                 formData,
                 { headers }
               );
-              console.log("Yükleme başarılı:", response.data);
             } catch (error) {
-              console.log("Image", response.data);
-              console.error(
-                "Yükleme hatası:",
-                error.response ? error.response.data : error.message
-              );
               Swal.fire({
                 icon: "error",
                 title: "Hata",
@@ -500,13 +486,7 @@ function Stepper() {
                 formData,
                 { headers }
               );
-              console.log("Yükleme başarılı:", response.data);
-              console.log("formdata", formData);
             } catch (error) {
-              console.error(
-                "Yükleme hatası:",
-                error.response ? error.response.data : error.message
-              );
               Swal.fire({
                 icon: "error",
                 title: "Hata",
@@ -529,8 +509,6 @@ function Stepper() {
                 digitalCardId: digitalCardId, // Add digitalCardId
               }));
 
-            console.log("bankInformation", bankInformation);
-
             // Prepare warrant of attorney with digitalCardId
             const warrantOfAttorney = values.warrantOfAttorneyDtoList
               .filter(
@@ -542,8 +520,6 @@ function Stepper() {
                 digitalCardId: digitalCardId, // Add digitalCardId
               }));
 
-            console.log("warrantOfAttorney", warrantOfAttorney);
-
             const linkInfo = values.createLinkInformation
               .filter(
                 (link) => link.title && link.link // Add other necessary checks
@@ -552,7 +528,7 @@ function Stepper() {
                 ...link, // Spread existing warrant info
                 digitalCardId: digitalCardId, // Add digitalCardId
               }));
-            console.log("linkInfo", linkInfo);
+
             // Prepare invoice information with digitalCardId
             const invoiceInformation = values.invoiceInformationList
               .filter(
@@ -567,8 +543,6 @@ function Stepper() {
                 digitalCardId: digitalCardId, // Add digitalCardId
               }));
 
-            console.log("invoiceInformation", invoiceInformation);
-
             const token = localStorage.getItem("token");
             const headers = {
               Authorization: `Bearer ${token}`,
@@ -582,9 +556,6 @@ function Stepper() {
                 bankInformation,
                 { headers }
               );
-              console.log("Bank Response:", bankResponse.data);
-              console.log("Bank gidişat:", bankInformation);
-              // Handle success for bank information
 
               // Post warrant of attorney
               const warrantResponse = await axios.post(
@@ -592,7 +563,7 @@ function Stepper() {
                 warrantOfAttorney,
                 { headers }
               );
-              console.log("Warrant Response:", warrantResponse.data);
+
               // Handle success for warrant of attorney
 
               // Post invoice information
@@ -601,7 +572,7 @@ function Stepper() {
                 invoiceInformation,
                 { headers }
               );
-              console.log("Invoice Response:", invoiceResponse.data);
+
               // Handle success for invoice information
 
               const linkResponse = await axios.post(
@@ -609,7 +580,7 @@ function Stepper() {
                 linkInfo,
                 { headers }
               );
-              console.log("link Response:", linkResponse.data);
+
               navigate(`/${values.linkId}`);
             } catch (error) {
               console.error("Error:", error);
@@ -764,7 +735,7 @@ function Stepper() {
           };
 
           return (
-            <Form className="p-7">
+            <Form className="p-7 font-montserrat">
               {values.step === 1 && (
                 <>
                   <header>
@@ -1418,6 +1389,10 @@ function Stepper() {
                       <label htmlFor="photo1" className="text-sm">
                         Profil Fotoğrafı
                       </label>
+                      <h3 className="text-sm py-3 text-red-500">
+                        * Önerilen Boyut: 700x700 piksel (veya tercihinize göre
+                        başka bir kare boyut)
+                      </h3>
                       <input
                         id="photo1"
                         name="photo1"
@@ -1439,6 +1414,10 @@ function Stepper() {
                       <label htmlFor="photo2" className="text-sm">
                         Banner Fotoğrafı
                       </label>
+                      <h3 className="text-sm py-3 text-red-500">
+                        * Önerilen Boyut: 1500x450 piksel (veya tercihinize göre
+                        başka bir geniş ekran boyut)
+                      </h3>
                       <input
                         id="photo2"
                         name="photo2"
@@ -1462,7 +1441,10 @@ function Stepper() {
                     <button className="text-lg font-medium text-zinc-700 mt-3 md:mt-6">
                       GALERİYE FOTOĞRAF EKLE
                     </button>
-
+                    <h3 className="text-sm  text-red-500">
+                      * Önerilen Boyut: 600x400 piksel (veya tercihinize göre
+                      başka bir geniş ekran boyut)
+                    </h3>
                     <button
                       type="button"
                       onClick={handleGallery}
@@ -2280,4 +2262,4 @@ function Stepper() {
   );
 }
 
-export default Stepper;
+export default CardCreate;

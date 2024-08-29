@@ -1,28 +1,23 @@
-import Contact from "../components/Contact/Contact";
-import Description from "../components/Description/Description";
-import Footer from "../components/Footer/Footer";
-import GreenTecno from "../components/GreenTecno/GreenTecno";
-import Hero from "../components/Hero/Hero";
-import Nature from "../components/Nature/Nature";
-import Navbar from "../components/Navbar/Navbar";
-import OurGoals from "../components/OurGoals/OurGoals";
-import Pricing from "../components/Pricing/Pricing";
-import Services from "../components/Services/Services";
-import Social from "../components/Social/Social";
+import React from "react";
+import Hero from "../components/Hero";
+import Advantageous from "../components/Advantageous";
+import Institutional from "../components/Institutional";
+import Description from "../components/Description";
+import DescriptionTwo from "../components/DescriptionTwo";
+import Footer from "../components/Footer";
+import SliderBrand from "../components/SliderBrand";
+import Contact from "../components/Contact";
 
 function Home() {
   return (
     <div>
-      <Navbar />
       <Hero />
-      <Social />
-      <Services />
-      <GreenTecno />
-      <OurGoals />
-      <Nature />
+      <Advantageous />
+      <Institutional />
+      <SliderBrand />
       <Description />
-      {/* <Pricing /> */}
-      <Contact />
+      <Contact/>
+      <DescriptionTwo />
       <Footer />
     </div>
   );
