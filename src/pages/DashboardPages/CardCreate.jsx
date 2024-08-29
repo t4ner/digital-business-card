@@ -74,7 +74,7 @@ function CardCreate() {
           amazon: "",
           getir: "",
           epttAvm: "",
-          channelId: "2",
+          channelId: "1",
 
           //step2
           bankInformationList: [
