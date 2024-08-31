@@ -18,6 +18,7 @@ const UserCreate = () => {
               surname: "",
               password: "",
               username: "",
+              channelId: "1",
             }}
             validationSchema={Yup.object({
               email: Yup.string()
