@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoMenu, IoClose, IoStorefront } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
-import logo2 from "/logo/logo.png";
+import logo2 from "/logo/logo3.png";
 import { FaCreditCard, FaUser } from "react-icons/fa";
 
 const Header = () => {

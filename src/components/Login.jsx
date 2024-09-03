@@ -27,6 +27,7 @@ function Login() {
         {
           usernameOrEmail: formData.email,
           password: formData.password,
+          channelId : 1
         }
       );
 
@@ -41,8 +42,8 @@ function Login() {
 
       localStorage.setItem("token", token);
       localStorage.setItem("email", decodedToken.sub);
-
-      if (decodedToken.sub === formData.email) {
+      console.log("local", localStorage.getItem("email"));
+      if (localStorage.getItem("email")) {
         navigate("/");
         setError(null);
       } else {
@@ -81,7 +82,7 @@ function Login() {
                       htmlFor="email"
                       className="absolute font-medium text-xl text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 mt-1"
                     >
-                      Email
+                      Email veya Kullanıcı Adı
                     </label>
                   </div>
                   <div className="relative my-4">
