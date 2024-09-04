@@ -5,7 +5,7 @@ export const stepperValidation = yup.object().shape({
     .string()
     .matches(
       /^[a-zA-Z0-9]+$/,
-      "Sayfanızın URL'si sadece İngilizce alfanümerik karakterler içerebilir."
+      "Sayfanızın URL'si sadece İngilizce alfanümerik karakterler içerebilir ve boşluk içeremez."
     )
     .required("Sayfanızın URL'si gereklidir."),
   name: yup.string().required("Ad alanı gereklidir."),
