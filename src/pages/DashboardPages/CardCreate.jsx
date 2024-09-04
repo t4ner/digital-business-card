@@ -221,7 +221,6 @@ function CardCreate() {
               // navigate("/login");
             }
           };
-          console.log(values);
           const [error, setError] = useState("");
           const handleImage1Change = (event) => {
             const file = event.target.files[0];

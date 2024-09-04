@@ -49,11 +49,9 @@ const Setting = () => {
                   values,
                   { headers }
                 );
-                console.log("values", values);
                 navigate("/");
               } catch (error) {
                 console.error("Error:", error);
-                console.log("values", values);
               }
               setSubmitting(false);
             }}

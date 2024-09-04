@@ -42,7 +42,6 @@ function Login() {
 
       localStorage.setItem("token", token);
       localStorage.setItem("email", decodedToken.sub);
-      console.log("local", localStorage.getItem("email"));
       if (localStorage.getItem("email")) {
         navigate("/");
         setError(null);
@@ -101,7 +100,12 @@ function Login() {
                       Şifre
                     </label>
                   </div>
-                  <Link to="/forgot-password" className="text-white underline text-[15px]  font-medium ">Şifremi unuttum</Link>
+                  <Link
+                    to="/forgot-password"
+                    className="text-white underline text-[15px]  font-medium "
+                  >
+                    Şifremi unuttum
+                  </Link>
                   <button
                     type="submit"
                     className="w-full mb-4 text-lg font-medium mt-6 rounded-full bg-white text-purple-600 hover:bg-gray-600 hover:text-white py-2 transition-colors duration-300"

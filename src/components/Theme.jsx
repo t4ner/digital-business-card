@@ -265,10 +265,6 @@ function Theme1() {
     const englishName = convertTurkishToEnglish(name);
     const englishSurname = convertTurkishToEnglish(surname);
 
-    // Konsol çıktısı
-    console.log("English Name:", englishName);
-    console.log("English Surname:", englishSurname);
-
     // VCF içeriğini oluştur
     const vcfContent = generateVCF(
       `${englishName} ${englishSurname}`, // İsim ve soyadı İngilizceye çevir
@@ -409,7 +405,6 @@ function Theme1() {
     }
     return link;
   };
-  console.log("themeInfo", themeInfo);
   return (
     <div className="md:w-2/4 mx-auto font-montserrat">
       <div className="flex justify-between px-2 py-2">

@@ -40,7 +40,7 @@ function CardList() {
   );
 
   return (
-    <div className="p-5 md:p-10 h-screen font-montserrat">
+    <div className="p-5 md:p-10 font-montserrat">
       {/* Search Input */}
       <div className="mb-5 lg:mb-10">
         <input
