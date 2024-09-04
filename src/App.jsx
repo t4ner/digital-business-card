@@ -12,6 +12,7 @@ import Admin from "./admin/Admin";
 import UserCreate from "./admin/UserCreate";
 import CardList from "./admin/CardList";
 import UserList from "./admin/UserList";
+import ForgotPassword from "./components/ForgotPassword";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="card-list" element={<CardList />} />
           <Route path="user-list" element={<UserList />} />
         </Route>
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </div>
   );

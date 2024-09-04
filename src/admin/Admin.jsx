@@ -51,7 +51,7 @@ function Admin() {
 
           <li className="flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-400 text-base items-center gap-x-4 ">
             <Link to="user-list" className="w-10 md:w-auto">
-              <img src={"/dashboard/Chart.png"} />
+              <img src={"/dashboard/Setting.png"} />
             </Link>
             <span
               className={`${
