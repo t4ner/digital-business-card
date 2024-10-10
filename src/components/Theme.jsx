@@ -1554,10 +1554,10 @@ function Theme1() {
                       <div className="space-y-2 py-1" key={invoice.title}>
                         <div className="font-semibold">{invoice.title}</div>
                         <div className="font-medium text-sm">
-                          Vergi numarası: {invoice.taxNumber}
+                          Vergi Numarası: {invoice.taxNumber}
                         </div>
                         <div className="font-medium text-sm">
-                          Vergi dairesi: {invoice.taxOffice}
+                          Vergi Dairesi: {invoice.taxOffice}
                         </div>
                         <div className="font-medium text-sm">
                           Adres: {invoice.address}
