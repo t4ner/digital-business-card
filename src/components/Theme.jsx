@@ -1285,10 +1285,10 @@ function Theme1() {
           {/* iletişim finish */}
         </div>
       )}
-      <div className="pt-14">
+      <div className="pt-14 ">
         <footer className="footer flex items-center justify-around py-2">
           {bankaInformation[0]?.iban && (
-            <div>
+            <div className="">
               <button
                 className="banka-button flex flex-col items-center justify-center  text-xs font-medium space-y-0.5"
                 onClick={toggleBankaBilgileri}
@@ -1298,7 +1298,7 @@ function Theme1() {
               </button>
 
               <div
-                className={`banka-bilgileri p-5 border bg-white shadow-xl ${
+                className={`banka-bilgileri p-5 border bg-white h-[600px] overflow-y-auto shadow-xl ${
                   isBankaBilgileriOpen ? "open" : ""
                 }`}
               >
@@ -1333,7 +1333,7 @@ function Theme1() {
                     };
 
                     return (
-                      <div className="space-y-2 py-1 pb-4" key={bank.iban}>
+                      <div className="space-y-2 py-1 pb-4 " key={bank.iban}>
                         <div className="font-semibold">{bank.iban}</div>
                         <div className="font-medium text-sm">
                           {bank.bankName}
