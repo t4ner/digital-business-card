@@ -406,23 +406,23 @@ function Theme1() {
     return link;
   };
   return (
-    <div className="md:w-2/4 mx-auto font-montserrat">
+    <div className="mx-auto md:w-2/4 font-montserrat">
       <div className="flex justify-between px-2 py-2">
         <div>
           <button
-            className="py-1 rounded flex items-center justify-center"
+            className="flex items-center justify-center py-1 rounded"
             onClick={toggleQrcodeBilgileri}
           >
-            <FaQrcode className="text-xl mr-1" />
+            <FaQrcode className="mr-1 text-xl" />
             <div className="text-sm font-semibold">QR Code</div>
           </button>
         </div>
         <div>
           <button
-            className="py-1 rounded flex items-center justify-center"
+            className="flex items-center justify-center py-1 rounded"
             onClick={handleShareCard}
           >
-            <FaShareAlt className="text-xl mr-1" />
+            <FaShareAlt className="mr-1 text-xl" />
             <div className="text-sm font-semibold">Paylaş</div>
           </button>
         </div>
@@ -430,22 +430,22 @@ function Theme1() {
       {themeInfo.themeId === 1 && (
         <div className="">
           {/*banner start*/}
-          <div className="h-[300px] md:h-[450px] w-[400px] md:w-full">
+          <div className="h-[300px] md:h-[450px] w-full md:w-full">
             {bannerPhoto && (
               <img
                 src={bannerPhoto.url}
-                className="object-fill h-full w-full"
+                className="object-cover w-full h-full"
                 alt="Banner"
               />
             )}
           </div>
           {/* banner finish */}
-          <div className="relative bg-zinc-200 h-auto py-4 w-full shadow-lg">
+          <div className="relative w-full h-auto py-4 shadow-lg bg-zinc-200">
             <div className="absolute bottom-1/2 left-2">
               {profilPhoto && (
                 <img
                   src={profilPhoto.url}
-                  className="rounded-full object-cover w-28 h-28 md:w-32 md:h-32"
+                  className="object-cover rounded-full w-28 h-28 md:w-32 md:h-32"
                   alt="Profil"
                 />
               )}
@@ -464,7 +464,7 @@ function Theme1() {
           </div>
 
           {/* social media links start*/}
-          <div className="mt-10 flex flex-wrap gap-y-10 pb-10">
+          <div className="flex flex-wrap pb-10 mt-10 gap-y-10">
             <div className="basis-1/3">
               <a
                 className="flex flex-col items-center cursor-pointer"
@@ -476,7 +476,7 @@ function Theme1() {
                   src={rehber}
                   className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                 />
-                <span className="font-medium text-sm md:text-base mt-1">
+                <span className="mt-1 text-sm font-medium md:text-base">
                   Rehbere ekle
                 </span>
               </a>
@@ -492,7 +492,7 @@ function Theme1() {
                     src={email}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Email
                   </span>
                 </a>
@@ -510,7 +510,7 @@ function Theme1() {
                   src={call}
                   className="w-[56px] h-[56px] overflow-hidden drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                 />
-                <span className="font-medium text-sm md:text-base mt-1">
+                <span className="mt-1 text-sm font-medium md:text-base">
                   Ara
                 </span>
               </a>
@@ -528,7 +528,7 @@ function Theme1() {
                     src={map}
                     className="w-[55px] h-[55px] overflow-hidden drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Harita
                   </span>
                 </a>
@@ -547,7 +547,7 @@ function Theme1() {
                     src={linkedin}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Linkedin
                   </span>
                 </a>
@@ -568,7 +568,7 @@ function Theme1() {
                     src={whatsapp}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Whatsapp
                   </span>
                 </a>
@@ -586,7 +586,7 @@ function Theme1() {
                     src={website}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Website
                   </span>
                 </a>
@@ -603,7 +603,7 @@ function Theme1() {
                     src={instagram}
                     className="w-[63px] h-[63px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                   />
-                  <span className="font-medium text-sm md:text-base">
+                  <span className="text-sm font-medium md:text-base">
                     Instagram
                   </span>
                 </a>
@@ -638,7 +638,7 @@ function Theme1() {
                     src={telegram}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Telegram
                   </span>
                 </a>
@@ -656,7 +656,7 @@ function Theme1() {
                     src={discord2}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)] rounded"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Discord
                   </span>
                 </a>
@@ -673,7 +673,7 @@ function Theme1() {
                     src={facebook2}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)]"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Facebook
                   </span>
                 </a>
@@ -693,7 +693,7 @@ function Theme1() {
                     src={whatshapbus}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)]"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Whatsapp
                   </span>
                 </a>
@@ -710,7 +710,7 @@ function Theme1() {
                     src={youtube}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)]"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     YouTube
                   </span>
                 </a>
@@ -727,7 +727,7 @@ function Theme1() {
                     src={wechat}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_6px_rgba(0,0,0,1)]"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Wechat
                   </span>
                 </a>
@@ -744,7 +744,7 @@ function Theme1() {
                     src={sahibinden}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)] rounded-lg"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Sahibinden
                   </span>
                 </a>
@@ -761,7 +761,7 @@ function Theme1() {
                     src={ciceksepeti}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)]"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Çiçek Sepeti
                   </span>
                 </a>
@@ -778,7 +778,7 @@ function Theme1() {
                     src={hepsiburada}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)]"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Hepsiburada
                   </span>
                 </a>
@@ -795,7 +795,7 @@ function Theme1() {
                     src={trendyol}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)] rounded-lg"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Trendyol
                   </span>
                 </a>
@@ -813,7 +813,7 @@ function Theme1() {
                     src={getir}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)] rounded-lg"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Getir
                   </span>
                 </a>
@@ -831,7 +831,7 @@ function Theme1() {
                     src={n11}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)] rounded-lg"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     N11
                   </span>
                 </a>
@@ -849,7 +849,7 @@ function Theme1() {
                     src={amazonn}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)] rounded-lg"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Amazon
                   </span>
                 </a>
@@ -867,7 +867,7 @@ function Theme1() {
                     src={pttavm}
                     className="w-[56px] h-[56px] drop-shadow-[0px_0px_7px_rgba(0,0,0,1)] rounded-lg"
                   />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     PttAVM
                   </span>
                 </a>
@@ -878,38 +878,38 @@ function Theme1() {
         </div>
       )}
       {themeInfo.themeId === 2 && (
-        <div className="md:w-5/6 mx-auto px-3 pb-5">
+        <div className="px-3 pb-5 mx-auto md:w-5/6">
           {/* banner start */}
-          <div className="flex items-center p-5 justify-between">
+          <div className="flex items-center justify-between p-5">
             {profilPhoto && (
               <img
                 src={profilPhoto.url}
-                className="rounded-full object-cover w-28 h-28"
+                className="object-cover rounded-full w-28 h-28"
                 alt="Profil"
               />
             )}
-            <div className="text-center pr-5 text-lg font-semibold">
+            <div className="pr-5 text-lg font-semibold text-center">
               <h2 className="uppercase">{themeInfo.name}</h2>
               <h2 className="uppercase">{themeInfo.surname}</h2>
             </div>
           </div>
           {/* banner end */}
           {/* descriptin start */}
-          <div className="border rounded-md shadow-lg border-zinc-500 text-center text-lg font-semibold  py-2">
+          <div className="py-2 text-lg font-semibold text-center border rounded-md shadow-lg border-zinc-500">
             <p className="uppercase">{themeInfo.description}</p>
             <p className="uppercase text-zinc-500">{themeInfo.title}</p>
           </div>
           {/* description end */}
           {themeInfo?.firm && (
-            <div className="border rounded-md mt-5 shadow-lg border-zinc-500 text-center text-lg font-semibold  py-2">
+            <div className="py-2 mt-5 text-lg font-semibold text-center border rounded-md shadow-lg border-zinc-500">
               <p className="uppercase">HAKKIMDA</p>
-              <p className="uppercase text-zinc-500 px-1">{themeInfo.firm}</p>
+              <p className="px-1 uppercase text-zinc-500">{themeInfo.firm}</p>
             </div>
           )}
           {/* iletişim start */}
-          <div className="border shadow-lg rounded-md border-zinc-500 text-center text-lg font-semibold  py-2 mt-5">
+          <div className="py-2 mt-5 text-lg font-semibold text-center border rounded-md shadow-lg border-zinc-500">
             <p>İLETİŞİM</p>
-            <div className="flex mt-5 justify-center">
+            <div className="flex justify-center mt-5">
               <div className="basis-1/4">
                 <a
                   className="flex flex-col items-center"
@@ -918,7 +918,7 @@ function Theme1() {
                   rel="noopener noreferrer"
                 >
                   <img src={rehber} className="w-16" />
-                  <span className="font-medium text-sm md:text-base mt-1">
+                  <span className="mt-1 text-sm font-medium md:text-base">
                     Rehbere ekle
                   </span>
                 </a>
@@ -932,7 +932,7 @@ function Theme1() {
                     href={`mailto:${themeInfo.email}`}
                   >
                     <img src={email} className="w-16" />
-                    <span className="font-medium text-sm md:text-base mt-1">
+                    <span className="mt-1 text-sm font-medium md:text-base">
                       Email
                     </span>
                   </a>
@@ -963,7 +963,7 @@ function Theme1() {
                   >
                     {" "}
                     <img src={map} className="w-[63px] pt-0.5" />
-                    <span className="font-medium text-sm md:text-base mt-1">
+                    <span className="mt-1 text-sm font-medium md:text-base">
                       Harita
                     </span>
                   </a>
@@ -973,7 +973,7 @@ function Theme1() {
           </div>
           {/* iletişim finish */}
           {/* social media start */}
-          <div className="border shadow-lg rounded-md border-zinc-500 text-center text-lg font-semibold  py-2 my-5">
+          <div className="py-2 my-5 text-lg font-semibold text-center border rounded-md shadow-lg border-zinc-500">
             <p>SOSYAL MEDYA</p>
             <div className="flex flex-wrap items-center mt-5 gap-y-5">
               {themeInfo.linkedin !== "" && (
@@ -985,7 +985,7 @@ function Theme1() {
                   >
                     {" "}
                     <img src={linkedin} className="w-[62px]" />
-                    <span className="font-medium text-sm md:text-base mt-1">
+                    <span className="mt-1 text-sm font-medium md:text-base">
                       Linkedin
                     </span>
                   </a>
@@ -1003,7 +1003,7 @@ function Theme1() {
                     )}`}
                   >
                     <img src={whatsapp} className="w-16" />
-                    <span className="font-medium text-sm md:text-base mt-1">
+                    <span className="mt-1 text-sm font-medium md:text-base">
                       Whatsapp
                     </span>
                   </a>
@@ -1018,7 +1018,7 @@ function Theme1() {
                     target="_blank"
                   >
                     <img src={instagram} className="w-[69px]" />
-                    <span className="font-medium text-sm md:text-base">
+                    <span className="text-sm font-medium md:text-base">
                       Instagram
                     </span>
                   </a>
@@ -1033,7 +1033,7 @@ function Theme1() {
                     target="_blank"
                   >
                     <img src={twitter} className="w-16 h-[67px] rounded-lg" />
-                    <span className="font-medium text-sm md:text-base mt-1">
+                    <span className="mt-1 text-sm font-medium md:text-base">
                       Twitter
                     </span>
                   </a>
@@ -1048,7 +1048,7 @@ function Theme1() {
                     target="_blank"
                   >
                     <img src={telegram} className="w-16" />
-                    <span className="font-medium text-sm md:text-base mt-1">
+                    <span className="mt-1 text-sm font-medium md:text-base">
                       Telegram
                     </span>
                   </a>
@@ -1062,7 +1062,7 @@ function Theme1() {
                     target="_blank"
                   >
                     <img src={website} className="w-16" />
-                    <span className="font-medium text-sm md:text-base mt-1">
+                    <span className="mt-1 text-sm font-medium md:text-base">
                       Website
                     </span>
                   </a>
@@ -1076,7 +1076,7 @@ function Theme1() {
                     target="_blank"
                   >
                     <img src={discord2} className="w-16 rounded-lg" />
-                    <span className="font-medium text-sm md:text-base mt-1">
+                    <span className="mt-1 text-sm font-medium md:text-base">
                       Discord
                     </span>
                   </a>
@@ -1090,7 +1090,7 @@ function Theme1() {
                     target="_blank"
                   >
                     <img src={facebook} className="w-[62px]" />
-                    <span className="font-medium text-sm md:text-base mt-2">
+                    <span className="mt-2 text-sm font-medium md:text-base">
                       Facebook
                     </span>
                   </a>
@@ -1104,7 +1104,7 @@ function Theme1() {
                     target="_blank"
                   >
                     <img src={youtube} className="w-[62px]" />
-                    <span className="font-medium text-sm md:text-base mt-2">
+                    <span className="mt-2 text-sm font-medium md:text-base">
                       Youtube
                     </span>
                   </a>
@@ -1122,7 +1122,7 @@ function Theme1() {
                     target="_blank"
                   >
                     <img src={whatshapbus} className="w-[70px]" />
-                    <span className="font-medium text-sm md:text-base mt-1">
+                    <span className="mt-1 text-sm font-medium md:text-base">
                       Whatsapp
                     </span>
                   </a>
@@ -1137,7 +1137,7 @@ function Theme1() {
                     target="_blank"
                   >
                     <img src={wechat} className="w-[70px]" />
-                    <span className="font-medium text-sm md:text-base mt-1">
+                    <span className="mt-1 text-sm font-medium md:text-base">
                       Wechat
                     </span>
                   </a>
@@ -1154,9 +1154,9 @@ function Theme1() {
             themeInfo.amazon ||
             themeInfo.getir ||
             themeInfo.epttAvm) && (
-            <div className="border shadow-lg rounded-md border-zinc-500 text-center text-lg font-semibold  py-2 mt-5 ">
+            <div className="py-2 mt-5 text-lg font-semibold text-center border rounded-md shadow-lg border-zinc-500 ">
               <p>PAZAR YERLERİ</p>
-              <div className="flex flex-wrap mt-5  gap-y-6">
+              <div className="flex flex-wrap mt-5 gap-y-6">
                 <>
                   {themeInfo.sahibinden !== "" && (
                     <div className="basis-1/4">
@@ -1167,7 +1167,7 @@ function Theme1() {
                         rel="noopener noreferrer"
                       >
                         <img src={sahibinden} className="w-16 rounded-lg" />
-                        <span className="font-medium text-sm md:text-base mt-1">
+                        <span className="mt-1 text-sm font-medium md:text-base">
                           Sahibinden
                         </span>
                       </a>
@@ -1182,7 +1182,7 @@ function Theme1() {
                         rel="noopener noreferrer"
                       >
                         <img src={ciceksepeti} className="w-16" />
-                        <span className="font-medium text-sm md:text-base mt-1">
+                        <span className="mt-1 text-sm font-medium md:text-base">
                           Çiçek Sepeti
                         </span>
                       </a>
@@ -1197,7 +1197,7 @@ function Theme1() {
                         rel="noopener noreferrer"
                       >
                         <img src={hepsiburada} className="w-16" />
-                        <span className="font-medium text-sm md:text-base mt-1">
+                        <span className="mt-1 text-sm font-medium md:text-base">
                           Hepsiburada
                         </span>
                       </a>
@@ -1212,7 +1212,7 @@ function Theme1() {
                         rel="noopener noreferrer"
                       >
                         <img src={trendyol} className="w-16 rounded-lg" />
-                        <span className="font-medium text-sm md:text-base mt-1">
+                        <span className="mt-1 text-sm font-medium md:text-base">
                           Trendyol
                         </span>
                       </a>
@@ -1227,7 +1227,7 @@ function Theme1() {
                         rel="noopener noreferrer"
                       >
                         <img src={amazonn} className="w-16 rounded-lg" />
-                        <span className="font-medium text-sm md:text-base mt-2">
+                        <span className="mt-2 text-sm font-medium md:text-base">
                           Amazon
                         </span>
                       </a>
@@ -1242,7 +1242,7 @@ function Theme1() {
                         rel="noopener noreferrer"
                       >
                         <img src={n11} className="w-16 rounded-md" />
-                        <span className="font-medium text-sm md:text-base mt-1">
+                        <span className="mt-1 text-sm font-medium md:text-base">
                           N11
                         </span>
                       </a>
@@ -1257,7 +1257,7 @@ function Theme1() {
                         rel="noopener noreferrer"
                       >
                         <img src={getir} className="w-16 rounded-md" />
-                        <span className="font-medium text-sm md:text-base mt-1">
+                        <span className="mt-1 text-sm font-medium md:text-base">
                           Getir
                         </span>
                       </a>
@@ -1272,7 +1272,7 @@ function Theme1() {
                         rel="noopener noreferrer"
                       >
                         <img src={pttavm} className="w-16 rounded-lg" />
-                        <span className="font-medium text-sm md:text-base mt-1">
+                        <span className="mt-1 text-sm font-medium md:text-base">
                           PttAVM
                         </span>
                       </a>
@@ -1286,7 +1286,7 @@ function Theme1() {
         </div>
       )}
       <div className="pt-14 ">
-        <footer className="footer flex items-center justify-around py-2">
+        <footer className="flex items-center justify-around py-2 footer">
           {bankaInformation[0]?.iban && (
             <div className="">
               <button
@@ -1306,12 +1306,12 @@ function Theme1() {
                   <div className="text-end">
                     <button
                       onClick={closeFooter}
-                      className="bg-red-600 rounded-md text-white"
+                      className="text-white bg-red-600 rounded-md"
                     >
                       <IoClose size={24} />
                     </button>
                   </div>
-                  <h4 className="font-semibold pb-2 border-b-2 mb-3">
+                  <h4 className="pb-2 mb-3 font-semibold border-b-2">
                     BANKA BİLGİLERİ
                   </h4>
                   {bankaInformation.map((bank) => {
@@ -1333,17 +1333,17 @@ function Theme1() {
                     };
 
                     return (
-                      <div className="space-y-2 py-1 pb-4 " key={bank.iban}>
+                      <div className="py-1 pb-4 space-y-2 " key={bank.iban}>
                         <div className="font-semibold">{bank.iban}</div>
-                        <div className="font-medium text-sm">
+                        <div className="text-sm font-medium">
                           {bank.bankName}
                         </div>
-                        <div className="font-medium text-sm">
+                        <div className="text-sm font-medium">
                           {bank.accountName}
                         </div>
                         <div className="flex items-center space-x-2">
                           <button
-                            className="px-3 py-1 bg-emerald-600 text-white rounded-md text-xs font-medium focus:outline-none "
+                            className="px-3 py-1 text-xs font-medium text-white rounded-md bg-emerald-600 focus:outline-none "
                             onClick={handleShare}
                           >
                             PAYLAŞ
@@ -1373,10 +1373,10 @@ function Theme1() {
               >
                 {/* galeri */}
                 <div className="h-[370px] md:h-[400px] md:w-[600px] w-[370px] m-auto relative group overflow-hidden bg-white rounded-2xl ">
-                  <div className="absolute top-1 right-1 z-50">
+                  <div className="absolute z-50 top-1 right-1">
                     <button
                       onClick={closeFooter}
-                      className="bg-red-600 rounded-md text-white"
+                      className="text-white bg-red-600 rounded-md"
                     >
                       <IoClose size={24} />
                     </button>
@@ -1395,13 +1395,13 @@ function Theme1() {
                     />
                   ))}
                   <div
-                    className="absolute top-1/2 transform -translate-y-1/2 left-2 text-2xl rounded-full bg-black/20 text-white cursor-pointer z-10"
+                    className="absolute z-10 text-2xl text-white transform -translate-y-1/2 rounded-full cursor-pointer top-1/2 left-2 bg-black/20"
                     onClick={prevSlide}
                   >
                     <BsChevronCompactLeft size={30} />
                   </div>
                   <div
-                    className="absolute top-1/2 transform -translate-y-1/2 right-2 text-2xl rounded-full bg-black/20 text-white cursor-pointer z-10"
+                    className="absolute z-10 text-2xl text-white transform -translate-y-1/2 rounded-full cursor-pointer top-1/2 right-2 bg-black/20"
                     onClick={nextSlide}
                   >
                     <BsChevronCompactRight size={30} />
@@ -1430,18 +1430,18 @@ function Theme1() {
                   <div className="text-end">
                     <button
                       onClick={closeFooter}
-                      className="bg-red-600 rounded-md text-white"
+                      className="text-white bg-red-600 rounded-md"
                     >
                       <IoClose size={24} />
                     </button>
                   </div>
-                  <h4 className="font-semibold pb-2 border-b-2 mb-3">
+                  <h4 className="pb-2 mb-3 font-semibold border-b-2">
                     BAĞLANTILAR
                   </h4>
                   {linkInformation.map((link) => {
                     return (
                       <div
-                        className="space-y-2 border-b-2 py-2"
+                        className="py-2 space-y-2 border-b-2"
                         key={link.title}
                       >
                         <div>
@@ -1478,24 +1478,24 @@ function Theme1() {
                   <div className="text-end">
                     <button
                       onClick={closeFooter}
-                      className="bg-red-600 rounded-md text-white"
+                      className="text-white bg-red-600 rounded-md"
                     >
                       <IoClose size={24} />
                     </button>
                   </div>
-                  <h4 className="font-semibold pb-2 border-b-2 mb-3">
+                  <h4 className="pb-2 mb-3 font-semibold border-b-2">
                     KATALOG
                   </h4>
                   {catalogInformation.map((catalog) => {
                     return (
                       <div
-                        className="space-y-2 border-b-2 py-2"
+                        className="py-2 space-y-2 border-b-2"
                         key={catalog.name}
                       >
                         <a
                           href={catalog.url}
                           target="_blank"
-                          className="font-medium text-sm"
+                          className="text-sm font-medium"
                         >
                           <div className="font-semibold">{catalog.name}</div>
                         </a>
@@ -1525,12 +1525,12 @@ function Theme1() {
                   <div className="text-end">
                     <button
                       onClick={closeFooter}
-                      className="bg-red-600 rounded-md text-white"
+                      className="text-white bg-red-600 rounded-md"
                     >
                       <IoClose size={24} />
                     </button>
                   </div>
-                  <h4 className="font-semibold pb-2 border-b-2 mb-3">
+                  <h4 className="pb-2 mb-3 font-semibold border-b-2">
                     FATURA BİLGİLERİ
                   </h4>
                   {invoiceInformation.map((invoice) => {
@@ -1551,20 +1551,20 @@ function Theme1() {
                       }
                     };
                     return (
-                      <div className="space-y-2 py-1" key={invoice.title}>
+                      <div className="py-1 space-y-2" key={invoice.title}>
                         <div className="font-semibold">{invoice.title}</div>
-                        <div className="font-medium text-sm">
+                        <div className="text-sm font-medium">
                           Vergi Numarası: {invoice.taxNumber}
                         </div>
-                        <div className="font-medium text-sm">
+                        <div className="text-sm font-medium">
                           Vergi Dairesi: {invoice.taxOffice}
                         </div>
-                        <div className="font-medium text-sm">
+                        <div className="text-sm font-medium">
                           Adres: {invoice.address}
                         </div>
                         <div className="flex items-center space-x-2">
                           <button
-                            className="px-3 py-1 bg-emerald-600 text-white rounded-md text-xs font-medium focus:outline-none"
+                            className="px-3 py-1 text-xs font-medium text-white rounded-md bg-emerald-600 focus:outline-none"
                             onClick={() => shareInvoice(invoice)}
                           >
                             PAYLAŞ
@@ -1596,12 +1596,12 @@ function Theme1() {
                   <div className="text-end">
                     <button
                       onClick={closeFooter}
-                      className="bg-red-600 rounded-md text-white"
+                      className="text-white bg-red-600 rounded-md"
                     >
                       <IoClose size={24} />
                     </button>
                   </div>
-                  <h4 className="font-semibold pb-2 border-b-2 mb-3">
+                  <h4 className="pb-2 mb-3 font-semibold border-b-2">
                     VEKALET BİLGİLERİ
                   </h4>
                   {warrantInformation.map((warrant) => {
@@ -1622,22 +1622,22 @@ function Theme1() {
                       }
                     };
                     return (
-                      <div className="space-y-2 py-1" key={warrant.title}>
+                      <div className="py-1 space-y-2" key={warrant.title}>
                         <div className="font-semibold">{warrant.title}</div>
-                        <div className="font-medium text-sm">
+                        <div className="text-sm font-medium">
                           {warrant.citizenId}
                         </div>
-                        <div className="font-medium text-sm">
+                        <div className="text-sm font-medium">
                           {warrant.registerNo}
                         </div>
-                        <div className="font-medium text-sm">
+                        <div className="text-sm font-medium">
                           {warrant.barAssociation}
                         </div>
-                        <div className="font-medium text-sm">
+                        <div className="text-sm font-medium">
                           Adres: {warrant.address}
                         </div>
                         <button
-                          className="px-3 py-1 bg-emerald-600 text-white rounded-md text-xs font-medium focus:outline-none"
+                          className="px-3 py-1 text-xs font-medium text-white rounded-md bg-emerald-600 focus:outline-none"
                           onClick={() => shareWarrant(warrant)}
                         >
                           PAYLAŞ
@@ -1660,7 +1660,7 @@ function Theme1() {
                 <div className="text-end">
                   <button
                     onClick={closeFooter}
-                    className="bg-red-600 rounded-md text-white"
+                    className="text-white bg-red-600 rounded-md"
                   >
                     <IoClose size={24} />
                   </button>
@@ -1668,15 +1668,15 @@ function Theme1() {
                 <div className=" md:h-[400px] 2xl:h-[700px] 2xl:w-[700px] md:mx-auto md:w-[400px] ">
                   <img
                     src={qrCode.url}
-                    className="w-full h-full p-5 object-cover rounded-md"
+                    className="object-cover w-full h-full p-5 rounded-md"
                   />
                 </div>
-                <div className="text-sm font-semibold  w-full text-end flex-end">
+                <div className="w-full text-sm font-semibold text-end flex-end">
                   <button
-                    className="py-1 rounded text-end flex"
+                    className="flex py-1 rounded text-end"
                     onClick={handleShareQr}
                   >
-                    <FaShareAlt className="text-xl mr-1 " />
+                    <FaShareAlt className="mr-1 text-xl " />
                     <div className="text-sm font-semibold ">Paylaş</div>
                   </button>
                 </div>
