@@ -12,6 +12,13 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
+    proxy: {
+      "/ws": {
+        target: "http://localhost:3001",
+        ws: true,
+        changeOrigin: true,
+      },
+    },
   },
   preview: {
     host: true,
