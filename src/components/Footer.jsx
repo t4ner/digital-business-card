@@ -31,7 +31,14 @@ function Footer() {
         </div>
         <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
         <span className="block text-sm text-white text-center ">
-          © 2024 <span>ecoQr™</span>.Tüm Hakları Saklıdır.
+          © 2024 <span>ecoQr™</span>. Tüm Hakları Saklıdır.
+        </span>
+        <span className="block text-sm text-white text-center mt-2">
+          ecoQr, {" "}
+          <a href="https://ttyazilim.com.tr/" target="_blank">
+            <strong>TTYazılım</strong>
+          </a>{" "}
+          ürünüdür.
         </span>
       </div>
     </footer>
